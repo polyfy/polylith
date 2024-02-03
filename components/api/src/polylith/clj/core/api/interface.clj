@@ -77,7 +77,7 @@
    :ws version/workspace-version})
 
 (defn check
-  "Returns true if no error messages + a vector of error messages.
+  "The value of ok? is set to true if no error messages, e.g.:
    ```clojure
    {:ok? true
     :error-messages []}
@@ -88,7 +88,7 @@
 (defn test-all
   "Runs all tests since the given stable point in time (since).
    ```clojure
-   (test-all \"stable\"
+   (test-all \"release\"
    ```
 
    Additional arguments can be given, e.g.:
