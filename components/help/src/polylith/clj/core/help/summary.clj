@@ -10,7 +10,7 @@
     "polyx"
     "poly"))
 
-(defn help-text [show-migrate? extended? fake-poly? cm]
+(defn help-text [extended? fake-poly? cm]
   (str
     "  " (-> fake-poly? common/version-name) " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
     "\n"
@@ -24,9 +24,6 @@
     "    help [" (s/key "C" cm) "] [" (s/key "ARG" cm) "]              Shows this help or help for specified command.\n"
     "    info [" (s/key "ARGS" cm) "]                 Shows a workspace overview and checks if it's valid.\n"
     "    libs [" (s/key "ARGS" cm) "]                 Shows all libraries in the workspace.\n"
-    (if show-migrate?
-      "    migrate                     Migrates the workspace to the latest format.\n"
-      "")
     (if extended?
       (str "    overview [" (s/key "ARGS" cm) "]             Shows output from info, deps, and libs side by side.\n")
       "")
@@ -97,7 +94,6 @@
     "    poly create component name:admin interface:user\n"
     "    poly create base name:mybase\n"
     "    poly create project name:myproject\n"
-    "    poly create project name:myproject alias:mp\n"
     "    poly create workspace name:myws top-ns:com.my.company\n"
     "    poly create workspace name:myws top-ns:com.my.company :commit\n"
     "    poly create workspace name:myws top-ns:com.my.company branch:master :commit\n"
@@ -177,9 +173,6 @@
     (if extended?
       "    poly libs out:libs.png\n"
       "")
-    (if show-migrate?
-      "    poly migrate\n"
-      "")
     "    poly shell\n"
     "    poly shell :tap\n"
     "    poly shell :all\n"
@@ -217,14 +210,13 @@
            "\n    clojure -M:polyx overview out:overview.jpg :no-changes")
       "")))
 
-(defn print-help [is-all toolsdeps1? extended? fake-poly? color-mode]
-  (let [show-migrate? (or is-all toolsdeps1?)]
-    (println (help-text show-migrate? extended? fake-poly? color-mode))))
+(defn print-help [extended? fake-poly? color-mode]
+  (println (help-text extended? fake-poly? color-mode)))
 
 (comment
   (println (help-text false false false "dark")) ; poly
   (println (help-text false true false "dark"))  ; polyx
 
-  (println (help-text true false false "dark"))  ; poly + + migrate
-  (println (help-text true true false "dark"))   ; polyx + migrate
+  (println (help-text true false false "dark"))
+  (println (help-text true true false "dark"))
   #__)

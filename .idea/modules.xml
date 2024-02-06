@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/components/antq/antq.iml" filepath="$PROJECT_DIR$/components/antq/antq.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/api/api.iml" filepath="$PROJECT_DIR$/components/api/api.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/change/change.iml" filepath="$PROJECT_DIR$/components/change/change.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/check/check.iml" filepath="$PROJECT_DIR$/components/check/check.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/clojure-test-test-runner/clojure-test-test-runner.iml" filepath="$PROJECT_DIR$/components/clojure-test-test-runner/clojure-test-test-runner.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/command/command.iml" filepath="$PROJECT_DIR$/components/command/command.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/common/common.iml" filepath="$PROJECT_DIR$/components/common/common.iml" />
@@ -19,7 +20,6 @@
       <module fileurl="file://$PROJECT_DIR$/components/info/info.iml" filepath="$PROJECT_DIR$/components/info/info.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/lib/lib.iml" filepath="$PROJECT_DIR$/components/lib/lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/maven/maven.iml" filepath="$PROJECT_DIR$/components/maven/maven.iml" />
-      <module fileurl="file://$PROJECT_DIR$/components/migrator/migrator.iml" filepath="$PROJECT_DIR$/components/migrator/migrator.iml" />
       <module fileurl="file://$PROJECT_DIR$/bases/nav-generator/nav-generator.iml" filepath="$PROJECT_DIR$/bases/nav-generator/nav-generator.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/overview/overview.iml" filepath="$PROJECT_DIR$/components/overview/overview.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/path-finder/path-finder.iml" filepath="$PROJECT_DIR$/components/path-finder/path-finder.iml" />

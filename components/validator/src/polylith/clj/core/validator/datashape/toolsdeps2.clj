@@ -23,7 +23,7 @@
       (me/humanize)
       (shared/error-message filename)))
 
-(defn validate-project-deployable-deps-config [config filename]
+(defn validate-project-deployable-config [config filename]
   (-> [:map
        [:paths {:optional true}
         [:* [:alt keyword? string?]]]

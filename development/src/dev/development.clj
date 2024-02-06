@@ -12,9 +12,9 @@
             [polylith.clj.core.workspace.interface :as ws]))
 
 (def workspace (-> (dev-common/dir ".")
-                   (ws-clj/workspace-from-disk)
-                   (ws/enrich-workspace)
-                   (change/with-changes)))
+                   ws-clj/workspace-from-disk
+                   ws/enrich-workspace
+                   change/with-changes))
 
 ;; info
 (info/info workspace [])

@@ -3,9 +3,8 @@
             [polylith.clj.core.config-reader.deps-reader :as deps-reader]
             [polylith.clj.core.validator.interface :as validator]))
 
-(defn read-deps-and-config-files [ws-type entity-name entity-type entity-dir entity-path config-filename validator]
+(defn read-deps-config-file [ws-type entity-name entity-type entity-dir entity-path validator]
   (let [deps-filename (str entity-path "/deps.edn")
-        config-filepath (str entity-path "/" config-filename)
         short-deps-filename (str entity-dir "/deps.edn")]
     (-> (let [{:keys [config error]} (deps-reader/read-deps-file deps-filename short-deps-filename)]
           (if error
@@ -13,10 +12,7 @@
             (let [message (validator ws-type config short-deps-filename)]
               (if message
                 {:error message}
-                (let [deps-config config
-                      {:keys [config error]} (deps-reader/read-edn-file config-filepath config-filename)]
-                  (cond-> {:deps deps-config}
-                          (not error) (assoc :config config)))))))
+                {:deps config}))))
         (assoc :name entity-name
                :type entity-type))))
 
@@ -42,12 +38,11 @@
          (filter #(file/exists (str dir "/" % "/deps.edn")))
          (sort))))
 
-(defn read-brick-config-files [ws-dir ws-type entity-type config-filename]
-  (-> (map #(read-deps-and-config-files ws-type % entity-type
-                                        (str entity-type "s/" %)
-                                        (str ws-dir "/" entity-type "s/" %)
-                                        config-filename
-                                        validator/validate-brick-config)
+(defn read-brick-config-file [ws-dir ws-type entity-type]
+  (-> (map #(read-deps-config-file ws-type % entity-type
+                                   (str entity-type "s/" %)
+                                   (str ws-dir "/" entity-type "s/" %)
+                                   validator/validate-brick-config)
            (dirs-with-deps-file ws-dir entity-type))
       (filter-config-files)))
 
@@ -57,47 +52,38 @@
       (assoc :name entity-name
              :type entity-type)))
 
-(defn read-or-use-default-brick-dep-files [ws-dir ws-type entity-type config-filename]
+(defn read-or-use-default-brick-dep-files [ws-dir ws-type entity-type]
   (condp = ws-type
     :toolsdeps1 [(mapv #(default-brick-config-file % entity-type)
                        (dirs ws-dir entity-type)) []]
-    :toolsdeps2 (read-brick-config-files ws-dir ws-type entity-type config-filename)))
+    :toolsdeps2 (read-brick-config-file ws-dir ws-type entity-type)))
 
-(defn read-project-deployable-config-files [ws-dir ws-type config-filename]
-  (map #(assoc (read-deps-and-config-files ws-type % "project"
-                                           (str "projects/" %)
-                                           (str ws-dir "/projects/" %)
-                                           config-filename
-                                           validator/validate-project-deployable-deps-config)
+(defn read-project-deployable-config-files [ws-dir ws-type]
+  (map #(assoc (read-deps-config-file ws-type % "project"
+                                      (str "projects/" %)
+                                      (str ws-dir "/projects/" %)
+                                      validator/validate-project-deployable-deps-config)
           :is-dev false
           :project-name %
           :project-dir (str ws-dir "/projects/" %)
           :project-config-dir (str ws-dir "/projects/" %))
        (dirs-with-deps-file ws-dir "project")))
 
-(defn read-development-config-files
-  "The config-filename is only set if we also want to read config.edn."
-  [ws-dir ws-type config-filename]
-  (let [config-path (str ws-dir "/development/" config-filename)
-        deps-filename (str ws-dir "/deps.edn")]
+(defn read-development-config-file [ws-dir ws-type]
+  (let [deps-filename (str ws-dir "/deps.edn")]
     (let [{:keys [config error]} (deps-reader/read-deps-file deps-filename "deps.edn")]
       (if error
         {:error error}
-        (let [message (validator/validate-project-dev-deps-config ws-type config "./deps.edn")]
+        (let [message (validator/validate-project-dev-config ws-type config "./deps.edn")]
           (if message
             {:error message}
-            (let [deps config
-                  {:keys [config error]} (when config-filename
-                                           (deps-reader/read-edn-file config-path config-filename))]
-              (cond-> {:deps deps
-                       :is-dev true
-                       :name "development"
-                       :type "project"
-                       :project-name "development"
-                       :project-dir (str ws-dir "/development")
-                       :project-config-dir ws-dir}
-                      (and config-filename
-                           (nil? error)) (assoc :config config)))))))))
+            {:deps config
+             :is-dev true
+             :name "development"
+             :type "project"
+             :project-name "development"
+             :project-dir (str ws-dir "/development")
+             :project-config-dir ws-dir}))))))
 
 (defn clean-project-configs [configs]
   (mapv #(dissoc %
@@ -107,9 +93,9 @@
                  :project-config-dir)
         configs))
 
-(defn read-project-config-files [ws-dir ws-type config-filename]
-  (-> (into [] cat [[(read-development-config-files ws-dir ws-type config-filename)]
-                    (read-project-deployable-config-files ws-dir ws-type config-filename)])
+(defn read-project-config-files [ws-dir ws-type]
+  (-> (into [] cat [[(read-development-config-file ws-dir ws-type)]
+                    (read-project-deployable-config-files ws-dir ws-type)])
       (filter-config-files)))
 
 (defn read-workspace-config-file [ws-dir]

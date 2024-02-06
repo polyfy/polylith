@@ -86,7 +86,7 @@
        "    The 'deps.edn' config files are stored under each project, except for\n"
        "    the development project that stores it at the workspace root.\n"
        "\n"
-       "    Aliases are configured in each project's config.edn file.\n"
+       "    Aliases are configured in " (color/purple cm ":projects") " in ./workspace.edn.\n"
        "\n"
        "    The 'status' column has three flags with different meaning:\n"
        "      " (color/project "s--" cm) "  The project has a 'src' directory, e.g.\n"

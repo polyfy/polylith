@@ -11,9 +11,9 @@
   (let [since-then (str "since:" (or since "stable"))
         user-input (user-input/extract-arguments ["ws" since-then "skip:development"])
         workspace (-> user-input
-                      (ws-clj/workspace-from-disk)
-                      (ws/enrich-workspace)
-                      (change/with-changes))]
+                      ws-clj/workspace-from-disk
+                      ws/enrich-workspace
+                      change/with-changes)]
     (-> workspace :changes :changed-or-affected-projects)))
 
 (defn key->str [key]
@@ -30,9 +30,9 @@
                ["ws" since-str (str "get:" (str/join ":" keys-str))])
         user-input (user-input/extract-arguments args)
         workspace (-> user-input
-                      (ws-clj/workspace-from-disk)
-                      (ws/enrich-workspace)
-                      (change/with-changes))]
+                      ws-clj/workspace-from-disk
+                      ws/enrich-workspace
+                      change/with-changes)]
     (if (empty? keys-str)
       workspace
       (ws-explorer/extract workspace keys-str))))

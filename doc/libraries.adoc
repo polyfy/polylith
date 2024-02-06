@@ -92,19 +92,14 @@ poly libs :update libraries:djblue/portal:com.taoensso/timbre
 TIP: When using the xref:shell.adoc[shell], `poly` will, after a short pause, offer autocomplete suggestions for `libraries`!
 
 [[keep-lib-versions]]
-To skip updating specific libraries, specify `:keep-lib-versions` in your brick and project config files, e.g.:
+To skip updating specific libraries, specify `:keep-lib-versions` in your xref:workspace.adoc#workspace-edn[workspace.edn], e.g.:
 
-../components/article/config.edn
 [source,clojure]
 ----
-{:keep-lib-versions [djblue/portal]}
-----
-
-../projects/realworld-backend/config.edn
-[source,clojure]
-----
-{:alias "rb"
- :keep-lib-versions [clj-jwt/clj-jwt clj-time/clj-time]}
+{...
+ :bricks {"article" {:keep-lib-versions [djblue/portal]}}}
+ :projects {"realworld-backend" {:alias "rb"
+                                 :keep-lib-versions [clj-jwt/clj-jwt clj-time/clj-time]}
 ----
 
 [[lib-dep-types]]

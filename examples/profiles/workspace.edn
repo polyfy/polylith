@@ -3,7 +3,9 @@
  :top-namespace "se.example"
  :interface-ns "interface"
  :default-profile-name "default"
- :config-filename "config.edn"
  :compact-views #{}
  :tag-patterns {:stable "stable-*"
-                :release "v[0-9]*"}}
+                :release "v[0-9]*"}
+ :projects {"development" {:alias "dev"}
+            "service" {:alias "s"
+                       :necessary ["user1"]}}}

@@ -10,9 +10,9 @@
    It reads the input from the incoming arguments and delegates to the 'command' component,
    that reads the workspace in the read-workspace function in its core namespace:
      (-> user-input
-         (ws-clj/workspace-from-disk)
-         (ws/enrich-workspace)
-         (change/with-changes))
+         ws-clj/workspace-from-disk
+         ws/enrich-workspace
+         change/with-changes)
 
    - The first step ws-clj/workspace-from-disk reads the workspace from disk (or file if 'ws-file'
      is given).

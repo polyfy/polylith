@@ -114,7 +114,11 @@ You can override the default global test runner under the `:test` key in your `w
 {...
  ; Global test configuration, used as default for every project.
  :test {:create-test-runner [org.corfield.external-test-runner.interface/create]} ;; <1>
-}
+
+ ; Project specific configurations
+ :projects {"foo" {:alias "foo"}
+            "bar" {:alias "barr"}
+            "baz" {:alias "baz"}}}
 ----
 <1> Override default global test runner
 
@@ -122,34 +126,27 @@ NOTE: You can specify multiple test runners.
 The `poly` tool will run each test runner for each tested project.
 
 You can override the global test runner for a project.
-Add a `:test` key in the project's `config.edn` to select project-specific test runners:
+Add a `:test` key in the project's configuration in your `workspace.edn` to select project-specific test runners:
 
-../projects/foo/config.edn:
 [source,clojure]
 ----
-{:alias "foo"
- ; Use another test runner only for this project
- :test {:create-test-runner [polylith-kaocha.test-runner/create]}
-}
-----
+{...
+ ; Global test configuration, used as default for every project.
+ :test {:create-test-runner [org.corfield.external-test-runner.interface/create]}
 
-../projects/bar/config.edn:
-[source,clojure]
-----
-{:alias "bar"
- ; Use the poly default test runner instead of the global test-runner
- :test {:create-test-runner [:default]}
-}
-----
+ ; Project specific configurations
+ :projects {"foo" {:alias "foo"
+                   ; Use another test runner only for this project
+                   :test  {:create-test-runner [polylith-kaocha.test-runner/create]}}
 
-../projects/baz/config.edn:
-[source,clojure]
-----
-{:alias "baz"
- ; Use both the poly default and the external test runner for this project
- :test {:create-test-runner [:default
-                             org.corfield.external-test-runner.interface/create]}
-}
+            "bar" {:alias "bar"
+                   ; Use the poly default test runner instead of the global test-runner
+                   :test  {:create-test-runner [:default]}}
+
+            "baz" {:alias "bz"
+                   ; Use both the poly default and the example test runner for this project
+                   :test {:create-test-runner [:default
+                                               org.corfield.external-test-runner.interface/create]}}}}
 ----
 
 [[write-your-own]]
@@ -206,7 +203,7 @@ a| A map containing details for the project that `poly` is currently testing.
 
 | `:test-settings`
 a| Test settings for the project that `poly` is currently testing.
-Taken from the current project's `:test` key.
+The `poly` tool extracts this information from `workspace.edn`.
 
 | `:is-verbose`
 a| When `true` the `poly` tool is running tests in verbose mode.

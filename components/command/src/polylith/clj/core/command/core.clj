@@ -14,7 +14,6 @@
             [polylith.clj.core.doc.interface :as doc]
             [polylith.clj.core.help.interface :as help]
             [polylith.clj.core.lib.interface :as lib]
-            [polylith.clj.core.migrator.interface :as migrator]
             [polylith.clj.core.overview.interface :as overview]
             [polylith.clj.core.shell.interface :as shell]
             [polylith.clj.core.tap.interface :as tap]
@@ -30,8 +29,8 @@
   (doseq [file (-> workspace :changes :changed-files)]
     (println file)))
 
-(defn open-help [[_ cmd ent] is-all is-show-project is-show-brick is-show-workspace toolsdeps1? fake-poly? color-mode]
-  (help/print-help cmd ent is-all is-show-project is-show-brick is-show-workspace toolsdeps1? fake-poly? color-mode))
+(defn open-help [[_ cmd ent] is-show-project is-show-brick is-show-workspace fake-poly? color-mode]
+  (help/print-help cmd ent is-show-project is-show-brick is-show-workspace fake-poly? color-mode))
 
 (defn version []
   (println (str "  " (common/version-name false) " (" ver/date ")")))
@@ -85,7 +84,7 @@
   (println (str "  The use of :: is " (color/error color-mode "deprecated") " and support for it will probably be dropped in the future. "
                 "Please contact the Polylith team if you think it's important to keep!")))
 
-(defn execute [{:keys [cmd args alias name top-ns branch help is-local more page ws is-tap is-git-add is-github is-commit is-all is-update is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly is-search-for-ws-dir get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
+(defn execute [{:keys [cmd args alias name top-ns branch help is-local more page ws is-tap is-git-add is-github is-commit is-update is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly is-search-for-ws-dir get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (config-reader/workspace-dir user-input)
         workspace-fn (workspace-reader-fn)
@@ -96,21 +95,18 @@
     (when is-search-for-ws-dir (print-deprecation-message color-mode))
     (let [brick-name (first selected-bricks)
           project-name (first selected-projects)
-          toolsdeps1? (common/toolsdeps1? workspace)
           test-result (atom true)
-          config-filename (or (-> workspace :settings :config-filename) "config.edn")
           [ok? message] (cmd-validator/validate workspace user-input color-mode)]
       (if ok?
         (case cmd
           "check" (check/print-check workspace color-mode)
-          "create" (create/create ws-dir workspace args name alias top-ns interface branch is-git-add is-commit config-filename color-mode)
+          "create" (create/create ws-dir workspace args name alias top-ns interface branch is-git-add is-commit color-mode)
           "deps" (dependencies/deps workspace project-name brick-name unnamed-args)
           "doc" (doc/open-doc branch is-local is-github help more page ws unnamed-args)
           "diff" (diff workspace)
-          "help" (open-help args is-all is-show-project is-show-brick is-show-workspace toolsdeps1? is-fake-poly color-mode)
+          "help" (open-help args is-show-project is-show-brick is-show-workspace is-fake-poly color-mode)
           "info" (info/info workspace unnamed-args)
           "libs" (libs workspace is-update)
-          "migrate" (migrator/migrate ws-dir workspace)
           "overview" (overview/print-table workspace)
           "shell" (shell/start execute user-input workspace-fn workspace color-mode)
           "test" (test/run workspace unnamed-args test-result is-verbose color-mode)

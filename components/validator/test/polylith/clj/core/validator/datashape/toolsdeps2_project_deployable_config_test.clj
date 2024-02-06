@@ -21,8 +21,8 @@
 
 (deftest validate-project-deployable-config--valid-config--returns-nil
   (is (= nil
-         (toolsdeps2/validate-project-deployable-deps-config config "deps.edn"))))
+         (toolsdeps2/validate-project-deployable-config config "deps.edn"))))
 
 (deftest validate-project-deployable-config--valid-config-withoug-deps--returns-nil
   (is (= nil
-         (toolsdeps2/validate-project-deployable-deps-config (dissoc config :deps) "deps.edn"))))
+         (toolsdeps2/validate-project-deployable-config (dissoc config :deps) "deps.edn"))))

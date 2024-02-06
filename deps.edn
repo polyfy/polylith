@@ -19,7 +19,6 @@
                                poly/info                     {:local/root "components/info"}
                                poly/lib                      {:local/root "components/lib"}
                                poly/maven                    {:local/root "components/maven"}
-                               poly/migrator                 {:local/root "components/migrator"}
                                poly/overview                 {:local/root "components/overview"}
                                poly/path-finder              {:local/root "components/path-finder"}
                                poly/sh                       {:local/root "components/sh"}
@@ -109,9 +108,6 @@
 
             :outdated {:main-opts ["-m" "antq.core"]
                        :extra-deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}}
-
-            :migrator {:main-opts ["-m" "polylith.clj.core.migrator-cli.core"]
-                       :extra-deps {polylith/clj-poly-migrator {:local/root "projects/poly-migrator"}}}
 
             :gen-nav {:main-opts ["-m" "polylith.clj.core.nav-generator.main"]
                       :extra-deps {polylith/clj-poly {:local/root "projects/poly"}}}

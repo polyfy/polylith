@@ -16,7 +16,6 @@
         polylith/info                     {:local/root "../../components/info"}
         polylith/lib                      {:local/root "../../components/lib"}
         polylith/maven                    {:local/root "../../components/maven"}
-        polylith/migrator                 {:local/root "../../components/migrator"}
         polylith/overview                 {:local/root "../../components/overview"}
         polylith/path-finder              {:local/root "../../components/path-finder"}
         polylith/sh                       {:local/root "../../components/sh"}

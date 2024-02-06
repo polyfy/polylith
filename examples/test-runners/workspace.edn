@@ -7,4 +7,22 @@
  :vcs {:name "git"
        :auto-add false}
  :tag-patterns {:stable "stable-*"
-                :release "v[0-9]*"}}
+                :release "v[0-9]*"}
+ :projects {"development" {:alias "dev"}
+
+            "external-inherit-from-global" {:alias "inherit"
+                                            :necessary ["invoicer" "test-setup"]
+                                            :test {:setup-fn se.external.test-setup.interface/setup
+                                                   :create-test-runner [org.corfield.external-test-runner.interface/create]}}
+
+            "kaocha-override-global" {:alias "override"
+                                      :necessary ["invoicer" "test-setup"]
+                                      :test {:setup-fn se.external.test-setup.interface/setup
+                                             :create-test-runner [polylith-kaocha.test-runner/create]}}
+
+            "multiple-test-runners" {:alias "multiple"
+                                     :necessary ["invoicer" "test-setup"]
+                                     :test {:setup-fn se.external.test-setup.interface/setup
+                                            :create-test-runner [:default
+                                                                 polylith-kaocha.test-runner/create
+                                                                 org.corfield.external-test-runner.interface/create]}}}}

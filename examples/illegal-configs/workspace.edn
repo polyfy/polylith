@@ -6,4 +6,7 @@
  :config-filename "config.edn"
  :compact-views #{}
  :tag-patterns {:stable "stable-*"
-                :release "v[0-9]*"}}
+                :release "v[0-9]*"}
+ :projects {"development" {:alias "dev"}
+            "service" {:alias "service"
+                       :necessary ["util"]}}}

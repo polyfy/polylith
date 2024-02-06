@@ -1,3 +1,0 @@
-{:alias "inv"
- :necessary ["datomic-ions" "without-src"]
- :keep-lib-versions [clj-time/clj-time]}

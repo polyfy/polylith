@@ -81,7 +81,7 @@ Here it depends on the `user` interface from the `src` context.
 This is because the `se.example.user-api.api` namespace imports `se.example.user.interface`.
 No interfaces are imported from the test context in this example.
 
-* `:keep-lib-versions` A vector containing the library names that should not be affected when executing `poly libs :update`. Configured in the base's config.edn file.
+* `:keep-lib-versions` A vector containing the library names that should not be affected when executing `poly libs :update`. Configured in the workspace.edn under :bases.
 
 * `:lib-deps`
 ** `:src` A map with the libraries that are used in this base's src context.
@@ -300,10 +300,7 @@ poly ws get:configs
                       :paths ["src" "resources"]},
                :name "user-remote",
                :type "component"}],
- :projects [{:config {:alias "cl",
-                      :test {:setup-fn project.command-line.test-setup/setup,
-                             :teardown-fn project.command-line.test-setup/teardown}},
-             :deps {:aliases {:test {:extra-deps {}, :extra-paths ["test"]},
+ :projects [{:deps {:aliases {:test {:extra-deps {}, :extra-paths ["test"]},
                               :uberjar {:main se.example.cli.core}},
                     :deps {org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
                            org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"},
@@ -312,8 +309,7 @@ poly ws get:configs
                            poly/user-remote {:local/root "../../components/user-remote"}}},
              :name "command-line",
              :type "project"}
-            {:config {:alias "dev"},
-             :deps {:aliases {:+default {:extra-deps {poly/user {:local/root "components/user"}},
+            {:deps {:aliases {:+default {:extra-deps {poly/user {:local/root "components/user"}},
                                          :extra-paths ["components/user/test"]},
                               :+remote {:extra-deps {poly/user-remote {:local/root "components/user-remote"}},
                                         :extra-paths ["components/user-remote/test"]},
@@ -337,8 +333,7 @@ poly ws get:configs
                                                    "projects/command-line/test"]}}},
              :name "development",
              :type "project"}
-            {:config {:alias "user-s"},
-             :deps {:aliases {:test {:extra-deps {}, :extra-paths []},
+            {:deps {:aliases {:test {:extra-deps {}, :extra-paths []},
                               :uberjar {:main se.example.user-api.core}},
                     :deps {org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
                            org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"},

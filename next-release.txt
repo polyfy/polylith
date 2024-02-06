@@ -13,16 +13,10 @@ Included in 0.2.19-SNAPSHOT:
 
 Other improvements
  --------------------------------------------------------------------------------------------------------------------
-  - The migrate command will migrate configuration from workspace.edn to separate config.edn files under
-    each project (and sometimes under bricks). The parameter 'config-filename:FILENAME' can be given if
-    you want to use another name than 'config.edn'. A migrated project will get the new key :config-filename
-    in workspace.edn, that stores the filename to be used.
-  - Show warning 206 - Deprecated workspace, if the workspace doesn't store project and brick configuration in config.edn files.
-  - An alias can be given when creating a project.
-  - Added 'check' and 'test-all' to the clj-poly API.
+  - Added 'check' and 'test' to the clj-poly API.
   - Reintroduced the global :test key in :settings in the workspace structure (taken from workspace.edn).
   - Fixed three broken images on the Testing page.
-  - Custom data can be stored in the :custom key in workspace.edn and in config.edn files under each project or brick.
+  - Custom data can be stored in the reserved :custom key in workspace.edn and in config.edn files under each project or brick.
   - Make sure we also update libraries for the development project in the 'poly libs :update' command.
   - The workspace structure is updated. Brick and project configurations have moved into each brick and project,
     and profile config has moved to :profiles at the root. Type 'poly doc page:versions' for details.

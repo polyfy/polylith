@@ -7,5 +7,6 @@
  :tag-patterns {:stable "stable-*"
                 :release "v[0-9]*"}
  :projects {"development" {:alias "dev"}
-            "command-line" {:alias "cl"}
-            "user-service" {:alias "user-s"}}}
+            "command-line" {:alias "cl"
+                            :test {:setup-fn project.command-line.test-setup/setup
+                                   :teardown-fn project.command-line.test-setup/teardown}}}}

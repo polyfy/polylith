@@ -90,7 +90,6 @@ components/user/src/se/example/user/interface.clj
 components/user/test/se/example/user/interface_test.clj
 deps.edn
 development/src/dev/lisa.clj
-projects/command-line/config.edn
 projects/command-line/deps.edn
 workspace.edn
 ----

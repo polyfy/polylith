@@ -142,10 +142,7 @@ poly ws get:configs:projects:command-line
 
 [source,clojure]
 ----
-{:config {:alias "cl",
-          :test {:setup-fn project.command-line.test-setup/setup,
-                 :teardown-fn project.command-line.test-setup/teardown}},
- :deps {:aliases {:test {:extra-deps {}, :extra-paths ["test"]},
+{:deps {:aliases {:test {:extra-deps {}, :extra-paths ["test"]},
                   :uberjar {:main se.example.cli.core}},
         :deps {org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
                org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"},
@@ -159,9 +156,6 @@ poly ws get:configs:projects:command-line
 [%autowidth]
 |===
 | Key | Description
-
-a| `:config`
-a| Content of project `config.edn`
 
 a| `:deps`
 a| Content of project `deps.edn`
@@ -198,9 +192,6 @@ poly ws get:configs:bases:cli
 |===
 | Key | Description
 
-a| `:config`
-a| Content of the base's `config.edn`. This config file is only needed if we add a xref:libraries.adoc#keep-lib-versions[:keep-lib-versions] key to the base.
-
 a| `:deps`
 a| Content of base `deps.edn`.
 
@@ -234,9 +225,6 @@ poly ws get:configs:components:user
 [%autowidth]
 |===
 | Key | Description
-
-a| `:config`
-a| Content of the component's `config.edn`. This config file is only needed if we add a xref:libraries.adoc#keep-lib-versions[:keep-lib-versions] key to the component.
 
 a| `:deps`
 a| The content of `deps.edn`.
@@ -296,4 +284,4 @@ a| Tells the xref:commands.adoc#libs[libs] where it can find your local Maven re
 [[custom]]
 == Custom configuration
 
-If you have custom configuration data, then we suggest that you put it in a `:custom` key in `workspace.edn` or in `config.edn` under each brick/project. If you put your custom data there, you can be sure the key will not collide with future keys introduced by the tool.
+If you have custom configuration data, then we suggest that you put it in a `:custom` key in `workspace.edn` at the root or under each brick/project. If you put your custom data there, it will not collide with future keys introduced by the tool.

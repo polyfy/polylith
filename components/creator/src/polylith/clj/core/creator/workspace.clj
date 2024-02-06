@@ -65,7 +65,6 @@
   [(str "{:top-namespace \"" top-ns "\"")
    (str " :interface-ns \"interface\"")
    (str " :default-profile-name \"default\"")
-   (str " :config-filename \"config.edn\"")
    (str " :compact-views #{}")
    (str " :vcs {:name \"git\"")
    (str "       :auto-add false}")
@@ -74,9 +73,6 @@
 
 (defn mvn-version []
   version/name)
-
-(defn config-content []
-  ["{:alias \"dev\"}"])
 
 (defn deps-content []
   [(str "{:aliases  {:dev {:extra-paths [\"development/src\"]")
@@ -113,7 +109,6 @@
   (file/create-dir (str ws-dir "/.vscode"))
   (file/create-file-if-not-exists (str ws-dir "/.gitignore") gitignore-content)
   (file/create-file (str ws-dir "/workspace.edn") (workspace-content top-ns))
-  (file/create-file (str ws-dir "/development/config.edn") (config-content))
   (file/create-file (str ws-dir "/deps.edn") (deps-content))
   (file/create-file (str ws-dir "/readme.md") (readme-content ws-name))
   (file/create-file-if-not-exists (str ws-dir "/.vscode/settings.json") (calva-settings-content ws-name))

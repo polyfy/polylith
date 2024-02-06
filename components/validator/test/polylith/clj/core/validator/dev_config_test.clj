@@ -34,20 +34,20 @@
 
 (deftest valid-config--returns-nil
   (is (= nil
-         (validator/validate-project-dev-deps-config ws-type config filename))))
+         (validator/validate-project-dev-config ws-type config filename))))
 
 (deftest invalid-nop-namespace--returns-error-message
   (is (= "Validation error in deps.edn: {:polylith {:top-namespace [\"should be a string\"]}}"
-         (validator/validate-project-dev-deps-config ws-type (assoc-in config [:polylith :top-namespace] 1) filename))))
+         (validator/validate-project-dev-config ws-type (assoc-in config [:polylith :top-namespace] 1) filename))))
 
 (deftest invalid-compact-views--returns-error-message
   (is (= "Validation error in deps.edn: {:polylith {:compact-views [\"should be a set\"]}}"
-         (validator/validate-project-dev-deps-config ws-type (assoc-in config [:polylith :compact-views] 'hello) filename))))
+         (validator/validate-project-dev-config ws-type (assoc-in config [:polylith :compact-views] 'hello) filename))))
 
 (deftest ns-to-lib--return-errors-message
   (is (= "Validation error in deps.edn: {:polylith {:ns-to-lib [\"invalid type\"]}}"
-         (validator/validate-project-dev-deps-config ws-type (assoc-in config [:polylith :ns-to-lib] 'hello) filename))))
+         (validator/validate-project-dev-config ws-type (assoc-in config [:polylith :ns-to-lib] 'hello) filename))))
 
 (deftest aliases-dev--return-errors-message
   (is (= "Validation error in deps.edn: {:aliases {:dev [\"invalid type\"]}}"
-         (validator/validate-project-dev-deps-config ws-type (assoc-in config [:aliases :dev] [1 2 3]) filename))))
+         (validator/validate-project-dev-config ws-type (assoc-in config [:aliases :dev] [1 2 3]) filename))))

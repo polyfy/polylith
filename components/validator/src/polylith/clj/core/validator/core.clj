@@ -16,7 +16,6 @@
             [polylith.clj.core.validator.m202-missing-paths :as m202]
             [polylith.clj.core.validator.m203-path-exists-in-both-dev-and-profile :as m203]
             [polylith.clj.core.validator.m205-non-top-namespace :as m205]
-            [polylith.clj.core.validator.m206-deprecated-workspace :as m206]
             [polylith.clj.core.validator.m207-unnecessary-components-in-project :as m207]))
 
 (defn has-errors? [messages]
@@ -27,7 +26,7 @@
 (defn error-messages [messages]
   (filterv shared/error-message? messages))
 
-(defn validate-ws [suffixed-top-ns workspace settings paths interface-names interfaces profiles components bases projects config-errors interface-ns {:keys [cmd is-dev]} color-mode]
+(defn validate-ws [suffixed-top-ns settings paths interface-names interfaces profiles components bases projects config-errors interface-ns {:keys [cmd is-dev]} color-mode]
   (->> [(m101/errors suffixed-top-ns interface-names components bases interface-ns color-mode)
         (m102/errors components color-mode)
         (m103/errors interfaces components color-mode)
@@ -43,7 +42,6 @@
         (m202/warnings projects paths color-mode)
         (m203/warnings settings projects color-mode)
         (m205/warnings components bases color-mode)
-        (m206/warnings workspace)
         (m207/warnings cmd projects is-dev color-mode)]
        (into #{} cat)
        (sort-by (juxt :type :code :message))
