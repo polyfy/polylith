@@ -6,7 +6,7 @@
         poly/invoicer-cli {:local/root "../../bases/invoicer-cli"}
 
         org.clojure/clojure {:mvn/version "1.11.1"}
-        org.clojure/tools.deps {:mvn/version "0.18.1374"}}
+        org.clojure/tools.deps {:mvn/version "0.18.1398"}}
 
  :aliases {:test {:extra-paths []
                   :extra-deps  {poly/test-helper  {:local/root "../../components/test-helper"}

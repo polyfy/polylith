@@ -69,7 +69,8 @@
    (str " :vcs {:name \"git\"")
    (str "       :auto-add false}")
    (str " :tag-patterns {:stable \"stable-*\"")
-   (str "                :release \"v[0-9]*\"}}")])
+   (str "                :release \"v[0-9]*\"}")
+   (str " :projects {\"development\" {:alias \"dev\"}}}")])
 
 (defn mvn-version []
   version/name)

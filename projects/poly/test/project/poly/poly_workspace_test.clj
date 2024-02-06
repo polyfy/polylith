@@ -1157,16 +1157,14 @@
           "                                              "
           "  interface    brick           s    dev  extra"
           "  -------------------------   ---   ----------"
-          "  calculator   calculator1    ---   s--   --  "
+          "  calculator   calculator1    s--   s--   --  "
           "  database     database1      st-   st-   --  "
           "  test-helper  test-helper1   -t-   -t-   --  "
           "  user         admin          ---   ---   st  "
           "  user         user1          st-   st-   --  "
           "  util         util1          st-   st-   --  "
           "  -            base1          st-   st-   --  "
-          "  -            base2          st-   st-   --  "
-          ""
-          "  Error 107: Missing components in the service project for these interfaces: calculator"]
+          "  -            base2          st-   st-   --  "]
          (run-cmd "examples/profiles"
                   "info"
                   ":no-changes"))))
@@ -1186,16 +1184,14 @@
           "                                              "
           "  interface    brick           s    dev  extra"
           "  -------------------------   ---   ----------"
-          "  calculator   calculator1    ---   s--   --  "
+          "  calculator   calculator1    s--   s--   --  "
           "  database     database1      st-   st-   --  "
           "  test-helper  test-helper1   -t-   -t-   --  "
           "  user         admin          ---   ---   st  "
           "  user         user1          st-   st-   --  "
           "  util         util1          st-   st-   --  "
           "  -            base1          stx   st-   --  "
-          "  -            base2 *        stx   st-   --  "
-          ""
-          "  Error 107: Missing components in the service project for these interfaces: calculator"]
+          "  -            base2 *        stx   st-   --  "]
          (run-cmd "examples/profiles"
                   "info"
                   "changed-files:bases/base2/test/se/example/base2/core_test.clj"))))
@@ -1215,16 +1211,14 @@
           "                                              "
           "  interface    brick           s    dev  extra"
           "  -------------------------   ---   ----------"
-          "  calculator   calculator1    ---   s--   --  "
+          "  calculator   calculator1    s--   s--   --  "
           "  database     database1      st-   st-   --  "
           "  test-helper  test-helper1   -t-   -t-   --  "
           "  user         admin          ---   ---   st  "
           "  user         user1          st-   st-   --  "
           "  util         util1          st-   st-   --  "
           "  -            base1          stx   st-   --  "
-          "  -            base2 *        stx   st-   --  "
-          ""
-          "  Error 107: Missing components in the service project for these interfaces: calculator"]
+          "  -            base2 *        stx   st-   --  "]
          (run-cmd "examples/profiles"
                   "info"
                   "changed-files:bases/base2/src/se/example/base2/core.clj"))))
@@ -1245,17 +1239,15 @@
           "                                                        "
           "  interface    brick           s    dev  extra   loc (t)"
           "  -------------------------   ---   ----------   -------"
-          "  calculator   calculator1    ---   s--   --       1   0"
+          "  calculator   calculator1    s--   s--   --       1   0"
           "  database     database1      st-   st-   --       3   6"
           "  test-helper  test-helper1   -t-   -t-   --       3   3"
           "  user         admin          ---   ---   st       3   6"
           "  user         user1          st-   st-   --       3   5"
           "  util         util1          st-   st-   --       1   6"
           "  -            base1          st-   st-   --       1   7"
-          "  -            base2          st-   st-   --       1   5"
-          "                              12    13            16  38"
-          ""
-          "  Error 107: Missing components in the service project for these interfaces: calculator"]
+          "  -            base2          st-   st-   --       2   5"
+          "                              14    14            17  38"]
          (run-cmd "examples/profiles"
                   "info" ":loc"
                   ":no-changes"))))
@@ -1274,64 +1266,63 @@
           "                                 "
           "  interface    brick           s "
           "  -------------------------   ---"
-          "  calculator   calculator1    ---"
+          "  calculator   calculator1    s--"
           "  database     database1      st-"
           "  test-helper  test-helper1   -t-"
           "  user         admin          ---"
           "  user         user1          st-"
           "  util         util1          st-"
           "  -            base1          st-"
-          "  -            base2          st-"
-          ""
-          "  Error 107: Missing components in the service project for these interfaces: calculator"]
+          "  -            base2          st-"]
          (run-cmd "examples/profiles"
                   "info" "skip:dev"
                   ":no-changes"))))
 
 (deftest profile-deps
-  (is (= ["                      t      "
-          "                c     e      "
-          "                a     s      "
-          "                l  d  t      "
-          "                c  a  -      "
-          "                u  t  h      "
-          "                l  a  e     b"
-          "                a  b  l  u  a"
-          "                t  a  p  t  s"
-          "                o  s  e  i  e"
-          "  brick         r  e  r  l  2"
-          "  ---------------------------"
-          "  admin         .  .  .  .  ."
-          "  calculator1   .  .  .  .  ."
-          "  database1     x  .  .  x  ."
-          "  test-helper1  .  .  .  .  ."
-          "  user1         .  t  t  .  ."
-          "  util1         .  .  .  .  ."
-          "  base1         .  .  .  .  t"
-          "  base2         .  .  .  .  ."]
+  (is (= ["                      t         "
+          "                c     e         "
+          "                a     s         "
+          "                l  d  t         "
+          "                c  a  -         "
+          "                u  t  h         "
+          "                l  a  e        b"
+          "                a  b  l  u  u  a"
+          "                t  a  p  s  t  s"
+          "                o  s  e  e  i  e"
+          "  brick         r  e  r  r  l  2"
+          "  ------------------------------"
+          "  admin         .  .  .  .  .  ."
+          "  calculator1   .  .  .  .  .  ."
+          "  database1     x  .  .  .  x  ."
+          "  test-helper1  .  .  .  .  .  ."
+          "  user1         .  t  t  .  .  ."
+          "  util1         .  .  .  .  .  ."
+          "  base1         .  .  .  .  .  t"
+          "  base2         .  .  .  x  .  ."]
          (run-cmd "examples/profiles"
                   "deps"))))
 
 (deftest profile-deps-project
-  (is (= ["                      t      "
-          "                      e      "
-          "                c     s      "
-          "                a  d  t      "
-          "                l  a  -      "
-          "                c  t  h      "
-          "                u  a  e      "
-          "                l  b  l  u  b"
-          "                a  a  p  t  a"
-          "                t  s  e  i  s"
-          "                o  e  r  l  e"
-          "  brick         r  1  1  1  2"
-          "  ---------------------------"
-          "  database1     x  .  .  x  ."
-          "  test-helper1  .  .  .  .  ."
-          "  user1         .  t  t  -  ."
-          "  util1         .  .  .  .  ."
-          "  base1         .  .  .  .  t"
-          "  base2         .  .  .  .  ."]
+  (is (= ["                      t         "
+          "                c     e         "
+          "                a     s         "
+          "                l  d  t         "
+          "                c  a  -         "
+          "                u  t  h         "
+          "                l  a  e         "
+          "                a  b  l  u  u  b"
+          "                t  a  p  s  t  a"
+          "                o  s  e  e  i  s"
+          "                r  e  r  r  l  e"
+          "  brick         1  1  1  1  1  2"
+          "  ------------------------------"
+          "  calculator1   .  .  .  .  .  ."
+          "  database1     x  .  .  .  x  ."
+          "  test-helper1  .  .  .  .  .  ."
+          "  user1         -  t  t  .  -  ."
+          "  util1         .  .  .  .  .  ."
+          "  base1         .  .  .  -  .  t"
+          "  base2         .  .  .  x  .  ."]
          (run-cmd "examples/profiles"
                   "deps" "project:s"))))
 
@@ -1344,10 +1335,10 @@
                   "deps" "brick:database1"))))
 
 (deftest profile-deps-project-brick
-  (is (= ["  used by    <  database1  >  uses      "
-          "  ---------                   ----------"
-          "  user1 (t)                   calculator"
-          "                              util1     "]
+  (is (= ["  used by    <  database1  >  uses       "
+          "  ---------                   -----------"
+          "  user1 (t)                   calculator1"
+          "                              util1      "]
          (run-cmd "examples/profiles"
                   "deps" "project:s" "brick:database1"))))
 
@@ -1366,7 +1357,7 @@
           "  library              version  type      KB   s   dev  default  extra   1"
           "  ------------------------------------------   -   -------------------   -"
           "  clj-commons/fs       1.6.310  maven     12   -    -      x       -     ."
-          "  metosin/malli        0.11.1   maven      -   t    x      -       -     x"
+          "  metosin/malli        0.14.0   maven     88   t    x      -       -     x"
           "  org.clojure/clojure  1.11.1   maven  4,008   x    x      -       -     ."]
          (run-cmd "examples/profiles"
                   "libs"))))
@@ -1386,7 +1377,7 @@
           "  library              version  type      KB   s   1"
           "  ------------------------------------------   -   -"
           "  clj-commons/fs       1.6.310  maven     12   -   ."
-          "  metosin/malli        0.11.1   maven      -   t   x"
+          "  metosin/malli        0.14.0   maven     88   t   x"
           "  org.clojure/clojure  1.11.1   maven  4,008   x   ."]
          (run-cmd "examples/profiles"
                   "libs" "skip:dev"))))
@@ -1405,6 +1396,11 @@
          (run-cmd "examples/test-runners"
                   "ws"
                   "get:projects:kaocha-override-global:test"))))
+
+(deftest error-107-missing-components
+  (is (= ["  Error 107: Missing components in the service project for these interfaces: mycomp"]
+         (run-cmd "examples/missing-component"
+                  "check"))))
 
 (defn clean-settings [ws]
   (let [vcs (dissoc (:vcs ws) :branch :stable-since)]

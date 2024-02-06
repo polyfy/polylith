@@ -1,3 +1,0 @@
-{:alias "cl"
- :test {:setup-fn project.command-line.test-setup/setup
-        :teardown-fn project.command-line.test-setup/teardown}}

@@ -1,0 +1,39 @@
+**/classes
+**/target
+**/.artifacts
+**/.cpcache
+**/.DS_Store
+**/.gradle
+
+# User-specific stuff
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/shelf
+.idea/**/statistic.xml
+.idea/dictionaries/**
+.idea/libraries/**
+
+# File-based project format
+*.iws
+*.ipr
+
+# Cursive Clojure plugin
+.idea/replstate.xml
+*.iml
+
+/example/example/**
+artifacts
+projects/**/pom.xml
+
+# nrepl
+.nrepl-port
+
+# clojure-lsp
+.lsp/.cache
+
+# clj-kondo
+.clj-kondo/.cache
+
+# Calva VS Code Extension
+.calva/output-window/output.calva-repl

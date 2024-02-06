@@ -74,7 +74,7 @@
     The 'deps.edn' config files are stored under each project, except for
     the development project that stores it at the workspace root.
 
-    Aliases are configured in each project's config.edn file.
+    Aliases are configured in :projects in ./workspace.edn.
 
     The 'status' column has three flags with different meaning:
       s--  The project has a 'src' directory, e.g.

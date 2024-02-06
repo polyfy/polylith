@@ -20,5 +20,3 @@
   tag        tag        st-   st-       
   user       user       st-   st-       
   -          rest-api   st-   st-       
-
-  Warning 206: This workspace is deprecated. As of version 0.2.19, brick and project configurations are stored in config.edn files under each base/component/project. Execute the 'migrate' command to migrate the workspace, or create those files manually and remove the :bricks and :projects keys from workspace.edn to get rid of this warning.

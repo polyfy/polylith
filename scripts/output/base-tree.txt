@@ -32,7 +32,6 @@ example/
 │                       └── interface_test.clj
 ├── deps.edn
 ├── development/
-│   ├── config.edn
 │   └── src/
 │       └── dev/
 │           └── lisa.clj
@@ -41,4 +40,4 @@ example/
 ├── readme.md
 └── workspace.edn
 
-29 directories, 13 files
+29 directories, 12 files

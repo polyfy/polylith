@@ -139,7 +139,8 @@
             " :vcs {:name \"git\""
             "       :auto-add false}"
             " :tag-patterns {:stable \"stable-*\""
-            "                :release \"v[0-9]*\"}}"]
+            "                :release \"v[0-9]*\"}"
+            " :projects {\"development\" {:alias \"dev\"}}}"]
            (helper/content "ws1" "workspace.edn")))
 
     ;; no env vars checked in helper so use defaul XDG location:
