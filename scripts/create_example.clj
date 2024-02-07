@@ -348,11 +348,11 @@
         (polys opts "libs" (out-txt out-fname) (out-png "libraries" out-fname))
         (shell "git restore" deps-fname)))))
 
-(defn migrate [{:keys [ws-parent-dir output-dir]}]
+(defn read-old-ws [{:keys [ws-parent-dir output-dir]}]
   (let [ws-dir (fs/file ws-parent-dir "polylith")
         shell (fn-default-opts sh/shell {:dir ws-dir})
         poly (fn-default-opts sh/poly {:dir ws-dir})
-        out #(fs/file output-dir "migrate" %)]
+        out #(fs/file output-dir "read-old-ws" %)]
     (fs/create-dir ws-parent-dir)
     (shell {:dir ws-parent-dir} "git clone https://github.com/polyfy/polylith.git")
     ;; 1. Checkout latest workspace structure 0.x
@@ -377,14 +377,7 @@
     (shell "git clean -fdX")
     (poly {:out (out "info-2.txt")} "info fake-sha:40d2f62 :no-changes color-mode:none")
     (poly {:out (out "libs-2.txt")} "libs color-mode:none")
-    (poly {:out (out "deps-2.txt")} "deps color-mode:none")
-
-    ;; 4. Migrate from 2.x to 3.x
-    (status/line :head "Migrate from workspace structure 2.0 to 3.0")
-    (poly "migrate")
-    (poly {:out (out "info-3.txt")} "info fake-sha:40d2f62 :no-changes color-mode:none")
-    (poly {:out (out "libs-3.txt")} "libs color-mode:none")
-    (poly {:out (out "deps-3.txt")} "deps color-mode:none")))
+    (poly {:out (out "deps-2.txt")} "deps color-mode:none")))
 
 (defn usermanager [{:keys [ws-parent-dir output-dir]}]
   (let [ws-dir (fs/file ws-parent-dir "usermanager-example")
@@ -525,7 +518,7 @@
 
                        ;; Stand-alone tasks (can run independently)
                        [:realworld    [["Realworld example app" #(real-world-example (merge default-opts {:ws-parent-dir (fs/file work-dir "ws2")}))]]]
-                       [:migrate      [["Migrate polylith" #(migrate (merge default-opts {:ws-parent-dir (fs/file work-dir "ws1")}))]]]
+                       [:read-old-ws  [["Read old polylith workspaces" #(read-old-ws (merge default-opts {:ws-parent-dir (fs/file work-dir "ws1")}))]]]
                        [:usermanager  [["Usermanager" #(usermanager (merge default-opts {:ws-parent-dir (fs/file work-dir "ws3")}))]]]
                        [:local-dep    [["examples/local-dep" #(example-localdep (merge default-opts {:ws-parent-dir (fs/file work-dir "ws4")}))]]]
                        [:for-test     [["examples/for-test, issue 208 - Mix clj and cljc source directories" #(for-test default-opts)]]]

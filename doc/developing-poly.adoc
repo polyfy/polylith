@@ -39,14 +39,6 @@ For this reason, the xref:commands.adoc#shell[shell] will not include these argu
 
 Most special arguments tweak the output of the various `poly` commands.
 
-=== `all` - `help`
-By default, the xref:commands.adoc[help] command only mentions the xref:commands.adoc#migrate[migrate] command when your workspace requires migration. Specifying the `:all` argument forces the mentioning of `migrate`:
-
-[source,shell]
-----
-poly help :all
-----
-
 [[all-shell]]
 === `all` - `shell`
 By default, the xref:commands.adoc#shell[shell] does not suggest special `poly` arguments because they are irrelevant and inappropriate for typical users of `poly`.
