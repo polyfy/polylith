@@ -5,6 +5,7 @@
             [clojure.pprint :as pp]
             [clojure.tools.deps :as tools-deps]
             [polylith.clj.core.api.interface :as api]
+            [polylith.clj.core.sh.interface :as sh]
             [polylith.clj.core.workspace.interface :as ws]
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.command.interface :as command]
@@ -31,6 +32,11 @@
 ;(dev-common/execute "test :all" ".")
 
 ;(def workspace (-> (dev-common/ws-from-file "info" "../sandbox/polylith218/ws.edn")))
+
+
+;(println (sh/execute "java" "-jar" "projects/poly/target/poly.jar" "check"))
+;(println (sh/execute "java" "-jar" "projects/poly/target/poly.jar" "test" ":all" "project:okay:setup-fails:x-okay" :dir "examples/for-test"))
+;(println (sh/execute "java" "-jar" "projects/poly/target/poly.jar" "test" ":all" "project:okay:setup-fails:x-okay" "ws-dir:examples/for-test"))
 
 (def workspace (-> (dev-common/dir ".")
                    ;(dev-common/dir "examples/doc-example")

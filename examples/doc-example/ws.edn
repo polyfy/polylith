@@ -49,7 +49,7 @@
    :base-deps {:src [], :test []}}],
  :changes
  {:since "stable",
-  :since-sha "c53322f44cf019967de94f9782716e26ebaef44c",
+  :since-sha "19b2ed117141f1d2c790b225330a8e9525b4d899",
   :since-tag "stable-lisa",
   :changed-files
   ["bases/user-api/deps.edn"
@@ -65,7 +65,7 @@
    "projects/user-service/deps.edn"
    "workspace.edn"],
   :git-diff-command
-  "git diff c53322f44cf019967de94f9782716e26ebaef44c --name-only",
+  "git diff 19b2ed117141f1d2c790b225330a8e9525b4d899 --name-only",
   :changed-components ["user-remote"],
   :changed-bases ["user-api"],
   :changed-projects ["command-line" "user-service"],
@@ -316,7 +316,7 @@
  :projects
  [{:lines-of-code {:src 0, :test 13, :total {:src 42, :test 24}},
    :deps-filename
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-02-06-072001/ws/example/projects/command-line/deps.edn",
+   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-02-07-192028/ws/example/projects/command-line/deps.edn",
    :namespaces
    {:test
     [{:name "project.command-line.test-setup",
@@ -361,7 +361,7 @@
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "cl",
    :project-dir
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-02-06-072001/ws/example/projects/command-line",
+   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-02-07-192028/ws/example/projects/command-line",
    :lib-deps
    {:src
     {"org.clojure/clojure"
@@ -389,7 +389,7 @@
     "user-remote" {:src {}, :test {}}}}
   {:lines-of-code {:src 0, :test 0, :total {:src 44, :test 26}},
    :deps-filename
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-02-06-072001/ws/example/projects/user-service/deps.edn",
+   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-02-07-192028/ws/example/projects/user-service/deps.edn",
    :namespaces {},
    :base-names {:src ["user-api"], :test ["user-api"]},
    :lib-imports
@@ -420,7 +420,7 @@
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "user-s",
    :project-dir
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-02-06-072001/ws/example/projects/user-service",
+   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-02-07-192028/ws/example/projects/user-service",
    :lib-deps
    {:src
     {"org.clojure/clojure"
@@ -442,7 +442,7 @@
     "user" {:src {}, :test {}}}}
   {:lines-of-code {:src 4, :test 0, :total {:src 58, :test 38}},
    :deps-filename
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-02-06-072001/ws/example/deps.edn",
+   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-02-07-192028/ws/example/deps.edn",
    :namespaces
    {:src
     [{:name "dev.lisa",
@@ -486,7 +486,7 @@
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "dev",
    :project-dir
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-02-06-072001/ws/example/development",
+   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-02-07-192028/ws/example/development",
    :unmerged
    {:paths
     {:src
@@ -535,11 +535,11 @@
    :is-git-repo true,
    :branch "main",
    :git-root
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-02-06-072001/ws/example",
+   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-02-07-192028/ws/example",
    :auto-add true,
    :stable-since
    {:tag "stable-lisa",
-    :sha "c53322f44cf019967de94f9782716e26ebaef44c"},
+    :sha "19b2ed117141f1d2c790b225330a8e9525b4d899"},
    :polylith
    {:repo "https://github.com/polyfy/polylith.git", :branch "master"}},
   :top-namespace "se.example",
@@ -599,7 +599,7 @@
   :test-runner-api {:breaking 1, :non-breaking 0},
   :ws {:breaking 3, :non-breaking 0}},
  :ws-dir
- "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-02-06-072001/ws/example",
+ "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-02-07-192028/ws/example",
  :ws-reader
  {:name "polylith-clj",
   :project-url "https://github.com/polyfy/polylith",

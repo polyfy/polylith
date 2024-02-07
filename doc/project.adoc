@@ -5,7 +5,6 @@ There are two kinds of `projects` in Polylith: development and deployable.
 *The xref:development.adoc[development] project*:
 
 * Where you work with the code, often from a REPL.
-* Project-specific configuration is stored in `./development/config.edn`.
 * Described in the `./deps.edn` which:
 ** Specifies all bricks and project libraries used by the project.
 ** Optionally defines xref:profile.adoc[profiles].
@@ -15,7 +14,6 @@ There are two kinds of `projects` in Polylith: development and deployable.
 
 * Used to build deployable xref:artifacts.adoc[artifacts], e.g., lambda functions, REST APIs, tools, etc.
 * Has its own directory under the `./projects` directory (e.g., `my-project`), which:
-** Has a `config.edn` with project-specifying configurations, like project alias and, optionally, how `poly` should run your xref:testing.adoc[tests].
 ** Has a `deps.edn` specifying the bricks and libraries used by the deployable project.
 *** If the referenced bricks contain any tests, they are run when you execute the xref:commands.adoc#test[test] command.
 ** Can optionally have a `resources` directory.

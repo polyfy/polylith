@@ -21,7 +21,3 @@
             (creator/print-alias-message name alias color-mode))
       "b" (creator/create-base workspace name git-add)
       "c" (creator/create-component workspace name interface git-add))))
-
-(comment
-  (print-error-message "c" "dark")
-  #__)

@@ -4,8 +4,8 @@
                                poly/user-api {:local/root "bases/user-api"}
 
                                org.clojure/clojure {:mvn/version "1.11.1"}
-                               org.apache.logging.log4j/log4j-core {:mvn/version "2.22.1"}
-                               org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.22.1"}}}
+                               org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
+                               org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}}}
 
             :test {:extra-paths ["bases/cli/test"
                                  "bases/user-api/test"

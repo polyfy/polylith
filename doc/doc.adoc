@@ -220,7 +220,7 @@ Open blog posts via:
 
 [source,text]
 ----
-polylith$ doc more:blog-posts:
+example$ doc more:blog-posts:
 a-fresh-take-on-monorepos-in-python
 how-polylith-came-to-life
 leveraging-polylith-to-improve-consistency-reduce-complexity-and-increase-changeability

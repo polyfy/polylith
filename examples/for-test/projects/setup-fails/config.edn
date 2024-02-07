@@ -1,4 +1,0 @@
-{:alias "setup-fails"
- :necessary ["util"]
- :test {:setup-fn project.setup-fails.test-setup/setup
-        :teardown-fn project.setup-fails.test-setup/teardown}}

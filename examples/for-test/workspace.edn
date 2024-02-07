@@ -29,16 +29,16 @@
 
             "setup-fails" {:alias "setup-fails"
                            :necessary ["util"]
-                           :test {:setup-fn project.setup-fails.test-setup/setup}
-                           :teardown-fn project.setup-fails.test-setup/teardown}}
+                           :test {:setup-fn project.setup-fails.test-setup/setup
+                                  :teardown-fn project.setup-fails.test-setup/teardown}}
 
-           "teardown-fails" {:alias "teardown-fails"
-                             :necessary ["a-okay" "util"]
-                             :test {:setup-fn project.teardown-fails.test-setup/setup}
-                             :teardown-fn project.teardown-fails.test-setup/teardown}
+            "teardown-fails" {:alias "teardown-fails"
+                              :necessary ["a-okay" "util"]
+                              :test {:setup-fn project.teardown-fails.test-setup/setup
+                                     :teardown-fn project.teardown-fails.test-setup/teardown}}
 
-           "x-okay" {:alias "x-ok"
-                     :necessary ["a-okay" "company" "util"]
-                     :test {:exclude ["exclude-me"]
-                            :setup-fn project.x-okay.test-setup/setup
-                            :teardown-fn project.x-okay.test-setup/teardown}}}
+            "x-okay" {:alias "x-ok"
+                      :necessary ["a-okay" "company" "util"]
+                      :test {:exclude ["exclude-me"]
+                             :setup-fn project.x-okay.test-setup/setup
+                             :teardown-fn project.x-okay.test-setup/teardown}}}}
