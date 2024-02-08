@@ -3,7 +3,6 @@
  :top-namespace "example"
  :interface-ns "interface"
  :default-profile-name "default"
- :config-filename "config.edn"
  :compact-views #{}
  :tag-patterns {:stable "stable-*"
                 :release "v[0-9]*"}

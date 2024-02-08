@@ -179,7 +179,7 @@
                   (config-reader/file-exists? ws-file :workspace) :toolsdeps2
                   (config-reader/file-exists? deps-file :development) :toolsdeps1)]
     (when ws-type
-      (let [{:keys [deps error]} (config-reader/read-development-deps-file ws-dir ws-type)
+      (let [{:keys [deps error]} (config-reader/read-development-deps-config-file ws-dir ws-type)
             {:keys [aliases polylith]} deps
             [ws-config ws-error] (if (or error
                                          (= :toolsdeps2 ws-type))
