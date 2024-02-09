@@ -437,18 +437,7 @@
                       (out "ws.edn") ws-parent-dir (System/getProperty "user.home") sha))
         (poly {:alter-out-fn test-result->output
                :out (out "test.txt")}
-              "test :dev color-mode:none")
-
-        (status/line :head "examples/local-dep-old-format (migrated)")
-        (poly "migrate")
-        (shell "git add --all")
-        (shell "clojure -A:dev:test -P")
-        (poly {:out (out "info-migrated.txt")} "info fake-sha:aaaaa :no-changes color-mode:none")
-        (poly {:out (out "libs-migrated.txt")} "libs color-mode:none")
-        (poly {:out (out "deps-migrated.txt")} "deps color-mode:none")
-        (poly {:alter-out-fn test-result->output
-               :out (out "test-migrated.txt")}
-              "test color-mode:none :all")))))
+              "test :dev color-mode:none")))))
 
 (defn for-test [{:keys [examples-dir output-dir]}]
   (let [ws-dir (fs/file examples-dir "for-test")
