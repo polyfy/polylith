@@ -26,5 +26,7 @@ Other improvements
     outside the workspace.
   - Changed "lib name" prefix from "poly" to "polylith" in the polylith workspace itself, to minimise the risk of
     name clashes for the users of the clj-poly library.
+  - Removed the migrate command, that can migrate a workspace from the old format where each brick didn't store
+    its own deps.edn file (produced by 0.1.0-alpha9 or earlier).
   - Print a deprecation message if the shorter form of "create base/component/project/workspace" is used, e.g. "create c".
   - print a deprecation message if :: is used (that looks up the workspace root).
