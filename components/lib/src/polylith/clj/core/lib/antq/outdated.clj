@@ -14,7 +14,7 @@
         (lib->latest-version lib-name)))
 
 (defn update-library?
-  "We can specify :keep-lib-versions in brick and project config.edn files.
+  "We can specify :keep-lib-versions in :bricks and :projects in workspace.edn.
    If the library doesn't exist in that vector for a brick or project, then
    it's fine to update the library."
   [lib-name entity-name entity-type name-type->keep-lib-versions]

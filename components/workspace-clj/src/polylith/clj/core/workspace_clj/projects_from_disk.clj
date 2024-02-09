@@ -135,7 +135,7 @@
            (empty? include))))
 
 (defn read-project
-  ([{:keys [deps project-name project-dir project-config-dir is-dev] :as config} ws-dir name->brick project->settings user-home suffixed-top-ns interface-ns]
+  ([{:keys [deps project-name project-dir project-config-dir is-dev]} ws-dir name->brick project->settings user-home suffixed-top-ns interface-ns]
    (let [{:keys [paths deps override-deps aliases mvn/repos]} deps
          project-src-paths (cond-> paths is-dev (concat (-> aliases :dev :extra-paths)))
          project-src-deps (cond-> deps is-dev (merge (-> aliases :dev :extra-deps)))
@@ -147,8 +147,7 @@
          maven-repos (merge mvn/standard-repos repos)
          src-paths (src-paths-from-bricks project-name is-dev name->brick project-src-paths project-src-deps)
          [src-lib-deps src-project-lib-deps] (src-lib-deps-from-bricks ws-dir project-name is-dev user-home name->brick project-src-deps override-src-deps)
-         project-settings (get project->settings project-name)
-         test (-> (config/settings-value :test config project-settings))
+         test (get-in project->settings [project-name :test])
          skip-all? (skip-all-tests? test)
          test-paths (if skip-all? [] (test-paths-from-bricks project-name is-dev name->brick project-test-paths project-src-deps project-test-deps))
          [test-lib-deps test-project-lib-deps] (if skip-all? [[][]] (test-lib-deps-from-bricks ws-dir project-name is-dev name->brick user-home project-src-deps project-test-deps override-src-deps override-test-deps))
@@ -163,7 +162,7 @@
                                   (seq test-project-lib-deps) (assoc :test test-project-lib-deps))
          {:keys [src-dirs test-dirs]} (project-paths/project-source-dirs ws-dir project-name is-dev project-src-paths project-test-paths)
          namespaces (ns-from-disk/namespaces-from-disk ws-dir src-dirs test-dirs suffixed-top-ns interface-ns)]
-     (util/ordered-map :alias (config/settings-value :alias config project-settings)
+     (util/ordered-map :alias (get-in project->settings [project-name :alias])
                        :name project-name
                        :is-dev is-dev
                        :project-dir project-dir
@@ -175,8 +174,8 @@
                        :maven-repos maven-repos
                        :namespaces namespaces
                        :test test
-                       :necessary (config/settings-value :necessary config project-settings)
-                       :keep-lib-versions (config/settings-value :keep-lib-versions config project-settings)))))
+                       :necessary (get-in project->settings [project-name :necessary])
+                       :keep-lib-versions (get-in project->settings [project-name :keep-lib-versions])))))
 
 (defn keep?
   "Skip projects that are passed in as e.g. skip:p1:p2."
