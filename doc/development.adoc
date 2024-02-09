@@ -43,10 +43,7 @@ To import a Polylith xref:workspace.adoc[workspace] as a project:
 .. When asked, choose your desired version of the Java SDK
 .. Otherwise, hit `Next` and finally `Create`.
 
-If you are using Cursive `1.13.0` or later, you must enable `Resolve over whole project` under +
-`File > Settings... > Languages & Frameworks > Clojure > Project Specific Options`:
-
-image::images/development/idea-resolve-over-whole-project.png[width=600]
+If you are using Cursive `1.13.0` or later, follow the instructions https://cursive-ide.com/userguide/polylith.html[here].
 
 From the `Clojure Deps` tab (by default, it's on the far right), enable `dev` under `Aliases`, then press the icon with two arrows to refresh:
 
