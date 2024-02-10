@@ -119,7 +119,7 @@
      {:local/root "../../migrate-me",
       :type "local",
       :path "migrate-me",
-      :size 310}}}}
+      :size 24902}}}}
   {:lines-of-code {:src 4, :test 6},
    :interface {:name "test-helper", :definitions []},
    :namespaces
@@ -492,7 +492,7 @@
      {:local/root "../../migrate-me",
       :type "local",
       :path "migrate-me",
-      :size 310}}},
+      :size 24902}}},
    :projects-to-test [],
    :component-names
    {:src ["database" "datomic-ions" "invoicer" "util"],
@@ -573,7 +573,7 @@
      {:local/root "migrate-me",
       :type "local",
       :path "migrate-me",
-      :size 310}}},
+      :size 24902}}},
    :paths
    {:src
     ["bases/invoicer-cli/src"
@@ -646,7 +646,7 @@
        {:local/root "migrate-me",
         :type "local",
         :path "migrate-me",
-        :size 310}]]}},
+        :size 24902}]]}},
    :lib-deps
    {:src
     {"org.clojure/clojure"
@@ -669,7 +669,7 @@
      {:local/root "migrate-me",
       :type "local",
       :path "migrate-me",
-      :size 310}}},
+      :size 24902}}},
    :projects-to-test [],
    :component-names
    {:src
@@ -773,7 +773,7 @@
    :minor 2,
    :patch 19,
    :revision "SNAPSHOT",
-   :date "2024-02-06",
+   :date "2024-02-10",
    :snapshot 7},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
