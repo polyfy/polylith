@@ -109,7 +109,7 @@
           "                                                                                                t  p  l  -  l  a  o  l  e"
           "  library                      version    type      KB   poly  polyx   dev  default  extended   q  s  e  x  l  p  r  j  r"
           "  ----------------------------------------------------   -----------   ----------------------   -------------------------"
-          "  borkdude/edamame             1.3.23     maven     24    x      x      x      -        -       .  .  x  .  .  .  .  .  ."
+          "  borkdude/edamame             1.4.25     maven     24    x      x      x      -        -       .  .  x  .  .  .  .  .  ."
           "  clj-commons/fs               1.6.310    maven     12    x      x      x      -        -       .  .  x  .  .  .  .  .  ."
           "  com.github.liquidz/antq      2.8.1173   maven     52    x      x      x      -        -       x  .  .  .  .  .  .  .  ."
           "  djblue/portal                0.51.1     maven  1,847    x      x      x      -        -       .  .  .  .  .  x  .  .  ."
@@ -117,8 +117,8 @@
           "  mvxcvi/puget                 1.3.4      maven     15    x      x      x      -        -       .  .  .  .  .  .  .  .  x"
           "  org.clojure/clojure          1.11.1     maven  4,008    x      x      x      -        -       .  .  .  .  .  .  .  .  ."
           "  org.clojure/tools.deps       0.18.1398  maven     58    x      x      x      -        -       .  x  x  .  .  .  .  x  ."
-          "  org.jline/jline              3.25.0     maven  1,226    x      x      x      -        -       .  .  .  .  x  .  .  .  ."
-          "  org.slf4j/slf4j-nop          2.0.11     maven      4    x      x      x      -        -       .  .  .  .  .  .  .  .  ."
+          "  org.jline/jline              3.25.1     maven  1,390    x      x      x      -        -       .  .  .  .  x  .  .  .  ."
+          "  org.slf4j/slf4j-nop          2.0.12     maven      4    x      x      x      -        -       .  .  .  .  .  .  .  .  ."
           "  pjstadig/humane-test-output  0.11.0     maven      7    t      -      -      -        -       .  .  .  .  .  .  .  .  ."
           "  rewrite-clj/rewrite-clj      1.1.47     maven     73    -      -      x      -        -       .  .  .  .  .  .  .  .  ."]
          (keep-except "clojure2d"
@@ -1137,9 +1137,9 @@
          (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"]))))
 
 (deftest polylith-shell-component-lib-deps
-  (is (= {:src {"org.jline/jline" {:size    1256232
+  (is (= {:src {"org.jline/jline" {:size    1423747
                                    :type    "maven"
-                                   :version "3.25.0"}}}
+                                   :version "3.25.1"}}}
          (ws-explorer/extract (workspace) ["components" "shell" "lib-deps"]))))
 
 (deftest profile-info
