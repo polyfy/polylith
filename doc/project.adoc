@@ -5,7 +5,7 @@ There are two kinds of `projects` in Polylith: development and deployable.
 *The xref:development.adoc[development] project*:
 
 * Where you work with the code, often from a REPL.
-* Described in the `./deps.edn` which:
+* Described in `./deps.edn` which:
 ** Specifies all bricks and project libraries used by the project.
 ** Optionally defines xref:profile.adoc[profiles].
 * Source code to support development (not part of any component or base) lives under the `./development` directory.
