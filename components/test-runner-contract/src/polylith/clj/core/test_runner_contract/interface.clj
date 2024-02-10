@@ -90,9 +90,9 @@
 
   ```Clojure
   {:projects {\"project-a\" {:alias \"a\"
-                             :test {:create-test-runner my.namespace/create}}
+                           :test {:create-test-runner my.namespace/create}}
               \"project-b\" {:alias \"b\"
-                             :test {:create-test-runner [my.namespace/create
+                           :test {:create-test-runner [my.namespace/create
                                                          :default]}}}}
   ```
 
@@ -104,7 +104,7 @@
   {:test {:create-test-runner my.namespace/create}
    :projects {\"project-a\" {:alias \"a\"}
               \"project-b\" {:alias \"b\"
-                             :test {:create-test-runner :default}}}}
+                           :test {:create-test-runner :default}}}}
   ```"
 
   (test-runner-name [this]
