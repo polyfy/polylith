@@ -37,6 +37,8 @@ name clashes for the users of the https://clojars.org/polylith/clj-poly[clj-poly
 || Removed the https://cljdoc.org/d/polylith/clj-poly/0.2.18/doc/reference/commands#migrate[migrate] command, that can migrate a workspace from the old format where each brick didn't store
 its own deps.edn file (produced by https://github.com/polyfy/polylith/releases/tag/v0.1.0-alpha9[0.1.0-alpha9] or earlier). Use https://github.com/polyfy/polylith/releases/tag/v0.2.18[0.2.18] if you still need to migrate old workspaces.
 
+|| Make sure se can create a workspace, even if it exists a non-polylith deps.edn file at the root.
+
 || Prints a deprecation message if the shorter form of "create base/component/project/workspace" is used, e.g. `create c name:mycomp`.
 
 || Prints a deprecation message if `::` is used (that looks up the workspace root).
