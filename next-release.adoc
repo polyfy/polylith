@@ -6,11 +6,13 @@
 |===
 | Issue | Description
 
+|| If you use a https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/test-runners[test runner] other than the built-in one, make sure to use at least 0.8.4 of the Kaocha test runner, and 0.4.0 of the External test runner.
+
 | https://github.com/polyfy/polylith/issues/315[315]
 | Moved `:change:project-to-*` keys to `:projects:PROJECT:*`, and `:settings:profile-to-settings` to `:profiles`, in the workspace structure + some other changes, documented https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/versions[here].
 This clean up of the workspace structure was introduced to simplify future maintenance.
-It unfortunately broke the Test Runner contract, but will make it easier to implement test runners in the future.
-We decided to skip the idea of storing project and brick configuration in separeate files (they can still be found in `:projects` and `:bricks` in `workspace.edn`).
+It unfortunately broke the Test Runner contract, but will make it easier to implement test runners in the future (because of the simplified structure, where project related test config now lives in each project).
+We decided to skip the idea of storing project and brick configuration in separeate files because it made it harder to edit it and get an overview (they can still be found in `:projects` and `:bricks` in `workspace.edn`).
 
 | https://github.com/polyfy/polylith/issues/432[432]
 | Update Edamame dependency to 1.4.25, to make it work with Clojure 1.12 Alpha 7.
@@ -35,9 +37,15 @@ name clashes for the users of the https://clojars.org/polylith/clj-poly[clj-poly
 || Removed the https://cljdoc.org/d/polylith/clj-poly/0.2.18/doc/reference/commands#migrate[migrate] command, that can migrate a workspace from the old format where each brick didn't store
 its own deps.edn file (produced by https://github.com/polyfy/polylith/releases/tag/v0.1.0-alpha9[0.1.0-alpha9] or earlier). Use https://github.com/polyfy/polylith/releases/tag/v0.2.18[0.2.18] if you still need to migrate old workspaces.
 
+|| Make sure se can create a workspace, even if it exists a non-polylith deps.edn file at the root.
+
 || Prints a deprecation message if the shorter form of "create base/component/project/workspace" is used, e.g. `create c name:mycomp`.
 
 || Prints a deprecation message if `::` is used (that looks up the workspace root).
+
+|| Added a https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/shell#refresh-ws[tip] on how to refresh your workspace from a shell.
+
+|| Added a note that https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/shell#read-old-workspace[old workspaces] can be read by the tool (both from an exported file and from disk).
 
 || Fixed three broken images on the Testing page.
 |===
@@ -48,9 +56,9 @@ its own deps.edn file (produced by https://github.com/polyfy/polylith/releases/t
 
 | https://github.com/polyfy/polylith/pull/426[426]
 | Sean Corfield
-| Link to affected 3rd party test runners in docstring
+| Link to affected 3rd party test runners in docstring.
 
 | https://github.com/polyfy/polylith/pull/427[427]
 | Sean Corfield
-| Restore global test configuration
+| Restore global test configuration.
 |===

@@ -8,7 +8,7 @@ You write tests for your bricks (xref:base.adoc[bases] and xref:component.adoc[c
 The `poly` tool always runs brick tests from the context of the deployable projects that reference them.
 This convention verifies that the bricks tests pass using the classpath formulated from the project and all its referenced bricks.
 
-The `development` project offers a way to run tests from your REPL and a temporary home (and test vehicle) for new bricks that aren't yet part of any deployable project
+The `development` project offers a way to run tests from your REPL and a temporary home (and test vehicle) for new bricks that aren't yet part of any deployable project.
 
 Let's continue with our xref:introduction.adoc[tutorial], we last left off exploring xref:tagging.adoc[tagging].
 
@@ -75,17 +75,7 @@ image::images/testing/failing-test.png[]
 ====
 *Cursive users*:
 
-You need to instruct Cursive to run tests from the root module (`example` in this case) by performing the following steps:
-
-* Select `Edit Configuration...` in the menu with configurations at the top of the IDE.
-
-* Select `Edit configuration templates...` at the bottom left corner.
-
-* Select `clojure.test` in the left menu.
-
-* Set `Module` under `Common Options` to `example` and press `OK`.
-
-You should now be able to run tests from the IDE.
+If you haven't already, you need to instruct Cursive to run tests from the root module, see instructions https://cursive-ide.com/userguide/polylith.html[here].
 
 ====
 

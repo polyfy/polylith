@@ -150,6 +150,9 @@ You can go back to the `example` workspace by invoking `switch-ws` without argum
 
 image::images/shell/shell-switch-ws.png[width=600]
 
+[[refresh-ws]]
+If you invoke `switch-ws` again when you are already on the root, this will read the workspace from disk again, which can be useful in some situations.
+
 === Switching to an Exported Workspace
 
 You can switch to an exported workspace.
@@ -184,6 +187,10 @@ file:usermanager-example$
 ----
 
 Notice that the prompt has changed to show the currently selected workspace (by export file).
+
+[[read-old-workspace]]
+NOTE: The `poly` tool supports reading old exported files, with older xref:versions.adoc[versions] of the workspace structure, which are automatically migrated to the current version.
+This is also true when reading an older version of a workspace, e.g. if you go back in the git history with git https://git-scm.com/docs/git-checkout[checkout] or https://git-scm.com/docs/git-switch[switch].
 
 === Switch at Launch
 

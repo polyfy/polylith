@@ -169,6 +169,14 @@
     (cond-> path
             (some? index) (subs (inc index)))))
 
+(defn create-workspace?
+  "True if we try to create a workspace with a non-polylith deps.edn file.
+   In that case, it should be possible to create a workspace."
+  [ws-error {:keys [cmd args]}]
+  (and ws-error
+       (= "create" cmd)
+       (= "workspace" (second args))))
+
 (defn workspace-from-disk [user-input]
   (let [color-mode (or (:color-mode user-input) (user-config/color-mode) color/none)
         ws-dir (config-reader/workspace-dir user-input)
@@ -184,8 +192,10 @@
             [ws-config ws-error] (if (or error
                                          (= :toolsdeps2 ws-type))
                                    (ws-config/ws-config-from-disk ws-dir)
-                                   (ws-config/ws-config-from-dev polylith))]
+                                   (ws-config/ws-config-from-dev polylith))
+            create-ws? (create-workspace? ws-error user-input)]
         (cond
+          create-ws? nil
           ws-error {:config-error ws-error}
           error {:config-error error}
           :else (toolsdeps-ws-from-disk ws-name ws-type ws-dir ws-config aliases user-input color-mode))))))
