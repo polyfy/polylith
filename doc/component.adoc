@@ -139,7 +139,7 @@ All dependency keys must be unique.
 A good pattern is to prefix them with `poly/` followed by the brick name, e.g., `poly/user` as in this example.
 
 [[expose-code-outside-workspace]]
-WARNING: If you expose your code outside your workspace, e.g. as a xref:artifacts.adoc[library], then you should use a more unique prefix, e.g. `maven-group-id.workspace-name/`, see for example how https://github.com/imrekoszo/polylith-kaocha/blob/master/projects/example/deps.edn#L14[these] components are configured in the Kaocha test runner.
+WARNING: If you expose your code outside your workspace, e.g. as a xref:artifacts.adoc[library], then you should use a more unique prefix, e.g. `maven-group-id.workspace-name/`, see for example how https://github.com/imrekoszo/polylith-kaocha/blob/master/projects/example/deps.edn#L14[these] components are configured in the Kaocha test runner (You don't need to include `.bases` and `.components` in the prefix, polylith-kaocha/kaocha-resource-config-loader` should be enough, because components and bases can't share the same name).
 
 NOTE: Most IDEs now support adding components as a `:local/root` dependency, but if you are not using Cider, Calva, or a current version of Cursive, please review <<ide-local-root>>.
 
