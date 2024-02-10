@@ -381,4 +381,4 @@ a| Tells the xref:commands.adoc#libs[libs] where it can find your local Maven re
 [[custom]]
 == Custom configuration
 
-If you have custom configuration data, then we suggest that you put it in a `:custom` key in `workspace.edn` at the root or under each brick/project. If you put your custom data there, it will not collide with future keys introduced by the tool.
+If you have custom configuration data, then we suggest that you put it in a `:custom` key in `workspace.edn` at the root and under each brick/project. If you put your custom data there, it will not collide with future keys introduced by the tool.
