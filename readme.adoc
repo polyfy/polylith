@@ -1,5 +1,5 @@
 image::doc/images/logo.png[width=400]
-:snapshot-version: 6
+:snapshot-version: 7
 :cljdoc-doc-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc
 
 https://cljdoc.org/d/polylith/clj-poly/0.2.18/doc/readme[image:https://badgen.net/badge/doc/0.2.18/blue[]]
@@ -51,6 +51,7 @@ image::doc/images/sponsors/adgoji.png[link=https://www.adgoji.com,alt=adgoji.com
 image:https://avatars.githubusercontent.com/u/18068051[link=https://github.com/yyna,alt=Jungin Kwon,width=32,role="left"]
 image:https://avatars.githubusercontent.com/u/59614667[link=https://github.com/fluent-development,alt=Multiply,width=32,role="left"]
 image:https://avatars.githubusercontent.com/u/6353427[link=https://github.com/anieri,alt=Anieri,width=32,role="left"]
+image:https://avatars.githubusercontent.com/u/53870456[link=https://github.com/john-shaffer,alt=John Shaffer,width=32,role="left"]
 
 === Polylith Friends
 

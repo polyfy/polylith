@@ -19,5 +19,4 @@
   util            util             st-   st-
   -               invoicer-cli     st-   st-
 
-  Warning 206: This workspace is deprecated. As of version 0.2.19, brick and project configurations are stored in config.edn files under each base/component/project. Execute the 'migrate' command to migrate the workspace, or create those files manually and remove the :bricks and :projects keys from workspace.edn to get rid of this warning.
   Warning 207: Unnecessary components were found in the invoicing project and may be removed: datomic-ions, without-src. To ignore this warning, execute 'poly help check' and follow the instructions for warning 207.

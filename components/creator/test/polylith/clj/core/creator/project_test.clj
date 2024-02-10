@@ -19,7 +19,7 @@
                  (helper/execute-command "ws1" "create" "project" "name:proj1")
                  (helper/execute-command "ws1" "create" "project" "name:proj1"))]
 
-    (is (= (str "  It's recommended to set the alias in config.edn for the proj1 project.\n"
+    (is (= (str "  It's recommended to add an alias to :projects in ./workspace.edn for the proj1 project.\n"
                 "  Project proj1 (or alias) already exists.\n")
            (color/clean-colors output)))))
 
@@ -29,7 +29,7 @@
                  (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example" ":create")
                  (helper/execute-command "ws1" "create" "project" "name:proj1"))]
 
-    (is (= "  It's recommended to set the alias in config.edn for the proj1 project.\n"
+    (is (= "  It's recommended to add an alias to :projects in ./workspace.edn for the proj1 project.\n"
            (color/clean-colors output)))
 
     (is (= #{".gitignore"
@@ -41,14 +41,12 @@
              "components/.keep"
              "deps.edn"
              "development"
-             "development/config.edn"
              "development/src"
              "development/src/.keep"
              "logo.png"
              "projects"
              "projects/.keep"
              "projects/proj1"
-             "projects/proj1/config.edn"
              "projects/proj1/deps.edn"
              "readme.md"
              "workspace.edn"}

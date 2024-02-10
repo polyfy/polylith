@@ -379,7 +379,8 @@ clojure -A:deps -T:build uberjar :project command-line
 === 4. Create the `user-service` project
 
 <<create-user-service-project2>> +
-<<configure-user-service>>
+<<configure-user-service>> +
+<<add-user-service-project-alias>>
 
 [[create-user-service-project2]]
 ==== a. Create the `user-service` project:
@@ -388,7 +389,7 @@ Run:
 
 [source,shell]
 ----
-poly create project name:user-service alias:user-s
+poly create project name:user-service
 ----
 
 [[configure-user-service]]
@@ -415,6 +416,18 @@ Set the `user-service` project `deps.edn` content to:
 <2> Add `user-api` base
 <3> Add logging library (slacker lib does some logging that we'll ignore)
 <4> Specify main for uberjar artifact
+
+[[add-user-service-project-alias]]
+==== c. Add a `poly` alias for the `user-service`
+
+../workspace.edn
+[source,clojure]
+----
+ :projects {"development" {:alias "dev"}
+            "command-line" {:alias "cl"}
+            "user-service" {:alias "user-s"}}} ;; <1>
+----
+<1> Add `user-s` alias for your new `user-service`
 
 [[build-user-service]]
 === 5. Build the `user-service`

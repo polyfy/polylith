@@ -29,11 +29,8 @@
 (def create-component-name-value (c/multi-arg :create-component "name"))
 (def create-component-name (c/multi-param "name" 1 (c/group :create-component) [create-component-name-value]))
 (def create-component (c/single-txt "component" :create-component [create-component-name interface]))
-(def alias-value (c/multi-arg :create-project "alias"))
-(def create-project-alias (c/multi-param "alias" 2 (c/group :create-project) (c/optional) [alias-value]))
-(def create-project-name-value (c/multi-arg :create-project "name"))
-(def create-project-name (c/multi-param "name" 1 (c/group :create-project) [create-project-name-value]))
-(def create-project (c/single-txt "project" :create-project [create-project-name create-project-alias]))
+(def create-project-name (c/multi-param "name"))
+(def create-project (c/single-txt "project" [create-project-name]))
 (def create-workspace-commit (c/flag "commit" :create-workspace))
 (def create-workspace-branch (c/multi-param "branch"))
 (def create-workspace-top-ns-value (c/group-arg "" :create-workspace "top-ns" false))
@@ -90,7 +87,6 @@
 (def help-create-component (c/single-txt "component"))
 (def help-create-project (c/single-txt "project"))
 (def help-create-workspace (c/single-txt "workspace"))
-(def help-migrate (c/single-txt "migrate"))
 (def help-create (c/single-txt "create" [help-create-base help-create-component help-create-project help-create-workspace]))
 (def help-deps-project (c/flag "project" :help-deps))
 (def help-deps-workspace (c/flag "workspace" :help-deps))
@@ -98,10 +94,9 @@
 (def help-deps (c/single-txt "deps" :help-deps [help-deps-brick help-deps-project help-deps-workspace]))
 (def help-fake-poly (c/flag "fake-poly" :help-deps))
 
-(defn help [all? show-migrate?]
+(defn help [all?]
   (c/single-txt "help" (vec (concat [help-create help-deps]
                                     (when all? [help-all help-fake-poly])
-                                    (when show-migrate? [help-migrate])
                                     (mapv #(c/single-txt %)
                                           (concat ["check" "diff" "info" "libs" "switch-ws" "shell" "tap" "test" "version" "ws"]
                                                   (if system/extended? ["overview"] [])))))))
@@ -145,10 +140,6 @@
     (concat [libs-outdated libs-update libs-libraries]
             (when all? [compact libs-skip libs-color-mode])
             (when (or all? extended?) [libs-out]))))
-
-;; migrate
-(def migrate-config-filename (c/multi-param "config-filename" :migrate (c/optional)))
-(def migrate (c/single-txt "migrate" :migrate [migrate-config-filename]))
 
 ;; test
 (def test-since (c/fn-explorer "since" :test #'ws-tag-patterns/select))
@@ -216,9 +207,8 @@
               (map #(c/group-arg (str "+" %) group-id (str "+" %))
                    profile-keys)))))
 
-(defn candidates [{:keys [profiles user-input] :as workspace}]
+(defn candidates [{:keys [profiles user-input]}]
   (let [{:keys [ws-dir ws-file is-all is-local]} user-input
-        show-migrate? (common/need-migration? workspace)
         info-profiles (->profiles :info profiles is-all)
         test-profiles (->profiles :test profiles is-all)
         ws-profiles (->profiles :ws profiles is-all)
@@ -232,14 +222,13 @@
                   (create current-ws? is-all)
                   (deps is-all system/extended?)
                   (doc is-all is-local)
-                  (help is-all show-migrate?)
+                  (help is-all)
                   (info info-profiles is-all system/extended?)
                   (libs is-all system/extended?)
                   (test test-profiles current-ws? is-all)
                   (ws ws-profiles is-all)
-                  (when show-migrate? migrate)
                   (when system/extended? overview)]))))
 
 (def create-outside-ws-root (c/single-txt "create" [create-workspace]))
 
-(def candidates-outside-ws-root [(help false false) version create-outside-ws-root doc switch-ws])
+(def candidates-outside-ws-root [(help false) version create-outside-ws-root doc switch-ws])

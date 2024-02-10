@@ -51,7 +51,7 @@ clojure -A:dev:test -P
 
 [#compact-view]
 If your workspace has many bricks, you may prefer a more compact report format.
-You can either set `:compact-views` to `#{"libs"}` in your xref:workspace.adoc#workspace.edn [workspace.edn] or specify the `:compact` argument:
+You can either set `:compact-views` to `#{"libs"}` in your xref:workspace.adoc#workspace-edn[workspace.edn] or specify the `:compact` argument:
 
 [source,shell]
 ----
@@ -92,19 +92,14 @@ poly libs :update libraries:djblue/portal:com.taoensso/timbre
 TIP: When using the xref:shell.adoc[shell], `poly` will, after a short pause, offer autocomplete suggestions for `libraries`!
 
 [[keep-lib-versions]]
-To skip updating specific libraries, specify `:keep-lib-versions` in your brick and project config files, e.g.:
+To skip updating specific libraries, specify `:keep-lib-versions` in your xref:workspace.adoc#workspace-edn[workspace.edn], e.g.:
 
-../components/article/config.edn
 [source,clojure]
 ----
-{:keep-lib-versions [djblue/portal]}
-----
-
-../projects/realworld-backend/config.edn
-[source,clojure]
-----
-{:alias "rb"
- :keep-lib-versions [clj-jwt/clj-jwt clj-time/clj-time]}
+{...
+ :bricks {"article" {:keep-lib-versions [djblue/portal]}}}
+ :projects {"realworld-backend" {:alias "rb"
+                                 :keep-lib-versions [clj-jwt/clj-jwt clj-time/clj-time]}
 ----
 
 [[lib-dep-types]]
@@ -195,7 +190,7 @@ The `poly` tool understands that when a `:local/root` path starts with:
 * `../../bases/` or `../../components/` for deployable projects
 * or `bases/` or `components/` for the development project
 
-that it is a `poly` brick xref:depencencies.adoc[dependency]; otherwise, it is considered a 3rd-party library dependency.
+that it is a `poly` brick xref:dependencies.adoc[dependency]; otherwise, it is considered a 3rd-party library dependency.
 
 ==== Differences from Tools.deps
 

@@ -1,0 +1,1 @@
+(ns missing.mycomp.interface)

@@ -4,6 +4,7 @@
 When we talk about `poly` dependencies, we refer to dependencies between bricks (xref:component.adoc[components] and xref:base.adoc[bases]).
 For 3rd-party library dependencies, see xref:libraries.adoc[Libraries].
 
+[#setup]
 == Setup for Tutorial
 
 We'll switch from our `example` xref:introduction.adoc[tutorial] to the https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[RealWorld example app] to explore dependencies.

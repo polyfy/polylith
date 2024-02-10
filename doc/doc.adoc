@@ -139,14 +139,14 @@ Ask the shell to list all command help with:
 [source,text]
 ----
 example$ doc help:
-check                deps-project         overview
-create-base          deps-workspace       shell
-create-component     deps                 switch-ws
-create-project       diff                 tap
-create-workspace     doc                  test
-create               info                 version
-deps-brick           libs                 ws
-deps-project-brick   migrate
+check                deps-project         shell
+create-base          deps-workspace       switch-ws
+create-component     deps                 tap
+create-project       diff                 test
+create-workspace     doc                  version
+create               info                 ws
+deps-brick           libs
+deps-project-brick   overview
 ----
 
 To open the `check` command:
@@ -220,7 +220,7 @@ Open blog posts via:
 
 [source,text]
 ----
-polylith$ doc more:blog-posts:
+example$ doc more:blog-posts:
 a-fresh-take-on-monorepos-in-python
 how-polylith-came-to-life
 leveraging-polylith-to-improve-consistency-reduce-complexity-and-increase-changeability

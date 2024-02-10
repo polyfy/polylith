@@ -19,7 +19,6 @@
         entity-root-path (str "bases/" base-name)
         lib-deps (lib/brick-lib-deps ws-dir ws-type deps-config top-namespace ns-to-lib namespaces entity-root-path user-home)
         source-paths (config/source-paths deps-config)
-        base-settings (get brick->settings base-name)
         non-top-namespaces (non-top-ns/non-top-namespaces "base" base-name base-dir top-src-dir source-paths)]
     (util/ordered-map :name base-name
                       :type "base"
@@ -27,9 +26,9 @@
                       :paths (brick-paths/source-paths base-dir deps-config)
                       :namespaces namespaces
                       :non-top-namespaces non-top-namespaces
-                      :test (config/settings-value :test config base-settings)
-                      :necessary (config/settings-value :necessary config base-settings)
-                      :keep-lib-versions (config/settings-value :keep-lib-versions config base-settings)
+                      :test (get-in brick->settings [base-name :test])
+                      :necessary (get-in brick->settings [base-name :necessary])
+                      :keep-lib-versions (get-in brick->settings [base-name :keep-lib-versions])
                       :lib-deps lib-deps)))
 
 (defn read-bases

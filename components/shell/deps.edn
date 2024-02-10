@@ -1,4 +1,4 @@
 {:paths ["src"]
- :deps {org.jline/jline {:mvn/version "3.25.0"}}
+ :deps {org.jline/jline {:mvn/version "3.25.1"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}

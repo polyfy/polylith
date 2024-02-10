@@ -48,13 +48,17 @@ If your workspace doesn't have any active warnings or errors, you will see an em
 The xref:commands.adoc#check[check] command generates a `Warning 207 - Unnecessary components were found in project` when it finds components unused by any bricks in a project.
 
 Suppose you get warning 207 for a project but know the component is needed (e.g., it is used dynamically but not explicitly called).
-In that case, you can suppress the warning by specifying that it is `:necessary` to the project's `config.edn` file:
+In that case, you can suppress the warning by specifying that it is `:necessary` to the project in your `workspace.edn`:
 
-../projects/poly/config.edn
 [source,clojure]
 ----
-{:alias "poly"
- :necessary ["clojure-test-test-runner"]} ;; <1>
+{...
+ :projects {"poly" {:alias "poly"
+                    :necessary ["api" "clojure-test-test-runner"] ;; <1>
+                    :test {:setup-fn project.poly.hto/activate!}}
+            "polyx" {:alias "polyx" :test [] :necessary ["clojure-test-test-runner"]} ;; <1>
+            "development" {:alias "dev"}}
+...}
 ----
 <1> Example usages from the `poly` tool link:https://github.com/polyfy/polylith/blob/969d3beea27e754fcaccbf52631449774a4d7e7c/workspace.edn#L9-L13[itself]
 

@@ -15,7 +15,6 @@
         polylith/info                     {:local/root "../../components/info"}
         polylith/lib                      {:local/root "../../components/lib"}
         polylith/maven                    {:local/root "../../components/maven"}
-        polylith/migrator                 {:local/root "../../components/migrator"}
         polylith/overview                 {:local/root "../../components/overview"}
         polylith/path-finder              {:local/root "../../components/path-finder"}
         polylith/sh                       {:local/root "../../components/sh"}
@@ -37,7 +36,7 @@
         polylith/poly-cli                 {:local/root "../../bases/poly-cli"}
 
         org.clojure/clojure {:mvn/version "1.11.1"}
-        org.slf4j/slf4j-nop {:mvn/version "2.0.11"}}
+        org.slf4j/slf4j-nop {:mvn/version "2.0.12"}}
 
  ;; so poly can be installed as a tool:
  :tools/usage {:ns-default polylith.clj.core.poly-cli.api}

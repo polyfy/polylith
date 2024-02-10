@@ -9,9 +9,9 @@
 
 (defn run-tests [user-input]
   (-> user-input
-      (ws-clj/workspace-from-disk)
-      (ws/enrich-workspace)
-      (change/with-changes)
+      ws-clj/workspace-from-disk
+      ws/enrich-workspace
+      change/with-changes
       (test-runner-orchestrator/run false "dark"))
   {:ok? true})
 

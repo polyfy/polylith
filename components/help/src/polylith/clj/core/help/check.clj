@@ -84,16 +84,12 @@
        "    defined in " (s/key ":top-namespace" cm) " in ./workspace.edn.\n"
        "    Files that are put in 'resources' or 'test-resources' are not checked.\n"
        "\n"
-       "  " (color/warning cm "Warning 206") " - Deprecated workspace.\n"
-       "    Triggered if brick and project configuration are still stored in workspace.edn\n"
-       "    instead of local config.edn files.\n"
-       "\n"
        "  " (color/warning cm "Warning 207") " - Unnecessary components were found in project.\n"
        "    Triggered if components were defined in a project that are not used by any of\n"
        "    its bricks. Development is only checked if " (s/key ":dev" cm) " is passed in and is only performed\n"
        "    by the check command (not test and info). To ignore this warning, put the component\n"
-       "    name in the " (s/key ":necessary" cm) " vector for a project in its config.edn file. See an example\n"
-       "    here: https://github.com/polyfy/polylith/blob/master/projects/poly/config.edn"))
+       "    name in the " (s/key ":necessary" cm) " vector for a project in " (s/key ":projects" cm) " in ./workspace.edn.\n"
+       "    See an example here: https://github.com/polyfy/polylith/blob/master/workspace.edn"))
 
 (defn print-help [cm]
   (-> cm help-text println))

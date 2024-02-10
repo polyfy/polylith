@@ -3,7 +3,9 @@
  :top-namespace "com.localdep"
  :interface-ns "interface"
  :default-profile-name "default"
- :config-filename "config.edn"
  :compact-views #{}
  :tag-patterns {:stable "stable-*"
-                :release "v[0-9]*"}}
+                :release "v[0-9]*"}
+ :projects {"development" {:alias "dev"}
+            "invoicing" {:alias "inv"
+                         :necessary ["datomic-ions" "without-src"]}}}

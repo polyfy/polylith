@@ -129,9 +129,10 @@
         [(fs/file sections-dir "base/cli-core.clj") (fs/file ws-dir "bases/cli/src/se/example/cli/core.clj")]))
 
 (defn project [{:keys [ws-dir sections-dir output-dir]}]
-  (sh/poly {:dir ws-dir} "create project name:command-line alias:cl")
+  (sh/poly {:dir ws-dir} "create project name:command-line")
   (output-dir-tree (fs/file ws-dir "..") "example" (fs/file output-dir "project-tree.txt"))
   (copy [(fs/file sections-dir "project/deps.edn")              ws-dir]
+        [(fs/file sections-dir "project/workspace.edn")         ws-dir]
         [(fs/file sections-dir "project/command-line-deps.edn") (fs/file ws-dir "projects/command-line/deps.edn")]))
 
 (defn polyx [{:keys [ws-dir fake-sha images-dir] :as opts}]
@@ -235,7 +236,7 @@
            :out (fs/file output-dir "testing-test-all-dev.txt")}
           "test :all :dev color-mode:none")
     (copy [(fs/file sections-dir "testing/command-line-test-setup.clj") (fs/file ws-dir "projects/command-line/test/project/command_line/test_setup.clj")]
-          [(fs/file sections-dir "testing/command-line-config.edn") (fs/file ws-dir "projects/command-line/config.edn")])
+          [(fs/file sections-dir "testing/workspace-test.edn")          (fs/file ws-dir "workspace.edn")])
     (poly {:alter-out-fn test-result->output
            :out (fs/file output-dir "testing-test-all.txt")}
           "test :all color-mode:none")))
@@ -244,7 +245,8 @@
   (let [shell (fn-default-opts sh/shell {:dir ws-dir})
         poly (fn-default-opts sh/poly {:dir ws-dir})
         opts (assoc opts :fake-sha fake-sha2)]
-    (poly "create project name:user-service alias:user-s")
+    (copy [(fs/file sections-dir "profile/workspace.edn") ws-dir])
+    (poly "create project name:user-service")
     (poly "create base name:user-api")
     (copy [(fs/file sections-dir "profile/user-api-deps.edn")     (fs/file ws-dir "bases/user-api/deps.edn")]
           [(fs/file sections-dir "profile/user-api-core.clj")     (fs/file ws-dir "bases/user-api/src/se/example/user_api/core.clj")]
@@ -346,11 +348,11 @@
         (polys opts "libs" (out-txt out-fname) (out-png "libraries" out-fname))
         (shell "git restore" deps-fname)))))
 
-(defn migrate [{:keys [ws-parent-dir output-dir]}]
+(defn read-old-ws [{:keys [ws-parent-dir output-dir]}]
   (let [ws-dir (fs/file ws-parent-dir "polylith")
         shell (fn-default-opts sh/shell {:dir ws-dir})
         poly (fn-default-opts sh/poly {:dir ws-dir})
-        out #(fs/file output-dir "migrate" %)]
+        out #(fs/file output-dir "read-old-ws" %)]
     (fs/create-dir ws-parent-dir)
     (shell {:dir ws-parent-dir} "git clone https://github.com/polyfy/polylith.git")
     ;; 1. Checkout latest workspace structure 0.x
@@ -375,14 +377,7 @@
     (shell "git clean -fdX")
     (poly {:out (out "info-2.txt")} "info fake-sha:40d2f62 :no-changes color-mode:none")
     (poly {:out (out "libs-2.txt")} "libs color-mode:none")
-    (poly {:out (out "deps-2.txt")} "deps color-mode:none")
-
-    ;; 4. Migrate from 2.x to 3.x
-    (status/line :head "Migrate from workspace structure 2.0 to 3.0")
-    (poly "migrate")
-    (poly {:out (out "info-3.txt")} "info fake-sha:40d2f62 :no-changes color-mode:none")
-    (poly {:out (out "libs-3.txt")} "libs color-mode:none")
-    (poly {:out (out "deps-3.txt")} "deps color-mode:none")))
+    (poly {:out (out "deps-2.txt")} "deps color-mode:none")))
 
 (defn usermanager [{:keys [ws-parent-dir output-dir]}]
   (let [ws-dir (fs/file ws-parent-dir "usermanager-example")
@@ -442,18 +437,7 @@
                       (out "ws.edn") ws-parent-dir (System/getProperty "user.home") sha))
         (poly {:alter-out-fn test-result->output
                :out (out "test.txt")}
-              "test :dev color-mode:none")
-
-        (status/line :head "examples/local-dep-old-format (migrated)")
-        (poly "migrate")
-        (shell "git add --all")
-        (shell "clojure -A:dev:test -P")
-        (poly {:out (out "info-migrated.txt")} "info fake-sha:aaaaa :no-changes color-mode:none")
-        (poly {:out (out "libs-migrated.txt")} "libs color-mode:none")
-        (poly {:out (out "deps-migrated.txt")} "deps color-mode:none")
-        (poly {:alter-out-fn test-result->output
-               :out (out "test-migrated.txt")}
-              "test color-mode:none :all")))))
+              "test :dev color-mode:none")))))
 
 (defn for-test [{:keys [examples-dir output-dir]}]
   (let [ws-dir (fs/file examples-dir "for-test")
@@ -523,7 +507,7 @@
 
                        ;; Stand-alone tasks (can run independently)
                        [:realworld    [["Realworld example app" #(real-world-example (merge default-opts {:ws-parent-dir (fs/file work-dir "ws2")}))]]]
-                       [:migrate      [["Migrate polylith" #(migrate (merge default-opts {:ws-parent-dir (fs/file work-dir "ws1")}))]]]
+                       [:read-old-ws  [["Read old polylith workspaces" #(read-old-ws (merge default-opts {:ws-parent-dir (fs/file work-dir "ws1")}))]]]
                        [:usermanager  [["Usermanager" #(usermanager (merge default-opts {:ws-parent-dir (fs/file work-dir "ws3")}))]]]
                        [:local-dep    [["examples/local-dep" #(example-localdep (merge default-opts {:ws-parent-dir (fs/file work-dir "ws4")}))]]]
                        [:for-test     [["examples/for-test, issue 208 - Mix clj and cljc source directories" #(for-test default-opts)]]]

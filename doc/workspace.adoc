@@ -49,7 +49,6 @@ example                # Workspace dir
 ├── components/        # Dir for poly components
 ├── deps.edn           # Config for development project
 ├── development/
-│   ├── config.edn     # Development project configuraton
 │   └── src/           # Development project sources
 ├── logo.png           # Polylith logo
 ├── projects/          # Dir for deployable projects
@@ -68,7 +67,7 @@ Each top-level directory contains a specific Polylith concept:
 
 * A xref:project.adoc[project] specifies a deployable artifact and what components and bases it contains.
 
-* The xref:development.adoc[development] project (`development/` + `deps.edn`) supports working on all code from one place. The `config.edn` file specifies the project alias ("dev").
+* The xref:development.adoc[development] project (`development/` + `deps.edn`) supports working on all code from one place.
 
 This structure gives a consistent shape to all Polylith projects.
 The familiar convention ensures that all developers, be they new or veterans, will quickly get started on Polylith systems that are new to them.
@@ -92,7 +91,8 @@ The `workspace.edn` file looks like:
  :vcs {:name "git"
        :auto-add false}
  :tag-patterns {:stable "stable-*"
-                :release "v[0-9]*"}}
+                :release "v[0-9]*"}
+ :projects {"development" {:alias "dev"}}}
 ----
 
 The `deps.edn` file:

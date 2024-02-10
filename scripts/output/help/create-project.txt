@@ -1,8 +1,7 @@
   Creates a project.
 
-  poly create project name:NAME [alias:ALIAS] [:git-add]
-    NAME  = The name of the project to create.
-    ALIAS = The alias of the project, used in different commands.
+  poly create project name:NAME [:git-add]
+    NAME = The name of the project to create.
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
                then we can pass in this flag instead, to explicitly add the
@@ -10,5 +9,4 @@
 
   Example:
     poly create project name:myproject
-    poly create project name:myproject alias:mp
     poly create project name:myproject :git-add

@@ -14,7 +14,7 @@ poly help
 
 [source,text]
 ----
-  poly 0.2.19 (2024-02-03) - https://github.com/polyfy/polylith
+  poly 0.2.19 (2024-02-10) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -26,7 +26,6 @@ poly help
     help [C] [ARG]              Shows this help or help for specified command.
     info [ARGS]                 Shows a workspace overview and checks if it's valid.
     libs [ARGS]                 Shows all libraries in the workspace.
-    migrate                     Migrates the workspace to the latest format.
     shell [ARGS]                Starts an interactive shell.
     test [ARGS]                 Runs tests.
     version                     Shows current version of the tool.
@@ -94,7 +93,6 @@ poly help
     poly create component name:admin interface:user
     poly create base name:mybase
     poly create project name:myproject
-    poly create project name:myproject alias:mp
     poly create workspace name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company branch:master :commit
@@ -163,7 +161,6 @@ poly help
     poly libs :update
     poly libs :update libraries:metosin/malli:zprint/zprint
     poly libs out:libs.txt
-    poly migrate
     poly shell
     poly shell :tap
     poly shell :all
@@ -282,16 +279,12 @@ poly help
     defined in :top-namespace in ./workspace.edn.
     Files that are put in 'resources' or 'test-resources' are not checked.
 
-  Warning 206 - Deprecated workspace.
-    Triggered if brick and project configuration are still stored in workspace.edn
-    instead of local config.edn files.
-
   Warning 207 - Unnecessary components were found in project.
     Triggered if components were defined in a project that are not used by any of
     its bricks. Development is only checked if :dev is passed in and is only performed
     by the check command (not test and info). To ignore this warning, put the component
-    name in the :necessary vector for a project in its config.edn file. See an example
-    here: https://github.com/polyfy/polylith/blob/master/projects/poly/config.edn
+    name in the :necessary vector for a project in :projects in ./workspace.edn.
+    See an example here: https://github.com/polyfy/polylith/blob/master/workspace.edn
 ----
 
 [#create]
@@ -317,7 +310,6 @@ poly help
     poly create component name:admin interface:user
     poly create base name:mybase
     poly create project name:myproject
-    poly create project name:myproject alias:mp
     poly create workspace name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company branch:master
 ----
@@ -372,9 +364,8 @@ poly help
 ----
   Creates a project.
 
-  poly create project name:NAME [alias:ALIAS] [:git-add]
-    NAME  = The name of the project to create.
-    ALIAS = The alias of the project, used in different commands.
+  poly create project name:NAME [:git-add]
+    NAME = The name of the project to create.
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
                then we can pass in this flag instead, to explicitly add the
@@ -382,7 +373,6 @@ poly help
 
   Example:
     poly create project name:myproject
-    poly create project name:myproject alias:mp
     poly create project name:myproject :git-add
 ----
 
@@ -753,7 +743,7 @@ poly help
     The 'deps.edn' config files are stored under each project, except for
     the development project that stores it at the workspace root.
 
-    Aliases are configured in each project's config.edn file.
+    Aliases are configured in :projects in ./workspace.edn.
 
     The 'status' column has three flags with different meaning:
       s--  The project has a 'src' directory, e.g.
@@ -888,7 +878,7 @@ poly help
     :update   = Updates all libraries to the latest version. If LIBS is given,
                 then only update selected libraries.
                 Old library versions can be kept by giving the library as a symbol in
-                :keep-lib-versions for bricks and projects in their config.edn files.
+                :keep-lib-versions for bricks and projects in workspace.edn.
 
     FILENAME  = The name of the text file to create, containing the
                 output from this command.
@@ -940,28 +930,6 @@ poly help
     poly libs :update libraries:metosin/malli:zprint/zprint
     poly libs out:libs.txt
     poly doc page:libraries
-----
-
-[#migrate]
-=== migrate
-
-[source,text]
-----
-  Migrates a workspace to the latest version.
-
-  poly migrate [config-filename:FILENAME]
-
-    FILENAME = The name of the file that stores configuration for projects and bricks.
-               If not given, config.edn will be used.
-
-  As of version 0.2.19, bases, components, and projects store their configuration in config.edn files.
-  This command will move configuration from the :bricks and :projects keys in workspace.edn
-  to corresponding config.edn files.
-
-  Example:
-    poly migrate
-    poly migrate config-filename:entity.edn
-
 ----
 
 [#overview]

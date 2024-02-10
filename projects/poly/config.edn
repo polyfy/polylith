@@ -1,3 +1,0 @@
-{:alias "poly"
- :test {:setup-fn project.poly.hto/activate!}
- :necessary ["api" "clojure-test-test-runner"]}

@@ -24,12 +24,12 @@
 
 (deftest validate-project-deployable-config--valid-config--returns-nil
   (is (= nil
-         (toolsdeps1/validate-project-deployable-deps-config config "deps.edn"))))
+         (toolsdeps1/validate-project-deployable-config config "deps.edn"))))
 
 (deftest validate-project-deployable-config--valid-config-withoug-deps--returns-nil
   (is (= nil
-         (toolsdeps1/validate-project-deployable-deps-config (dissoc config :deps) "deps.edn"))))
+         (toolsdeps1/validate-project-deployable-config (dissoc config :deps) "deps.edn"))))
 
 (deftest validate-project-deployable-config--invalid-nop-namespace--returns-error-message
   (is (= "Validation error in deps.edn: {:aliases {:test [\"invalid type\"]}}"
-         (toolsdeps1/validate-project-deployable-deps-config (assoc-in config [:aliases :test] 1) "deps.edn"))))
+         (toolsdeps1/validate-project-deployable-config (assoc-in config [:aliases :test] 1) "deps.edn"))))

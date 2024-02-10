@@ -24,7 +24,7 @@
   [path]
   (or
     (find-root-dir path "workspace.edn" config-reader/read-workspace-config-file)
-    (find-root-dir path "deps.edn" config-reader/read-development-config-files)
+    (find-root-dir path "deps.edn" config-reader/read-development-deps-config-file)
     (println "  Couldn't find a valid workspace root config file.")))
 
 (defn workspace-dir [{:keys [ws-dir is-search-for-ws-dir]}]

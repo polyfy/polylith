@@ -1,0 +1,11 @@
+{:aliases  {:dev {:extra-paths ["development/src"]
+
+                  :extra-deps {poly/mycomp {:local/root "components/mycomp"}
+                               poly/mybase {:local/root "bases/mybase"}
+
+                               org.clojure/clojure {:mvn/version "1.11.1"}}}
+
+            :test {:extra-paths []}
+
+            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                   :extra-deps {polylith/clj-poly {:local/root "../../projects/poly"}}}}}

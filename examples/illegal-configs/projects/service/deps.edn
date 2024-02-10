@@ -1,5 +1,5 @@
-{:deps {org.clojure/clojure {:mvn/version "1.10.1"}
-        org.clojure/tools.deps {:mvn/version "0.16.1264"}
+{:deps {org.clojure/clojure {:mvn/version "1.11.1"}
+        org.clojure/tools.deps {:mvn/version "0.18.1398"}
         poly/util {:local/root "../../components/util"}}
 
  :aliases {:test {:extra-paths []

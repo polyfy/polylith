@@ -22,6 +22,7 @@ expected: (= 1 2)
 Ran 1 tests containing 1 assertions.
 1 failures, 0 errors.
 Running test teardown for the failing-test-teardown-fails project: project.failing-test-teardown-fails.test-setup/teardown
+===================== teardown =======================
 
 Test teardown failed: java.lang.Exception: Teardown failed for project: failing-test-teardown-fails
 

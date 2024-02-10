@@ -1,0 +1,54 @@
+  stable since: 40d2f62                                                           
+                                                                                  
+  projects: 3   interfaces: 35                                                    
+  bases:    2   components: 37                                                    
+                                                                                  
+  active profiles: default                                                        
+                                                                                  
+  project      alias  status   dev  extended                                      
+  --------------------------   -------------                                      
+  poly         poly    -t-     -t-     --                                         
+  polyx        polyx   ---     ---     --                                         
+  development  dev     s--     s--     --                                         
+                                                                                  
+  interface                 brick                      poly  polyx   dev  extended
+  --------------------------------------------------   -----------   -------------
+  antq                      antq                       s--    s--    s--     --   
+  api                       api                        s--    ---    s--     --   
+  change                    change                     st-    s--    st-     --   
+  clojure-test-test-runner  clojure-test-test-runner   st-    s--    st-     --   
+  command                   command                    st-    s--    st-     --   
+  common                    common                     st-    s--    st-     --   
+  config-reader             config-reader              st-    s--    st-     --   
+  creator                   creator                    st-    s--    st-     --   
+  deps                      deps                       st-    s--    st-     --   
+  doc                       doc                        s--    s--    s--     --   
+  file                      file                       s--    s--    s--     --   
+  git                       git                        st-    s--    st-     --   
+  help                      help                       s--    s--    s--     --   
+  image-creator             image-creator              s--    ---    s--     --   
+  image-creator             image-creator-x            ---    s--    ---     s-   
+  lib                       lib                        st-    s--    st-     --   
+  migrator                  migrator                   s--    s--    s--     --   
+  overview                  overview                   s--    s--    s--     --   
+  path-finder               path-finder                st-    s--    st-     --   
+  sh                        sh                         s--    s--    s--     --   
+  shell                     shell                      st-    s--    st-     --   
+  system                    system                     s--    ---    s--     --   
+  system                    system-x                   ---    s--    ---     s-   
+  tap                       tap                        s--    s--    s--     --   
+  test-helper               test-helper                -t-    ---    s--     --   
+  test-runner-contract      test-runner-contract       st-    s--    st-     --   
+  test-runner-orchestrator  test-runner-orchestrator   st-    s--    st-     --   
+  text-table                text-table                 s--    s--    s--     --   
+  user-config               user-config                s--    s--    s--     --   
+  user-input                user-input                 st-    s--    st-     --   
+  util                      util                       st-    s--    st-     --   
+  validator                 validator                  st-    s--    st-     --   
+  version                   version                    s--    s--    s--     --   
+  workspace                 workspace                  st-    s--    st-     --   
+  workspace-clj             workspace-clj              st-    s--    st-     --   
+  ws-explorer               ws-explorer                st-    s--    st-     --   
+  ws-file                   ws-file                    s--    s--    s--     --   
+  -                         nav-generator              s--    ---    s--     --   
+  -                         poly-cli                   st-    s--    st-     --   

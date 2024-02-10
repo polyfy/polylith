@@ -18,7 +18,6 @@
    "doc" []
    "info" []
    "libs" []
-   "migrate" []
    "overview" []
    "shell" []
    "switch-ws" []

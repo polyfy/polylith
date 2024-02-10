@@ -631,13 +631,15 @@ You need to keep two things in mind:
 * Make sure your functions are accessible (in this case, from the `command-line` project)
 * Make sure the functions take exactly one argument, the project name
 
-Specify your new functions in `./projects/command-line/config.edn`:
+Specify your new functions in `./workspace.edn` for the `command-line` project:
 
 [source,clojure]
 ----
-{:alias "cl"
- :test {:setup-fn project.command-line.test-setup/setup
-        :teardown-fn project.command-line.test-setup/teardown}}
+ ...
+ :projects {"development" {:alias "dev"}
+            "command-line" {:alias "cl"
+                            :test {:setup-fn project.command-line.test-setup/setup
+                                   :teardown-fn project.command-line.test-setup/teardown}}}}
 ----
 
 TIP: In practice, if you don't need a `:teardown-fn`, you can omit it.
@@ -703,21 +705,17 @@ Nice, it worked!
 [[include-exclude]]
 == Include and Exclude Bricks by Configuration
 
-There is a way to restrict what tests to run for a project by giving a list of bricks to include and/or exclude in the project's config.edn file, e.g.:
+There is a way to restrict what tests to run for a project by giving a list of bricks to include and/or exclude in `workspace.edn`, e.g.:
 
 [#include-exclude]
-../projects/mytool/config.edn
 [source,clojure]
 ----
-{:alias "t"
- :test {:include []}}
-----
-
-../projects/myservice/config.edn
-[source,clojure]
-----
-{:alias "s"
- :test {:exclude ["cli" "user"]}}
+{...
+ :projects {"mytool" {:alias "t"
+                      :test {:include []}}
+            "myservice" {:alias "s"
+                         :test {:exclude ["cli" "user"]}}
+            ...
 ----
 
 This configuration tells `poly` to include no brick tests for project `mytool` and exclude `cli` and `user` brick tests for project `myservice`.
@@ -725,24 +723,15 @@ This configuration tells `poly` to include no brick tests for project `mytool` a
 TIP: The `:include` keyword is optional and assumed.
 
 You may wonder when this could be useful.
-A good example is the polylith codebase itself, where the `dev`, `poly`, `polyx` projects are configured like this:
+A good example is the polylith codebase itself, where the `workspace.edn` looks similar to this:
 
-../projects/poly/config.edn
 [source,clojure]
 ----
-{:alias "poly"} ;; <1>
-----
-
-../projects/polyx/config.edn
-[source,clojure]
-----
-{:alias "polyx" :test []} ;; <2>
-----
-
-../development/config.edn
-[source,clojure]
-----
-{:alias "dev"} ;; <3>
+...
+  :projects {"poly" {:alias "poly"} ;; <1>
+             "polyx" {:alias "polyx" :test []} ;; <2>
+             "development" {:alias "dev"} ;; <3>
+             ...
 ----
 <1> all brick tests for deployable projects are included by default
 <2> all brick tests excluded via `:test []`

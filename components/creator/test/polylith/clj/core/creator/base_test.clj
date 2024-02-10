@@ -50,7 +50,6 @@
              "components/.keep"
              "deps.edn"
              "development"
-             "development/config.edn"
              "development/src"
              "development/src/.keep"
              "logo.png"

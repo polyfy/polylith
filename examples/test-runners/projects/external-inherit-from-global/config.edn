@@ -1,4 +1,0 @@
-{:alias "inherit"
- :necessary ["invoicer" "test-setup"]
- :test {:setup-fn se.external.test-setup.interface/setup
-        :create-test-runner [org.corfield.external-test-runner.interface/create]}}

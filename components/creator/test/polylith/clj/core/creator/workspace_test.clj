@@ -29,7 +29,6 @@
              "components/.keep"
              "deps.edn"
              "development"
-             "development/config.edn"
              "development/src"
              "development/src/.keep"
              "logo.png"
@@ -47,7 +46,6 @@
              "ws2/components/.keep"
              "ws2/deps.edn"
              "ws2/development"
-             "ws2/development/config.edn"
              "ws2/development/src"
              "ws2/development/src/.keep"
              "ws2/logo.png"
@@ -86,7 +84,6 @@
              "components/.keep"
              "deps.edn"
              "development"
-             "development/config.edn"
              "development/src"
              "development/src/.keep"
              "logo.png"
@@ -138,12 +135,12 @@
     (is (= ["{:top-namespace \"se.example\""
             " :interface-ns \"interface\""
             " :default-profile-name \"default\""
-            " :config-filename \"config.edn\""
             " :compact-views #{}"
             " :vcs {:name \"git\""
             "       :auto-add false}"
             " :tag-patterns {:stable \"stable-*\""
-            "                :release \"v[0-9]*\"}}"]
+            "                :release \"v[0-9]*\"}"
+            " :projects {\"development\" {:alias \"dev\"}}}"]
            (helper/content "ws1" "workspace.edn")))
 
     ;; no env vars checked in helper so use defaul XDG location:
