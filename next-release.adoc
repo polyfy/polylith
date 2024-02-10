@@ -41,6 +41,8 @@ its own deps.edn file (produced by https://github.com/polyfy/polylith/releases/t
 
 || Added a https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/shell#refresh-ws[tip] on how to refresh your workspace from a shell.
 
+|| Added a note that https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/shell#read-old-workspace[old workspaces] can be read by the tool (both from an exported file and from disk).
+
 || Fixed three broken images on the Testing page.
 |===
 
@@ -50,9 +52,9 @@ its own deps.edn file (produced by https://github.com/polyfy/polylith/releases/t
 
 | https://github.com/polyfy/polylith/pull/426[426]
 | Sean Corfield
-| Link to affected 3rd party test runners in docstring
+| Link to affected 3rd party test runners in docstring.
 
 | https://github.com/polyfy/polylith/pull/427[427]
 | Sean Corfield
-| Restore global test configuration
+| Restore global test configuration.
 |===
