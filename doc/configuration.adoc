@@ -92,7 +92,7 @@ The workspace map keys are:
 
 a| `:bricks`
 a| Brick-specific configuration where the map key is the brick name.
-Specify `:keep-lib-versions` to tell `libs :update` to xref:libraries.adoc#update-skip[skip specified libraries]. +
+Specify `:keep-lib-versions` to tell `libs :update` to xref:libraries.adoc#keep-lib-versions[skip specified libraries]. +
 *Default:* absent, effectively `{}`
 
 a| `:compact-view`
@@ -171,7 +171,7 @@ You can use the alias instead of the full project name for various `poly` comman
 If not specified, the xref:commands.adoc#info[info] and xref:commands.adoc[libs] commands emit a `?` followed by a number (e.g. `?1`) for project column headings.
 
 a| [nowrap]`:keep-lib-versions`
-a| Tells `libs :update` to xref:libraries.adoc#update-skip[skip specified libraries] for the project.
+a| Tells `libs :update` to xref:libraries.adoc#keep-lib-versions[skip specified libraries] for the project.
 
 a| [nowrap]`:necessary`
 a| Supports turning off `Warning 207` for one or more bricks.

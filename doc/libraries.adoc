@@ -51,7 +51,7 @@ clojure -A:dev:test -P
 
 [#compact-view]
 If your workspace has many bricks, you may prefer a more compact report format.
-You can either set `:compact-views` to `#{"libs"}` in your xref:workspace.adoc#workspace.edn [workspace.edn] or specify the `:compact` argument:
+You can either set `:compact-views` to `#{"libs"}` in your xref:workspace.adoc#workspace-edn[workspace.edn] or specify the `:compact` argument:
 
 [source,shell]
 ----
@@ -190,7 +190,7 @@ The `poly` tool understands that when a `:local/root` path starts with:
 * `../../bases/` or `../../components/` for deployable projects
 * or `bases/` or `components/` for the development project
 
-that it is a `poly` brick xref:depencencies.adoc[dependency]; otherwise, it is considered a 3rd-party library dependency.
+that it is a `poly` brick xref:dependencies.adoc[dependency]; otherwise, it is considered a 3rd-party library dependency.
 
 ==== Differences from Tools.deps
 
