@@ -6,6 +6,8 @@
 |===
 | Issue | Description
 
+|| If you use a https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/test-runners[test runner] other than the built-in one, make sure to use at least 0.8.4 of the Kaocha test runner, and 0.4.0 of the External test runner.
+
 | https://github.com/polyfy/polylith/issues/315[315]
 | Moved `:change:project-to-*` keys to `:projects:PROJECT:*`, and `:settings:profile-to-settings` to `:profiles`, in the workspace structure + some other changes, documented https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/versions[here].
 This clean up of the workspace structure was introduced to simplify future maintenance.
