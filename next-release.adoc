@@ -15,7 +15,7 @@ We decided to skip the idea of storing project and brick configuration in separe
 | https://github.com/polyfy/polylith/issues/432[432]
 | Update Edamame dependency to 1.4.25, to make it work with Clojure 1.12 Alpha 7.
 
-|| `check` and `test` has been added to the https://clojars.org/polylith/clj-poly[clj-poly] API.
+|| Added `check`, `test`, and `test/brick-names-to-test` functions to the https://clojars.org/polylith/clj-poly[clj-poly] API.
 
 || Reintroduced the global `:test` key in `:settings` in the workspace structure (taken from workspace.edn), see https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/versions[versions].
 
