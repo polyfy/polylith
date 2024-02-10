@@ -150,6 +150,9 @@ You can go back to the `example` workspace by invoking `switch-ws` without argum
 
 image::images/shell/shell-switch-ws.png[width=600]
 
+[[refresh-ws]]
+If you invoke `switch-ws` again when you are already on the root, this will read the workspace from disk again, which can be useful in some situations.
+
 === Switching to an Exported Workspace
 
 You can switch to an exported workspace.
