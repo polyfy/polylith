@@ -39,6 +39,8 @@ its own deps.edn file (produced by https://github.com/polyfy/polylith/releases/t
 
 || Prints a deprecation message if `::` is used (that looks up the workspace root).
 
+|| Added a https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/shell#refresh-ws[tip] on how to refresh your workspace from a shell.
+
 || Fixed three broken images on the Testing page.
 |===
 
