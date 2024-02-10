@@ -9,7 +9,7 @@
 | https://github.com/polyfy/polylith/issues/315[315]
 | Moved `:change:project-to-*` keys to `:projects:PROJECT:*`, and `:settings:profile-to-settings` to `:profiles`, in the workspace structure + some other changes, documented https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/versions[here].
 This clean up of the workspace structure was introduced to simplify future maintenance.
-It unfortunately broke the Test Runner contract, but will make it easier to implement test runners in the future.
+It unfortunately broke the Test Runner contract, but will make it easier to implement test runners in the future, because of the simplified structure (project related test config now lives in each project).
 We decided to skip the idea of storing project and brick configuration in separeate files (they can still be found in `:projects` and `:bricks` in `workspace.edn`).
 
 | https://github.com/polyfy/polylith/issues/432[432]
