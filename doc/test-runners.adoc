@@ -100,7 +100,7 @@ An ideal place to do this is the `:poly` alias in your `./deps.edn` file:
     {:git/tag "v0.8.4" :git/sha "f096de8"}
 ----
 <1> We've added xref:#sean-external-test-runner[Sean Corfield's external test runner], as one example
-<2> And xref:#imre-kaocha-test-runner[Imre Imre Kószó's Kaocha test runner] as another example. Don't forget to configure the kaocha-wrapper at the project level, see the documentation or https://github.com/polyfy/polylith/tree/prepare-0219/examples/test-runners[this] example project.
+<2> And xref:#imre-kaocha-test-runner[Imre Imre Kószó's Kaocha test runner] as another example. Don't forget to configure the kaocha-wrapper at the project level, see the documentation or https://github.com/polyfy/polylith/tree/master/examples/test-runners[this] example project.
 
 TIP: You can also have your custom test runner within the same Polylith workspace and depend on it via `:local/root`.
 
