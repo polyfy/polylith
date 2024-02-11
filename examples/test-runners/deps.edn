@@ -7,6 +7,7 @@
 
             :test {:extra-paths ["components/invoicer/test"]
                    :extra-deps {polylith-kaocha/kaocha-wrapper
+                                ;{:local/root "../../../sandbox/polylith-kaocha/projects/kaocha-wrapper"}
                                 {:git/url "https://github.com/imrekoszo/polylith-kaocha"
                                  :git/tag "v0.8.4"
                                  :git/sha "f096de8"
@@ -14,6 +15,7 @@
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polylith-kaocha/test-runner
+                                ;{:local/root "../../../sandbox/polylith-kaocha/projects/test-runner"}
                                 {:git/url "https://github.com/imrekoszo/polylith-kaocha"
                                  :git/tag "v0.8.4"
                                  :git/sha "f096de8"

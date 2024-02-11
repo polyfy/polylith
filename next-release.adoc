@@ -6,18 +6,18 @@
 |===
 | Issue | Description
 
-|| If you use a https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/test-runners[test runner] other than the built-in one, make sure to use at least 0.8.4 of the Kaocha test runner, and 0.4.0 of the External test runner.
-
 | https://github.com/polyfy/polylith/issues/315[315]
 | Moved `:change:project-to-*` keys to `:projects:PROJECT:*`, and `:settings:profile-to-settings` to `:profiles`, in the workspace structure + some other changes, documented https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/versions[here].
 This clean up of the workspace structure was introduced to simplify future maintenance.
-It unfortunately broke the Test Runner contract, but will make it easier to implement test runners in the future (because of the simplified structure, where project related test config now lives in each project).
-We decided to skip the idea of storing project and brick configuration in separeate files because it made it harder to edit it and get an overview (they can still be found in `:projects` and `:bricks` in `workspace.edn`).
+It unfortunately broke the Test Runner contract (tests has been added, so this hopefully will not happen again). The improved inner workspace structure will make it easier to implement test runners in the future .
+We decided to skip the idea of storing project and brick configuration in separate files because it made it harder to edit it and get an overview (they can still be found in `:projects` and `:bricks` in `workspace.edn`).
 
 | https://github.com/polyfy/polylith/issues/432[432]
 | Update Edamame dependency to 1.4.25, to make it work with Clojure 1.12 Alpha 7.
 
-|| Added `check`, `test`, and `test/brick-names-to-test` functions to the https://clojars.org/polylith/clj-poly[clj-poly] API.
+|| If you use a https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/test-runners[test runner] other than the built-in one, make sure to use at least 0.8.4 of the Kaocha test runner, and 0.4.0 of the External test runner.
+
+|| Added `check` and `test` functions to the https://clojars.org/polylith/clj-poly[clj-poly] API.
 
 || Reintroduced the global `:test` key in `:settings` in the workspace structure (taken from workspace.edn), see https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/versions[versions].
 
