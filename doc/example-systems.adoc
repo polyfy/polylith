@@ -19,7 +19,7 @@ https://github.com/seancorfield[Sean Corfield] has made a full-blown https://git
 
 == Demo Rama Electric
 
-image::images/example-systems/user-manager.png[link="images/example-systems/demo-rama-electric.png"]
+image::images/example-systems/demo-rama-electric.png[link="images/example-systems/demo-rama-electric.png"]
 
 https://github.com/jeans11[Jean Boudet] has made a https://github.com/jeans11/demo-rama-electric[demo web app] to show the use of Rama and Electric together.
 
