@@ -34,7 +34,7 @@ Pull requests:
 | Restore global test configuration.
 |===
 
-Other changes:
+Other:
 
 |===
 | Description
@@ -70,6 +70,8 @@ Documentation:
 |===
 |Description
 
+| Converted next-release.txt to https://asciidoc.org[AsciiDoc].
+
 | Fixed three broken images on the https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/testing[Testing] page.
 
 | Show snapshot number, e.g. `0.2.19-SNAPSHOT #7` for the badge at the top of the https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/readme[start page] for snapshot releases.
@@ -79,6 +81,8 @@ Documentation:
 | Added a https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/shell#refresh-ws[tip] on how to refresh your workspace from a shell.
 
 | Added a note that https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/shell#read-old-workspace[old workspaces] can be read by the tool (both from an exported file and from disk).
+
+| Added https://medium.com/qantas-engineering-blog/leveraging-polylith-to-improve-consistency-reduce-complexity-and-increase-changeability-2031dd3d5f3d[Leveraging Polylith to improve consistency, reduce complexity and increase changeability] to the list of https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/doc#_blog_posts[blog posts]. These can also be accessed by the doc command.
 
 | Added https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/example-systems#_demo_rama_electric[Demo Rama Electric] to the list of example systems.
 

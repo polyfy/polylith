@@ -234,6 +234,7 @@ understanding-polylith-through-the-lens-of-hexagonal-architecture
 |===
 | Blog post | What | Published
 
+[[leveraging-polylith]]
 | https://medium.com/qantas-engineering-blog/leveraging-polylith-to-improve-consistency-reduce-complexity-and-increase-changeability-2031dd3d5f3d[leveraging-polylith-to-improve-consistency-reduce-complexity-and-increase-changeability]
 | https://github.com/xlfe[Felix Barbalet] explains how Poilylith helps reduce complexity in an existing production system.
 | 2024
