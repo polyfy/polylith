@@ -2,8 +2,6 @@
 
 == Included in 0.2.19-SNAPSHOT
 
-Issues:
-
 [cols="10,100"]
 |===
 | Issue | Description
@@ -16,10 +14,7 @@ We decided to skip the idea of storing project and brick configuration in separa
 
 | https://github.com/polyfy/polylith/issues/432[432]
 | Update Edamame dependency to 1.4.25, to make it work with Clojure 1.12 Alpha 7.
-
 |===
-
-Pull requests:
 
 [cols="10,20,100"]
 |===
@@ -34,10 +29,8 @@ Pull requests:
 | Restore global test configuration.
 |===
 
-Other:
-
 |===
-| Description
+| Other changes
 
 | If you use a https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/test-runners[test runner] other than the built-in one, make sure to use at least 0.8.4 of the Kaocha test runner, and 0.4.0 of the External test runner.
 
@@ -62,15 +55,12 @@ its own deps.edn file (created by https://github.com/polyfy/polylith/releases/ta
 | Print a deprecation message if `::` is used (that looks up the workspace root). This feature will be removed in the future, and the reason is that it's no longer needed since we introduced the https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/shell[shell] command.
 
 | Make sure we can create a workspace, even if it exists a non-polylith deps.edn file at the root.
-
 |===
 
-Documentation:
-
 |===
-|Description
+| Doc updates
 
-| Converted next-release.txt to https://asciidoc.org[AsciiDoc].
+| Converted this documentation from next-release.txt to https://asciidoc.org[AsciiDoc].
 
 | Fixed three broken images on the https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/testing[Testing] page.
 
