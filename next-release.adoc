@@ -66,11 +66,11 @@ its own deps.edn file (created by https://github.com/polyfy/polylith/releases/ta
 
 | Show snapshot number, e.g. `0.2.19-SNAPSHOT #7` for the badge at the top of the https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/readme[start page] for snapshot releases.
 
-| Added a https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/component#expose-code-outside-workspace[warning] in the documentation that you should use a more unique prefix (lib name) for your bricks in project `deps.edn` files, if the code is exposed outside the workspace, e.g. as a library. Thanks https://github.com/imrekoszo[Imre Kószó] for pointing this out!
+| Added a https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/component#expose-code-outside-workspace[warning] that you should use a more unique prefix (lib name) for your bricks in project `deps.edn` files, if the code is exposed outside the workspace, e.g. as a library. Thanks https://github.com/imrekoszo[Imre Kószó] for pointing this out!
 
 | Added a https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/shell#refresh-ws[tip] on how to refresh your workspace from a shell.
 
-| Added a note that https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/shell#read-old-workspace[old workspaces] can be read by the tool (both from an exported file and from disk).
+| Added a note that https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/shell#read-old-workspace[old workspaces] can be read by the tool (both from exported files and from disk).
 
 | Added https://medium.com/qantas-engineering-blog/leveraging-polylith-to-improve-consistency-reduce-complexity-and-increase-changeability-2031dd3d5f3d[Leveraging Polylith to improve consistency, reduce complexity and increase changeability] to the list of https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/doc#_blog_posts[blog posts]. These can also be accessed by the doc command.
 
