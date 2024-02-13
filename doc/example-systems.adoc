@@ -17,6 +17,12 @@ image::images/example-systems/user-manager.png[link="images/example-systems/user
 
 https://github.com/seancorfield[Sean Corfield] has made a full-blown https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager] web application, which can be compared with non-Polylith systems living in other branches of the repository.
 
+== Demo Rama Electric
+
+image::images/example-systems/user-manager.png[link="images/example-systems/demo-rama-electric.png"]
+
+https://github.com/jeans11[Jean Boudet] has made a https://github.com/jeans11/demo-rama-electric[demo web app] to show the use of Rama and Electric together.
+
 == Game of Life
 
 image::images/example-systems/game-of-life.png[link="images/example-systems/game-of-life.png"]
