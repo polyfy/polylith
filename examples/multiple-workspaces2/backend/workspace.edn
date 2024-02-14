@@ -6,4 +6,5 @@
  :vcs {:name "git"
        :auto-add false}
  :tag-patterns {:stable "stable-*"
-                :release "v[0-9]*"}}
+                :release "v[0-9]*"}
+ :project {"development" {:alias "dev"}}}

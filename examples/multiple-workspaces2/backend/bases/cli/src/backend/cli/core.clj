@@ -3,7 +3,7 @@
   (:gen-class))
 
 (defn -main [& args]
-  (greeter/hello (first args)))
+  (greeter/greeting (first args)))
 
 (comment
   (-main "James")

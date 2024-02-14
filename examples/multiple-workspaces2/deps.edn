@@ -1,7 +1,7 @@
-{:aliases  {:dev {:extra-paths ["backend/development/src"]
+{:aliases  {:dev {:extra-paths ["development/src"]
 
-                  :extra-deps {root/base   {:local/root "backend"}
-                               root/shared {:local/root "shared"}
+                  :extra-deps {backend/base   {:local/root "bases/cli"}
+                               shared/shared {:local/root "shared"}
 
                                org.clojure/clojure {:mvn/version "1.11.1"}}}
 
