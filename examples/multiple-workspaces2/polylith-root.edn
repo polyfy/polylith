@@ -1,0 +1,4 @@
+{:workspaces [{:path "backend"
+               :alias "b"}
+              {:path "shared"
+               :alias "s"}]}
