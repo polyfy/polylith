@@ -4,5 +4,5 @@
 
 (deftest hello-test
   (let [message (with-out-str
-                  (greeter/hello "James"))]
+                  (greeter/greeting "James"))]
     (is (= message "Hello James!\n"))))

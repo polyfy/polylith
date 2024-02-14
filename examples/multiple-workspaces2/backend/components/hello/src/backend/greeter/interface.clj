@@ -1,4 +1,4 @@
 (ns backend.greeter.interface)
 
-(defn hello [name]
+(defn greeting [name]
   (println (str "Hello " name "!")))
