@@ -7,4 +7,7 @@
        :auto-add false}
  :tag-patterns {:stable "stable-*"
                 :release "v[0-9]*"}
- :project {"development" {:alias "dev"}}}
+ :projects {"development" {:alias "dev"}}
+ :workspaces {"shared" {:alias "s"
+                        :path "../shared"
+                        :languages ["clj"]}}}
