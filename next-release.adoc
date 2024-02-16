@@ -1,6 +1,6 @@
 
 
-== Included in 0.2.19-SNAPSHOT
+== Included since 0.2.18
 
 [cols="10,100"]
 |===
