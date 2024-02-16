@@ -860,14 +860,13 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.19-SNAPSHOT",
+  {:name "0.2.19",
    :tool "poly",
    :major 0,
    :minor 2,
    :patch 19,
-   :revision "SNAPSHOT",
-   :date "2024-02-10",
-   :snapshot 7},
+   :revision "",
+   :date "2024-02-16"},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
   :ws {:breaking 3, :non-breaking 0},
