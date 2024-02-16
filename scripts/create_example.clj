@@ -373,7 +373,7 @@
 
     ;; 3. Checkout latest workspace structure 2.x
     (status/line :head "Read workspace 2.0")
-    (shell "git checkout v0.2.18")
+    (shell "git checkout v0.2.19")
     (shell "git clean -fdX")
     (poly {:out (out "info-2.txt")} "info fake-sha:40d2f62 :no-changes color-mode:none")
     (poly {:out (out "libs-2.txt")} "libs color-mode:none")
