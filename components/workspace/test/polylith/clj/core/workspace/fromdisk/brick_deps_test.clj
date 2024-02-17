@@ -1,6 +1,6 @@
-(ns polylith.clj.core.workspace-clj.brick-deps-test
+(ns polylith.clj.core.workspace.fromdisk.brick-deps-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.workspace-clj.brick-deps :as brick-deps]))
+            [polylith.clj.core.workspace.fromdisk.brick-deps :as brick-deps]))
 
 (deftest is-dev-component-project
   (is (= false

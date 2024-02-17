@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.workspace-clj.profile
+(ns ^:no-doc polylith.clj.core.workspace.fromdisk.profile
   (:require [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.deps.interface :as deps]
@@ -8,7 +8,7 @@
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.select :as select]
             [polylith.clj.core.util.interface.str :as str-util]
-            [polylith.clj.core.workspace-clj.brick-deps :as brick-deps]))
+            [polylith.clj.core.workspace.fromdisk.brick-deps :as brick-deps]))
 
 (defn brick-name [[_ {:keys [local/root]}]]
   (when root

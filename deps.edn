@@ -34,7 +34,6 @@
                                poly/validator                {:local/root "components/validator"}
                                poly/version                  {:local/root "components/version"}
                                poly/workspace                {:local/root "components/workspace"}
-                               poly/workspace-clj            {:local/root "components/workspace-clj"}
                                poly/ws-explorer              {:local/root "components/ws-explorer"}
                                poly/ws-file                  {:local/root "components/ws-file"}
                                poly/nav-generator            {:local/root "bases/nav-generator"}

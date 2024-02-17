@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.workspace-clj.ws-reader)
+(ns ^:no-doc polylith.clj.core.workspace.fromdisk.ws-reader)
 
 (def reader
   {:name "polylith-clj"

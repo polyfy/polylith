@@ -1,12 +1,12 @@
-(ns ^:no-doc polylith.clj.core.workspace-clj.bases-from-disk
+(ns ^:no-doc polylith.clj.core.workspace.fromdisk.bases-from-disk
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.common.interface.config :as config]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.workspace-clj.brick-dirs :as brick-dirs]
-            [polylith.clj.core.workspace-clj.brick-paths :as brick-paths]
-            [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]
-            [polylith.clj.core.workspace-clj.non-top-namespace :as non-top-ns]))
+            [polylith.clj.core.workspace.fromdisk.brick-dirs :as brick-dirs]
+            [polylith.clj.core.workspace.fromdisk.brick-paths :as brick-paths]
+            [polylith.clj.core.workspace.fromdisk.namespaces-from-disk :as ns-from-disk]
+            [polylith.clj.core.workspace.fromdisk.non-top-namespace :as non-top-ns]))
 
 (defn read-base [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns brick->settings config]
   (let [deps-config (:deps config)

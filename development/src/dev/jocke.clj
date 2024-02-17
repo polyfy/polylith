@@ -6,7 +6,7 @@
             [clojure.tools.deps :as tools-deps]
             [polylith.clj.core.api.interface :as api]
             [polylith.clj.core.sh.interface :as sh]
-            [polylith.clj.core.workspace.interface :as ws]
+            [polylith.clj.core.workspace.interface :as workspace]
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.command.interface :as command]
             [polylith.clj.core.git.interface :as git]
@@ -14,7 +14,6 @@
             [polylith.clj.core.command.info :as info]
             [polylith.clj.core.validator.m207-unnecessary-components-in-project :as validator207]
             [polylith.clj.core.path-finder.interface.extract :as extract]
-            [polylith.clj.core.workspace-clj.interface :as ws-clj]
             [polylith.clj.core.ws-explorer.interface :as ws-explorer]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.file.interface :as file]
@@ -50,9 +49,7 @@
                    ;(dev-common/dir "../clojure-polylith-realworld-example-app")
                    ;(dev-common/dir "../sandbox/polylith218")
                    ;(dev-common/dir "../usermanager-example")
-                   ws-clj/workspace-from-disk
-                   ws/enrich-workspace
-                   change/with-changes))
+                   workspace/workspace))
 
 (:messages workspace)
 (:configs workspace)

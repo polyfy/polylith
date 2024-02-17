@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.workspace-clj.ws-config
+(ns ^:no-doc polylith.clj.core.workspace.fromdisk.ws-config
   (:require [polylith.clj.core.config-reader.interface :as config-reader]))
 
 (defn ws-config-from-disk [ws-dir]

@@ -19,7 +19,6 @@
             [polylith.clj.core.tap.interface :as tap]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.version.interface :as ver]
-            [polylith.clj.core.workspace-clj.interface :as ws-clj]
             [polylith.clj.core.workspace.interface :as workspace]
             [polylith.clj.core.ws-file.interface :as ws-file]
             [polylith.clj.core.ws-explorer.interface :as ws-explorer])
@@ -41,10 +40,7 @@
 (defn read-workspace [ws-file user-input]
   (if ws-file
     (ws-file/read-ws-from-file ws-file user-input)
-    (-> user-input
-        ws-clj/workspace-from-disk
-        workspace/enrich-workspace
-        change/with-changes)))
+    (workspace/workspace user-input)))
 
 (defn workspace-reader-fn []
   (fn [user-input ws-file]

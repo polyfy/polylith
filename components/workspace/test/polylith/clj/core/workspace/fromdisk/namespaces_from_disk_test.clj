@@ -1,7 +1,7 @@
-(ns polylith.clj.core.workspace-clj.namespaces-from-disk-test
+(ns polylith.clj.core.workspace.fromdisk.namespaces-from-disk-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.file.interface :as file]
-            [polylith.clj.core.workspace-clj.namespaces-from-disk :as from-disk]))
+            [polylith.clj.core.workspace.fromdisk.namespaces-from-disk :as from-disk]))
 
 (def suffixed-top-ns "polylith.clj.core.")
 (def interface-ns "interface")

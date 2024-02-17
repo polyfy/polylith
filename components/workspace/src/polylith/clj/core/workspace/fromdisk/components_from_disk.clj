@@ -1,14 +1,14 @@
-(ns ^:no-doc polylith.clj.core.workspace-clj.components-from-disk
+(ns ^:no-doc polylith.clj.core.workspace.fromdisk.components-from-disk
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.common.interface.config :as config]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.workspace-clj.brick-dirs :as brick-dirs]
-            [polylith.clj.core.workspace-clj.brick-paths :as brick-paths]
-            [polylith.clj.core.workspace-clj.non-top-namespace :as non-top-ns]
-            [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]
-            [polylith.clj.core.workspace-clj.interface-defs-from-disk :as defs-from-disk]))
+            [polylith.clj.core.workspace.fromdisk.brick-dirs :as brick-dirs]
+            [polylith.clj.core.workspace.fromdisk.brick-paths :as brick-paths]
+            [polylith.clj.core.workspace.fromdisk.non-top-namespace :as non-top-ns]
+            [polylith.clj.core.workspace.fromdisk.namespaces-from-disk :as ns-from-disk]
+            [polylith.clj.core.workspace.fromdisk.interface-defs-from-disk :as defs-from-disk]))
 
 (defn read-component [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns brick->settings config]
   (let [deps-config (:deps config)

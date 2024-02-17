@@ -1,13 +1,12 @@
-(ns ^:no-doc polylith.clj.core.workspace-clj.projects-from-disk
+(ns ^:no-doc polylith.clj.core.workspace.fromdisk.projects-from-disk
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [clojure.tools.deps.util.maven :as mvn]
-            [polylith.clj.core.common.interface.config :as config]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.workspace-clj.brick-deps :as brick-deps]
-            [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]
-            [polylith.clj.core.workspace-clj.project-paths :as project-paths]))
+            [polylith.clj.core.workspace.fromdisk.brick-deps :as brick-deps]
+            [polylith.clj.core.workspace.fromdisk.namespaces-from-disk :as ns-from-disk]
+            [polylith.clj.core.workspace.fromdisk.project-paths :as project-paths]))
 
 (defn absolute-path [path project-name is-dev]
   (if is-dev

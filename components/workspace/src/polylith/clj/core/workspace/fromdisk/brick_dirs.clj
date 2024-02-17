@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.workspace-clj.brick-dirs
+(ns ^:no-doc polylith.clj.core.workspace.fromdisk.brick-dirs
   (:require [polylith.clj.core.common.interface.config :as config]))
 
 (defn source-dirs [brick-dir paths]

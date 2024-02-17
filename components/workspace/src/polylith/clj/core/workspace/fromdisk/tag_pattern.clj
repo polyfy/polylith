@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.workspace-clj.tag-pattern)
+(ns ^:no-doc polylith.clj.core.workspace.fromdisk.tag-pattern)
 
 (defn patterns [tag-patterns stable-tag-pattern release-tag-pattern]
   (merge tag-patterns

@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.workspace-clj.core
+(ns ^:no-doc polylith.clj.core.workspace.fromdisk.core
   (:require [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.config-reader.interface :as config-reader]
@@ -9,13 +9,13 @@
             [polylith.clj.core.user-config.interface :as user-config]
             [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.path-finder.interface :as path-finder]
-            [polylith.clj.core.workspace-clj.profile :as profile]
-            [polylith.clj.core.workspace-clj.tag-pattern :as tag-pattern]
-            [polylith.clj.core.workspace-clj.ws-config :as ws-config]
-            [polylith.clj.core.workspace-clj.ws-reader :as ws-reader]
-            [polylith.clj.core.workspace-clj.bases-from-disk :as bases-from-disk]
-            [polylith.clj.core.workspace-clj.projects-from-disk :as projects-from-disk]
-            [polylith.clj.core.workspace-clj.components-from-disk :as components-from-disk]))
+            [polylith.clj.core.workspace.fromdisk.profile :as profile]
+            [polylith.clj.core.workspace.fromdisk.tag-pattern :as tag-pattern]
+            [polylith.clj.core.workspace.fromdisk.ws-config :as ws-config]
+            [polylith.clj.core.workspace.fromdisk.ws-reader :as ws-reader]
+            [polylith.clj.core.workspace.fromdisk.bases-from-disk :as bases-from-disk]
+            [polylith.clj.core.workspace.fromdisk.projects-from-disk :as projects-from-disk]
+            [polylith.clj.core.workspace.fromdisk.components-from-disk :as components-from-disk]))
 
 (def no-git-repo "NO-GIT-REPO")
 
@@ -172,12 +172,14 @@
 (defn create-workspace?
   "True if we try to create a workspace with a non-polylith deps.edn file.
    In that case, it should be possible to create a workspace."
-  [ws-error {:keys [cmd args]}]
-  (and ws-error
-       (= "create" cmd)
+  [{:keys [cmd args]}]
+  (and (= "create" cmd)
        (= "workspace" (second args))))
 
-(defn workspace-from-disk [user-input]
+(defn workspace-from-disk
+  "Reads the workspace from disk, or from a file if 'ws-file'
+   is given in the user-input, and stores it in a hash map."
+  [user-input]
   (let [color-mode (or (:color-mode user-input) (user-config/color-mode) color/none)
         ws-dir (config-reader/workspace-dir user-input)
         ws-name (workspace-name ws-dir)
@@ -193,7 +195,8 @@
                                          (= :toolsdeps2 ws-type))
                                    (ws-config/ws-config-from-disk ws-dir)
                                    (ws-config/ws-config-from-dev polylith))
-            create-ws? (create-workspace? ws-error user-input)]
+            create-ws? (and ws-error
+                            (create-workspace? user-input))]
         (cond
           create-ws? nil
           ws-error {:config-error ws-error}

@@ -1,8 +1,8 @@
-(ns ^:no-doc polylith.clj.core.workspace-clj.interface-defs-from-disk
+(ns ^:no-doc polylith.clj.core.workspace.fromdisk.interface-defs-from-disk
   (:require [clojure.string :as str]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.common.interface :as common]
-            [polylith.clj.core.workspace-clj.definitions :as defs]))
+            [polylith.clj.core.workspace.fromdisk.definitions :as defs]))
 
 (defn interface-path [root-dir path]
   (subs path (-> root-dir count inc)))
