@@ -8,6 +8,5 @@
  :tag-patterns {:stable "stable-*"
                 :release "v[0-9]*"}
  :projects {"development" {:alias "dev"}}
- :workspaces {"shared" {:alias "s"
-                        :path "../shared"
-                        :languages ["clj"]}}}
+ :workspaces [{:alias "s"
+               :path "../shared"}]}
