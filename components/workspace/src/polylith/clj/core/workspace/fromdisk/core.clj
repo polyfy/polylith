@@ -97,7 +97,7 @@
                               aliases
                               user-input
                               color-mode]
-  (let [{:keys [vcs top-namespace interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views bricks test]
+  (let [{:keys [vcs top-namespace interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views test bricks workspaces]
          :or   {vcs {:name "git", :auto-add false}
                 compact-views {}
                 default-profile-name "default"
@@ -158,6 +158,7 @@
                       :components components
                       :bases bases
                       :projects projects
+;                      :workspaces workspaces
                       :paths paths
                       :profiles profiles
                       :version version)))
@@ -183,11 +184,11 @@
   (let [color-mode (or (:color-mode user-input) (user-config/color-mode) color/none)
         ws-dir (config-reader/workspace-dir user-input)
         ws-name (workspace-name ws-dir)
-        ws-file (str ws-dir "/workspace.edn")
-        deps-file (str ws-dir "/deps.edn")
+        ws-config-file (str ws-dir "/workspace.edn")
+        deps-config-file (str ws-dir "/deps.edn")
         ws-type (cond
-                  (config-reader/file-exists? ws-file :workspace) :toolsdeps2
-                  (config-reader/file-exists? deps-file :development) :toolsdeps1)]
+                  (config-reader/file-exists? ws-config-file :workspace) :toolsdeps2
+                  (config-reader/file-exists? deps-config-file :development) :toolsdeps1)]
     (when ws-type
       (let [{:keys [deps error]} (config-reader/read-development-deps-config-file ws-dir ws-type)
             {:keys [aliases polylith]} deps
@@ -202,3 +203,10 @@
           ws-error {:config-error ws-error}
           error {:config-error error}
           :else (toolsdeps-ws-from-disk ws-name ws-type ws-dir ws-config aliases user-input color-mode))))))
+
+
+
+;
+;(defn workspaces-from-disk [{:keys [workspaces] :as workspace}]
+;  (cond-> workspace
+;          workspaces (assoc)))

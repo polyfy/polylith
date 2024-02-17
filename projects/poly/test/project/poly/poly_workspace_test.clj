@@ -165,7 +165,7 @@
           "  overview                  .  .  .  .  x  .  .  x  .  .  .  .  x  x  x  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  ."
           "  path-finder               .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
           "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  shell                     x  .  .  .  x  .  .  .  x  x  x  .  .  .  x  .  .  .  x  .  x  x  .  .  .  .  x  x  x  .  .  .  x  ."
+          "  shell                     x  .  .  .  x  .  .  .  x  x  x  .  .  .  x  .  .  .  x  .  x  x  .  .  .  .  x  x  x  .  .  x  x  ."
           "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  system-x                  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
@@ -178,7 +178,7 @@
           "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  validator                 .  .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  ."
           "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  workspace                 x  x  .  .  x  x  .  x  .  x  x  .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  x  .  x  x  x  .  .  ."
+          "  workspace                 x  x  .  .  x  x  .  x  .  x  x  .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  x  .  x  x  x  .  .  x"
           "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
           "  ws-file                   .  .  .  .  x  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  ."
           "  nav-generator             .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
@@ -215,7 +215,7 @@
             "  brick                     q  e  k  d  n  r  r  s  c  e  t  p  r  o  b  n  w  r  h  l  m  p  r  t  r  e  g  t  l  r  n  e  r  e"
             "  ------------------------------------------------------------------------------------------------------------------------------"
             "  antq                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-            "  api                       +  +  x  .  x  +  .  +  .  +  +  .  +  .  +  +  .  +  +  .  +  .  .  +  x  +  +  x  +  +  x  x  x  ."
+            "  api                       +  +  x  .  x  +  .  +  .  +  +  .  +  .  +  +  .  +  +  .  +  .  .  +  x  +  +  x  +  +  x  x  x  +"
             "  change                    .  .  .  .  x  .  .  .  .  +  x  .  +  .  .  .  .  x  +  .  +  .  .  .  .  +  +  .  x  .  +  .  .  ."
             "  check                     .  .  .  .  +  .  .  +  .  +  .  .  +  .  .  .  .  +  .  .  +  .  .  +  .  +  +  .  x  x  +  .  .  ."
             "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  ."
@@ -235,7 +235,7 @@
             "  overview                  +  .  .  .  x  +  .  x  .  +  .  .  x  x  x  +  .  +  .  .  +  .  .  +  .  +  +  x  x  +  +  .  .  ."
             "  path-finder               .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  shell                     x  .  .  .  x  +  .  +  x  x  x  .  +  .  x  +  .  +  x  .  x  x  .  +  .  +  x  x  x  +  +  .  x  ."
+            "  shell                     x  +  .  .  x  +  .  +  x  x  x  .  +  .  x  +  .  +  x  .  x  x  .  +  .  +  x  x  x  +  +  x  x  +"
             "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  test-helper               -  -  -  t  -  -  -  -  -  t  -  -  -  -  -  -  -  -  -  -  -  -  .  -  -  -  t  t  -  -  -  -  -  -"
@@ -247,7 +247,7 @@
             "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  validator                 .  .  .  .  x  .  .  x  .  +  .  .  +  .  .  .  .  x  .  .  +  .  .  x  .  +  +  .  x  .  +  .  .  ."
             "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  workspace                 x  x  .  .  x  x  .  x  .  x  x  .  +  .  x  +  .  x  +  .  +  .  .  +  .  +  x  .  x  x  x  .  .  ."
+            "  workspace                 x  x  .  .  x  x  .  x  .  x  x  .  +  .  x  +  .  x  +  .  +  .  .  +  .  +  x  .  x  x  x  .  .  x"
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  ws-file                   .  .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  .  +  .  +  .  .  .  .  +  +  .  x  .  x  .  .  ."
             "  nav-generator             .  .  .  .  +  x  .  +  .  +  .  .  +  .  .  .  .  +  .  .  +  .  .  +  .  +  +  .  x  +  +  .  .  ."
@@ -284,7 +284,7 @@
             "  brick                     q  e  k  d  n  r  r  s  c  e  t  p  r  o  b  n  w  r  h  l  m  p  r  t  r  e  g  t  l  r  n  e  r  e"
             "  ------------------------------------------------------------------------------------------------------------------------------"
             "  antq                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-            "  api                       +  +  x  .  x  +  .  +  .  +  +  .  +  .  +  +  .  +  +  .  +  .  .  +  x  +  +  x  +  +  x  x  x  ."
+            "  api                       +  +  x  .  x  +  .  +  .  +  +  .  +  .  +  +  .  +  +  .  +  .  .  +  x  +  +  x  +  +  x  x  x  +"
             "  change                    .  .  .  .  x  .  .  .  .  +  x  .  +  .  .  .  .  x  +  .  +  .  .  .  .  +  +  .  x  .  +  .  .  ."
             "  check                     .  .  .  .  +  .  .  +  .  +  .  .  +  .  .  .  .  +  .  .  +  .  .  +  .  +  +  .  x  x  +  .  .  ."
             "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  ."
@@ -304,7 +304,7 @@
             "  overview                  +  .  .  .  x  +  .  x  .  +  .  .  x  x  x  +  .  +  .  .  +  .  .  +  .  +  +  x  x  +  +  .  .  ."
             "  path-finder               .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  shell                     x  .  .  .  x  +  .  +  x  x  x  .  +  .  x  +  .  +  x  .  x  x  .  +  .  +  x  x  x  +  +  .  x  ."
+            "  shell                     x  +  .  .  x  +  .  +  x  x  x  .  +  .  x  +  .  +  x  .  x  x  .  +  .  +  x  x  x  +  +  x  x  +"
             "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  test-helper               -  -  -  t  -  -  -  -  -  t  -  -  -  -  -  -  -  -  -  -  -  -  .  -  -  -  t  t  -  -  -  -  -  -"
@@ -316,7 +316,7 @@
             "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  validator                 .  .  .  .  x  .  .  x  .  +  .  .  +  .  .  .  .  x  .  .  +  .  .  x  .  +  +  .  x  .  +  .  .  ."
             "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  workspace                 x  x  .  .  x  x  .  x  .  x  x  .  +  .  x  +  .  x  +  .  +  .  .  +  .  +  x  .  x  x  x  .  .  ."
+            "  workspace                 x  x  .  .  x  x  .  x  .  x  x  .  +  .  x  +  .  x  +  .  +  .  .  +  .  +  x  .  x  x  x  .  .  x"
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  ws-file                   .  .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  .  +  .  +  .  .  .  .  +  +  .  x  .  x  .  .  ."
             "  nav-generator             .  .  .  .  +  x  .  +  .  +  .  .  +  .  .  .  .  +  .  .  +  .  .  +  .  +  +  .  x  +  +  .  .  ."
@@ -331,8 +331,8 @@
             "  ------------                   -------------"
             "  api                            antq         "
             "  command                        change       "
-            "  poly-cli (t)                   common       "
-            "                                 config-reader"
+            "  shell                          common       "
+            "  poly-cli (t)                   config-reader"
             "                                 deps         "
             "                                 file         "
             "                                 git          "
@@ -341,7 +341,8 @@
             "                                 user-config  "
             "                                 util         "
             "                                 validator    "
-            "                                 version      "]
+            "                                 version      "
+            "                                 ws-file      "]
            (brick-deps-table/table ws project brick "none")))))
 
 (deftest polylith-project-brick-deps
@@ -351,8 +352,8 @@
             "  ------------                   -------------"
             "  api                            antq         "
             "  command                        change       "
-            "  poly-cli (t)                   common       "
-            "                                 config-reader"
+            "  shell                          common       "
+            "  poly-cli (t)                   config-reader"
             "                                 deps         "
             "                                 file         "
             "                                 git          "
@@ -361,7 +362,8 @@
             "                                 user-config  "
             "                                 util         "
             "                                 validator    "
-            "                                 version      "]
+            "                                 version      "
+            "                                 ws-file      "]
            (brick-ifc-deps/table ws brick)))))
 
 (deftest polylith-poly-project-deps
@@ -391,7 +393,8 @@
                                                         "text-table"
                                                         "user-config"
                                                         "util"
-                                                        "validator"]}
+                                                        "validator"
+                                                        "ws-file"]}
                                       :test {}}
           "change"                   {:src  {:direct   ["common"
                                                         "git"
@@ -807,8 +810,10 @@
                                                         "user-config"
                                                         "user-input"
                                                         "util"
+                                                        "workspace"
                                                         "ws-explorer"]
-                                             :indirect ["config-reader"
+                                             :indirect ["change"
+                                                        "config-reader"
                                                         "deps"
                                                         "image-creator"
                                                         "maven"
@@ -816,7 +821,8 @@
                                                         "test-runner-contract"
                                                         "text-table"
                                                         "validator"
-                                                        "version"]}
+                                                        "version"
+                                                        "ws-file"]}
                                       :test {:direct   ["antq"
                                                         "common"
                                                         "doc"
@@ -829,8 +835,10 @@
                                                         "user-config"
                                                         "user-input"
                                                         "util"
+                                                        "workspace"
                                                         "ws-explorer"]
-                                             :indirect ["config-reader"
+                                             :indirect ["change"
+                                                        "config-reader"
                                                         "deps"
                                                         "image-creator"
                                                         "maven"
@@ -838,7 +846,8 @@
                                                         "test-runner-contract"
                                                         "text-table"
                                                         "validator"
-                                                        "version"]}}
+                                                        "version"
+                                                        "ws-file"]}}
           "system"                   {:src  {}
                                       :test {}}
           "tap"                      {:src  {}
@@ -948,7 +957,8 @@
                                                         "user-config"
                                                         "util"
                                                         "validator"
-                                                        "version"]
+                                                        "version"
+                                                        "ws-file"]
                                              :indirect ["image-creator"
                                                         "maven"
                                                         "sh"
@@ -967,7 +977,8 @@
                                                         "user-config"
                                                         "util"
                                                         "validator"
-                                                        "version"]
+                                                        "version"
+                                                        "ws-file"]
                                              :indirect ["image-creator"
                                                         "maven"
                                                         "sh"
