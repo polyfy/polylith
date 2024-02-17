@@ -71,8 +71,14 @@
   (when (-> path exists not)
     (.mkdir (File. path))))
 
-(defn absolute-path [path]
-  (-> path io/file .getAbsolutePath))
+(defn absolute-path
+  "The call to normalized will also clean up . and .. in the path."
+  [path]
+  (-> path
+      io/file
+      .toPath
+      fs/normalized
+      .toString))
 
 (defn current-dir []
   (absolute-path ""))
