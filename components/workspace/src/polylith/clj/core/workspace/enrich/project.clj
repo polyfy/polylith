@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.workspace.project
+(ns ^:no-doc polylith.clj.core.workspace.enrich.project
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.deps.interface :as proj-deps]
             [polylith.clj.core.file.interface :as file]
@@ -6,8 +6,8 @@
             [polylith.clj.core.path-finder.interface.select :as select]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.criterias :as c]
-            [polylith.clj.core.workspace.loc :as loc]
-            [polylith.clj.core.workspace.project-test-settings :as test-settings]))
+            [polylith.clj.core.workspace.enrich.loc :as loc]
+            [polylith.clj.core.workspace.enrich.project-test-settings :as test-settings]))
 
 (defn file-exists [ws-dir cleaned-path]
   (file/exists (str ws-dir "/" cleaned-path)))

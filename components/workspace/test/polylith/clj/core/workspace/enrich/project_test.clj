@@ -1,6 +1,6 @@
-(ns polylith.clj.core.workspace.project-test
+(ns polylith.clj.core.workspace.enrich.project-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.workspace.project :as proj])
+            [polylith.clj.core.workspace.enrich.project :as proj])
   (:refer-clojure :exclude [bases]))
 
 (def components [{:name "change"

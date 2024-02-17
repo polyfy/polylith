@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.workspace.project-test-settings)
+(ns ^:no-doc polylith.clj.core.workspace.enrich.project-test-settings)
 
 (defn convert-test [project-test {:keys [test]}]
   "This function converts from the old test settings format to the new

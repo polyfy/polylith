@@ -1,12 +1,12 @@
-(ns ^:no-doc polylith.clj.core.workspace.core
+(ns ^:no-doc polylith.clj.core.workspace.enrich.core
   (:require [polylith.clj.core.antq.ifc :as antq]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.validator.interface :as validator]
-            [polylith.clj.core.workspace.base :as base]
-            [polylith.clj.core.workspace.component :as component]
-            [polylith.clj.core.workspace.project :as project]
-            [polylith.clj.core.workspace.interfaces :as interfaces]))
+            [polylith.clj.core.workspace.enrich.base :as base]
+            [polylith.clj.core.workspace.enrich.component :as component]
+            [polylith.clj.core.workspace.enrich.project :as project]
+            [polylith.clj.core.workspace.enrich.interfaces :as interfaces]))
 
 (defn brick->lib-imports [bricks]
   (into {} (map (juxt :name :lib-imports)) bricks))

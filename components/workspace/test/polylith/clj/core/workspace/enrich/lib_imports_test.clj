@@ -1,6 +1,6 @@
-(ns polylith.clj.core.workspace.lib-imports-test
+(ns polylith.clj.core.workspace.enrich.lib-imports-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.workspace.lib-imports :as lib-imports]))
+            [polylith.clj.core.workspace.enrich.lib-imports :as lib-imports]))
 
 (def interface-names #{"article" "comment" "database" "log" "profile" "spec" "tag" "user"})
 

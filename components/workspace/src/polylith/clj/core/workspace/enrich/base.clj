@@ -1,8 +1,8 @@
-(ns ^:no-doc polylith.clj.core.workspace.base
+(ns ^:no-doc polylith.clj.core.workspace.enrich.base
   (:require [polylith.clj.core.deps.interface :as deps]
             [polylith.clj.core.lib.interface :as lib]
-            [polylith.clj.core.workspace.loc :as loc]
-            [polylith.clj.core.workspace.lib-imports :as lib-imp]))
+            [polylith.clj.core.workspace.enrich.loc :as loc]
+            [polylith.clj.core.workspace.enrich.lib-imports :as lib-imp]))
 
 (defn enrich [ws-dir suffixed-top-ns bases interface-names outdated-libs library->latest-version user-input name-type->keep-lib-version {:keys [name type namespaces lib-deps] :as base}]
   (let [interface-deps (deps/interface-deps suffixed-top-ns interface-names base)

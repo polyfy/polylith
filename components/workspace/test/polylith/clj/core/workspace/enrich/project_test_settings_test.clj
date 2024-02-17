@@ -1,6 +1,6 @@
-(ns polylith.clj.core.workspace.project-test-settings-test
+(ns polylith.clj.core.workspace.enrich.project-test-settings-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.workspace.project-test-settings :as pts]))
+            [polylith.clj.core.workspace.enrich.project-test-settings :as pts]))
 
 (deftest enrich-replace-empty-vector-with-include
   (is (= (select-keys
