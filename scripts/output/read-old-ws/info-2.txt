@@ -1,7 +1,7 @@
-  stable since: 40d2f62                                                           
+  stable since: 40d2f62 | stable-master                                           
                                                                                   
-  projects: 3   interfaces: 35                                                    
-  bases:    2   components: 37                                                    
+  projects: 3   interfaces: 37                                                    
+  bases:    2   components: 39                                                    
                                                                                   
   active profiles: default                                                        
                                                                                   
@@ -16,6 +16,7 @@
   antq                      antq                       s--    s--    s--     --   
   api                       api                        s--    ---    s--     --   
   change                    change                     st-    s--    st-     --   
+  check                     check                      s--    s--    s--     --   
   clojure-test-test-runner  clojure-test-test-runner   st-    s--    st-     --   
   command                   command                    st-    s--    st-     --   
   common                    common                     st-    s--    st-     --   
@@ -28,8 +29,9 @@
   help                      help                       s--    s--    s--     --   
   image-creator             image-creator              s--    ---    s--     --   
   image-creator             image-creator-x            ---    s--    ---     s-   
+  info                      info                       st-    s--    st-     --   
   lib                       lib                        st-    s--    st-     --   
-  migrator                  migrator                   s--    s--    s--     --   
+  maven                     maven                      s--    s--    s--     --   
   overview                  overview                   s--    s--    s--     --   
   path-finder               path-finder                st-    s--    st-     --   
   sh                        sh                         s--    s--    s--     --   
