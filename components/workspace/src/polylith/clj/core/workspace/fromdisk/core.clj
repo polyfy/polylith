@@ -97,7 +97,7 @@
                               aliases
                               user-input
                               color-mode]
-  (let [{:keys [vcs top-namespace interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views test bricks workspaces]
+  (let [{:keys [vcs top-namespace interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views test bricks]
          :or   {vcs {:name "git", :auto-add false}
                 compact-views {}
                 default-profile-name "default"
@@ -158,7 +158,6 @@
                       :components components
                       :bases bases
                       :projects projects
-;                      :workspaces workspaces
                       :paths paths
                       :profiles profiles
                       :version version)))
@@ -178,8 +177,6 @@
        (= "workspace" (second args))))
 
 (defn workspace-from-disk
-  "Reads the workspace from disk, or from a file if 'ws-file'
-   is given in the user-input, and stores it in a hash map."
   [user-input]
   (let [color-mode (or (:color-mode user-input) (user-config/color-mode) color/none)
         ws-dir (config-reader/workspace-dir user-input)
@@ -203,10 +200,3 @@
           ws-error {:config-error ws-error}
           error {:config-error error}
           :else (toolsdeps-ws-from-disk ws-name ws-type ws-dir ws-config aliases user-input color-mode))))))
-
-
-
-;
-;(defn workspaces-from-disk [{:keys [workspaces] :as workspace}]
-;  (cond-> workspace
-;          workspaces (assoc)))
