@@ -9,7 +9,7 @@ We have three categories of configuration:
 
 a| `poly` workspace
 a| `workspace.edn`
-a| `:workspaces`
+a| `:workspace`
 
 a| xref:tools-deps.adoc[tools.deps]
 a| `deps.edn` files in projects and bricks
@@ -33,39 +33,7 @@ You can list workspace configs with the xref:commands.adoc#ws[ws] command:
 
 [source,shell]
 ----
-poly ws get:configs:workspaces # <1>
-----
-<1> The `poly` tool will only return one workspace.
-The argument is the plural `workspaces` because we have https://github.com/polyfy/polylith/discussions/301[plans to support returning mulitple workspaces someday].
-
-
-[source,clojure]
-----
-[{:config { ... }
-  :name "example"
-  :type "workspace"}]
-----
-
-[%autowidth]
-|===
-| Key | Description
-
-a| `:config`
-a| The content of `workspace.edn`
-
-a| `:name`
-a| (derived) The workspace's name (defined by its directory)
-
-a| `:type`
-a| (derived) Always `"workspace"`
-
-|===
-
-You can retrieve the `:config` for a specific workspace via, e.g.:
-
-[source,shell]
-----
-poly ws get:configs:workspaces:example:config
+poly ws get:configs:workspace
 ----
 
 [source,clojure]

@@ -330,20 +330,17 @@
     :type "project"}],
   :user
   {:color-mode "dark", :empty-character ".", :thousand-separator ","},
-  :workspaces
-  [{:name "local-dep-old-format",
-    :type "workspace",
-    :config
-    {:projects
-     {"development" {:alias "dev"}, "invoicing" {:alias "inv"}},
-     :release-tag-pattern "v[0-9]*",
-     :top-namespace "com.localdep",
-     :default-profile-name "default",
-     :compact-views #{},
-     :stable-tag-pattern "stable-*",
-     :interface-ns "interface",
-     :ns-to-lib {clj-time clj-time/clj-time},
-     :vcs "git"}}]},
+  :workspace
+  {:projects
+   {"development" {:alias "dev"}, "invoicing" {:alias "inv"}},
+   :release-tag-pattern "v[0-9]*",
+   :top-namespace "com.localdep",
+   :default-profile-name "default",
+   :compact-views #{},
+   :stable-tag-pattern "stable-*",
+   :interface-ns "interface",
+   :ns-to-lib {clj-time clj-time/clj-time},
+   :vcs "git"}},
  :interfaces
  [{:name "database",
    :type "interface",
@@ -860,13 +857,14 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.19",
+  {:name "0.2.20-SNAPSHOT",
    :tool "poly",
    :major 0,
    :minor 2,
-   :patch 19,
-   :revision "",
-   :date "2024-02-16"},
+   :patch 20,
+   :revision "SNAPSHOT",
+   :date "2024-02-18",
+   :snapshot 1},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
   :ws {:breaking 3, :non-breaking 0},

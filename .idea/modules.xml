@@ -39,7 +39,6 @@
       <module fileurl="file://$PROJECT_DIR$/components/validator/validator.iml" filepath="$PROJECT_DIR$/components/validator/validator.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/version/version.iml" filepath="$PROJECT_DIR$/components/version/version.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/workspace/workspace.iml" filepath="$PROJECT_DIR$/components/workspace/workspace.iml" />
-      <module fileurl="file://$PROJECT_DIR$/components/workspace-clj/workspace-clj.iml" filepath="$PROJECT_DIR$/components/workspace-clj/workspace-clj.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/ws-explorer/ws-explorer.iml" filepath="$PROJECT_DIR$/components/ws-explorer/ws-explorer.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/ws-file/ws-file.iml" filepath="$PROJECT_DIR$/components/ws-file/ws-file.iml" />
     </modules>

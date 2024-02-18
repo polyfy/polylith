@@ -7,7 +7,8 @@
             [polylith.clj.core.tap.interface :as tap]
             [polylith.clj.core.user-input.interface :as user-input]
             [polylith.clj.core.util.interface.str :as str-util]
-            [polylith.clj.core.util.interface.color :as color])
+            [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.workspace.interface :as workspace])
   (:import [org.jline.reader EndOfFileException]
            [org.jline.reader UserInterruptException])
   (:refer-clojure :exclude [next]))
@@ -36,12 +37,12 @@
           file (assoc :ws-file file)
           branch (assoc :branch branch)))
 
-(defn switch-ws [user-input dir file local? github? branch workspace-fn]
+(defn switch-ws [user-input dir file local? github? branch]
   (let [input (enhance user-input dir file local? github? branch)]
     (reset! ws-dir dir)
     (reset! ws-file file)
     (reset! engine/ws
-            (workspace-fn input file))))
+            (workspace/workspace input))))
 
 (defn execute-command [command-executor user-input local? github? branch color-mode]
   (try
@@ -63,7 +64,7 @@
           (git/current-branch)
           "master"))))
 
-(defn start [command-executor {:keys [ws-dir ws-file is-local is-github branch is-tap is-fake-poly] :as user-input} workspace-fn workspace color-mode]
+(defn start [command-executor {:keys [ws-dir ws-file is-local is-github branch is-tap is-fake-poly] :as user-input} workspace color-mode]
   (let [reader (jline/reader)
         shell-branch branch
         local? is-local
@@ -72,7 +73,7 @@
       (tap/execute "open"))
     (println (logo is-fake-poly color-mode))
     (reset! engine/ws workspace)
-    (switch-ws user-input ws-dir ws-file is-local is-github branch workspace-fn)
+    (switch-ws user-input ws-dir ws-file is-local is-github branch)
     (tap> {:workspace @engine/ws})
     (try
       (loop []
@@ -87,7 +88,7 @@
             (when-not (contains? #{"exit" "quit"} cmd)
               (cond
                 (= "shell" cmd) (println "  Can't start a shell inside another shell.")
-                (= "switch-ws" cmd) (switch-ws input dir file is-local is-github branch workspace-fn)
+                (= "switch-ws" cmd) (switch-ws input dir file is-local is-github branch)
                 (= "tap" cmd) (tap/execute (first unnamed-args))
                 (str/blank? line) nil
                 :else (execute-command command-executor input is-local is-github branch color-mode))

@@ -2,7 +2,7 @@
   (:require [clojure.test :refer :all]
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.config-reader.interface :as config-reader]
-            [polylith.clj.core.workspace-clj.ws-config :as ws-config]
+            [polylith.clj.core.workspace.fromdisk.ws-config :as ws-config]
             [polylith.clj.core.poly-cli.core :as cli]))
 
 (deftest check-a-valid-workspace

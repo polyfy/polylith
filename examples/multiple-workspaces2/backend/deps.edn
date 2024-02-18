@@ -1,0 +1,14 @@
+{:aliases  {:dev {:extra-paths ["development/src"]
+
+                  :extra-deps {backend/cli {:local/root "bases/cli"}
+                               shared/util {:local/root "../shared/components/util"}
+
+                               org.clojure/clojure {:mvn/version "1.11.1"}}}
+
+            :test {:extra-paths []}
+
+            :+default {:extra-deps {backend/hello {:local/root "components/hello"}}}
+            :+howdy   {:extra-deps {backend/howdy {:local/root "components/howdy"}}}
+
+            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                   :extra-deps {polylith/clj-poly {:local/root "../../../projects/poly"}}}}}

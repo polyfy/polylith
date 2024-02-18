@@ -1,79 +1,24 @@
 
-
-== Included since 0.2.18
+== Included since 0.2.19
 
 [cols="10,100"]
 |===
 | Issue | Description
 
-| https://github.com/polyfy/polylith/issues/315[315]
-| Moved `:change:project-to-\*` keys to `:projects:PROJECT:\*`, and `:settings:profile-to-settings` to `:profiles`, in the workspace structure + some other changes, documented https://cljdoc.org/d/polylith/clj-poly/0.2.19/doc/versions[here].
-This clean up of the workspace structure was introduced to simplify future maintenance.
-It unfortunately broke the Test Runner contract (tests has been added, so this hopefully will not happen again). The good part is that the improved inner workspace structure will make it easier to implement test runners in the future .
-We decided to skip the idea of storing project and brick configuration in separate files because it made it harder to edit it and get an overview (they can still be found in `:projects` and `:bricks` in `workspace.edn`).
-
-| https://github.com/polyfy/polylith/issues/432[432]
-| Update Edamame dependency to 1.4.25, to make it work with Clojure 1.12 Alpha 7.
 |===
 
 [cols="10,20,100"]
 |===
 | PR | Author | Description
 
-| https://github.com/polyfy/polylith/pull/426[426]
-| https://github.com/seancorfield[Sean Corfield]
-| Link to affected 3rd party test runners in docstring.
-
-| https://github.com/polyfy/polylith/pull/427[427]
-| https://github.com/seancorfield[Sean Corfield]
-| Restore global test configuration.
 |===
 
 |===
 | Other changes
 
-| If you use a https://cljdoc.org/d/polylith/clj-poly/0.2.19/doc/test-runners[test runner] other than the built-in one, make sure to use at least 0.8.4 of the Kaocha test runner, and 0.4.0 of the External test runner.
-
-| Reintroduced the global `:test` key in `:settings` in the workspace structure (taken from workspace.edn), see https://cljdoc.org/d/polylith/clj-poly/0.2.19/doc/versions[versions] (bug fix).
-
-| Make sure we also update libraries for the development project when we execute `poly libs :update` (bug fix).
-
-| Changed lib name prefix from "poly" to "polylith" in the polylith workspace itself, to minimise the risk of
-name clashes for the users of the https://clojars.org/polylith/clj-poly[clj-poly] library.
-
-| Added `check` and `test` functions to the https://clojars.org/polylith/clj-poly[clj-poly] API.
-
-| Custom data can be stored in the reserved `:custom` key at the root of `workspace.edn` and under each project and brick, see https://cljdoc.org/d/polylith/clj-poly/0.2.19/doc/configuration?q=custom#custom[custom configuration].
-
-| The https://github.com/polyfy/polylith/tree/master/examples/test-runners[test-runners] example project was added. It uses the https://github.com/imrekoszo/polylith-kaocha[Kaocha] and https://github.com/seancorfield/polylith-external-test-runner[External] test runners, and is executed before we make a release (from https://github.com/polyfy/polylith/blob/master/scripts/create_example.clj[create-example]) to reduce the risk that we break the Test Runner API in the future.
-
-| Removed the https://cljdoc.org/d/polylith/clj-poly/0.2.18/doc/reference/commands#migrate[migrate] command, that can migrate a workspace from the old format where each brick didn't store
-its own deps.edn file (created by https://github.com/polyfy/polylith/releases/tag/v0.1.0-alpha9[0.1.0-alpha9] or earlier). Use https://github.com/polyfy/polylith/releases/tag/v0.2.18[0.2.18] if you still need to migrate old workspaces.
-
-| Print a deprecation message if the shorter form of "create component/project/workspace" is used, e.g. `create c name:mycomp`.
-
-| Print a deprecation message if `::` is used (that looks up the workspace root). This feature will be removed in the future, and the reason is that it's no longer needed since we introduced the https://cljdoc.org/d/polylith/clj-poly/0.2.19/doc/shell[shell] command.
-
-| Make sure we can create a workspace, even if it exists a non-polylith deps.edn file at the root.
 |===
 
 |===
 | Doc updates
-
-| Converted this documentation from next-release.txt to https://asciidoc.org[AsciiDoc].
-
-| Fixed three broken images on the https://cljdoc.org/d/polylith/clj-poly/0.2.19/doc/testing[Testing] page.
-
-| Show snapshot number, e.g. `0.2.19-SNAPSHOT #7` for the badge at the top of the https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT/doc/readme[start page] for snapshot releases.
-
-| Added a https://cljdoc.org/d/polylith/clj-poly/0.2.19/doc/component#expose-code-outside-workspace[warning] that you should use a more unique prefix (lib name) for your bricks in project `deps.edn` files, if the code is exposed outside the workspace, e.g. as a library. Thanks https://github.com/imrekoszo[Imre Kószó] for pointing this out!
-
-| Added a https://cljdoc.org/d/polylith/clj-poly/0.2.19/doc/shell#refresh-ws[tip] on how to refresh your workspace from a shell.
-
-| Added a note that https://cljdoc.org/d/polylith/clj-poly/0.2.19/doc/shell#read-old-workspace[old workspaces] can be read by the tool (both from exported files and from disk).
-
-| Added https://medium.com/qantas-engineering-blog/leveraging-polylith-to-improve-consistency-reduce-complexity-and-increase-changeability-2031dd3d5f3d[Leveraging Polylith to improve consistency, reduce complexity and increase changeability] to the list of https://cljdoc.org/d/polylith/clj-poly/0.2.19/doc/doc#_blog_posts[blog posts]. These can also be accessed by the doc command.
-
-| Added https://cljdoc.org/d/polylith/clj-poly/0.2.19/doc/example-systems#_demo_rama_electric[Demo Rama Electric] to the list of example systems.
 
 |===

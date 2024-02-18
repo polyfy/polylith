@@ -2,14 +2,12 @@
   (:require
    [clojure.test :refer :all]
    [polylith.clj.core.user-input.interface :as user-input]
-   [polylith.clj.core.workspace-clj.interface :as ws-clj]
-   [polylith.clj.core.workspace.interface :as ws]
+   [polylith.clj.core.workspace.interface :as workspace]
    [polylith.clj.core.ws-explorer.interface :as ws-explorer]))
 
 (defn workspace [& args]
   (-> (user-input/extract-arguments (concat ["info" (str "ws-dir:.") "color-mode:none"] args))
-      ws-clj/workspace-from-disk
-      ws/enrich-workspace))
+      workspace/workspace))
 
 (deftest clojure-test-test-runner-is-shipped-with-poly
   (is (-> (workspace)

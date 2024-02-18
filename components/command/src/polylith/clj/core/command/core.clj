@@ -19,7 +19,6 @@
             [polylith.clj.core.tap.interface :as tap]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.version.interface :as ver]
-            [polylith.clj.core.workspace-clj.interface :as ws-clj]
             [polylith.clj.core.workspace.interface :as workspace]
             [polylith.clj.core.ws-file.interface :as ws-file]
             [polylith.clj.core.ws-explorer.interface :as ws-explorer])
@@ -37,18 +36,6 @@
 
 (defn unknown-command [cmd]
   (println (str "  Unknown command '" cmd "'. Type 'poly help' for help.")))
-
-(defn read-workspace [ws-file user-input]
-  (if ws-file
-    (ws-file/read-ws-from-file ws-file user-input)
-    (-> user-input
-        ws-clj/workspace-from-disk
-        workspace/enrich-workspace
-        change/with-changes)))
-
-(defn workspace-reader-fn []
-  (fn [user-input ws-file]
-    (read-workspace ws-file user-input)))
 
 (defn with-switch [cmd user-input]
   (let [[switch path] (when cmd (str/split cmd #":"))]
@@ -87,8 +74,7 @@
 (defn execute [{:keys [cmd args alias name top-ns branch help is-local more page ws is-tap is-git-add is-github is-commit is-update is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly is-search-for-ws-dir get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (config-reader/workspace-dir user-input)
-        workspace-fn (workspace-reader-fn)
-        workspace (workspace-fn user-input ws-file)
+        workspace (workspace/workspace user-input)
         [cmd user-input] (with-shell cmd user-input)]
     (user-config/create-user-config-if-not-exists)
     (when is-tap (tap/execute "open"))
@@ -108,7 +94,7 @@
           "info" (info/info workspace unnamed-args)
           "libs" (libs workspace is-update)
           "overview" (overview/print-table workspace)
-          "shell" (shell/start execute user-input workspace-fn workspace color-mode)
+          "shell" (shell/start execute user-input workspace color-mode)
           "test" (test/run workspace unnamed-args test-result is-verbose color-mode)
           "version" (version)
           "ws" (ws-explorer/ws workspace get out color-mode)

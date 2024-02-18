@@ -3,18 +3,14 @@
             [polylith.clj.core.lib.text-table.lib-table :as lib-table]
             [polylith.clj.core.command.info :as info]
             [polylith.clj.core.common.interface :as common]
-            [polylith.clj.core.change.interface :as change]
-            [polylith.clj.core.workspace-clj.interface :as ws-clj]
             [polylith.clj.core.deps.text-table.workspace-deps-table :as ws-ifc-deps-table]
             [polylith.clj.core.deps.text-table.workspace-project-deps-table :as ws-project-deps-table]
             [polylith.clj.core.deps.text-table.brick-deps-table :as brick-ifc-deps-table]
             [polylith.clj.core.deps.text-table.brick-project-deps-table :as brick-deps-table]
-            [polylith.clj.core.workspace.interface :as ws]))
+            [polylith.clj.core.workspace.interface :as workspace]))
 
 (def workspace (-> (dev-common/dir ".")
-                   ws-clj/workspace-from-disk
-                   ws/enrich-workspace
-                   change/with-changes))
+                   workspace/workspace))
 
 ;; info
 (info/info workspace [])

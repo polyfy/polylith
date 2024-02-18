@@ -1,19 +1,14 @@
 (ns ^:no-doc polylith.clj.core.api.core
   (:require [clojure.string :as str]
-            [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.check.interface :as check]
             [polylith.clj.core.user-input.interface :as user-input]
-            [polylith.clj.core.workspace.interface :as ws]
-            [polylith.clj.core.workspace-clj.interface :as ws-clj]
+            [polylith.clj.core.workspace.interface :as workspace]
             [polylith.clj.core.ws-explorer.interface :as ws-explorer]))
 
 (defn projects-to-deploy [since]
   (let [since-then (str "since:" (or since "stable"))
         user-input (user-input/extract-arguments ["ws" since-then "skip:development"])
-        workspace (-> user-input
-                      ws-clj/workspace-from-disk
-                      ws/enrich-workspace
-                      change/with-changes)]
+        workspace (workspace/workspace user-input)]
     (-> workspace :changes :changed-or-affected-projects)))
 
 (defn key->str [key]
@@ -29,10 +24,7 @@
                ["ws" since-str]
                ["ws" since-str (str "get:" (str/join ":" keys-str))])
         user-input (user-input/extract-arguments args)
-        workspace (-> user-input
-                      ws-clj/workspace-from-disk
-                      ws/enrich-workspace
-                      change/with-changes)]
+        workspace (workspace/workspace user-input)]
     (if (empty? keys-str)
       workspace
       (ws-explorer/extract workspace keys-str))))

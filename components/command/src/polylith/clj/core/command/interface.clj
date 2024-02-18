@@ -3,6 +3,3 @@
 
 (defn execute-command [user-input]
   (core/execute user-input))
-
-(defn read-workspace [ws-dir user-input]
-  (core/read-workspace ws-dir user-input))

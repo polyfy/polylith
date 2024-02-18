@@ -3,5 +3,5 @@
 
 (defn start
   "Starts an interactive shell."
-  [command-executor user-input workspace-fn workspace color-mode]
-  (core/start command-executor user-input workspace-fn workspace color-mode))
+  [command-executor user-input workspace color-mode]
+  (core/start command-executor user-input workspace color-mode))
