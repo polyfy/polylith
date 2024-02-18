@@ -12,12 +12,3 @@
         fromdisk/workspace-from-disk
         enrich/enrich-workspace
         change/with-changes)))
-
-(comment
-  (require '[polylith.clj.core.user-input.interface :as user-input])
-  (def user-input (user-input/extract-arguments ["info" "ws-dir:examples/doc-example"]))
-  (def user-input (user-input/extract-arguments ["info" "ws-dir:examples/multiple-workspaces2/backend"]))
-  (def ws (workspace user-input))
-  (keys ws)
-  (:workspaces ws)
-  #__)
