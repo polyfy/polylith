@@ -19,6 +19,8 @@ Here are the changes to the workspace structure over time:
 |===
 | ws | release | action | attribute | description
 
+| 4.0 | 0.2.20 | added | configs:workspace | Store current workspace config as is
+|  |  | deleted | configs:workspaces | Replaced by workspace
 | 3.0 | 0.2.19 | added | ENTITIES:ENTITY:keep-lib-versions |
 |  |  | added | projects:PROJECT:necessary |
 |  |  | added | projects:PROJECT:test |
