@@ -20,12 +20,11 @@
 (defn used-workspaces! [ws-dir workspace wsdir->workspace]
   (let [wss-config (-> workspace :configs :workspace :workspaces)
         ws-paths (set (keys @wsdir->workspace))
-        ws-dirs (map :dir
-                     (filter #(include-ws? % ws-paths)
-                             wss-config))]
-    (doseq [dir ws-dirs]
+        configs (filter #(include-ws? % ws-paths)
+                        wss-config)]
+    (doseq [{:keys [dir alias]} configs]
       (let [path (file/absolute-path (str ws-dir "/" dir))
-            workspace (workspace! {:ws-dir path} wsdir->workspace)]
+            workspace (assoc (workspace! {:ws-dir path} wsdir->workspace) :alias alias)]
         (swap! wsdir->workspace #(assoc % path workspace))))))
 
 (defn workspace! [{:keys [ws-file] :as user-input} wsdir->workspace]
@@ -61,5 +60,5 @@
   (require '[polylith.clj.core.user-input.interface :as user-input])
   (def input (user-input/extract-arguments ["info" "ws-dir:examples/multiple-workspaces2/backend"]))
 
-  (:workspaces (workspace input))
+  (mapv :alias (:workspaces (workspace input)))
   #__)
