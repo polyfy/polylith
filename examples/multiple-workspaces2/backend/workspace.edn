@@ -8,4 +8,4 @@
                 :release "v[0-9]*"}
  :projects {"development" {:alias "dev"}}
  :workspaces [{:alias "s"
-               :path "../shared"}]}
+               :dir "../shared"}]}
