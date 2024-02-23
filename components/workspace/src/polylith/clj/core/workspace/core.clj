@@ -24,8 +24,10 @@
                         wss-config)]
     (doseq [{:keys [dir alias]} configs]
       (let [path (file/absolute-path (str ws-dir "/" dir))
-            workspace (assoc (workspace! {:ws-dir path} wsdir->workspace) :alias alias)]
-        (swap! wsdir->workspace #(assoc % path workspace))))))
+            workspace (workspace! {:ws-dir path} wsdir->workspace)
+            ws-alias (or alias (:name workspace))]
+        (swap! wsdir->workspace #(assoc % path
+                                          (assoc workspace :alias ws-alias)))))))
 
 (defn workspace! [{:keys [ws-file] :as user-input} wsdir->workspace]
   (if ws-file
@@ -51,14 +53,13 @@
               workspaces (mapv second
                                (filter #(-> % second seq)
                                        @wsdir->workspace))]
-          (cond->  workspace
-                   (seq workspaces) (assoc :workspaces workspaces)
-                   true enrich/enrich-workspace
-                   true change/with-changes))))))
+          (->  workspace
+               enrich/enrich-workspace
+               change/with-changes))))))
 
 (comment
   (require '[polylith.clj.core.user-input.interface :as user-input])
   (def input (user-input/extract-arguments ["info" "ws-dir:examples/multiple-workspaces2/backend"]))
 
-  (mapv :alias (:workspaces (workspace input)))
+  (do (workspace input) nil)
   #__)
