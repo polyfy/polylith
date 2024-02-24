@@ -1,10 +1,16 @@
 (ns ^:no-doc polylith.clj.core.validator.m110-invalid-config-file)
 
-(defn error [{:keys [error]}]
+(defn error [message]
   {:type "error"
    :code 110
-   :message error
-   :colorized-message error})
+   :message message
+   :colorized-message message})
 
-(defn errors [errors]
-  (mapv error errors))
+(defn other-ws-error [{:keys [config-error alias]}]
+  (error (str config-error ". Found in workspace with alias '" alias "'.")))
+
+(defn errors [current-ws-errors workspaces]
+  (vec (concat (map #(-> % :error error)
+                    current-ws-errors)
+               (map other-ws-error
+                    (filter :config-error workspaces)))))

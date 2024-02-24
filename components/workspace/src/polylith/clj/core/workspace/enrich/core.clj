@@ -22,7 +22,8 @@
         (mapv (juxt #(vector (:name %) (:type %)) :keep-lib-versions)
               (concat bases components projects))))
 
-(defn enrich-workspace [{:keys [ws-dir user-input settings configs components bases profiles config-errors projects paths] :as workspace}]
+(defn enrich-workspace [{:keys [ws-dir user-input settings configs components bases profiles config-errors projects paths] :as workspace}
+                        workspaces]
   (if (common/invalid-workspace? workspace)
     workspace
     (let [{:keys [top-namespace interface-ns color-mode]} settings
@@ -40,11 +41,12 @@
           brick->lib-imports (brick->lib-imports enriched-bricks)
           alias-id (atom 0)
           enriched-projects (vec (sort-by project-sorter (mapv #(project/enrich-project % ws-dir alias-id enriched-components enriched-bases profiles suffixed-top-ns brick->loc brick->lib-imports paths user-input settings name-type->keep-lib-versions outdated-libs library->latest-version) projects)))
-          messages (validator/validate-ws suffixed-top-ns settings paths interface-names interfaces profiles enriched-components enriched-bases enriched-projects config-errors interface-ns user-input color-mode)]
-      (-> workspace
-          (assoc :interfaces interfaces
-                 :components enriched-components
-                 :bases enriched-bases
-                 :projects enriched-projects
-                 :messages messages)
-          (dissoc :config-errors)))))
+          messages (validator/validate-ws suffixed-top-ns settings paths interface-names interfaces profiles enriched-components enriched-bases enriched-projects config-errors interface-ns workspaces user-input color-mode)]
+      (cond-> workspace
+              true (assoc :interfaces interfaces
+                          :components enriched-components
+                          :bases enriched-bases
+                          :projects enriched-projects
+                          :messages messages)
+              true (dissoc :config-errors)
+              (seq workspaces) (assoc :workspaces workspaces)))))

@@ -1,10 +1,10 @@
 image::doc/images/logo.png[width=400]
-:snapshot-version: 1
+:snapshot-version: 2
 :cljdoc-doc-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc
 
 https://cljdoc.org/d/polylith/clj-poly/0.2.19/doc/readme[image:https://badgen.net/badge/doc/0.2.19/blue[]]
 ifdef::env-cljdoc[]
-https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT[image:https://badgen.net/badge/doc/0.2.19-SNAPSHOT%20%23{snapshot-version}/cyan[]]
+https://cljdoc.org/d/polylith/clj-poly/0.2.20-SNAPSHOT[image:https://badgen.net/badge/doc/0.2.20-SNAPSHOT%20%23{snapshot-version}/cyan[]]
 endif::[]
 https://clojurians.slack.com/messages/C013B7MQHJQ[image:https://badgen.net/badge/slack/join chat/green[]]
 
@@ -44,7 +44,9 @@ image::doc/images/sponsors/scrintal.png[link=https://www.scrintal.com,alt=scrint
 
 === Iron Sponsors
 
-image::doc/images/sponsors/adgoji.png[link=https://www.adgoji.com,alt=adgoji.com,width=200]
+image:doc/images/sponsors/adgoji.png[link=https://www.adgoji.com,alt=adgoji.com,width=200]
+
+image:doc/images/sponsors/taehee-sp.png[link=https://github.com/taehee-sp,width=150]
 
 === Polylith Fans
 

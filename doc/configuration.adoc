@@ -107,7 +107,7 @@ You can retrieve projects config via:
 
 [source,shell]
 ----
-poly ws get:configs:workspaces:example:config:projects
+poly ws get:configs:workspace:projects
 ----
 
 [source,clojure]

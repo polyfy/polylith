@@ -4,6 +4,7 @@
             [polylith.clj.core.config-reader.interface :as config-reader]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.git.interface :as git]
+            [polylith.clj.core.user-input.interface :as user-input]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.user-config.interface :as user-config]
@@ -168,8 +169,8 @@
             (some? index) (subs (inc index)))))
 
 (defn create-workspace?
-  "True if we try to create a workspace with a non-polylith deps.edn file.
-   In that case, it should be possible to create a workspace."
+  "True if we try to create a workspace in a directory where there is a non-polylith
+   deps.edn file. If this is the case, it should be possible to create a workspace."
   [{:keys [cmd args]}]
   (and (= "create" cmd)
        (= "workspace" (second args))))
@@ -198,3 +199,11 @@
           ws-error {:config-error ws-error}
           error {:config-error error}
           :else (toolsdeps-ws-from-disk ws-name ws-type ws-dir ws-config aliases user-input color-mode))))))
+
+(comment
+  (require '[polylith.clj.core.user-input.interface :as user-input])
+  (def user-input (user-input/extract-arguments ["info" "ws-dir:examples/multiple-workspaces2/backend"]))
+  (def workspace (workspace-from-disk user-input))
+  (keys workspace)
+  (:workspaces workspace)
+  #__)

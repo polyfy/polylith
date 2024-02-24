@@ -64,7 +64,7 @@
        "  " (color/error cm "Error 111") " - Unreadable namespace in brick/project.\n"
        "    Triggered if a namespace can't be parsed for a brick or project.\n"
        "    The solution is to fix the invalid namespace (add it if missing)\n"
-       "    or move the file from 'src' to 'resources'.\n"
+       "    or move the file from 'src' to 'resources' or from 'test' to 'test-resources'.\n"
        "\n"
        "  " (color/warning cm "Warning 201") " - Mismatching argument lists in function or macro.\n"
        "    Triggered if a function or macro is defined in the interface for a component\n"

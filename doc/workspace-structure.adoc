@@ -343,14 +343,12 @@ poly ws get:configs
              :name "user-service",
              :type "project"}],
  :user {:color-mode "dark", :empty-character ".", :thousand-separator ","},
- :workspaces [{:config {:compact-views #{},
-                        :default-profile-name "default",
-                        :interface-ns "interface",
-                        :tag-patterns {:release "v[0-9]*", :stable "stable-*"},
-                        :top-namespace "se.example",
-                        :vcs {:auto-add true, :name "git"}},
-               :name "doc-example",
-               :type "workspace"}]}
+ :workspace {:compact-views #{},
+             :default-profile-name "default",
+             :interface-ns "interface",
+             :tag-patterns {:release "v[0-9]*", :stable "stable-*"},
+             :top-namespace "se.example",
+             :vcs {:auto-add true, :name "git"}}}
 ----
 
 These attributes are described in the xref:configuration.adoc[Configuration] section.
