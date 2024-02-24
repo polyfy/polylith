@@ -5,6 +5,7 @@
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.info.table.active-profiles :as active-profiles]
             [polylith.clj.core.info.table.number-of-entities :as number-of-entities]
+            [polylith.clj.core.info.table.workspaces :as workspaces]
             [polylith.clj.core.info.table.stable-since :as stable-since]
             [polylith.clj.core.info.table.project :as project-table]
             [polylith.clj.core.info.table.brick :as brick]))
@@ -17,10 +18,11 @@
         {:keys [since-sha since-tag]} changes
         since (stable-since/table (or fake-sha since-sha) (or fake-tag since-tag) color-mode)
         number-of-entities (number-of-entities/table workspace)
+        workspaces (workspaces/table workspace)
         profiles (active-profiles/table settings)
         projects (project-table/table workspace is-show-loc is-show-resources)
         bricks (brick/table workspace is-show-loc is-show-resources)]
-    [since number-of-entities profiles empty-line projects empty-line bricks]))
+    [since number-of-entities workspaces profiles empty-line projects empty-line bricks]))
 
 (defn text-width [text]
   (-> text color/clean-colors count))

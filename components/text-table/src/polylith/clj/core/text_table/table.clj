@@ -60,4 +60,3 @@
         ys (sort (set (map #(-> % first second) aligned-cells)))
         x->spaces (into {} (map (juxt identity #(str-util/spaces (max-column-width % aligned-cells))) xs))]
     (mapv #(row initial-spaces % xs x->spaces aligned-cells) ys)))
-
