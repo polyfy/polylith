@@ -44,7 +44,9 @@ image::doc/images/sponsors/scrintal.png[link=https://www.scrintal.com,alt=scrint
 
 === Iron Sponsors
 
-image::doc/images/sponsors/adgoji.png[link=https://www.adgoji.com,alt=adgoji.com,width=200]
+image:doc/images/sponsors/adgoji.png[link=https://www.adgoji.com,alt=adgoji.com,width=200]
+
+image:doc/images/sponsors/taehee-sp.png[link=https://github.com/taehee-sp,width=150]
 
 === Polylith Fans
 
