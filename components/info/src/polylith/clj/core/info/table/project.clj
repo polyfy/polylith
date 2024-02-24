@@ -1,6 +1,6 @@
 (ns ^:no-doc polylith.clj.core.info.table.project
   (:require [clojure.set :as set]
-            [polylith.clj.core.info.profile :as profile]
+            [polylith.clj.core.info.table.profile :as profile]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.status :as status]
