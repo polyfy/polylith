@@ -52,13 +52,13 @@
               workspaces (mapv second
                                (filter #(-> % second seq)
                                        @wsdir->workspace))]
-          (->  workspace
-               enrich/enrich-workspace
-               change/with-changes))))))
+          (-> workspace
+              (enrich/enrich-workspace workspaces)
+              (change/with-changes)))))))
 
 (comment
   (require '[polylith.clj.core.user-input.interface :as user-input])
   (def input (user-input/extract-arguments ["info" "ws-dir:examples/multiple-workspaces2/backend"]))
 
-  (do (workspace input) nil)
+  (def ws (workspace input))
   #__)

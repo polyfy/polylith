@@ -98,7 +98,7 @@
                               aliases
                               user-input
                               color-mode]
-  (let [{:keys [vcs top-namespace interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views test bricks workspaces]
+  (let [{:keys [vcs top-namespace interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views test bricks]
          :or   {vcs {:name "git", :auto-add false}
                 compact-views {}
                 default-profile-name "default"
@@ -157,7 +157,6 @@
                       :components components
                       :bases bases
                       :projects projects
-                      :workspaces workspaces
                       :paths paths
                       :profiles profiles
                       :version version)))
