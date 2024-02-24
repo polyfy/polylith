@@ -43,9 +43,8 @@
 (defn workspace [{:keys [ws-file] :as user-input}]
   (if ws-file
     (ws-file/read-ws-from-file ws-file user-input)
-    (let [{:keys [config-errors ws-dir] :as workspace} (fromdisk/workspace-from-disk user-input)]
-      (if (or (nil? workspace)
-              (seq config-errors))
+    (let [{:keys [ws-dir] :as workspace} (fromdisk/workspace-from-disk user-input)]
+      (if (nil? workspace)
         workspace
         (let [path (file/absolute-path ws-dir)
               wsdir->workspace (atom {path {}})

@@ -52,9 +52,8 @@
            (check-fn)))))
 
 (deftest check-a-workspace-with-illegal-component-config-file
-  (let [check-fn (fn [] (with-redefs [validator/validate-brick-config (fn [_ _ deps-filename]
-                                                                        (when (= deps-filename "components/without-src/deps.edn")
-                                                                          "Invalid file"))]
+  (let [check-fn (fn [] (with-redefs [validator/validate-brick-config (fn [_ _ _]
+                                                                        "Invalid file")]
                           (cli/-main "check" "ws-dir:examples/local-dep" "color-mode:none" ":no-exit")))
         output (with-out-str (check-fn))]
     (is (= "  Error 110: Invalid file\n"
