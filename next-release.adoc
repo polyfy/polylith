@@ -21,4 +21,6 @@
 |===
 | Doc updates
 
+| New sponsor: https://github.com/taehee-sp[taehee-sp] (김태희)
+
 |===
