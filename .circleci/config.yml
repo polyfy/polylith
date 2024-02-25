@@ -59,6 +59,9 @@ jobs:
       - restore_cache:
           key: polylith-{{ checksum "deps.edn" }}
       - run:
+          name: Add github.com to known hosts
+          command: mkdir -p ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - run:
           name: Add global git user email
           command: git config --global user.email "circleci@polyfy.com"
       - run:
@@ -105,6 +108,9 @@ jobs:
           at: ~/polylith
       - restore_cache:
           key: polylith-{{ checksum "deps.edn" }}
+      - run:
+          name: Add github.com to known hosts
+          command: mkdir -p ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
           name: Add global git user email
           command: git config --global user.email "circleci@polyfy.com"
