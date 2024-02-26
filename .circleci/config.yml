@@ -11,6 +11,15 @@ jobs:
       - restore_cache:
           key: polylith-{{ checksum "deps.edn" }}
       - run:
+          name: Add github.com to known hosts
+          command: mkdir -p ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - run:
+          name: Add global git user email
+          command: git config --global user.email "circleci@polyfy.com"
+      - run:
+          name: Add global git user name
+          command: git config --global user.name "CircleCI"
+      - run:
           name: Create version.txt
           command: clojure -T:build create-version-txt
       - persist_to_workspace:
@@ -30,6 +39,15 @@ jobs:
       - run:
           name: Create polylith config if it does not exist
           command: mkdir -p "${XDG_CONFIG_HOME:=${HOME}/.config}/polylith" && echo "{}" > "${XDG_CONFIG_HOME:=${HOME}/.config}/polylith/config.edn"
+      - run:
+          name: Add github.com to known hosts
+          command: mkdir -p ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - run:
+          name: Add global git user email
+          command: git config --global user.email "circleci@polyfy.com"
+      - run:
+          name: Add global git user name
+          command: git config --global user.name "CircleCI"
       - run:
           name: Check Polylith workspace
           command: |
@@ -199,6 +217,15 @@ jobs:
       - restore_cache:
           key: polylith-{{ checksum "deps.edn" }}
       - run:
+          name: Add github.com to known hosts
+          command: mkdir -p ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - run:
+          name: Add global git user email
+          command: git config --global user.email "circleci@polyfy.com"
+      - run:
+          name: Add global git user name
+          command: git config --global user.name "CircleCI"
+      - run:
           name: Deploy changed projects to clojars and request a cljdoc build if snapshot
           command: |
             VERSION=`cat version.txt`
@@ -224,6 +251,15 @@ jobs:
       - restore_cache:
           key: polylith-{{ checksum "deps.edn" }}
       - run:
+          name: Add github.com to known hosts
+          command: mkdir -p ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - run:
+          name: Add global git user email
+          command: git config --global user.email "circleci@polyfy.com"
+      - run:
+          name: Add global git user name
+          command: git config --global user.name "CircleCI"
+      - run:
           name: Create artifacts
           command: clojure -T:build create-artifacts
       - store_artifacts:
@@ -239,6 +275,15 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/polylith
+      - run:
+          name: Add github.com to known hosts
+          command: mkdir -p ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - run:
+          name: Add global git user email
+          command: git config --global user.email "circleci@polyfy.com"
+      - run:
+          name: Add global git user name
+          command: git config --global user.name "CircleCI"
       - run:
           name: Publish a new release on GitHub
           command: |
