@@ -1,6 +1,5 @@
 (ns ^:no-doc polylith.clj.core.help.summary
-  (:require [clojure.string :as str]
-            [polylith.clj.core.common.interface :as common]
+  (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.help.shared :as s]
             [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.util.interface.color :as color]))
@@ -42,15 +41,11 @@
     "  If " (s/key "ws-dir:PATH" cm) " is passed in as an argument, where " (s/key "PATH" cm) " is a relative\n"
     "  or absolute path, then the command is executed from that directory.\n"
     "  This works for all commands except 'test'.\n"
-    "  If the 'switch-ws dir:" (s/key "DIR" cm) "' command has been executed from a shell,\n"
-    "  then ws-dir:" (s/key "DIR" cm) " will automatically be appended to following commands.\n"
     "\n"
     "  If " (s/key "ws-file:FILE" cm) " is passed in, then the workspace will be populated with the content\n"
     "  from that file. All commands except 'create' and 'test' can be executed with this\n"
     "  argument set. The " (s/key "FILE" cm) " is created by executing the 'ws' command, e.g.:\n"
     "  'poly ws out:ws.edn'.\n"
-    "  If the 'switch-ws file:" (s/key "FILE" cm) "' command has been executed from a shell,\n"
-    "  then ws-file:" (s/key "FILE" cm) " will automatically be appended to following commands.\n"
     "\n"
     "  The " (s/key "ws-dir" cm) " and " (s/key "ws-file" cm) " arguments are replaced by " (s/key "switch-ws" cm) " when executing commands\n"
     "  from the shell.\n"
@@ -78,6 +73,8 @@
     "  Example (shell only):\n"
     "    switch-ws dir:~/myworkspace\n"
     "    switch-ws file:../../another/ws.edn\n"
+    "    switch-ws via-dir:myws\n"
+    "    switch-ws via-file:myws\n"
     "    tap\n"
     "    tap open\n"
     "    tap clean\n"
@@ -214,9 +211,6 @@
   (println (help-text extended? fake-poly? color-mode)))
 
 (comment
-  (println (help-text false false false "dark")) ; poly
-  (println (help-text false true false "dark"))  ; polyx
-
-  (println (help-text true false false "dark"))
-  (println (help-text true true false "dark"))
+  (println (help-text false false "dark")) ; poly
+  (println (help-text true false "dark"))  ; polyx
   #__)

@@ -1,5 +1,6 @@
 (ns ^:no-doc polylith.clj.core.user-config.interface
-  (:require [polylith.clj.core.user-config.core :as core]))
+  (:require [polylith.clj.core.user-config.core :as core]
+            [polylith.clj.core.user-config.ws-configs :as ws-configs]))
 
 (defn home-dir []
   (core/home-dir))
@@ -27,3 +28,9 @@
 
 (defn legacy-config-file-path []
   (core/legacy-config-file-path))
+
+(defn ws-configs
+  ([]
+   (ws-configs (core/config-content)))
+  ([user-config]
+   (ws-configs/configs user-config)))

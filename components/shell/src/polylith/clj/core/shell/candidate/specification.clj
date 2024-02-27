@@ -1,6 +1,5 @@
 (ns ^:no-doc polylith.clj.core.shell.candidate.specification
-  [:require [polylith.clj.core.common.interface :as common]
-            [polylith.clj.core.shell.candidate.creators :as c]
+  [:require [polylith.clj.core.shell.candidate.creators :as c]
             [polylith.clj.core.shell.candidate.selector.color-modes :as color-modes]
             [polylith.clj.core.shell.candidate.selector.doc.help :as doc-help]
             [polylith.clj.core.shell.candidate.selector.doc.more :as doc-more]
@@ -9,13 +8,15 @@
             [polylith.clj.core.shell.candidate.selector.file-explorer :as file-explorer]
             [polylith.clj.core.shell.candidate.selector.remote-branches :as remote-branches]
             [polylith.clj.core.shell.candidate.selector.outdated-libs :as outdated-libs]
+            [polylith.clj.core.shell.candidate.selector.ws-via :as ws-via]
             [polylith.clj.core.shell.candidate.selector.ws-bricks :as ws-bricks]
             [polylith.clj.core.shell.candidate.selector.ws-explore :as ws-explore]
             [polylith.clj.core.shell.candidate.selector.ws-tag-patterns :as ws-tag-patterns]
             [polylith.clj.core.shell.candidate.selector.ws-deps-entities :as ws-deps-entities]
             [polylith.clj.core.shell.candidate.selector.ws-projects :as ws-projects]
             [polylith.clj.core.shell.candidate.selector.ws-projects-to-test :as ws-projects-to-test]
-            [polylith.clj.core.system.interface :as system]]
+            [polylith.clj.core.system.interface :as system]
+            [polylith.clj.core.user-config.interface :as user-config]]
   (:refer-clojure :exclude [load test]))
 
 ;; check
@@ -198,7 +199,13 @@
 ;; switch-ws
 (def switch-ws-dir (c/fn-explorer "dir" :switch-ws #'file-explorer/select-edn))
 (def switch-ws-file (c/fn-explorer "file" :switch-ws #'file-explorer/select-edn))
-(def switch-ws (c/single-txt "switch-ws" :switch-ws [switch-ws-file switch-ws-dir]))
+(def switch-ws-via-dir (c/fn-explorer "via-dir" :switch-ws #'ws-via/select-dirs))
+(def switch-ws-via-file (c/fn-explorer "via-file" :switch-ws #'ws-via/select-files))
+
+(defn switch-ws [ws-configs]
+  (c/single-txt "switch-ws" :switch-ws
+                (concat [switch-ws-file switch-ws-dir]
+                        (when ws-configs [switch-ws-via-dir switch-ws-via-file]))))
 
 (defn ->profiles [group-id profiles all?]
   (let [profile-keys (map :name profiles)]
@@ -209,6 +216,7 @@
 
 (defn candidates [{:keys [profiles user-input]}]
   (let [{:keys [ws-dir ws-file is-all is-local]} user-input
+        ws-configs (user-config/ws-configs)
         info-profiles (->profiles :info profiles is-all)
         test-profiles (->profiles :test profiles is-all)
         ws-profiles (->profiles :ws profiles is-all)
@@ -217,8 +225,8 @@
                             (= "." ws-dir)))]
     (vec (concat [check
                   diff
-                  switch-ws
                   version
+                  (switch-ws ws-configs)
                   (create current-ws? is-all)
                   (deps is-all system/extended?)
                   (doc is-all is-local)

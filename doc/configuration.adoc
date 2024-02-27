@@ -344,6 +344,10 @@ a| `:m2-dir`
 a| Tells the xref:commands.adoc#libs[libs] where it can find your local Maven repository, which it uses to calculate library `KB` sizes. +
 *Default:* `~/.m2`
 
+[[workspaces]]
+a| `:workspaces`
+a| A vector of workspace directories and workspaces exported to files, which is used by the shell command, see an example xref:shell#predefined-workspaces[here].
+
 |===
 
 [[custom]]

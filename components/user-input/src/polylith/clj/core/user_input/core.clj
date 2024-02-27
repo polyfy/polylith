@@ -100,6 +100,8 @@
                 top-ns
                 update!
                 verbose!
+                via-dir
+                via-file
                 workspace!
                 ws
                 ws-dir
@@ -156,6 +158,8 @@
                       :since since
                       :skip (as-vector skip)
                       :top-ns top-ns
+                      :via-dir via-dir
+                      :via-file via-file
                       :ws (as-value ws)
                       :ws-dir ws-dir
                       :ws-file ws-file

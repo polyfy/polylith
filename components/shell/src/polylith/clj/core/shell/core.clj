@@ -5,6 +5,7 @@
             [polylith.clj.core.shell.candidate.engine :as engine]
             [polylith.clj.core.git.interface :as git]
             [polylith.clj.core.tap.interface :as tap]
+            [polylith.clj.core.user-config.interface :as user-config]
             [polylith.clj.core.user-input.interface :as user-input]
             [polylith.clj.core.util.interface.str :as str-util]
             [polylith.clj.core.util.interface.color :as color]
@@ -37,9 +38,17 @@
           file (assoc :ws-file file)
           branch (assoc :branch branch)))
 
-(defn switch-ws [user-input dir file local? github? branch]
-  (let [input (enhance user-input dir file local? github? branch)]
-    (reset! ws-dir dir)
+(defn select-file-and-dir [name->config dir file via-dir via-file]
+  (if (or via-dir via-file)
+    (get name->config (or via-dir via-file))
+    {:file file :dir dir}))
+
+(defn switch-ws [user-input dir file via-dir via-file local? github? branch]
+  (let [ws-configs (user-config/ws-configs)
+        name->config (into {} (map (juxt :name identity) ws-configs))
+        {:keys [file dir]} (select-file-and-dir name->config dir file via-dir via-file)
+        input (enhance user-input dir file local? github? branch)]
+    (reset! ws-dir (if (= "." dir) nil dir))
     (reset! ws-file file)
     (reset! engine/ws
             (workspace/workspace input))))
@@ -64,7 +73,9 @@
           (git/current-branch)
           "master"))))
 
-(defn start [command-executor {:keys [ws-dir ws-file is-local is-github branch is-tap is-fake-poly] :as user-input} workspace color-mode]
+(defn start [command-executor {:keys [ws-dir ws-file via-dir via-file is-local is-github branch is-tap is-fake-poly] :as user-input}
+             workspace
+             color-mode]
   (let [reader (jline/reader)
         shell-branch branch
         local? is-local
@@ -73,13 +84,13 @@
       (tap/execute "open"))
     (println (logo is-fake-poly color-mode))
     (reset! engine/ws workspace)
-    (switch-ws user-input ws-dir ws-file is-local is-github branch)
-    (tap> {:workspace @engine/ws})
+    (switch-ws user-input ws-dir ws-file via-dir via-file is-local is-github branch)
+    (tap> {:workspace workspace})
     (try
       (loop []
         (flush)
         (when-let [line (.readLine reader (prompt))]
-          (let [{:keys [branch cmd unnamed-args is-local is-github dir file color-mode] :as input} (user-input/extract-arguments (str-util/split-text line))
+          (let [{:keys [branch cmd unnamed-args is-local is-github file dir via-dir via-file color-mode] :as input} (user-input/extract-arguments (str-util/split-text line))
                 color-mode (or color-mode (common/color-mode input))
                 is-local (or is-local local?)
                 is-github (or is-github github?)
@@ -88,7 +99,7 @@
             (when-not (contains? #{"exit" "quit"} cmd)
               (cond
                 (= "shell" cmd) (println "  Can't start a shell inside another shell.")
-                (= "switch-ws" cmd) (switch-ws input dir file is-local is-github branch)
+                (= "switch-ws" cmd) (switch-ws input dir file via-dir via-file is-local is-github branch)
                 (= "tap" cmd) (tap/execute (first unnamed-args))
                 (str/blank? line) nil
                 :else (execute-command command-executor input is-local is-github branch color-mode))

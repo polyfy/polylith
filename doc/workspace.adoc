@@ -111,6 +111,7 @@ The `deps.edn` file:
 <2> The `:test` alias supports your tests
 <3> The `:poly` alias allows you to run `poly` as a local dependency, e.g., `clj -M:poly version`, and isn't used by `poly` stand-alone.
 
+[[sub-workspaces]]
 == Existing git Repository
 
 You can also create a Polylith workspace inside an existing git repo.
