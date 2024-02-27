@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.core
+(ns ^:no-doc polylith.clj.core.workspace.core
   (:require [clojure.string :as str]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.workspace.enrich.core :as enrich]

@@ -1,6 +1,6 @@
 (ns ^:no-doc polylith.clj.core.info.table.brick
   (:require [polylith.clj.core.text-table.interface :as text-table]
-            [polylith.clj.core.info.profile :as profile]
+            [polylith.clj.core.info.table.profile :as profile]
             [polylith.clj.core.info.table.ws-column.ifc-column :as ifc-column]
             [polylith.clj.core.info.table.ws-column.brick-column :as brick-column]
             [polylith.clj.core.info.table.ws-column.loc-columns :as loc-columns]

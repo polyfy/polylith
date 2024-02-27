@@ -5,6 +5,8 @@
 |===
 | Issue | Description
 
+| 443 | Switch workspace via shortcuts
+
 |===
 
 [cols="10,20,100"]
@@ -20,5 +22,7 @@
 
 |===
 | Doc updates
+
+| New sponsor: https://github.com/taehee-sp[taehee-sp] (김태희)
 
 |===

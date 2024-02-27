@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.info.profile
+(ns ^:no-doc polylith.clj.core.info.table.profile
   (:require [polylith.clj.core.common.interface :as common]))
 
 (defn inactive-profiles [{:keys [active-profiles default-profile-name]} profiles]
