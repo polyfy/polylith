@@ -5,7 +5,7 @@
 |===
 | Issue | Description
 
-| 443 | Switch workspace via shortcuts
+| https://github.com/polyfy/polylith/issues/443[443] | Switch workspace via shortcuts
 
 |===
 
