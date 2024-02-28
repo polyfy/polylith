@@ -193,35 +193,37 @@ NOTE: The `poly` tool supports reading old exported files, with older xref:versi
 This is also true when reading an older version of a workspace, e.g. if you go back in the git history with git https://git-scm.com/docs/git-checkout[checkout] or https://git-scm.com/docs/git-switch[switch].
 
 [[predefined-workspaces]]
-=== Predefined workspaces ===
+=== Switching to a predefined workspaces ===
 
 If you have workspaces xref:workspace.adoc#sub-workspaces[within] your workspace, other cloned workspaces, or  workspaces xref:explore-the-workspace.adoc#export-workspace[exported to file] there is a convenient way to access these from the xref:shell.adoc[shell].
-First you need to configure these in the xref:configuration.adoc#workspaces[:workspaces] key in your xref:configuration.adoc#user[user config] file (`~/.config/polylith/config.edn` in this example):
+If you want to follow along in this example, you first need to clone the https://github.com/polyfy/polylith[polylith] repo somewhere outside the example workspace.
+
+First you need to configure these in the xref:configuration.adoc#ws-shortcuts[:ws-shortcuts] key in your xref:configuration.adoc#user[user config] file (`~/.config/polylith/config.edn` in this example):
 
 [source,text]
 ----
 {:color-mode "dark"
  :empty-character "."
  :thousand-separator ","
- :workspaces [{:dir "examples/doc-example" :name "doc"}
-              {:dir "examples/multiple-workspaces2/shared"}
-              {:dir "examples/profiles"}
-              {:dir "examples/test-runners"}
-              {:file "../sandbox/oliver.edn"}]
+ :ws-shortcuts [{:dir "examples/doc-example" :name "doc"}
+                {:dir "examples/multiple-workspaces2/backend"}
+                {:dir "examples/profiles"}
+                {:dir "examples/test-runners"}
+                {:file "../sandbox/oliver.edn"}]
 }
 ----
 
-A workspace that lives in a directory is specified with `:dir`, and an exported workspace is specified with `:file`. They are accessed by the name of the directory/filename, but can be overridden by the `:name` keyword.
+A workspace that lives in a directory is specified with `:dir`, and an exported workspace is specified with `:file`. They are accessed by the name of the directory/filename, but can be overridden by the `:name` keyword (as with `doc` in this example).
 
-Now we can switch workspace from the xref:shell.adoc[shell] with `via-dir:NAME` and `via-file:NAME` where NAME is the name of the directory/filename. This can be overridden by specifying `:name` (as with `doc` in this example):
+Now we can switch workspace from the xref:shell.adoc[shell] with `via-dir:NAME` and `via-file:NAME` where NAME is the name of the directory/filename:
 
 [source,text]
 ----
 polylith$ switch-ws via-dir:
-doc                    (examples/doc-example)
-profiles                  (examples/profiles)
-shared (examples/multiple-workspaces2/shared)
-test-runners          (examples/test-runners)
+backend (examples/multiple-workspaces2/backend)
+doc                      (examples/doc-example)
+profiles                    (examples/profiles)
+test-runners            (examples/test-runners)
 ----
 
 If we type `b` and press kbd:[Tab] followed by kbd:[Enter] we switch to the `backend` workspace directory:

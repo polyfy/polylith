@@ -17,7 +17,7 @@
             dir (assoc :dir dir)
             file (assoc :file file))))
 
-(defn configs [user-config]
+(defn ws-shortcuts [user-config]
   (vec (sort-by :name
                 (map with-name
-                     (:workspaces user-config)))))
+                     (:ws-shortcuts user-config)))))
