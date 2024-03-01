@@ -346,7 +346,7 @@ a| Tells the xref:commands.adoc#libs[libs] where it can find your local Maven re
 
 [[ws-shortcuts]]
 a| `:workspaces`
-a| A vector of workspace directories and workspaces exported to files, which is used by the shell command, see an example xref:shell#predefined-workspaces[here].
+a| A vector of workspace directories and workspaces exported to files, which is used by the shell command, see an example xref:shell#switch-workspace[here].
 
 |===
 

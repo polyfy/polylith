@@ -74,7 +74,7 @@
     "    switch-ws dir:~/myworkspace\n"
     "    switch-ws file:../../another/ws.edn\n"
     "    switch-ws via-dir:myws\n"
-    "    switch-ws via-file:myws\n"
+    "    switch-ws via-file:myfile\n"
     "    tap\n"
     "    tap open\n"
     "    tap clean\n"

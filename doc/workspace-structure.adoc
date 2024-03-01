@@ -964,9 +964,9 @@ So if we type `poly ws get:user-input:unnamed-args :flag arg xx:123` it will ret
 
 * `:update` Used by the xref:commands.adoc#libs[libs] command.
 
-* `via-dir` Used by xref:shell#predefined-workspaces[switch-ws].
+* `via-dir` Used by xref:shell#switch-workspace[switch-ws].
 
-* `via-file` Used by xref:shell#predefined-workspaces[switch-ws].
+* `via-file` Used by xref:shell#switch-workspace[switch-ws].
 
 * `:ws` Used by the xref:commands.adoc#doc[doc] command.
 
