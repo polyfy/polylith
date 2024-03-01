@@ -8,9 +8,9 @@
             [polylith.clj.core.shell.candidate.selector.file-explorer :as file-explorer]
             [polylith.clj.core.shell.candidate.selector.remote-branches :as remote-branches]
             [polylith.clj.core.shell.candidate.selector.outdated-libs :as outdated-libs]
-            [polylith.clj.core.shell.candidate.selector.ws-via :as ws-via]
             [polylith.clj.core.shell.candidate.selector.ws-bricks :as ws-bricks]
             [polylith.clj.core.shell.candidate.selector.ws-explore :as ws-explore]
+            [polylith.clj.core.shell.candidate.selector.ws-shortcuts :as ws-shortcuts]
             [polylith.clj.core.shell.candidate.selector.ws-tag-patterns :as ws-tag-patterns]
             [polylith.clj.core.shell.candidate.selector.ws-deps-entities :as ws-deps-entities]
             [polylith.clj.core.shell.candidate.selector.ws-projects :as ws-projects]
@@ -199,8 +199,8 @@
 ;; switch-ws
 (def switch-ws-dir (c/fn-explorer "dir" :switch-ws #'file-explorer/select-edn))
 (def switch-ws-file (c/fn-explorer "file" :switch-ws #'file-explorer/select-edn))
-(def switch-ws-via-dir (c/fn-explorer "via-dir" :switch-ws #'ws-via/select-dirs))
-(def switch-ws-via-file (c/fn-explorer "via-file" :switch-ws #'ws-via/select-files))
+(def switch-ws-via-dir (c/fn-explorer "via-dir" :switch-ws #'ws-shortcuts/select-dirs))
+(def switch-ws-via-file (c/fn-explorer "via-file" :switch-ws #'ws-shortcuts/select-files))
 
 (defn switch-ws [ws-configs]
   (c/single-txt "switch-ws" :switch-ws

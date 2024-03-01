@@ -33,4 +33,4 @@
   ([]
    (ws-configs (core/config-content)))
   ([user-config]
-   (ws-configs/configs user-config)))
+   (ws-configs/ws-shortcuts user-config)))

@@ -192,69 +192,61 @@ Notice that the prompt has changed to show the currently selected workspace (by 
 NOTE: The `poly` tool supports reading old exported files, with older xref:versions.adoc[versions] of the workspace structure, which are automatically migrated to the current version.
 This is also true when reading an older version of a workspace, e.g. if you go back in the git history with git https://git-scm.com/docs/git-checkout[checkout] or https://git-scm.com/docs/git-switch[switch].
 
-[[predefined-workspaces]]
-=== Predefined workspaces ===
+[[switch-workspace]]
+=== Switching to a predefined workspace ===
 
-If you have workspaces xref:workspace.adoc#sub-workspaces[within] your workspace, other cloned workspaces, or  workspaces xref:explore-the-workspace.adoc#export-workspace[exported to file] there is a convenient way to access these from the xref:shell.adoc[shell].
-First you need to configure these in the xref:configuration.adoc#workspaces[:workspaces] key in your xref:configuration.adoc#user[user config] file (`~/.config/polylith/config.edn` in this example):
+If you have workspaces xref:workspace.adoc#sub-workspaces[within] your workspace, other cloned workspaces, or  workspaces exported to file, there is a convenient way to access these from the xref:shell.adoc[shell].
+
+This example assumes that you have cloned the repos https://github.com/polyfy/polylith[polylith] and https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[clojure-polylith-realworld-example-app], and that you have xref:explore-the-workspace.adoc#export-workspace[exported] "another-ws" to a file.
+
+First you need to configure these in the xref:configuration.adoc#ws-shortcuts[:ws-shortcuts] key in your xref:configuration.adoc#user[user config] file (`~/.config/polylith/config.edn`):
 
 [source,text]
 ----
-{:color-mode "dark"
- :empty-character "."
- :thousand-separator ","
- :workspaces [{:dir "examples/doc-example" :name "doc"}
-              {:dir "examples/multiple-workspaces2/shared"}
-              {:dir "examples/profiles"}
-              {:dir "examples/test-runners"}
-              {:file "../sandbox/oliver.edn"}]
+{...
+ :ws-shortcuts [{:dir "examples/doc-example"}
+                {:dir "examples/multiple-workspaces2/backend"}
+                {:dir "../clojure-polylith-realworld-example-app" :name "realworld"}
+                {:file "../sandbox/another-ws.edn"}]
 }
 ----
 
-A workspace that lives in a directory is specified with `:dir`, and an exported workspace is specified with `:file`. They are accessed by the name of the directory/filename, but can be overridden by the `:name` keyword.
+A workspace that lives in a directory is specified with `:dir`, while exported workspaces are specified with `:file`. They are accessed by the name of the directory/file, or `:name` if given.
 
-Now we can switch workspace from the xref:shell.adoc[shell] with `via-dir:NAME` and `via-file:NAME` where NAME is the name of the directory/filename. This can be overridden by specifying `:name` (as with `doc` in this example):
+Now we can switch workspace from the xref:shell.adoc[shell] with `via-dir:NAME` or `via-file:NAME` where NAME is the name of the directory/file:
 
 [source,text]
 ----
 polylith$ switch-ws via-dir:
-doc                    (examples/doc-example)
-profiles                  (examples/profiles)
-shared (examples/multiple-workspaces2/shared)
-test-runners          (examples/test-runners)
+backend       (examples/multiple-workspaces2/backend)
+doc-example                    (examples/doc-example)
+realworld (../clojure-polylith-realworld-example-app)
 ----
 
-If we type `b` and press kbd:[Tab] followed by kbd:[Enter] we switch to the `backend` workspace directory:
+If we type `d` and press kbd:[Tab] followed by kbd:[Enter] we switch to the `doc-example` workspace directory:
 
 [source,text]
 ----
-polylith$ switch-ws via-dir:backend
-dir:backend$
+polylith$ switch-ws via-dir:doc
+dir:doc-example$
 ----
 
-As before, we can always switch back to the root workspace with:
+We can always switch back to the root workspace with:
 [source,text]
 ----
 dir:backend$ switch-ws
 polylith$
 ----
 
-Workspaces that has been exported to files with `out:FILENAME`, e.g. `poly ws out:anotherws.edn` can be selected with:
+A workspace that has been exported to a file, e.g. `poly ws out:another-ws.edn`, can be selected with:
 
 [source,text]
 ----
-polylith$ switch-ws via-file:
-anotherws (../sandbox/anotherws.edn)
+polylith$ switch-ws via-file:another-ws
+file:another-ws
 ----
 
-We can now switch `anotherws`:
-[source,text]
-----
-polylith$ switch-ws via-file:anotherws
-file:anotherws
-----
-
-This is equivalent to `switch-ws file:../sandbox/anotherws.edn`.
+This is equivalent to `switch-ws file:../sandbox/another-ws.edn`.
 
 === Switch at Launch
 

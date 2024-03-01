@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.shell.candidate.selector.ws-via
+(ns ^:no-doc polylith.clj.core.shell.candidate.selector.ws-shortcuts
   (:require [polylith.clj.core.shell.candidate.creators :as c]
             [polylith.clj.core.user-config.interface :as user-config])
   (:refer-clojure :exclude [alias]))
