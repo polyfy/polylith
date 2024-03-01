@@ -1,4 +1,5 @@
 = Shell
+:toc:
 :poly-version: 0.2.18
 
 Not only does the `shell` make you more productive, but it's also fun to use!
@@ -205,12 +206,15 @@ This example assumes that you have cloned the repos https://github.com/polyfy/po
 [source,text]
 ----
 {...
+ :ws-shortcuts-root-dir "/Users/joakimtengstrand/source/polylith"
  :ws-shortcuts [{:dir "examples/doc-example"}
                 {:dir "examples/multiple-workspaces2/backend"}
                 {:dir "../clojure-polylith-realworld-example-app" :name "realworld"}
                 {:file "../sandbox/another-ws.edn"}]
 }
 ----
+
+The value of `:ws-shortcuts-root-dir` is added to each path (if exists).
 
 Now we can switch workspace from the xref:shell.adoc[shell] with `via-dir:NAME` or `via-file:NAME` where NAME is the name of the directory/file:
 
@@ -222,7 +226,7 @@ doc-example                    (examples/doc-example)
 realworld (../clojure-polylith-realworld-example-app)
 ----
 
-If we type `d` and press kbd:[Tab] followed by kbd:[Enter] we switch to the `doc-example` workspace directory:
+If we type `d` and press kbd:[Tab] followed by kbd:[Enter] we switch to the `doc-example` workspace directory (full path is `/Users/joakimtengstrand/source/polylith/examples/doc-example`):
 
 [source,text]
 ----
