@@ -193,13 +193,14 @@ NOTE: The `poly` tool supports reading old exported files, with older xref:versi
 This is also true when reading an older version of a workspace, e.g. if you go back in the git history with git https://git-scm.com/docs/git-checkout[checkout] or https://git-scm.com/docs/git-switch[switch].
 
 [[switch-workspace]]
-=== Switching to a predefined workspace ===
+=== Switching workspace by name ===
 
-If you have workspaces xref:workspace.adoc#sub-workspaces[within] your workspace, other cloned workspaces, or  workspaces exported to file, there is a convenient way to access these from the xref:shell.adoc[shell].
+If you have workspaces xref:workspace.adoc#sub-workspaces[within] your workspace, other cloned workspaces, or  workspaces exported to file, there is a convenient way to access these from the shell.
 
-This example assumes that you have cloned the repos https://github.com/polyfy/polylith[polylith] and https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[clojure-polylith-realworld-example-app], and that you have xref:explore-the-workspace.adoc#export-workspace[exported] "another-ws" to a file.
+First you need to configure these in the xref:configuration.adoc#ws-shortcuts[:ws-shortcuts] key in your xref:configuration.adoc#user[user config] file (`~/.config/polylith/config.edn`).
+A workspace that lives in a directory is specified with `:dir`, while exported workspaces are specified with `:file`. They are accessed by the name of the directory/file, or `:name` if given.
 
-First you need to configure these in the xref:configuration.adoc#ws-shortcuts[:ws-shortcuts] key in your xref:configuration.adoc#user[user config] file (`~/.config/polylith/config.edn`):
+This example assumes that you have cloned the repos https://github.com/polyfy/polylith[polylith] and https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[clojure-polylith-realworld-example-app], and that you have xref:explore-the-workspace.adoc#export-workspace[exported] "another-ws" to a file, e.g.:
 
 [source,text]
 ----
@@ -210,8 +211,6 @@ First you need to configure these in the xref:configuration.adoc#ws-shortcuts[:w
                 {:file "../sandbox/another-ws.edn"}]
 }
 ----
-
-A workspace that lives in a directory is specified with `:dir`, while exported workspaces are specified with `:file`. They are accessed by the name of the directory/file, or `:name` if given.
 
 Now we can switch workspace from the xref:shell.adoc[shell] with `via-dir:NAME` or `via-file:NAME` where NAME is the name of the directory/file:
 
