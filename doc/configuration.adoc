@@ -345,8 +345,8 @@ a| Tells the xref:commands.adoc#libs[libs] where it can find your local Maven re
 *Default:* `~/.m2`
 
 [[ws-shortcuts]]
-a| `:workspaces`
-a| A vector of workspace directories and workspaces exported to files, which is used by the shell command, see an example xref:shell#switch-workspace[here].
+a| `:ws-shortcuts`
+a| Contains a map with the keys `:root-dir` and `:paths` which are used by the xref:shell#switch-workspace[switching workspace] functionality in the shell. The `:root-dir` stores the root of the paths specified in `:paths` and is prepended to the paths. Each map in `:paths` has either a `:dir` or `:file` key which specifies a path for a workspace. The name of the directory or file will be used by the `via-dir:NAME` and `via-file:NAME` arguments, but can be overridden by `:name`.
 
 |===
 

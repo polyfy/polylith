@@ -29,8 +29,8 @@
 (defn legacy-config-file-path []
   (core/legacy-config-file-path))
 
-(defn ws-configs
-  ([]
-   (ws-configs (core/config-content)))
-  ([user-config]
-   (ws-configs/ws-shortcuts user-config)))
+(defn with-shortcut-root-dir [path]
+  (ws-configs/with-shortcut-root-dir path))
+
+(defn ws-shortcuts-paths []
+  (ws-configs/ws-shortcuts-paths))

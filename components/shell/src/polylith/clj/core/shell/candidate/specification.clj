@@ -216,7 +216,7 @@
 
 (defn candidates [{:keys [profiles user-input]}]
   (let [{:keys [ws-dir ws-file is-all is-local]} user-input
-        ws-configs (user-config/ws-configs)
+        ws-configs (user-config/ws-shortcuts-paths)
         info-profiles (->profiles :info profiles is-all)
         test-profiles (->profiles :test profiles is-all)
         ws-profiles (->profiles :ws profiles is-all)

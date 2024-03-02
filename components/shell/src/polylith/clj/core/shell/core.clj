@@ -40,12 +40,14 @@
 
 (defn select-file-and-dir [name->config dir file via-dir via-file]
   (if (or via-dir via-file)
-    (get name->config (or via-dir via-file))
-    {:file file :dir dir}))
+    (let [{:keys [dir file]} (get name->config (or via-dir via-file))]
+      {:dir (user-config/with-shortcut-root-dir dir)
+       :file (user-config/with-shortcut-root-dir file)})
+    {:dir dir :file file}))
 
 (defn switch-ws [user-input dir file via-dir via-file local? github? branch]
-  (let [ws-configs (user-config/ws-configs)
-        name->config (into {} (map (juxt :name identity) ws-configs))
+  (let [paths (user-config/ws-shortcuts-paths)
+        name->config (into {} (map (juxt :name identity) paths))
         {:keys [file dir]} (select-file-and-dir name->config dir file via-dir via-file)
         input (enhance user-input dir file local? github? branch)]
     (reset! ws-dir (if (= "." dir) nil dir))
