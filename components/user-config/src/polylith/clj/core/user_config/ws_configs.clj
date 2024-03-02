@@ -18,19 +18,21 @@
             dir (assoc :dir dir)
             file (assoc :file file))))
 
-(defn ws-shortcuts []
-  (let [{:keys [ws-shortcuts]} (core/config-content)]
+(defn ws-shortcuts-paths []
+  (let [config (core/config-content)]
     (vec (sort-by :name
                   (map with-name
-                       ws-shortcuts)))))
+                       (-> config :ws-shortcuts :paths))))))
 
 (defn with-shortcut-root-dir [path]
-  (when path
-    (if-let [root-dir (:ws-shortcuts-root-dir (core/config-content))]
-      (str (str-util/skip-if-ends-with root-dir "/") "/" path)
-      path)))
+  (let [config (core/config-content)]
+    (when path
+      (if-let [root-dir (-> config :ws-shortcuts :root-dir)]
+        (str (str-util/skip-if-ends-with root-dir "/") "/" path)
+        path))))
 
 (comment
-  (ws-shortcuts)
+  (core/config-content)
+  (ws-shortcuts-paths)
   (with-shortcut-root-dir "dir")
   #__)

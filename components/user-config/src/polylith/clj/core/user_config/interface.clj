@@ -32,5 +32,5 @@
 (defn with-shortcut-root-dir [path]
   (ws-configs/with-shortcut-root-dir path))
 
-(defn ws-shortcuts []
-  (ws-configs/ws-shortcuts))
+(defn ws-shortcuts-paths []
+  (ws-configs/ws-shortcuts-paths))

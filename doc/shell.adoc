@@ -206,15 +206,15 @@ This example assumes that you have cloned the repos https://github.com/polyfy/po
 [source,text]
 ----
 {...
- :ws-shortcuts-root-dir "/Users/joakimtengstrand/source/polylith"
- :ws-shortcuts [{:dir "examples/doc-example"}
-                {:dir "examples/multiple-workspaces2/backend"}
-                {:dir "../clojure-polylith-realworld-example-app" :name "realworld"}
-                {:file "../sandbox/another-ws.edn"}]
+ :ws-shortcuts {:root-dir "/Users/joakimtengstrand/source/polylith"
+                :paths [{:dir "examples/doc-example"}
+                        {:dir "examples/multiple-workspaces2/backend"}
+                        {:dir "../clojure-polylith-realworld-example-app" :name "realworld"}
+                        {:file "../sandbox/another-ws.edn"}]}
 }
 ----
 
-The value of `:ws-shortcuts-root-dir` is added to each path (if exists).
+The value of `:root-dir` is added to each path to get a full path.
 
 Now we can switch workspace from the xref:shell.adoc[shell] with `via-dir:NAME` or `via-file:NAME` where NAME is the name of the directory/file:
 

@@ -46,8 +46,8 @@
     {:dir dir :file file}))
 
 (defn switch-ws [user-input dir file via-dir via-file local? github? branch]
-  (let [ws-shortcuts (user-config/ws-shortcuts)
-        name->config (into {} (map (juxt :name identity) ws-shortcuts))
+  (let [paths (user-config/ws-shortcuts-paths)
+        name->config (into {} (map (juxt :name identity) paths))
         {:keys [file dir]} (select-file-and-dir name->config dir file via-dir via-file)
         input (enhance user-input dir file local? github? branch)]
     (reset! ws-dir (if (= "." dir) nil dir))

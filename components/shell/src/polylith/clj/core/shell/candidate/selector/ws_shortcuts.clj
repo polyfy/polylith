@@ -9,9 +9,9 @@
 (defn select-dirs [candidate _ _]
   (let [group-id (-> candidate :group :id)]
     (map #(c/single-txt (:name %) (c/group group-id) (description %))
-         (filter :dir (user-config/ws-shortcuts)))))
+         (filter :dir (user-config/ws-shortcuts-paths)))))
 
 (defn select-files [candidate _ _]
   (let [group-id (-> candidate :group :id)]
     (map #(c/single-txt (:name %) (c/group group-id) (description %))
-         (filter :file (user-config/ws-shortcuts)))))
+         (filter :file (user-config/ws-shortcuts-paths)))))
