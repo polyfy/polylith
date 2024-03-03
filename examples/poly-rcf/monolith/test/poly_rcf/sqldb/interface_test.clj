@@ -7,7 +7,7 @@
             [next.jdbc.result-set :as rs]
             [poly-rcf.sqldb.interface :as sqldb]))
 
-;; This fails because of https://github.com/polyfy/polylith/issues/261
+;; This works when we execute the code as a monolith
 (deftest new-component-test
   "Test component works by starting a system and running a query."
   (let [config {:dre {:test {:db-spec {:maximum-pool-size 10
