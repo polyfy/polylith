@@ -7,7 +7,7 @@ This workspace has been cloned and slightly modified from [Poly 261 - Classpath 
 * Don't include `sqldb` as a dependency from `empty` in its `deps.edn`.
 * Changed top namespace from `poly-rcf.rcf` to `poly-rcf`.
 * Made sure all bricks live in the correct namespace (the `rcf` base needed one extra `rcf` directory).
-* Use 0.2.19 of the poly tool, in the :poly alias in ./deps.edn.
+* Use the latest version of the poly tool, in the :poly alias in ./deps.edn.
 * Removed unused `resources` and references to project `test` directories.
 * Added `:all` to the `test` command, to make sure all tests are executed.
 * Added the `monolith` directory at the root.
