@@ -2,7 +2,7 @@
 
 Example on how to run [Hyperfiddle rcf](https://github.com/hyperfiddle/rcf) tests with [Polylith poly tool](https://polylith.gitbook.io/poly/).
 
-This repo has been cloned and slightly modified from [Poly 261 - Classpath stability for tests](https://github.com/ieugen/poly-rcf/pull/1):
+This workspace has been cloned and slightly modified from [Poly 261 - Classpath stability for tests](https://github.com/ieugen/poly-rcf/pull/1):
 * Renamed the `issue-261` base to `empty`.
 * Don't include `sqldb` as a dependency from `empty` in its `deps.edn`.
 * Changed top namespace from `poly-rcf.rcf` to `poly-rcf`.
