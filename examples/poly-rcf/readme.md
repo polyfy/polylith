@@ -6,7 +6,6 @@ To reproduce [issue 261](https://github.com/polyfy/polylith/issues/261):
 * Execute `clojure -M:poly test :all` from the root. To get more details: `clojure -M:poly test :all :verbose`.
 * Or execute `clj -X:test` from the `monolith` directory, to verify that this code works as a monolith.
 
-
 This workspace has been cloned and slightly modified from [Poly 261 - Classpath stability for tests](https://github.com/ieugen/poly-rcf/pull/1):
 * Renamed the `issue-261` base to `empty`.
 * Don't include `sqldb` as a dependency from `empty` in its `deps.edn`.
