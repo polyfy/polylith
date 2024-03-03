@@ -1,0 +1,6 @@
+{:paths ["src"]
+ :deps {com.hyperfiddle/rcf {:mvn/version "20220405"}}
+ :aliases {:test {:extra-paths ["test"
+                                ;; Adding src here makes poly tool discover RCF tests under src/
+                                "src"]
+                  :extra-deps {org.slf4j/slf4j-simple {:mvn/version "2.0.0-beta1"}}}}}

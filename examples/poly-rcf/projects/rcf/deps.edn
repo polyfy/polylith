@@ -1,0 +1,5 @@
+{:paths []
+ :deps {poly/rcf   {:local/root "../../bases/rcf"}
+        poly/sqldb {:local/root "../../components/sqldb"}}
+ :aliases {:test {:extra-paths []
+                  :extra-deps {org.clojure/test.check {:mvn/version "1.1.1"}}}}}

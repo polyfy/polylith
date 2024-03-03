@@ -1,0 +1,4 @@
+{:paths ["src" "resources"]
+ :deps {};;poly/sqldb {:local/root "../../components/sqldb"}}
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps {}}}}
