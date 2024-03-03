@@ -18,6 +18,6 @@
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :jvm-opts [;; Run RCF tests when loading files in REPL
-                             ;; https://github.com/hyperfiddle/rcf#ci
+                              ;; https://github.com/hyperfiddle/rcf#ci
                               "-Dhyperfiddle.rcf.generate-tests=true"]
                    :extra-deps {polylith/clj-poly {:mvn/version "0.2.19"}}}}}
