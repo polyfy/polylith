@@ -1,5 +1,6 @@
 (ns poly-rcf.sqldb.interface-test
   (:require [clojure.set :as set]
+            [clojure.test :refer :all]
             [clojure.tools.logging :as log]
             [com.stuartsierra.component :as component]
             [next.jdbc :as jdbc]
