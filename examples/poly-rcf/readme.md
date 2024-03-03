@@ -13,4 +13,4 @@ This workspace has been cloned and slightly modified from [Poly 261 - Classpath 
 * Use the latest version of the poly tool, in the :poly alias in ./deps.edn.
 * Removed unused `resources` and references to project `test` directories.
 * Added `:all` to the `test` command, to make sure all tests are executed.
-* Added the `monolith` directory at the root.
+* Added the `monolith` directory.
