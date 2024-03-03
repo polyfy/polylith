@@ -1,4 +1,3 @@
-<img src="logo.png" width="30%" alt="Polylith" id="logo">
 
 Example on how to run [Hyperfiddle rcf](https://github.com/hyperfiddle/rcf) tests with [Polylith poly tool](https://polylith.gitbook.io/poly/).
 
