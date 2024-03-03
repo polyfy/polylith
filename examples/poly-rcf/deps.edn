@@ -14,7 +14,4 @@
                    :jvm-opts [;; Run RCF tests when loading files in REPL
                              ;; https://github.com/hyperfiddle/rcf#ci
                               "-Dhyperfiddle.rcf.generate-tests=true"]
-                   :extra-deps {polyfy/polylith
-                                {:git/url   "https://github.com/polyfy/polylith"
-                                 :sha       "1209a81e6b8f70987050d65d106e99d1a902969a"
-                                 :deps/root "projects/poly"}}}}}
+                   :extra-deps {polylith/clj-poly {:mvn/version "0.2.19"}}}}}

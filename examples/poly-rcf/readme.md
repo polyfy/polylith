@@ -4,10 +4,13 @@ Example on how to run [Hyperfiddle rcf](https://github.com/hyperfiddle/rcf) test
 
 This repo has been cloned and slightly modified from [Poly 261 - Classpath stability for tests](https://github.com/ieugen/poly-rcf/pull/1):
 * Renamed the `issue-261` base to `mybase`.
+* Don't include `sqldb` as a dependency from `mybase` in its `deps.edn`.
 * Changed top namespace from `poly-rcf.rcf` to `poly-rcf`.
 * Made sure all bricks live in the correct namespace (the `rcf` base needed one extra `rcf` directory).
-* Cleanup: removed unused `resources` and references to project `test` directories.
+* Use 0.2.19 of the poly tool, in the :poly alias in ./deps.edn.
+* Removed unused `resources` and references to project `test` directories.
 * Added `:all` to the `test` command, to make sure all tests are executed.
+* Added the `monolith` directory at the root.
 
 To make RCF tests work with polylith you need to pass `"-Dhyperfiddle.rcf.generate-tests=true"` via **:jvm-opts** of **:poly** alias in `./deps.edn` .
 
@@ -75,4 +78,4 @@ Test results: 1 passes, 0 failures, 0 errors.
 Execution time: 2 seconds
 ```
 
-NOTE: To see more details, use `clojure -Srepro -M:poly test :verbose`
+NOTE: To see more details, use `clojure -Srepro -M:poly test :all :verbose`
