@@ -14,10 +14,4 @@
                                 org.slf4j/slf4j-simple {:mvn/version "2.0.0-beta1"}
                                 io.github.cognitect-labs/test-runner {:git/tag "v0.5.1" :git/sha "dfb30dd"}}
                    :main-opts ["-m" "cognitect.test-runner"]
-                   :exec-fn cognitect.test-runner.api/test}
-
-            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
-                   :jvm-opts [;; Run RCF tests when loading files in REPL
-                              ;; https://github.com/hyperfiddle/rcf#ci
-                              "-Dhyperfiddle.rcf.generate-tests=true"]
-                   :extra-deps {polylith/clj-poly {:mvn/version "0.2.19"}}}}}
+                   :exec-fn cognitect.test-runner.api/test}}}
