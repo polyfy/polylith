@@ -73,7 +73,7 @@
    reflected in:
    * https://github.com/imrekoszo/polylith-kaocha
    * https://github.com/seancorfield/polylith-external-test-runner
-   and any others that get built by the community."
+     and any others that get built by the community."
   [{:keys [workspace project]}]
   (let [{:keys [bases components]} workspace
         {:keys [name bricks-to-test projects-to-test namespaces paths]} project
