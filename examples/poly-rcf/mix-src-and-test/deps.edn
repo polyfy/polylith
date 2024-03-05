@@ -1,0 +1,26 @@
+
+{:aliases  {:dev {:extra-paths ["development/src"]
+                  :extra-deps {;; bases
+                               poly/rcf   {:local/root "bases/rcf"}
+                               poly/empty {:local/root "bases/empty"}
+                               ;; components
+                               poly/sqldb     {:local/root "components/sqldb"}
+
+                               org.clojure/clojure {:mvn/version "1.11.1"}}}
+
+
+            :test {:extra-paths ["bases/rcf/test"
+                                 "bases/empty/test"]
+                   ;; Run tests with: clojure -A:dev -X:test
+                   :extra-deps {io.github.cognitect-labs/test-runner {:git/tag "v0.5.1" :git/sha "dfb30dd"}}
+                   :main-opts ["-m" "cognitect.test-runner"]
+                   :jvm-opts [;; Run RCF tests when loading files in REPL
+                              ;; https://github.com/hyperfiddle/rcf#ci
+                              "-Dhyperfiddle.rcf.generate-tests=true"]
+                   :exec-fn cognitect.test-runner.api/test}
+
+            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                   :jvm-opts [;; Run RCF tests when loading files in REPL
+                              ;; https://github.com/hyperfiddle/rcf#ci
+                              "-Dhyperfiddle.rcf.generate-tests=true"]
+                   :extra-deps {polylith/clj-poly {:local/root "../../../projects/poly"}}}}}
