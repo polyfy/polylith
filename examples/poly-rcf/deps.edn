@@ -1,9 +1,7 @@
 {:aliases  {:dev {:extra-paths ["development/src"]
-                  :extra-deps {;; bases
-                               poly/rcf       {:local/root "bases/rcf"}
+                  :extra-deps {poly/sqldb {:local/root "components/sqldb"}
+                               poly/rcf   {:local/root "bases/rcf"}
                                poly/empty {:local/root "bases/empty"}
-                               ;; components
-                               poly/sqldb     {:local/root "components/sqldb"}
 
                                org.clojure/clojure {:mvn/version "1.11.1"}}}
 
@@ -12,6 +10,6 @@
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :jvm-opts [;; Run RCF tests when loading files in REPL
-                             ;; https://github.com/hyperfiddle/rcf#ci
+                              ;; https://github.com/hyperfiddle/rcf#ci
                               "-Dhyperfiddle.rcf.generate-tests=true"]
                    :extra-deps {polylith/clj-poly {:local/root "../../projects/poly"}}}}}
