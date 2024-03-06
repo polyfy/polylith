@@ -1,4 +1,5 @@
+;; I had to add hyperfiddle/rcf + slf4j, for the tests to run.
 {:paths ["src"]
- :deps {}
+ :deps {com.hyperfiddle/rcf {:mvn/version "20220405"}}
  :aliases {:test {:extra-paths ["test"]
-                  :extra-deps {}}}}
+                  :extra-deps {org.slf4j/slf4j-simple {:mvn/version "2.0.0-beta1"}}}}}
