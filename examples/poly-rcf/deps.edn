@@ -12,4 +12,7 @@
                    :jvm-opts [;; Run RCF tests when loading files in REPL
                               ;; https://github.com/hyperfiddle/rcf#ci
                               "-Dhyperfiddle.rcf.generate-tests=true"]
+
                    :extra-deps {polylith/clj-poly {:local/root "../../projects/poly"}}}}}
+                                ;; Add this line to use the external test runner + a row in workspace.edn.
+                                ;;io.github.seancorfield/polylith-external-test-runner {:git/tag "v0.4.0" :git/sha "eb954fe" :deps/root "projects/runner"}}}}}

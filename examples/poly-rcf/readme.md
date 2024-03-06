@@ -7,6 +7,7 @@ With these changes, the workspace (using the original `deps.edn` file) behaves l
 * I can run the `rcf` project with `clojure -M:poly test project:rcf`.
 * I can run the `poly261` project with `clojure -M:poly test project:poly261`.
 * If I run both `rcf` and `poly261` with `clojure -M:poly test :all`, then `rfc` works, but `poly261` fails. This is the same behaviour I had before the changes, see [issue 261](https://github.com/polyfy/polylith/issues/261).
+* If I run both using the [polylith-external-test-runner](https://github.com/seancorfield/polylith-external-test-runner) then I can run tests for both projecs with `clojure -M:poly test :all`!
 
 This workspace has been cloned and slightly modified from [Poly 261 - Classpath stability for tests](https://github.com/ieugen/poly-rcf/pull/1):
 * Renamed the `issue-261` base to `empty`.
