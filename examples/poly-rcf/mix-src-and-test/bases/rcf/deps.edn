@@ -1,4 +1,0 @@
-{:paths ["src" "test"]
- :deps {com.hyperfiddle/rcf {:mvn/version "20220405"}}
- :aliases {:test {:extra-paths []
-                  :extra-deps {org.slf4j/slf4j-simple {:mvn/version "2.0.0-beta1"}}}}}
