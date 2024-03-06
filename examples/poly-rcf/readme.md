@@ -2,8 +2,12 @@
 Example on how to run [Hyperfiddle rcf](https://github.com/hyperfiddle/rcf) tests with [Polylith poly tool](https://polylith.gitbook.io/poly/).
 
 To reproduce [issue 261](https://github.com/polyfy/polylith/issues/261):
-* Execute `clojure -M:poly test :all` from the `examples/poly-rcf` directory. To get more details: `clojure -M:poly test :all :verbose`.
-* Verify that the same code executes without problems as a monolith by executing `clj -X:test` from the `examples/poly-rcf/monolith` directory.
+* Execute `clojure -M:poly test :all :verbose` from the `examples/poly-rcf` directory.
+
+To execute the tests so that they work:
+
+* From the `development` project: `clojure -M:poly test :dev project:development`
+* If we organise the code as a monolith, from `examples/poly-rcf/monolith` with `clj -X:test`.
 
 This workspace has been cloned and slightly modified from [Poly 261 - Classpath stability for tests](https://github.com/ieugen/poly-rcf/pull/1):
 * Renamed the `issue-261` base to `empty`.
