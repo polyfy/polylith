@@ -1,0 +1,16 @@
+;; To test this config, rename the file to deps.edn.
+{:aliases  {:dev {:extra-paths ["development/src"]
+                  :extra-deps {poly/sqldb {:local/root "components/sqldb"}
+                               poly/rcf   {:local/root "bases/rcf"}
+
+                               org.clojure/clojure {:mvn/version "1.11.1"}}}
+
+            :test {:extra-paths ["bases/rcf/test"]
+                   :extra-deps {org.clojure/test.check {:mvn/version "1.1.1"}
+                                io.github.cognitect-labs/test-runner {:git/tag "v0.5.1" :git/sha "dfb30dd"}}
+                   :main-opts ["-m" "cognitect.test-runner"]
+                   :exec-fn cognitect.test-runner.api/test}
+
+            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                   :jvm-opts ["-Dhyperfiddle.rcf.generate-tests=true"]
+                   :extra-deps {polylith/clj-poly {:local/root "../../projects/poly"}}}}}
