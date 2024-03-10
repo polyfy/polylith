@@ -208,11 +208,11 @@
    both the src and the test context, and make all the calculations for us.
 
    If a brick is only included in the test context for the project, then we treat all dependencies as test dependencies."
-  [brick brick-id->deps ifc->comp all-brick-ids brick-ids-in-project brick-ids-in-project-test test-only-brick-ids brick-ids-to-test]
+  [brick brick-id->deps ifc->comp all-brick-ids brick-ids-in-project brick-ids-in-project-test test-only-brick-ids brick-ids-to-check]
   (let [src-brick-id (->brick-id brick)
         test-brick-id (str src-brick-id " (t)")
         src-deps (finalize-deps src-brick-id brick-id->deps ifc->comp all-brick-ids brick-ids-in-project nil)
-        test-deps (finalize-deps test-brick-id brick-id->deps ifc->comp all-brick-ids brick-ids-in-project-test brick-ids-to-test)]
+        test-deps (finalize-deps test-brick-id brick-id->deps ifc->comp all-brick-ids brick-ids-in-project-test brick-ids-to-check)]
     (if (contains? test-only-brick-ids src-brick-id)
       {:src  {}
        :test (merge-deps src-deps test-deps)}
@@ -240,7 +240,7 @@
 
 (defn project-deps
   [components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test]
-  "Calculate the src and test dependencies for a project. The returned dependencies
+  "Calculates the src and test dependencies for a project. The returned dependencies
    are stored in a map with a :src and :test key and includes a key for each brick that is included
    in the project, together with the direct, indirect, and circular dependencies (if any) +
    missing dependencies on interfaces and bases (if any).
@@ -290,7 +290,7 @@
                                 (concat components
                                         (filter #(contains? component-names (:name %))
                                                 components))))
-        brick-ids-to-test (brick-names-to-ids brick-names-to-test components)
+        brick-ids-to-check (brick-names-to-ids brick-names-to-test components)
         all-brick-ids (set (concat (map #(-> % :interface :name) components)
                                    (map :name bases)))
         brick-ids-in-project-src (brick-ids-in-project component-names-src base-names-src bricks)
@@ -317,5 +317,5 @@
         (doseq [brick-id (brick-id->brick-ids test-brick-id)]
           (update-deps! test-brick-id brick-id brick-id->brick-ids brick-id->deps #{test-brick-id}))))
     ;; Step 2: For each brick, convert interface names to component names + calculate missing and circular dependencies.
-    (into {} (map (juxt :name #(brick-deps % @brick-id->deps ifc->comp all-brick-ids brick-ids-in-project-src brick-ids-in-project-test test-only-brick-ids brick-ids-to-test))
+    (into {} (map (juxt :name #(brick-deps % @brick-id->deps ifc->comp all-brick-ids brick-ids-in-project-src brick-ids-in-project-test test-only-brick-ids brick-ids-to-check))
                   bricks))))
