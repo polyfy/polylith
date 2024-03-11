@@ -239,7 +239,7 @@
       (set (map #(name->brick-id % %) bricks-to-test)))))
 
 (defn project-deps
-  [components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test]
+  [workspaces components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test]
   "Calculates the src and test dependencies for a project. The returned dependencies
    are stored in a map with a :src and :test key and includes a key for each brick that is included
    in the project, together with the direct, indirect, and circular dependencies (if any) +
@@ -281,6 +281,16 @@
    :aliases > :test > :extra-paths syntax is only needed for the development project if your IDE doesn't support
    the :local/root syntax.
    The recommendation is to use the :local/root syntax in all your projects if it's supported by your IDE."
+;  (def workspaces workspaces)
+;  (def components components)
+;  (def bases bases)
+;  (def poly-bases bases)
+;  (def component-names-src component-names-src)
+;  (def component-names-test component-names-test)
+;  (def base-names-src base-names-src)
+;  (def base-names-test base-names-test)
+;  (def suffixed-top-ns suffixed-top-ns)
+;  (def brick-names-to-test brick-names-to-test)
   (let [brick-names (set (concat component-names-src component-names-test base-names-src base-names-test))
         bricks (filter #(contains? brick-names (:name %))
                        (concat bases components))

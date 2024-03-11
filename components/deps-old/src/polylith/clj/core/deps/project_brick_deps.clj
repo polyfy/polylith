@@ -239,7 +239,7 @@
       (set (map #(name->brick-id % %) bricks-to-test)))))
 
 (defn project-deps
-  [components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test]
+  [workspaces components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test]
   "Calculates the src and test dependencies for a project. The returned dependencies
    are stored in a map with a :src and :test key and includes a key for each brick that is included
    in the project, together with the direct, indirect, and circular dependencies (if any) +

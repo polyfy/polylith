@@ -23,6 +23,7 @@
                                poly/sh                       {:local/root "components/sh"}
                                poly/shell                    {:local/root "components/shell"}
                                poly/tap                      {:local/root "components/tap"}
+                               poly/test                     {:local/root "components/test"}
                                poly/test-helper              {:local/root "components/test-helper"}
                                poly/test-runner-contract     {:local/root "components/test-runner-contract"}
                                poly/test-runner-orchestrator {:local/root "components/test-runner-orchestrator"}
