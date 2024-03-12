@@ -1,7 +1,7 @@
-(ns polylith.clj.core.change.bricks-to-test-test
+(ns polylith.clj.core.test.bricks-to-test-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.change.bricks-to-test :as to-test]
-            [polylith.clj.core.change.test-data :as data])
+            [polylith.clj.core.test.bricks-to-test :as to-test]
+            [polylith.clj.core.test.test-data :as data])
   (:refer-clojure :exclude [test]))
 
 (defn test [{:keys [changed-projects
