@@ -21,6 +21,7 @@
         polylith/shell                    {:local/root "../../components/shell"}
         polylith/system                   {:local/root "../../components/system-x"}
         polylith/tap                      {:local/root "../../components/tap"}
+        polylith/test                     {:local/root "../../components/test"}
         polylith/test-runner-contract     {:local/root "../../components/test-runner-contract"}
         polylith/test-runner-orchestrator {:local/root "../../components/test-runner-orchestrator"}
         polylith/text-table               {:local/root "../../components/text-table"}

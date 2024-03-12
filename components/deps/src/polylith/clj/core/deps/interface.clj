@@ -20,8 +20,8 @@
 (defn base-deps [bases base suffixed-top-ns]
   (base-deps/base-deps bases base suffixed-top-ns))
 
-(defn project-deps [components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test]
-  (project-brick-deps/project-deps components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test))
+(defn project-deps [workspaces components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test]
+  (project-brick-deps/project-deps workspaces components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test))
 
 (defn print-brick-project-table [workspace project-name brick-name]
   (brick-project-deps-table/print-table workspace project-name brick-name))

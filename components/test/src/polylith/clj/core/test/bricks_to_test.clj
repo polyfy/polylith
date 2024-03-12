@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.change.bricks-to-test
+(ns ^:no-doc polylith.clj.core.test.bricks-to-test
   (:require [clojure.set :as set]
             [polylith.clj.core.common.interface :as common]))
 
