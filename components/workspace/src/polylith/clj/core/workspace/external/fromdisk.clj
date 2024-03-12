@@ -1,5 +1,6 @@
 (ns polylith.clj.core.workspace.external.fromdisk
   (:require [clojure.string :as str]
+            [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.workspace.fromdisk.core :as fromdisk]
             [polylith.clj.core.ws-file.interface :as ws-file]))
@@ -30,7 +31,11 @@
 (defn workspace! [{:keys [ws-file] :as user-input} wsdir->workspace]
   (if ws-file
     (ws-file/read-ws-from-file ws-file user-input)
-    (let [{:keys [config-errors ws-dir] :as workspace} (fromdisk/workspace-from-disk user-input)]
+    (let [{:keys [config-errors ws-dir] :as workspace}
+          (-> user-input
+              (fromdisk/workspace-from-disk)
+              (change/with-changes))]
+
       (if (or (nil? workspace)
               (seq config-errors))
         workspace
@@ -39,10 +44,10 @@
           workspace)))))
 
 (defn workspaces
-  "Returns a vector with included workspaces"
+  "Returns a vector with included workspaces, in the order they were referenced."
   [ws-dir user-input]
   (let [path (file/absolute-path ws-dir)
-        wsdir->workspace (atom {path {}})
+        wsdir->workspace (atom {path (array-map)})
         _ (workspace! user-input wsdir->workspace)]
     (mapv second
           (filter #(-> % second seq)
