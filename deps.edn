@@ -11,6 +11,7 @@
                                poly/common                   {:local/root "components/common"}
                                poly/config-reader            {:local/root "components/config-reader"}
                                poly/creator                  {:local/root "components/creator"}
+                               poly/deps                     {:local/root "components/deps"}
                                poly/doc                      {:local/root "components/doc"}
                                poly/file                     {:local/root "components/file"}
                                poly/git                      {:local/root "components/git"}
@@ -45,13 +46,11 @@
 
             :+default {:extra-paths ["components/deps/test"]
                        :extra-deps {poly/image-creator {:local/root "components/image-creator"}
-                                    poly/system {:local/root "components/system"}
-                                    poly/deps2 {:local/root "components/deps"}}}
+                                    poly/system {:local/root "components/system"}}}
 
             :+extended {:extra-paths ["components/deps/test"]
                         :extra-deps {poly/image-creator-x {:local/root "components/image-creator-x"}
-                                     poly/system-x {:local/root "components/system-x"}
-                                     poly/deps2 {:local/root "components/deps"}}}
+                                     poly/system-x {:local/root "components/system-x"}}}
 
             :test {:extra-paths ["components/change/test"
                                  "components/clojure-test-test-runner/test"
@@ -59,6 +58,7 @@
                                  "components/common/test"
                                  "components/config-reader/test"
                                  "components/creator/test"
+                                 "components/deps/test"
                                  "components/git/test"
                                  "components/lib/test"
                                  "components/path-finder/test"
