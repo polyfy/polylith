@@ -102,8 +102,8 @@
 
 (defn brick-names
   "Converts from interface and base names to brick names."
-  [deps ifc->comp]
-  (map #(ifc->comp % %) deps))
+  [deps ifc->comp-name]
+  (map #(ifc->comp-name % %) deps))
 
 (defn brick-ids-in-project [component-names base-names bricks]
   (set (concat (map #(-> % :interface :name)
@@ -160,7 +160,7 @@
 
    During those calculations, we also make sure we translate interfaces names to component names
    (used by the project)."
-  [brick-id brick-id->deps ifc->comp all-brick-ids brick-ids-in-project brick-ids-to-check]
+  [brick-id brick-id->deps ifc->comp-name all-brick-ids brick-ids-in-project brick-ids-to-check]
   (let [{:keys [direct indirect paths]} (brick-id->deps brick-id)
         circular (circular-dep brick-id indirect paths)
         all-direct (set/intersection (drop-suffixes direct) all-brick-ids)
@@ -171,11 +171,11 @@
         missing-indirect (missing-deps indirect all-indirect brick-ids-to-check)
         has-missing? (or (seq missing-direct) (seq missing-indirect))]
     (cond-> {}
-            (seq direct) (assoc :direct (vec (sort (brick-names direct ifc->comp))))
-            (seq indirect) (assoc :indirect (vec (sort (brick-names indirect ifc->comp))))
+            (seq direct) (assoc :direct (vec (sort (brick-names direct ifc->comp-name))))
+            (seq indirect) (assoc :indirect (vec (sort (brick-names indirect ifc->comp-name))))
             has-missing? (assoc :missing-ifc-and-bases {:direct (-> missing-direct sort vec)
                                                         :indirect (-> missing-indirect sort vec)})
-            (seq circular) (assoc :circular (vec (brick-names circular ifc->comp))))))
+            (seq circular) (assoc :circular (vec (brick-names circular ifc->comp-name))))))
 
 (defn merge-missing [{src1 :src test1 :test}
                      {src2 :src test2 :test}]
@@ -208,11 +208,11 @@
    both the src and the test context, and make all the calculations for us.
 
    If a brick is only included in the test context for the project, then we treat all dependencies as test dependencies."
-  [brick brick-id->deps ifc->comp all-brick-ids brick-ids-in-project brick-ids-in-project-test test-only-brick-ids brick-ids-to-check]
+  [brick brick-id->deps ifc->comp-name all-brick-ids brick-ids-in-project brick-ids-in-project-test test-only-brick-ids brick-ids-to-check]
   (let [src-brick-id (->brick-id brick)
         test-brick-id (str src-brick-id " (t)")
-        src-deps (finalize-deps src-brick-id brick-id->deps ifc->comp all-brick-ids brick-ids-in-project nil)
-        test-deps (finalize-deps test-brick-id brick-id->deps ifc->comp all-brick-ids brick-ids-in-project-test brick-ids-to-check)]
+        src-deps (finalize-deps src-brick-id brick-id->deps ifc->comp-name all-brick-ids brick-ids-in-project nil)
+        test-deps (finalize-deps test-brick-id brick-id->deps ifc->comp-name all-brick-ids brick-ids-in-project-test brick-ids-to-check)]
     (if (contains? test-only-brick-ids src-brick-id)
       {:src  {}
        :test (merge-deps src-deps test-deps)}
@@ -281,23 +281,24 @@
    :aliases > :test > :extra-paths syntax is only needed for the development project if your IDE doesn't support
    the :local/root syntax.
    The recommendation is to use the :local/root syntax in all your projects if it's supported by your IDE."
-;  (def workspaces workspaces)
-;  (def components components)
-;  (def bases bases)
-;  (def poly-bases bases)
-;  (def component-names-src component-names-src)
-;  (def component-names-test component-names-test)
-;  (def base-names-src base-names-src)
-;  (def base-names-test base-names-test)
-;  (def suffixed-top-ns suffixed-top-ns)
-;  (def brick-names-to-test brick-names-to-test)
+  ;(def workspaces workspaces)
+  ;(def components components)
+  ;(def bases bases)
+  ;(def poly-bases bases)
+  ;(def component-names-src component-names-src)
+  ;(def component-names-test component-names-test)
+  ;(def base-names-src base-names-src)
+  ;(def base-names-test base-names-test)
+  ;(def suffixed-top-ns suffixed-top-ns)
+  ;(def brick-names-to-test brick-names-to-test)
+
   (let [brick-names (set (concat component-names-src component-names-test base-names-src base-names-test))
         bricks (filter #(contains? brick-names (:name %))
                        (concat bases components))
         component-names (set (concat component-names-src component-names-test))
         ;; Make sure we pick the right component if more than one for an interface.
-        ifc->comp (into {} (map (juxt #(-> % :interface :name) :name)
-                                (concat components
+        ifc->comp-name (into {} (map (juxt #(-> % :interface :name) :name)
+                                     (concat components
                                         (filter #(contains? component-names (:name %))
                                                 components))))
         brick-ids-to-check (brick-names-to-ids brick-names-to-test components)
@@ -327,5 +328,18 @@
         (doseq [brick-id (brick-id->brick-ids test-brick-id)]
           (update-deps! test-brick-id brick-id brick-id->brick-ids brick-id->deps #{test-brick-id}))))
     ;; Step 2: For each brick, convert interface names to component names + calculate missing and circular dependencies.
-    (into {} (map (juxt :name #(brick-deps % @brick-id->deps ifc->comp all-brick-ids brick-ids-in-project-src brick-ids-in-project-test test-only-brick-ids brick-ids-to-check))
+    (into {} (map (juxt :name #(brick-deps % @brick-id->deps ifc->comp-name all-brick-ids brick-ids-in-project-src brick-ids-in-project-test test-only-brick-ids brick-ids-to-check))
                   bricks))))
+
+(comment
+  (def brick-names (set (concat component-names-src component-names-test base-names-src base-names-test)))
+  (def bricks (filter #(contains? brick-names (:name %))
+                      (concat bases components)))
+  (def component-names (set (concat component-names-src component-names-test)))
+  (def ifc->comp-name (into {} (map (juxt #(-> % :interface :name) :name)
+                                    (concat components
+                                            (filter #(contains? component-names (:name %))
+                                                    components)))))
+  (def brick-ids-to-check (brick-names-to-ids brick-names-to-test components))
+
+  #__)
