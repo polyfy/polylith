@@ -1,5 +1,5 @@
 
-Example on how to run [Hyperfiddle rcf](https://github.com/hyperfiddle/rcf) tests with the `poly` tool.
+Example on how to run [Hyperfiddle rcf](https://github.com/hyperfiddle/rcf) tests with [Polylith poly tool](https://polylith.gitbook.io/poly/).
 
 I figured out that I could run the tests from the development project with `clojure -M:poly test :dev project:dev`. I then created `deps-rcf.edn` and `deps-261.edn` and tested both with the same statement by first copying them to `deps.edn`. I had to add `hyperfiddle/rcf` + `slf4j`  to `bases/empty/deps.edn` for the `poly261` project to work. I also removed "src" from `:extra-paths` in the `:test` alias in `bases/rcf/deps.edn`, because it wasn't needed.
 

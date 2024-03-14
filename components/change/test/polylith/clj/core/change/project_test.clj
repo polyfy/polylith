@@ -17,3 +17,4 @@
 (deftest changed-projects--when-two-of-three-projects-contain-changed-bricks--return-the-projects-with-then-changed-bricks
   (is (= #{"core" "dev"}
          (project/indirectly-changed-project-names projects changed-bricks))))
+
