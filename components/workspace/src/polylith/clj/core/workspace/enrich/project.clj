@@ -49,10 +49,7 @@
                       name-type->keep-lib-version
                       outdated-libs
                       library->latest-version]
-  (let [enriched-maven-repos (apply merge maven-repos (mapcat :maven-repos (concat components bases)))
-        lib-entries (extract/from-library-deps is-dev lib-deps profiles settings)
-        project-lib-entries (extract/from-library-deps is-dev project-lib-deps profiles settings)
-        path-entries (extract/from-unenriched-project is-dev paths disk-paths profiles settings)
+  (let [path-entries (extract/from-unenriched-project is-dev paths disk-paths profiles settings)
         component-names-src (select/names path-entries c/component? c/src? c/exists?)
         component-names-test (select/names path-entries c/component? c/test? c/exists?)
         component-names (cond-> {}
@@ -69,8 +66,10 @@
         lib-imports (project-lib-imports all-brick-names brick->lib-imports)
         lines-of-code-total (project-total-loc all-brick-names brick->loc)
         lines-of-code (assoc (loc/lines-of-code ws-dir namespaces) :total lines-of-code-total)
+        lib-entries (extract/from-library-deps is-dev lib-deps profiles settings)
         src-lib-deps (select/lib-deps lib-entries c/src?)
         test-lib-deps (select/lib-deps lib-entries c/test?)
+        project-lib-entries (extract/from-library-deps is-dev project-lib-deps profiles settings)
         project-lib-deps (lib/lib-deps-with-latest-version name
                                                            type
                                                            {:src (select/lib-deps project-lib-entries c/src?)
@@ -86,7 +85,8 @@
                              (seq test-paths) (assoc :test test-paths))
         source-lib-deps (cond-> {}
                                 (seq src-lib-deps) (assoc :src src-lib-deps)
-                                (seq test-lib-deps) (assoc :test test-lib-deps))]
+                                (seq test-lib-deps) (assoc :test test-lib-deps))
+        enriched-maven-repos (apply merge maven-repos (mapcat :maven-repos (concat components bases)))]
     (-> project
         (merge {:alias (project-alias! alias alias-id is-dev)
                 :lines-of-code lines-of-code
