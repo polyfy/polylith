@@ -3,7 +3,6 @@
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.workspace.enrich.core :as enrich]
             [polylith.clj.core.change.interface :as change]
-            [polylith.clj.core.test.interface :as test]
             [polylith.clj.core.workspace.fromdisk.core :as fromdisk]
             [polylith.clj.core.ws-file.interface :as ws-file]))
 
@@ -55,8 +54,7 @@
                                        @wsdir->workspace))]
           (-> workspace
               (enrich/enrich-workspace workspaces)
-              (change/with-changes)
-              (test/with-test-calculations)))))))
+              (change/with-changes)))))))
 
 (comment
   (require '[polylith.clj.core.user-input.interface :as user-input])

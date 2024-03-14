@@ -1,4 +1,4 @@
-(ns polylith.clj.core.test.test-data
+(ns polylith.clj.core.change.test-data
   (:require [clojure.test :refer :all]))
 
 (def dev {:is-dev true

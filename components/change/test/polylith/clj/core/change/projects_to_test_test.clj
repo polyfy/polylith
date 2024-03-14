@@ -1,6 +1,6 @@
-(ns polylith.clj.core.test.projects-to-test-test
+(ns polylith.clj.core.change.projects-to-test-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.test.projects-to-test :as t]))
+            [polylith.clj.core.change.projects-to-test :as t]))
 
 (deftest run-tests?--dont-run-project-tests-by-default
   (is (false?
