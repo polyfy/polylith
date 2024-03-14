@@ -33,8 +33,8 @@
     (ws-file/read-ws-from-file ws-file user-input)
     (let [{:keys [config-errors ws-dir] :as workspace}
           (-> user-input
-              (fromdisk/workspace-from-disk)
-              (change/with-changes))]
+              fromdisk/workspace-from-disk
+              change/with-changes)]
 
       (if (or (nil? workspace)
               (seq config-errors))
