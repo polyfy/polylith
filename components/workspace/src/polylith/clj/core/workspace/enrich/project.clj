@@ -1,6 +1,6 @@
 (ns ^:no-doc polylith.clj.core.workspace.enrich.project
   (:require [polylith.clj.core.common.interface :as common]
-            [polylith.clj.core.deps.interface :as proj-deps]
+            [polylith.clj.core.deps.interface :as deps]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.path-finder.interface.select :as select]
@@ -65,7 +65,7 @@
                            (seq base-names-test) (assoc :test base-names-test))
         all-brick-names (concat component-names-src base-names-src component-names-test base-names-test)
         brick-names-to-test (common/brick-names-to-test test all-brick-names)
-        deps (proj-deps/project-deps workspaces components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test)
+        deps (deps/project-deps workspaces components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test)
         lib-imports (project-lib-imports all-brick-names brick->lib-imports)
         lines-of-code-total (project-total-loc all-brick-names brick->loc)
         lines-of-code (assoc (loc/lines-of-code ws-dir namespaces) :total lines-of-code-total)
