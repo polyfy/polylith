@@ -105,6 +105,7 @@
   (select-keys (proj/enrich-project {:name project-name :is-dev dev?}
                                     "."
                                     (atom 0)
+                                    {}
                                     components
                                     bases
                                     profiles
@@ -178,6 +179,7 @@
          (dissoc (proj/enrich-project project
                                       "."
                                       (atom 0)
+                                      {}
                                       components
                                       bases
                                       profiles
@@ -248,6 +250,7 @@
          (dissoc (proj/enrich-project project
                                       "."
                                       (atom 0)
+                                      {}
                                       components
                                       bases
                                       [{:name "default"

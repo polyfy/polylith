@@ -22,6 +22,7 @@
         polylith/shell                    {:local/root "../../components/shell"}
         polylith/system                   {:local/root "../../components/system"}
         polylith/tap                      {:local/root "../../components/tap"}
+        polylith/test                     {:local/root "../../components/test"}
         polylith/test-runner-contract     {:local/root "../../components/test-runner-contract"}
         polylith/test-runner-orchestrator {:local/root "../../components/test-runner-orchestrator"}
         polylith/text-table               {:local/root "../../components/text-table"}
@@ -36,7 +37,7 @@
         polylith/nav-generator            {:local/root "../../bases/nav-generator"}
         polylith/poly-cli                 {:local/root "../../bases/poly-cli"}
 
-        org.clojure/clojure {:mvn/version "1.11.1"}
+        org.clojure/clojure {:mvn/version "1.11.2"}
         org.slf4j/slf4j-nop {:mvn/version "2.0.12"}}
 
  :aliases {:test {:extra-paths ["test"]

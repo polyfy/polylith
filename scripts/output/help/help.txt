@@ -1,4 +1,4 @@
-  poly 0.2.20 (2024-02-24) - https://github.com/polyfy/polylith
+  poly 0.2.20 (2024-03-17) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -25,15 +25,11 @@
   If ws-dir:PATH is passed in as an argument, where PATH is a relative
   or absolute path, then the command is executed from that directory.
   This works for all commands except 'test'.
-  If the 'switch-ws dir:DIR' command has been executed from a shell,
-  then ws-dir:DIR will automatically be appended to following commands.
 
   If ws-file:FILE is passed in, then the workspace will be populated with the content
   from that file. All commands except 'create' and 'test' can be executed with this
   argument set. The FILE is created by executing the 'ws' command, e.g.:
   'poly ws out:ws.edn'.
-  If the 'switch-ws file:FILE' command has been executed from a shell,
-  then ws-file:FILE will automatically be appended to following commands.
 
   The ws-dir and ws-file arguments are replaced by switch-ws when executing commands
   from the shell.
@@ -63,7 +59,6 @@
     switch-ws file:../../another/ws.edn
     switch-ws via-dir:myws
     switch-ws via-file:myfile
-
     tap
     tap open
     tap clean

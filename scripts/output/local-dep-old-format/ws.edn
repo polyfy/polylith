@@ -329,7 +329,26 @@
     :name "invoicing",
     :type "project"}],
   :user
-  {:color-mode "dark", :empty-character ".", :thousand-separator ","},
+  {:color-mode "dark",
+   :empty-character ".",
+   :thousand-separator ",",
+   :ws-shortcuts
+   {:root-dir "USER-HOME/source/polylith",
+    :paths
+    [{:dir "examples/doc-example"}
+     {:dir "examples/for-test"}
+     {:dir "examples/local-dep"}
+     {:dir "examples/local-dep-old-format"}
+     {:dir "examples/missing-component"}
+     {:dir "examples/multiple-workspaces2/backend"}
+     {:dir "examples/multiple-workspaces2/shared"}
+     {:dir "examples/profiles"}
+     {:dir "examples/poly-rcf"}
+     {:dir "examples/poly-rcf/monolith", :name "monolith-poly-rcf"}
+     {:dir "examples/test-runners"}
+     {:dir "../clojure-polylith-realworld-example-app",
+      :name "realworld"}
+     {:file "../sandbox/oliver.edn"}]}},
   :workspace
   {:projects
    {"development" {:alias "dev"}, "invoicing" {:alias "inv"}},
@@ -863,8 +882,8 @@
    :minor 2,
    :patch 20,
    :revision "SNAPSHOT",
-   :date "2024-02-18",
-   :snapshot 1},
+   :date "2024-03-17",
+   :snapshot 8},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
   :ws {:breaking 3, :non-breaking 0},

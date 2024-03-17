@@ -40,7 +40,7 @@
 (def workspace (-> (dev-common/dir ".")
                    ;(dev-common/dir "examples/doc-example")
                    ;(dev-common/dir "examples/for-test")
-                   ;(dev-common/dir "examples/local-dep")
+                   ;(dev-common/dir "examples/local-dep" "changed-files:components/util/")
                    ;(dev-common/dir "examples/test-runners" "skip:external-inherit-from-global:multiple-test-runners:development")
                    ;(dev-common/dir "/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-01-14-114017/ws/example" ":all" ":dev") ;"skip:dev:user-s")
                    ;(dev-common/dir "examples/profiles" "changed-files:bases/base2/src/se/example/base2/core.clj")

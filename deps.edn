@@ -24,6 +24,7 @@
                                poly/sh                       {:local/root "components/sh"}
                                poly/shell                    {:local/root "components/shell"}
                                poly/tap                      {:local/root "components/tap"}
+                               poly/test                     {:local/root "components/test"}
                                poly/test-helper              {:local/root "components/test-helper"}
                                poly/test-runner-contract     {:local/root "components/test-runner-contract"}
                                poly/test-runner-orchestrator {:local/root "components/test-runner-orchestrator"}
@@ -39,14 +40,16 @@
                                poly/nav-generator            {:local/root "bases/nav-generator"}
                                poly/poly-cli                 {:local/root "bases/poly-cli"}
 
-                               org.clojure/clojure {:mvn/version "1.11.1"}
+                               org.clojure/clojure {:mvn/version "1.11.2"}
                                org.slf4j/slf4j-nop {:mvn/version "2.0.12"}
                                rewrite-clj/rewrite-clj {:mvn/version "1.1.47"}}}
 
-            :+default {:extra-deps {poly/image-creator {:local/root "components/image-creator"}
+            :+default {:extra-paths ["components/deps/test"]
+                       :extra-deps {poly/image-creator {:local/root "components/image-creator"}
                                     poly/system {:local/root "components/system"}}}
 
-            :+extended {:extra-deps {poly/image-creator-x {:local/root "components/image-creator-x"}
+            :+extended {:extra-paths ["components/deps/test"]
+                        :extra-deps {poly/image-creator-x {:local/root "components/image-creator-x"}
                                      poly/system-x {:local/root "components/system-x"}}}
 
             :test {:extra-paths ["components/change/test"
@@ -99,6 +102,10 @@
             ;; ws version 2.0
             :poly218  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                        :extra-deps {polylith/clj-poly {:mvn/version "0.2.18"}}}
+
+            ;; ws version 3.0
+            :poly219  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                       :extra-deps {polylith/clj-poly {:mvn/version "0.2.19"}}}
 
             ;; ws version 3.0 (work in progress)
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
