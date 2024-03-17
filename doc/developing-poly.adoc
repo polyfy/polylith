@@ -114,6 +114,17 @@ polyx :fake-poly # <2>
 
 This can be handy when capturing output for docs.
 
+=== `hide-lib-size`
+
+If `:hide-lib-size` is given to the xref:commands.adoc#libs[libs] command, values in the `KB` column appear as `-`:
+
+[source,shell]
+----
+poly libs :hide-lib-size # <1>
+----
+
+This is used in tests to guarantee that the output will look the same, regardless if a library has been downloaded or not.
+
 === `latest-sha`
 
 Populate the `latest-sha` from your Git repository in your workspace structure (by default, `poly` does not populate this value).

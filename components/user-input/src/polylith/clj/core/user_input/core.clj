@@ -76,6 +76,7 @@
                 git-add!
                 github!
                 help
+                hide-lib-size!
                 interface
                 latest-sha!
                 libraries
@@ -126,6 +127,7 @@
                       :is-fake-poly (= "true" fake-poly!)
                       :is-git-add (when git-add! (= "true" git-add!))
                       :is-github (= "true" github!)
+                      :is-hide-lib-size (= "true" hide-lib-size!)
                       :is-latest-sha (= "true" latest-sha!)
                       :is-local (= "true" local!)
                       :is-no-changes (= "true" no-changes!)

@@ -1,6 +1,5 @@
 (ns ^:no-doc polylith.clj.core.command.core
   (:require [clojure.string :as str]
-            [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.check.interface :as check]
             [polylith.clj.core.command.cmd-validator.core :as cmd-validator]
             [polylith.clj.core.command.create :as create]
@@ -20,7 +19,6 @@
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.version.interface :as ver]
             [polylith.clj.core.workspace.interface :as workspace]
-            [polylith.clj.core.ws-file.interface :as ws-file]
             [polylith.clj.core.ws-explorer.interface :as ws-explorer])
   (:refer-clojure :exclude [test]))
 
@@ -71,7 +69,7 @@
   (println (str "  The use of :: is " (color/error color-mode "deprecated") " and support for it will probably be dropped in the future. "
                 "Please contact the Polylith team if you think it's important to keep!")))
 
-(defn execute [{:keys [cmd args alias name top-ns branch help is-local more page ws is-tap is-git-add is-github is-commit is-update is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly is-search-for-ws-dir get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
+(defn execute [{:keys [cmd args alias name top-ns branch help is-local more page ws is-tap is-git-add is-github is-commit is-update is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly is-search-for-ws-dir get out interface selected-bricks selected-projects unnamed-args] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (config-reader/workspace-dir user-input)
         workspace (workspace/workspace user-input)

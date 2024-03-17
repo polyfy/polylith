@@ -131,6 +131,7 @@
 ;; libs
 (def libs-outdated (c/flag "outdated" :libs))
 (def libs-update (c/flag "update" :libs))
+(def libs-hide-lib-size (c/flag "hide-lib-size" :libs))
 (def libs-libraries (c/fn-explorer "libraries" :libs #'outdated-libs/select))
 (def libs-out (c/fn-explorer "out" :libs (file-explorer/select-fn)))
 (def libs-skip (c/fn-explorer "skip" :libs #'ws-projects/select))
@@ -139,7 +140,7 @@
 (defn libs [all? extended?]
   (c/single-txt "libs" :libs
     (concat [libs-outdated libs-update libs-libraries]
-            (when all? [compact libs-skip libs-color-mode])
+            (when all? [compact libs-skip libs-hide-lib-size libs-color-mode])
             (when (or all? extended?) [libs-out]))))
 
 ;; test
