@@ -5,7 +5,7 @@
                                               
   project        alias  status   dev          
   ----------------------------   ---          
-  usermanager *  um      st-     -t-          
+  usermanager *  um      st-     ---          
   development +  dev     st-     st-          
                                               
   interface       brick              um    dev
