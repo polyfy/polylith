@@ -28,6 +28,40 @@
                       workspace/workspace)]
     (get-in workspace ws-param)))
 
+(deftest ws-bricks-to-test
+  (is (= ["database" "invoicer" "invoicer-cli" "test-helper" "test-helper-db" "util"]
+         (-> (run-cmd "examples/local-dep"
+                      "ws"
+                      "get:projects:invoicing:bricks-to-test"
+                      "changed-files:components/util/")
+             first
+             read-string))))
+
+(deftest info-mark-for-testing
+  (is (= ["  stable since: 1234567                     "
+          "                                            "
+          "  projects: 2   interfaces: 7               "
+          "  bases:    1   components: 7               "
+          "                                            "
+          "  project        alias  status   dev        "
+          "  ----------------------------   ---        "
+          "  invoicing +    inv     ---     ---        "
+          "  development +  dev     s--     s--        "
+          "                                            "
+          "  interface       brick            inv   dev"
+          "  ------------------------------   ---   ---"
+          "  -               without-src      -t-   -t-"
+          "  database        database         stx   st-"
+          "  datomic-ions    datomic-ions     s--   s--"
+          "  invoicer        invoicer         stx   st-"
+          "  test-helper     test-helper      -tx   st-"
+          "  test-helper-db  test-helper-db   -tx   s--"
+          "  util            util *           stx   st-"
+          "  -               invoicer-cli     stx   st-"]
+         (run-cmd "examples/local-dep"
+                  "info"
+                  "changed-files:components/util/"))))
+
 (deftest polylith-project-table
   (is (= ["  project        alias  status   dev  extended   "
           "  ----------------------------   -------------   "
