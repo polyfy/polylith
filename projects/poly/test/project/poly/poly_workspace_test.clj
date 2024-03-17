@@ -17,11 +17,16 @@
   (-> (user-input/extract-arguments (concat ["info" (str "ws-dir:.") "color-mode:none" "since:0aaeb58"] args))
       workspace/workspace))
 
-(defn run-cmd [ws-dir cmd & args]
+(defn run-cmd-args [ws-dir cmd args]
   (let [input (user-input/extract-arguments (concat [cmd] args [(str "ws-dir:" ws-dir) "fake-sha:1234567" "fake-tag:" "color-mode:none"]))]
-    (str/split-lines
-      (with-out-str
-        (-> input command/execute-command)))))
+    (with-out-str
+      (-> input command/execute-command))))
+
+(defn run-cmd-plain [ws-dir cmd & args]
+  (run-cmd-args ws-dir cmd args))
+
+(defn run-cmd [ws-dir cmd & args]
+  (str/split-lines (run-cmd-args ws-dir cmd args)))
 
 (defn ws-get [ws-dir ws-param & args]
   (let [workspace (-> (user-input/extract-arguments (concat ["version" (str "ws-dir:" ws-dir) "color-mode:none"] args))
@@ -30,12 +35,11 @@
 
 (deftest ws-bricks-to-test
   (is (= ["database" "invoicer" "invoicer-cli" "test-helper" "test-helper-db" "util"]
-         (-> (run-cmd "examples/local-dep"
-                      "ws"
-                      "get:projects:invoicing:bricks-to-test"
-                      "changed-files:components/util/")
-             first
-             read-string))))
+         (read-string
+           (run-cmd-plain "examples/local-dep"
+                          "ws"
+                          "get:projects:invoicing:bricks-to-test"
+                          "changed-files:components/util/")))))
 
 (deftest info-mark-for-testing
   (is (= ["  stable since: 1234567                     "
@@ -75,45 +79,45 @@
           "  ----------------------------------------------------   -----------   -------------"
           "  antq                      antq *                       s--    s--    s--     --   "
           "  api                       api *                        s--    ---    s--     --   "
-          "  change                    change *                     st-    s--    st-     --   "
+          "  change                    change *                     stx    s--    st-     --   "
           "  check                     check *                      s--    s--    s--     --   "
-          "  clojure-test-test-runner  clojure-test-test-runner *   st-    s--    st-     --   "
-          "  command                   command *                    st-    s--    st-     --   "
-          "  common                    common *                     st-    s--    st-     --   "
-          "  config-reader             config-reader *              st-    s--    st-     --   "
-          "  creator                   creator *                    st-    s--    st-     --   "
-          "  deps                      deps *                       st-    s--    st-     -t   "
+          "  clojure-test-test-runner  clojure-test-test-runner *   stx    s--    st-     --   "
+          "  command                   command *                    stx    s--    st-     --   "
+          "  common                    common *                     stx    s--    st-     --   "
+          "  config-reader             config-reader *              stx    s--    st-     --   "
+          "  creator                   creator *                    stx    s--    st-     --   "
+          "  deps                      deps *                       stx    s--    st-     -t   "
           "  doc                       doc *                        s--    s--    s--     --   "
           "  file                      file *                       s--    s--    s--     --   "
-          "  git                       git *                        st-    s--    st-     --   "
+          "  git                       git *                        stx    s--    st-     --   "
           "  help                      help *                       s--    s--    s--     --   "
           "  image-creator             image-creator *              s--    ---    s--     --   "
           "  image-creator             image-creator-x *            ---    s--    ---     s-   "
-          "  info                      info *                       st-    s--    st-     --   "
-          "  lib                       lib *                        st-    s--    st-     --   "
+          "  info                      info *                       stx    s--    st-     --   "
+          "  lib                       lib *                        stx    s--    st-     --   "
           "  maven                     maven *                      s--    s--    s--     --   "
           "  overview                  overview *                   s--    s--    s--     --   "
-          "  path-finder               path-finder *                st-    s--    st-     --   "
+          "  path-finder               path-finder *                stx    s--    st-     --   "
           "  sh                        sh *                         s--    s--    s--     --   "
-          "  shell                     shell *                      st-    s--    st-     --   "
+          "  shell                     shell *                      stx    s--    st-     --   "
           "  system                    system *                     s--    ---    s--     --   "
           "  system                    system-x *                   ---    s--    ---     s-   "
           "  tap                       tap *                        s--    s--    s--     --   "
-          "  test                      test *                       st-    s--    st-     --   "
-          "  test-helper               test-helper *                -t-    ---    s--     --   "
-          "  test-runner-contract      test-runner-contract *       st-    s--    st-     --   "
-          "  test-runner-orchestrator  test-runner-orchestrator *   st-    s--    st-     --   "
+          "  test                      test *                       stx    s--    st-     --   "
+          "  test-helper               test-helper *                -tx    ---    s--     --   "
+          "  test-runner-contract      test-runner-contract *       stx    s--    st-     --   "
+          "  test-runner-orchestrator  test-runner-orchestrator *   stx    s--    st-     --   "
           "  text-table                text-table *                 s--    s--    s--     --   "
           "  user-config               user-config *                s--    s--    s--     --   "
-          "  user-input                user-input *                 st-    s--    st-     --   "
-          "  util                      util *                       st-    s--    st-     --   "
-          "  validator                 validator *                  st-    s--    st-     --   "
+          "  user-input                user-input *                 stx    s--    st-     --   "
+          "  util                      util *                       stx    s--    st-     --   "
+          "  validator                 validator *                  stx    s--    st-     --   "
           "  version                   version *                    s--    s--    s--     --   "
-          "  workspace                 workspace *                  st-    s--    st-     --   "
-          "  ws-explorer               ws-explorer *                st-    s--    st-     --   "
+          "  workspace                 workspace *                  stx    s--    st-     --   "
+          "  ws-explorer               ws-explorer *                stx    s--    st-     --   "
           "  ws-file                   ws-file *                    s--    s--    s--     --   "
           "  -                         nav-generator *              s--    ---    s--     --   "
-          "  -                         poly-cli *                   st-    s--    st-     --   "]
+          "  -                         poly-cli *                   stx    s--    st-     --   "]
          (info/brick-table (workspace) false false))))
 
 (defn keep-except [exclude rows]
@@ -1240,7 +1244,7 @@
           "  user         user1          st-   st-   --  "
           "  util         util1          st-   st-   --  "
           "  -            base1          stx   st-   --  "
-          "  -            base2 *        st-   st-   --  "]
+          "  -            base2 *        stx   st-   --  "]
          (run-cmd "examples/profiles"
                   "info"
                   "changed-files:bases/base2/test/se/example/base2/core_test.clj"))))
@@ -1267,7 +1271,7 @@
           "  user         user1          st-   st-   --  "
           "  util         util1          st-   st-   --  "
           "  -            base1          stx   st-   --  "
-          "  -            base2 *        st-   st-   --  "]
+          "  -            base2 *        stx   st-   --  "]
          (run-cmd "examples/profiles"
                   "info"
                   "changed-files:bases/base2/src/se/example/base2/core.clj"))))
