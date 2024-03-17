@@ -20,6 +20,8 @@
 
 | New https://github.com/polyfy/polylith/blob/master/examples/poly-rcf/readme.md[poly-rcf] example workspace that shows how to run [Hyperfiddle rcf](https://github.com/hyperfiddle/rcf) tests with the `poly` tool.
 
+| If `:hide-lib-size` is given to the `libs` command, values in the `KB` column appear as `-`.
+
 |===
 
 |===

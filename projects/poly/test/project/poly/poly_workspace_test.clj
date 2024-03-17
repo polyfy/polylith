@@ -187,7 +187,7 @@
           "  change                    .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
           "  check                     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  ."
           "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  ."
-          "  command                   .  x  x  .  x  x  x  x  x  x  x  x  .  x  x  .  x  .  .  x  .  x  .  .  .  x  .  x  .  x  .  x  x  x  x"
+          "  command                   .  .  x  .  x  x  x  x  x  x  x  x  .  x  x  .  x  .  .  x  .  x  .  .  .  x  .  x  .  x  .  x  x  x  ."
           "  common                    .  .  .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  x  .  .  ."
           "  config-reader             .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  ."
           "  creator                   .  .  .  .  x  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  t  .  .  .  .  .  x  .  x  .  .  ."
@@ -259,7 +259,7 @@
             "  change                    .  .  .  .  x  .  .  .  .  +  x  .  +  .  .  .  .  x  +  .  +  .  .  .  .  .  +  +  .  x  .  +  .  .  ."
             "  check                     .  .  .  .  +  .  .  +  .  +  .  .  +  .  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  x  +  .  .  ."
             "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  ."
-            "  command                   +  x  x  .  x  x  x  x  x  x  x  x  +  x  x  +  x  +  +  x  +  x  +  .  +  x  +  x  +  x  +  x  x  x  x"
+            "  command                   +  +  x  .  x  x  x  x  x  x  x  x  +  x  x  +  x  +  +  x  +  x  +  .  +  x  +  x  +  x  +  x  x  x  +"
             "  common                    .  .  .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  .  .  .  +  .  .  .  .  .  x  x  .  x  .  x  .  .  ."
             "  config-reader             .  .  .  .  x  .  .  +  .  x  .  .  +  .  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  x  +  .  .  ."
             "  creator                   -  -  -  -  x  -  -  -  -  x  x  -  +  -  -  -  -  -  +  -  +  -  -  t  -  -  +  +  -  x  -  x  -  -  -"
@@ -329,7 +329,7 @@
             "  change                    .  .  .  .  x  .  .  .  .  +  x  .  +  .  .  .  .  x  +  .  +  .  .  .  .  .  +  +  .  x  .  +  .  .  ."
             "  check                     .  .  .  .  +  .  .  +  .  +  .  .  +  .  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  x  +  .  .  ."
             "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  ."
-            "  command                   +  x  x  .  x  x  x  x  x  x  x  x  +  x  x  +  x  +  +  x  +  x  +  .  +  x  +  x  +  x  +  x  x  x  x"
+            "  command                   +  +  x  .  x  x  x  x  x  x  x  x  +  x  x  +  x  +  +  x  +  x  +  .  +  x  +  x  +  x  +  x  x  x  +"
             "  common                    .  .  .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  .  .  .  +  .  .  .  .  .  x  x  .  x  .  x  .  .  ."
             "  config-reader             .  .  .  .  x  .  .  +  .  x  .  .  +  .  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  x  +  .  .  ."
             "  creator                   -  -  -  -  x  -  -  -  -  x  x  -  +  -  -  -  -  -  +  -  +  -  -  t  -  -  +  +  -  x  -  x  -  -  -"
@@ -482,8 +482,7 @@
                                                       "util"]}
                                       :test {:direct ["test-runner-contract"
                                                       "util"]}}
-          "command"                  {:src  {:direct   ["change"
-                                                        "check"
+          "command"                  {:src  {:direct   ["check"
                                                         "common"
                                                         "config-reader"
                                                         "creator"
@@ -502,9 +501,9 @@
                                                         "util"
                                                         "version"
                                                         "workspace"
-                                                        "ws-explorer"
-                                                        "ws-file"]
+                                                        "ws-explorer"]
                                              :indirect ["antq"
+                                                        "change"
                                                         "image-creator"
                                                         "maven"
                                                         "path-finder"
@@ -514,9 +513,9 @@
                                                         "test-runner-contract"
                                                         "text-table"
                                                         "user-input"
-                                                        "validator"]}
-                                      :test {:direct   ["change"
-                                                        "check"
+                                                        "validator"
+                                                        "ws-file"]}
+                                      :test {:direct   ["check"
                                                         "common"
                                                         "config-reader"
                                                         "creator"
@@ -535,9 +534,9 @@
                                                         "util"
                                                         "version"
                                                         "workspace"
-                                                        "ws-explorer"
-                                                        "ws-file"]
+                                                        "ws-explorer"]
                                              :indirect ["antq"
+                                                        "change"
                                                         "image-creator"
                                                         "maven"
                                                         "path-finder"
@@ -547,7 +546,8 @@
                                                         "test-runner-contract"
                                                         "text-table"
                                                         "user-input"
-                                                        "validator"]}}
+                                                        "validator"
+                                                        "ws-file"]}}
           "common"                   {:src  {:direct   ["file"
                                                         "image-creator"
                                                         "text-table"
@@ -1396,44 +1396,44 @@
                   "deps" "project:s" "brick:database1"))))
 
 (deftest profile-libs
-  (is (= ["                                                                         t"
-          "                                                                         e"
-          "                                                                         s"
-          "                                                                         t"
-          "                                                                         -"
-          "                                                                         h"
-          "                                                                         e"
-          "                                                                         l"
-          "                                                                         p"
-          "                                                                         e"
-          "                                                                         r"
-          "  library              version  type      KB   s   dev  default  extra   1"
-          "  ------------------------------------------   -   -------------------   -"
-          "  clj-commons/fs       1.6.310  maven     12   -    -      x       -     ."
-          "  metosin/malli        0.14.0   maven     88   t    x      -       -     x"
-          "  org.clojure/clojure  1.11.1   maven  4,008   x    x      -       -     ."]
+  (is (= ["                                                                      t"
+          "                                                                      e"
+          "                                                                      s"
+          "                                                                      t"
+          "                                                                      -"
+          "                                                                      h"
+          "                                                                      e"
+          "                                                                      l"
+          "                                                                      p"
+          "                                                                      e"
+          "                                                                      r"
+          "  library              version  type   KB   s   dev  default  extra   1"
+          "  ---------------------------------------   -   -------------------   -"
+          "  clj-commons/fs       1.6.310  maven   -   -    -      x       -     ."
+          "  metosin/malli        0.14.0   maven   -   t    x      -       -     x"
+          "  org.clojure/clojure  1.11.1   maven   -   x    x      -       -     ."]
          (run-cmd "examples/profiles"
-                  "libs"))))
+                  "libs" ":hide-lib-size"))))
 
 (deftest profile-libs-skip-dev
-  (is (= ["                                                   t"
-          "                                                   e"
-          "                                                   s"
-          "                                                   t"
-          "                                                   -"
-          "                                                   h"
-          "                                                   e"
-          "                                                   l"
-          "                                                   p"
-          "                                                   e"
-          "                                                   r"
-          "  library              version  type      KB   s   1"
-          "  ------------------------------------------   -   -"
-          "  clj-commons/fs       1.6.310  maven     12   -   ."
-          "  metosin/malli        0.14.0   maven     88   t   x"
-          "  org.clojure/clojure  1.11.1   maven  4,008   x   ."]
+  (is (= ["                                                t"
+          "                                                e"
+          "                                                s"
+          "                                                t"
+          "                                                -"
+          "                                                h"
+          "                                                e"
+          "                                                l"
+          "                                                p"
+          "                                                e"
+          "                                                r"
+          "  library              version  type   KB   s   1"
+          "  ---------------------------------------   -   -"
+          "  clj-commons/fs       1.6.310  maven   -   -   ."
+          "  metosin/malli        0.14.0   maven   -   t   x"
+          "  org.clojure/clojure  1.11.1   maven   -   x   ."]
          (run-cmd "examples/profiles"
-                  "libs" "skip:dev"))))
+                  "libs" "skip:dev" ":hide-lib-size"))))
 
 (deftest test-runner-inherit-test-runner-from-global
   (is (= ["{:create-test-runner"

@@ -42,18 +42,19 @@
           (map-indexed #(lib-cell 7 (+ 3 %1) %2)
                        (map :type libraries))))
 
-(defn size-kb [{:keys [size]} thousand-separator]
-  (if (nil? size)
+(defn size-kb [{:keys [size]} thousand-separator hide-lib-size?]
+  (if (or (nil? size)
+          hide-lib-size?)
     "-"
     (str-util/sep-1000 (quot size 1024) thousand-separator)))
 
-(defn kb-cell [row library thousand-separator]
-  (let [size (size-kb library thousand-separator)]
+(defn kb-cell [row library thousand-separator hide-lib-size?]
+  (let [size (size-kb library thousand-separator hide-lib-size?)]
     (text-table/cell 9 row size :none :right :horizontal)))
 
-(defn size-column [libraries thousand-separator]
+(defn size-column [libraries thousand-separator hide-lib-size?]
   (concat [(text-table/cell 9 1 "KB" :none :right :horizontal)]
-          (map-indexed #(kb-cell (+ 3 %1) %2 thousand-separator)
+          (map-indexed #(kb-cell (+ 3 %1) %2 thousand-separator hide-lib-size?)
                        libraries)))
 
 (defn flag-cell [column row lib-dep src-deps test-deps]
@@ -115,7 +116,7 @@
 
 (defn table [{:keys [configs settings user-input profiles components bases projects] :as workspace}]
   (let [{:keys [empty-character thousand-separator color-mode]} settings
-        is-outdated (:is-outdated user-input)
+        {:keys [is-outdated is-hide-lib-size]} user-input
         calculate-latest-version? (common/calculate-latest-version? user-input)
         lib->latest-version (antq/library->latest-version configs calculate-latest-version?)
         entities (concat components bases projects)
@@ -131,7 +132,7 @@
         version-col (version-column libraries)
         latest-col (when is-outdated (latest-column libraries lib->latest-version))
         type-col (type-column libraries)
-        size-col (size-column libraries thousand-separator)
+        size-col (size-column libraries thousand-separator is-hide-lib-size)
         project-cols (project-columns libraries projects)
         n#dev (count (filter :is-dev projects))
         n#projects (- (count projects) n#dev)
@@ -164,5 +165,6 @@
 (comment
   (require '[dev.jocke :as dev])
   (print-table dev/workspace)
-  (print-table (assoc-in dev/workspace [:user-input :is-outdated] true))§
+  (print-table (assoc-in dev/workspace [:user-input :is-hide-lib-size] true))
+  (print-table (assoc-in dev/workspace [:user-input :is-outdated] true))
   #__)
