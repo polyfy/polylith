@@ -38,8 +38,8 @@
                       changed-projects]} (entity/changed-entities files paths)
               changed-bricks (set (concat changed-components changed-bases))
               affected-projects (affected-projects projects changed-components changed-bases changed-projects)
-              projects-with-changes (mapv #(indirect-changes/with-indirect-changes % changed-bricks)
-                                          projects)
+              projects-with-indirect-changes (mapv #(indirect-changes/with-indirect-changes % changed-bricks)
+                                                   projects)
               changes (util/ordered-map :since since
                                         :since-sha sha
                                         :since-tag tag
@@ -50,4 +50,4 @@
                                         :changed-projects changed-projects
                                         :changed-or-affected-projects affected-projects)]
           (assoc workspace :changes changes
-                           :projects projects-with-changes))))))
+                           :projects projects-with-indirect-changes))))))
