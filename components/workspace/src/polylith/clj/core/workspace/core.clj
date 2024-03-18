@@ -14,7 +14,7 @@
         (-> workspace
             (enrich/enrich-workspace workspaces)
             (change/with-changes)
-            (test/with-test-calculations))))))
+            (test/with-to-test))))))
 
 (comment
   (require '[polylith.clj.core.user-input.interface :as user-input])

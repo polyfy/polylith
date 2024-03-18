@@ -1,7 +1,7 @@
 (ns ^:no-doc polylith.clj.core.test.interface
   (:require [polylith.clj.core.test.core :as core]))
 
-(defn with-test-calculations
+(defn with-to-test
   "Make sure to first call changes/with-changes before calling this function."
   [workspace]
-  (core/with-test-calculations workspace))
+  (core/with-to-test workspace))

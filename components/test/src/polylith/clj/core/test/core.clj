@@ -8,7 +8,7 @@
   (assoc project :bricks-to-test []
                  :projects-to-test []))
 
-(defn with-test-calculations [{:keys [ws-dir user-input projects paths changes] :as workspace}]
+(defn with-to-test [{:keys [ws-dir user-input projects paths changes] :as workspace}]
   (if (common/invalid-workspace? workspace)
     workspace
     (if (-> ws-dir git/is-git-repo? not)
