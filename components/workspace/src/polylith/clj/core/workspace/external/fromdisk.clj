@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.external.fromdisk
+(ns ^:no-doc polylith.clj.core.workspace.external.fromdisk
   (:require [clojure.string :as str]
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.file.interface :as file]
