@@ -9,12 +9,12 @@
 (defn workspace [{:keys [ws-file] :as user-input}]
   (if ws-file
     (ws-file/read-ws-from-file ws-file user-input)
-    (let [{:keys [ws-dir] :as workspace} (fromdisk/workspace-from-disk user-input)]
-      (when-let [workspaces (external-from-disk/workspaces ws-dir user-input)]
-        (-> workspace
-            (enrich/enrich-workspace workspaces)
-            (change/with-changes)
-            (test/with-to-test))))))
+    (let [{:keys [ws-dir] :as workspace} (fromdisk/workspace-from-disk user-input)
+          workspaces (external-from-disk/workspaces ws-dir)]
+      (-> workspace
+          (enrich/enrich-workspace workspaces)
+          (change/with-changes)
+          (test/with-to-test)))))
 
 (comment
   (require '[polylith.clj.core.user-input.interface :as user-input])

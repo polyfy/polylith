@@ -36,7 +36,6 @@
 (defn enrich-project [{:keys [alias name type is-dev test maven-repos namespaces paths lib-deps project-lib-deps] :as project}
                       ws-dir
                       alias-id
-                      workspaces
                       components
                       bases
                       profiles
@@ -62,7 +61,7 @@
                            (seq base-names-test) (assoc :test base-names-test))
         all-brick-names (concat component-names-src base-names-src component-names-test base-names-test)
         brick-names-to-test (common/brick-names-to-test test all-brick-names)
-        deps (deps/project-deps workspaces components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test)
+        deps (deps/project-deps components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test)
         lib-imports (project-lib-imports all-brick-names brick->lib-imports)
         lines-of-code-total (project-total-loc all-brick-names brick->loc)
         lines-of-code (assoc (loc/lines-of-code ws-dir namespaces) :total lines-of-code-total)

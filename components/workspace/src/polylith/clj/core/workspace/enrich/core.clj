@@ -40,8 +40,8 @@
           brick->loc (brick->loc enriched-bricks)
           brick->lib-imports (brick->lib-imports enriched-bricks)
           alias-id (atom 0)
-          enriched-projects (vec (sort-by project-sorter (mapv #(project/enrich-project % ws-dir alias-id workspaces enriched-components enriched-bases profiles suffixed-top-ns brick->loc brick->lib-imports paths user-input settings name-type->keep-lib-versions outdated-libs library->latest-version) projects)))
-          messages (validator/validate-ws suffixed-top-ns settings paths interface-names interfaces profiles enriched-components enriched-bases enriched-projects config-errors interface-ns workspaces user-input color-mode)]
+          enriched-projects (vec (sort-by project-sorter (mapv #(project/enrich-project % ws-dir alias-id enriched-components enriched-bases profiles suffixed-top-ns brick->loc brick->lib-imports paths user-input settings name-type->keep-lib-versions outdated-libs library->latest-version) projects)))
+          messages (validator/validate-ws suffixed-top-ns settings paths interface-names interfaces profiles enriched-components enriched-bases enriched-projects workspaces config-errors interface-ns user-input color-mode)]
       (cond-> workspace
               true (assoc :interfaces interfaces
                           :components enriched-components
