@@ -23,18 +23,17 @@
                         wss-config)]
     (doseq [{:keys [dir alias]} configs]
       (let [path (file/absolute-path (str ws-dir "/" dir))
-            workspace (workspace! wsdir->workspace)
+            workspace (workspace! {:ws-dir path} wsdir->workspace)
             ws-alias (or alias (:name workspace))]
         (swap! wsdir->workspace #(assoc % path
                                           (assoc workspace :alias ws-alias)))))))
 
-(defn workspace! [wsdir->workspace]
+(defn workspace! [user-input wsdir->workspace]
   (let [{:keys [config-errors ws-dir] :as workspace}
-        (-> {}
+        (-> user-input
             (fromdisk/workspace-from-disk)
             (enrich/enrich-workspace [])
             (change/with-changes))]
-
     (if (or (nil? workspace)
             (seq config-errors))
       workspace
@@ -44,10 +43,9 @@
 
 (defn workspaces
   "Returns a vector with included workspaces, in the order they were referenced."
-  [ws-dir]
-  (let [path (file/absolute-path ws-dir)
-        wsdir->workspace (atom {path (array-map)})
-        _ (workspace! wsdir->workspace)]
+  [{:keys [ws-dir] :as workspace}]
+  (let [wsdir->workspace (atom {})]
+    (used-workspaces! ws-dir workspace wsdir->workspace)
     (mapv second
           (filter #(-> % second seq)
                   @wsdir->workspace))))

@@ -9,8 +9,8 @@
 (defn workspace [{:keys [ws-file] :as user-input}]
   (if ws-file
     (ws-file/read-ws-from-file ws-file user-input)
-    (let [{:keys [ws-dir] :as workspace} (fromdisk/workspace-from-disk user-input)
-          workspaces (external-from-disk/workspaces ws-dir)]
+    (let [workspace (fromdisk/workspace-from-disk user-input)
+          workspaces (external-from-disk/workspaces workspace)]
       (-> workspace
           (enrich/enrich-workspace workspaces)
           (change/with-changes)
