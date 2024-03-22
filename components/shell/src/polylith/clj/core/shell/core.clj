@@ -38,17 +38,17 @@
           file (assoc :ws-file file)
           branch (assoc :branch branch)))
 
-(defn select-file-and-dir [name->config dir file via-dir via-file]
-  (if (or via-dir via-file)
-    (let [{:keys [dir file]} (get name->config (or via-dir via-file))]
+(defn select-file-and-dir [name->config dir file dir-via file-via]
+  (if (or dir-via file-via)
+    (let [{:keys [dir file]} (get name->config (or dir-via file-via))]
       {:dir (user-config/with-shortcut-root-dir dir)
        :file (user-config/with-shortcut-root-dir file)})
     {:dir dir :file file}))
 
-(defn switch-ws [user-input dir file via-dir via-file local? github? branch]
+(defn switch-ws [user-input dir file dir-via file-via local? github? branch]
   (let [paths (user-config/ws-shortcuts-paths)
         name->config (into {} (map (juxt :name identity) paths))
-        {:keys [file dir]} (select-file-and-dir name->config dir file via-dir via-file)
+        {:keys [file dir]} (select-file-and-dir name->config dir file dir-via file-via)
         input (enhance user-input dir file local? github? branch)]
     (reset! ws-dir (if (= "." dir) nil dir))
     (reset! ws-file file)
@@ -75,7 +75,7 @@
           (git/current-branch)
           "master"))))
 
-(defn start [command-executor {:keys [ws-dir ws-file via-dir via-file is-local is-github branch is-tap is-fake-poly] :as user-input}
+(defn start [command-executor {:keys [ws-dir ws-file dir-via file-via is-local is-github branch is-tap is-fake-poly] :as user-input}
              workspace
              color-mode]
   (let [reader (jline/reader)
@@ -86,13 +86,13 @@
       (tap/execute "open"))
     (println (logo is-fake-poly color-mode))
     (reset! engine/ws workspace)
-    (switch-ws user-input ws-dir ws-file via-dir via-file is-local is-github branch)
+    (switch-ws user-input ws-dir ws-file dir-via file-via is-local is-github branch)
     (tap> {:workspace workspace})
     (try
       (loop []
         (flush)
         (when-let [line (.readLine reader (prompt))]
-          (let [{:keys [branch cmd unnamed-args is-local is-github file dir via-dir via-file color-mode] :as input} (user-input/extract-arguments (str-util/split-text line))
+          (let [{:keys [branch cmd unnamed-args is-local is-github file dir dir-via file-via color-mode] :as input} (user-input/extract-arguments (str-util/split-text line))
                 color-mode (or color-mode (common/color-mode input))
                 is-local (or is-local local?)
                 is-github (or is-github github?)
@@ -101,7 +101,7 @@
             (when-not (contains? #{"exit" "quit"} cmd)
               (cond
                 (= "shell" cmd) (println "  Can't start a shell inside another shell.")
-                (= "switch-ws" cmd) (switch-ws input dir file via-dir via-file is-local is-github branch)
+                (= "switch-ws" cmd) (switch-ws input dir file dir-via file-via is-local is-github branch)
                 (= "tap" cmd) (tap/execute (first unnamed-args))
                 (str/blank? line) nil
                 :else (execute-command command-executor input is-local is-github branch color-mode))

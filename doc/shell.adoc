@@ -216,11 +216,11 @@ This example assumes that you have cloned the repos https://github.com/polyfy/po
 
 The value of `:root-dir` is added to each path to get a full path.
 
-Now we can switch workspace from the xref:shell.adoc[shell] with `via-dir:NAME` or `via-file:NAME` where NAME is the name of the directory/file:
+Now we can switch workspace from the xref:shell.adoc[shell] with `dir-via:NAME` or `file-via:NAME` where NAME is the name of the directory/file:
 
 [source,text]
 ----
-polylith$ switch-ws via-dir:
+polylith$ switch-ws dir-via:
 backend       (examples/multiple-workspaces2/backend)
 doc-example                    (examples/doc-example)
 realworld (../clojure-polylith-realworld-example-app)
@@ -230,7 +230,7 @@ If we type `d` and press kbd:[Tab] followed by kbd:[Enter] we switch to the `doc
 
 [source,text]
 ----
-polylith$ switch-ws via-dir:doc
+polylith$ switch-ws dir-via:doc
 dir:doc-example$
 ----
 
@@ -245,7 +245,7 @@ A workspace that has been exported to a file, e.g. `poly ws out:another-ws.edn`,
 
 [source,text]
 ----
-polylith$ switch-ws via-file:another-ws
+polylith$ switch-ws file-via:another-ws
 file:another-ws
 ----
 

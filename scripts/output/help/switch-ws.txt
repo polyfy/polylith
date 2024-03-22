@@ -2,7 +2,7 @@
   After we have switched workspace, all subsequent commands will append either
   ws-dir:DIR or ws-file:FILE, depending on whether we switch to a directory or a file.
 
-  switch-ws [dir:DIR] [file:FILE] [via-dir:DIRNAME] [via-file:FILENAME]
+  switch-ws [dir:DIR] [file:FILE] [dir-via:DIRNAME] [file-via:FILENAME]
 
     DIR = Switches to the given workspace directory.
           The prompt will be prefixed with 'dir:' to show this.
@@ -23,5 +23,5 @@
   Example:
     switch-ws dir:~/myworkspace
     switch-ws file:../../another/ws.edn
-    switch-ws via-dir:myws
-    switch-ws via-file:myfile
+    switch-ws dir-via:myws
+    switch-ws file-via:myfile

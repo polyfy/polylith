@@ -6,7 +6,7 @@
        "  After we have switched workspace, all subsequent commands will append either\n"
        "  ws-dir:" (s/key "DIR" cm) " or ws-file:" (s/key "FILE" cm) ", depending on whether we switch to a directory or a file.\n"
        "\n"
-       "  switch-ws [dir:" (s/key "DIR" cm) "] [file:" (s/key "FILE" cm) "] [via-dir:" (s/key "DIRNAME" cm) "] [via-file:" (s/key "FILENAME" cm) "]\n"
+       "  switch-ws [dir:" (s/key "DIR" cm) "] [file:" (s/key "FILE" cm) "] [dir-via:" (s/key "DIRNAME" cm) "] [file-via:" (s/key "FILENAME" cm) "]\n"
        "\n"
        "    " (s/key "DIR" cm) " = Switches to the given workspace directory.\n"
        "          The prompt will be prefixed with 'dir:' to show this.\n"
@@ -27,8 +27,8 @@
        "  Example:\n"
        "    switch-ws dir:~/myworkspace\n"
        "    switch-ws file:../../another/ws.edn\n"
-       "    switch-ws via-dir:myws\n"
-       "    switch-ws via-file:myfile"))
+       "    switch-ws dir-via:myws\n"
+       "    switch-ws file-via:myfile"))
 
 (defn print-help [color-mode]
   (println (help color-mode)))

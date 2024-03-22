@@ -101,8 +101,8 @@
                 top-ns
                 update!
                 verbose!
-                via-dir
-                via-file
+                dir-via
+                file-via
                 workspace!
                 ws
                 ws-dir
@@ -115,7 +115,9 @@
                       :color-mode (as-value color-mode)
                       :changed-files (as-vector changed-files)
                       :dir dir
+                      :dir-via dir-via
                       :file file
+                      :file-via file-via
                       :fake-sha fake-sha
                       :fake-tag fake-tag
                       :help (as-value help)
@@ -160,8 +162,6 @@
                       :since since
                       :skip (as-vector skip)
                       :top-ns top-ns
-                      :via-dir via-dir
-                      :via-file via-file
                       :ws (as-value ws)
                       :ws-dir ws-dir
                       :ws-file ws-file
