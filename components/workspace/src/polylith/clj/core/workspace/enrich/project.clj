@@ -98,5 +98,5 @@
                 :project-lib-deps project-lib-deps
                 :lib-imports lib-imports})
         (cond-> enriched-maven-repos (assoc :maven-repos enriched-maven-repos)
-                is-dev (assoc :unmerged {:paths    paths
+                is-dev (assoc :unmerged {:paths paths
                                          :lib-deps lib-deps})))))
