@@ -20,8 +20,8 @@
 
 (deftest extract-deps--from-non-dev-project--returns-no-dependencies
   (is (= {}
-         (lib-dep-extractor/extract-deps false profiles settings))))
+         (lib-dep-extractor/extract-profile-deps false profiles settings))))
 
 (deftest extract-deps--from-dev-project--returns-selected-profiles-dependencies
   (is (= {"net.mikera/core.matrix" #:mvn{:version "0.62.0"}}
-         (lib-dep-extractor/extract-deps true profiles settings))))
+         (lib-dep-extractor/extract-profile-deps true profiles settings))))
