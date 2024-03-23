@@ -4,7 +4,7 @@
             [clojure.tools.deps.util.maven :as mvn]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.workspace.fromdisk.brick-deps :as brick-deps]
+            [polylith.clj.core.workspace.fromdisk.brick-name-extractor :as brick-name-extractor]
             [polylith.clj.core.workspace.fromdisk.namespaces-from-disk :as ns-from-disk]
             [polylith.clj.core.workspace.fromdisk.project-paths :as project-paths]))
 
@@ -16,20 +16,8 @@
       (str/starts-with? path "../../") (subs path 6)
       :else (str "projects/" project-name "/" path))))
 
-(defn brick-path? [path is-dev]
-  (if is-dev
-    (or
-      (str/starts-with? path "bases/")
-      (str/starts-with? path "components/")
-      (str/starts-with? path "./bases/")
-      (str/starts-with? path "./components/"))
-    (or
-      (str/starts-with? path "../../bases/")
-      (str/starts-with? path "../../components/"))))
-
 (defn brick? [[_ {:keys [local/root]}] is-dev]
-  (and (-> root nil? not)
-       (brick-path? root is-dev)))
+  (brick-name-extractor/brick-name root is-dev))
 
 (defn ->brick-src-paths [{:keys [name type paths]}]
   (map #(str type "s/" name "/" %)
@@ -57,7 +45,7 @@
      as :local/root in the project's deps.edn file and extracted from the corresponding
      brick deps.edn files."
   [project-name is-dev name->brick project-src-paths project-src-deps]
-  (let [src-brick-names (brick-deps/extract-brick-names is-dev project-src-deps)
+  (let [src-brick-names (brick-name-extractor/brick-names is-dev project-src-deps)
         project-src (into (sorted-set) (map #(absolute-path % project-name is-dev)) project-src-paths)
         bricks-src (into (sorted-set) (mapcat #(-> % name->brick ->brick-src-paths)) src-brick-names)
         paths (into project-src bricks-src)]
@@ -66,7 +54,7 @@
 (defn src-lib-deps-from-bricks
   "If :override-deps is given, then library versions will be overridden."
   [ws-dir project-name is-dev user-home name->brick project-src-deps override-src-deps]
-  (let [src-brick-names (brick-deps/extract-brick-names is-dev project-src-deps)
+  (let [src-brick-names (brick-name-extractor/brick-names is-dev project-src-deps)
         entity-root-path (when (not is-dev) (str "projects/" project-name))
         project-lib-deps (lib/with-sizes-vec
                            ws-dir
@@ -96,9 +84,9 @@
    - brick :src libraries that are specified in :aliases > :test > :extra-deps as :local/root but not in
      :aliases > :src > :extra-deps, are extracted from the corresponding brick deps.edn files."
   [project-name is-dev name->brick project-test-paths project-src-deps project-test-deps]
-  (let [all-brick-names (brick-deps/extract-brick-names is-dev (concat project-src-deps project-test-deps))
-        src-brick-names (brick-deps/extract-brick-names is-dev project-src-deps)
-        test-brick-names (brick-deps/extract-brick-names is-dev project-test-deps)
+  (let [all-brick-names (brick-name-extractor/brick-names is-dev (concat project-src-deps project-test-deps))
+        src-brick-names (brick-name-extractor/brick-names is-dev project-src-deps)
+        test-brick-names (brick-name-extractor/brick-names is-dev project-test-deps)
         src-only-brick-names (set/difference test-brick-names src-brick-names)
         paths (-> (sorted-set)
                   (into (map #(absolute-path % project-name is-dev)) project-test-paths)
@@ -109,9 +97,9 @@
 (defn test-lib-deps-from-bricks
   "If :override-deps is given, then library versions will be overridden."
   [ws-dir project-name is-dev name->brick user-home project-src-deps project-test-deps override-src-deps override-test-deps]
-  (let [all-brick-names (brick-deps/extract-brick-names is-dev (concat project-src-deps project-test-deps))
-        src-brick-names (brick-deps/extract-brick-names is-dev project-src-deps)
-        test-brick-names (brick-deps/extract-brick-names is-dev project-test-deps)
+  (let [all-brick-names (brick-name-extractor/brick-names is-dev (concat project-src-deps project-test-deps))
+        src-brick-names (brick-name-extractor/brick-names is-dev project-src-deps)
+        test-brick-names (brick-name-extractor/brick-names is-dev project-test-deps)
         src-only-brick-names (set/difference test-brick-names src-brick-names)
         entity-root-path (when (not is-dev) (str "projects/" project-name))
         project-lib-deps (lib/with-sizes-vec
