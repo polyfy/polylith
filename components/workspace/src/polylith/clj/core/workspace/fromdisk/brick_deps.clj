@@ -18,4 +18,5 @@
     (when name [name])))
 
 (defn extract-brick-names [is-dev dependencies]
-  (set (mapcat #(extract-brick-name % is-dev) dependencies)))
+  (set (mapcat #(extract-brick-name % is-dev)
+               dependencies)))
