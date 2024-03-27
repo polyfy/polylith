@@ -2,50 +2,50 @@
   (:require [clojure.test :refer :all]
             [polylith.clj.core.workspace.fromdisk.brick-name-extractor :as brick-name-extractor]))
 
-(deftest is-dev-component-project
-  (is (= false
+(deftest not-component-from-dev-project
+  (is (= nil
          (brick-name-extractor/brick-name "../../components/invoicer" true))))
 
-(deftest is-not-dev-component-project
+(deftest component-from-dev-project
   (is (= "invoicer"
          (brick-name-extractor/brick-name "../../components/invoicer" false))))
 
-(deftest is-dev-component-project
+(deftest not-base-from-dev-project
   (is (= nil
          (brick-name-extractor/brick-name "../../bases/mybase" true))))
 
-(deftest is-not-dev-component-project
+(deftest base-from-project
   (is (= "mybase"
          (brick-name-extractor/brick-name "../../bases/mybase" false))))
 
-(deftest is-dev-component
+(deftest component-from-dev-project
   (is (= "invoicer"
          (brick-name-extractor/brick-name "components/invoicer" true))))
 
-(deftest is-not-dev-component
+(deftest not-component-from-project
   (is (= nil
          (brick-name-extractor/brick-name "components/invoicer" false))))
 
-(deftest is-dev-component
+(deftest base-from-dev-project
   (is (= "mybase"
          (brick-name-extractor/brick-name "bases/mybase" true))))
 
-(deftest is-not-dev-component
+(deftest not-base-from-project
   (is (= nil
          (brick-name-extractor/brick-name "bases/mybase" false))))
 
-(deftest is-dev-component-local
+(deftest component-from-dev-project-local
   (is (= "invoicer"
          (brick-name-extractor/brick-name "./components/invoicer" true))))
 
-(deftest is-not-dev-component-local
+(deftest not-component-from-project-local
   (is (= nil
          (brick-name-extractor/brick-name "./components/invoicer" false))))
 
-(deftest is-dev-component-local
+(deftest base-from-dev-project-local
   (is (= "mybase"
          (brick-name-extractor/brick-name "./bases/mybase" true))))
 
-(deftest is-not-dev-component-local
+(deftest not-base-from-project-local
   (is (= nil
          (brick-name-extractor/brick-name "./bases/mybase" false))))

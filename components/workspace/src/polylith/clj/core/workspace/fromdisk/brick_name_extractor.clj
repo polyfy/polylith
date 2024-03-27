@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.fromdisk.brick-name-extractor
+(ns ^:no-doc polylith.clj.core.workspace.fromdisk.brick-name-extractor
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.str :as str-util]))
@@ -14,7 +14,7 @@
                                                        "../../components/"]))]
       (str-util/skip-prefix path brick-path))))
 
-(defn- ->brick-name
+(defn ->brick-name
   "Returns the brick name from a dependency if it's a valid path to a brick."
   [[_ entry] is-dev]
   (let [path (:local/root entry)

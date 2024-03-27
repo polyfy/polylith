@@ -6,6 +6,7 @@
        :auto-add false}
  :tag-patterns {:stable "stable-*"
                 :release "v[0-9]*"}
- :projects {"development" {:alias "dev"}}
+ :projects {"development" {:alias "dev"}
+            "system" {:alias "sys"}}
  :workspaces [{:alias "s"
                :dir "../shared"}]}

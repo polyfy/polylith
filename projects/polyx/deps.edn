@@ -13,6 +13,7 @@
         polylith/help                     {:local/root "../../components/help"}
         polylith/image-creator            {:local/root "../../components/image-creator-x"}
         polylith/info                     {:local/root "../../components/info"}
+        polylith/interface                {:local/root "../../components/interface"}
         polylith/lib                      {:local/root "../../components/lib"}
         polylith/maven                    {:local/root "../../components/maven"}
         polylith/overview                 {:local/root "../../components/overview"}

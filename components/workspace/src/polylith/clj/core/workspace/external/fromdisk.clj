@@ -16,7 +16,7 @@
 
 (declare workspace!)
 
-(defn used-workspaces! [ws-dir workspace wsdir->workspace]
+(defn used-workspaces! [ws-dir workspace wsdir->workspace direct-dependency?]
   (let [wss-config (-> workspace :configs :workspace :workspaces)
         ws-paths (set (keys @wsdir->workspace))
         configs (filter #(include-ws? % ws-paths)
@@ -26,7 +26,8 @@
             workspace (workspace! {:ws-dir path} wsdir->workspace)
             ws-alias (or alias (:name workspace))]
         (swap! wsdir->workspace #(assoc % path
-                                          (assoc workspace :alias ws-alias)))))))
+                                          (assoc workspace :alias ws-alias
+                                                           :is-direct-dependency direct-dependency?)))))))
 
 (defn workspace! [user-input wsdir->workspace]
   (let [{:keys [config-errors ws-dir] :as workspace}
@@ -38,14 +39,14 @@
             (seq config-errors))
       workspace
       (do
-        (used-workspaces! ws-dir workspace wsdir->workspace)
+        (used-workspaces! ws-dir workspace wsdir->workspace false)
         workspace))))
 
 (defn workspaces
   "Returns a vector with included workspaces, in the order they were referenced."
   [{:keys [ws-dir] :as workspace}]
   (let [wsdir->workspace (atom {})]
-    (used-workspaces! ws-dir workspace wsdir->workspace)
+    (used-workspaces! ws-dir workspace wsdir->workspace true)
     (mapv second
           (filter #(-> % second seq)
                   @wsdir->workspace))))
