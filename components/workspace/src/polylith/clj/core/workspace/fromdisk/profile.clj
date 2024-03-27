@@ -8,7 +8,7 @@
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.select :as select]
             [polylith.clj.core.util.interface.str :as str-util]
-            [polylith.clj.core.workspace.fromdisk.brick-deps :as brick-deps]))
+            [polylith.clj.core.workspace.fromdisk.brick-name-extractor :as brick-name-extractor]))
 
 (defn brick-name [[_ {:keys [local/root]}]]
   (when root
@@ -48,7 +48,7 @@
         deps-brick-names (concat deps-base-names deps-component-names)
         deps-brick-paths (mapcat #(-> % name->brick ->brick-paths) deps-brick-names)
         ;; :local/root deps
-        brick-names (brick-deps/extract-brick-names true extra-deps)
+        brick-names (brick-name-extractor/brick-names true extra-deps)
         brick-libs (mapcat #(brick-libs name->brick %) brick-names)
         ;; result
         base-names (vec (sort (set (concat path-base-names deps-base-names))))

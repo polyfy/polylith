@@ -17,6 +17,7 @@
                                poly/git                      {:local/root "components/git"}
                                poly/help                     {:local/root "components/help"}
                                poly/info                     {:local/root "components/info"}
+                               poly/interface                {:local/root "components/interface"}
                                poly/lib                      {:local/root "components/lib"}
                                poly/maven                    {:local/root "components/maven"}
                                poly/overview                 {:local/root "components/overview"}

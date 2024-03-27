@@ -200,13 +200,13 @@
 ;; switch-ws
 (def switch-ws-dir (c/fn-explorer "dir" :switch-ws #'file-explorer/select-edn))
 (def switch-ws-file (c/fn-explorer "file" :switch-ws #'file-explorer/select-edn))
-(def switch-ws-via-dir (c/fn-explorer "via-dir" :switch-ws #'ws-shortcuts/select-dirs))
-(def switch-ws-via-file (c/fn-explorer "via-file" :switch-ws #'ws-shortcuts/select-files))
+(def switch-ws-ddir (c/fn-explorer "ddir" :switch-ws #'ws-shortcuts/select-dirs))
+(def switch-ws-ffile (c/fn-explorer "ffile" :switch-ws #'ws-shortcuts/select-files))
 
-(defn switch-ws [ws-configs]
+(defn switch-ws [ws-shortcuts]
   (c/single-txt "switch-ws" :switch-ws
                 (concat [switch-ws-file switch-ws-dir]
-                        (when ws-configs [switch-ws-via-dir switch-ws-via-file]))))
+                        (when ws-shortcuts [switch-ws-ddir switch-ws-ffile]))))
 
 (defn ->profiles [group-id profiles all?]
   (let [profile-keys (map :name profiles)]
@@ -217,7 +217,7 @@
 
 (defn candidates [{:keys [profiles user-input]}]
   (let [{:keys [ws-dir ws-file is-all is-local]} user-input
-        ws-configs (user-config/ws-shortcuts-paths)
+        ws-shortcuts (user-config/ws-shortcuts-paths)
         info-profiles (->profiles :info profiles is-all)
         test-profiles (->profiles :test profiles is-all)
         ws-profiles (->profiles :ws profiles is-all)
@@ -227,7 +227,7 @@
     (vec (concat [check
                   diff
                   version
-                  (switch-ws ws-configs)
+                  (switch-ws ws-shortcuts)
                   (create current-ws? is-all)
                   (deps is-all system/extended?)
                   (doc is-all is-local)

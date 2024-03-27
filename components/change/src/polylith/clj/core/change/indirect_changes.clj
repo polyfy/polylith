@@ -2,8 +2,8 @@
   (:require [clojure.set :as set]))
 
 (defn brick-source-indirect-change [brick {:keys [direct indirect]} changed-bricks]
-  (let [brick-changes (set (concat direct indirect))
-        intersection (set/intersection brick-changes changed-bricks)]
+  (let [brick-deps (set (concat direct indirect))
+        intersection (set/intersection brick-deps changed-bricks)]
     (when (and (-> intersection empty? not)
                (not (contains? changed-bricks brick)))
       [brick])))

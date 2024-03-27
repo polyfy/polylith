@@ -6,7 +6,7 @@
             [polylith.clj.core.workspace.enrich.base :as base]
             [polylith.clj.core.workspace.enrich.component :as component]
             [polylith.clj.core.workspace.enrich.project :as project]
-            [polylith.clj.core.workspace.enrich.interfaces :as interfaces]))
+            [polylith.clj.core.interface.interface :as interface]))
 
 (defn brick->lib-imports [bricks]
   (into {} (map (juxt :name :lib-imports)) bricks))
@@ -28,20 +28,22 @@
     workspace
     (let [{:keys [top-namespace interface-ns color-mode]} settings
           suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
-          interfaces (interfaces/calculate components)
+          interfaces (interface/calculate components)
           interface-names (into (sorted-set) (keep :name) interfaces)
           calculate-latest-version? (common/calculate-latest-version? user-input)
           library->latest-version (antq/library->latest-version configs calculate-latest-version?)
           outdated-libs (lib/outdated-libs library->latest-version)
           name-type->keep-lib-versions (->name-type->keep-lib-versions bases components projects)
-          enriched-components (mapv #(component/enrich ws-dir suffixed-top-ns interface-names outdated-libs library->latest-version user-input name-type->keep-lib-versions %) components)
-          enriched-bases (mapv #(base/enrich ws-dir suffixed-top-ns bases interface-names outdated-libs library->latest-version user-input name-type->keep-lib-versions %) bases)
+          enriched-components (mapv #(component/enrich ws-dir suffixed-top-ns interface-names outdated-libs library->latest-version user-input name-type->keep-lib-versions workspaces %)
+                                    components)
+          enriched-bases (mapv #(base/enrich ws-dir suffixed-top-ns bases interface-names outdated-libs library->latest-version user-input name-type->keep-lib-versions workspaces %)
+                               bases)
           enriched-bricks (into [] cat [enriched-components enriched-bases])
           brick->loc (brick->loc enriched-bricks)
           brick->lib-imports (brick->lib-imports enriched-bricks)
           alias-id (atom 0)
-          enriched-projects (vec (sort-by project-sorter (mapv #(project/enrich-project % ws-dir alias-id workspaces enriched-components enriched-bases profiles suffixed-top-ns brick->loc brick->lib-imports paths user-input settings name-type->keep-lib-versions outdated-libs library->latest-version) projects)))
-          messages (validator/validate-ws suffixed-top-ns settings paths interface-names interfaces profiles enriched-components enriched-bases enriched-projects config-errors interface-ns workspaces user-input color-mode)]
+          enriched-projects (vec (sort-by project-sorter (mapv #(project/enrich-project % ws-dir alias-id enriched-components enriched-bases profiles suffixed-top-ns brick->loc brick->lib-imports paths user-input settings name-type->keep-lib-versions outdated-libs library->latest-version) projects)))
+          messages (validator/validate-ws suffixed-top-ns settings paths interface-names interfaces profiles enriched-components enriched-bases enriched-projects workspaces config-errors interface-ns user-input color-mode)]
       (cond-> workspace
               true (assoc :interfaces interfaces
                           :components enriched-components

@@ -3,7 +3,7 @@
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.workspace.fromdisk.core :as fromdisk]
-            [polylith.clj.core.ws-file.interface :as ws-file]))
+            [polylith.clj.core.workspace.enrich.core :as enrich]))
 
 (defn ws-name [{:keys [dir]}]
   (when dir
@@ -16,7 +16,7 @@
 
 (declare workspace!)
 
-(defn used-workspaces! [ws-dir workspace wsdir->workspace]
+(defn used-workspaces! [ws-dir workspace wsdir->workspace direct-dependency?]
   (let [wss-config (-> workspace :configs :workspace :workspaces)
         ws-paths (set (keys @wsdir->workspace))
         configs (filter #(include-ws? % ws-paths)
@@ -26,29 +26,27 @@
             workspace (workspace! {:ws-dir path} wsdir->workspace)
             ws-alias (or alias (:name workspace))]
         (swap! wsdir->workspace #(assoc % path
-                                          (assoc workspace :alias ws-alias)))))))
+                                          (assoc workspace :alias ws-alias
+                                                           :is-direct-dependency direct-dependency?)))))))
 
-(defn workspace! [{:keys [ws-file] :as user-input} wsdir->workspace]
-  (if ws-file
-    (ws-file/read-ws-from-file ws-file user-input)
-    (let [{:keys [config-errors ws-dir] :as workspace}
-          (-> user-input
-              fromdisk/workspace-from-disk
-              change/with-changes)]
-
-      (if (or (nil? workspace)
-              (seq config-errors))
-        workspace
-        (do
-          (used-workspaces! ws-dir workspace wsdir->workspace)
-          workspace)))))
+(defn workspace! [user-input wsdir->workspace]
+  (let [{:keys [config-errors ws-dir] :as workspace}
+        (-> user-input
+            (fromdisk/workspace-from-disk)
+            (enrich/enrich-workspace [])
+            (change/with-changes))]
+    (if (or (nil? workspace)
+            (seq config-errors))
+      workspace
+      (do
+        (used-workspaces! ws-dir workspace wsdir->workspace false)
+        workspace))))
 
 (defn workspaces
   "Returns a vector with included workspaces, in the order they were referenced."
-  [ws-dir user-input]
-  (let [path (file/absolute-path ws-dir)
-        wsdir->workspace (atom {path (array-map)})
-        _ (workspace! user-input wsdir->workspace)]
+  [{:keys [ws-dir] :as workspace}]
+  (let [wsdir->workspace (atom {})]
+    (used-workspaces! ws-dir workspace wsdir->workspace true)
     (mapv second
           (filter #(-> % second seq)
                   @wsdir->workspace))))
