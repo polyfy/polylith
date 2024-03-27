@@ -855,7 +855,7 @@ We also have a number of arguments that are only populated if they are passed in
 
 * `:dir` Used by the xref:commands.adoc#switch-ws[switch-ws] command.
 
-* `dir-via` Used by xref:shell#switch-workspace[switch-ws].
+* `ddir` Used by xref:shell#switch-workspace[switch-ws].
 
 * `:fake-sha` Overrides the "stable since" `sha` in the output from the xref:commands.adoc#info[info] command.
 Used when taking screenshots for this documentation.
@@ -865,7 +865,7 @@ Sometimes used when taking screenshots for this documentation.
 
 * `:file` Used by the xref:commands.adoc#switch-ws[switch-ws] command.
 
-* `file-via` Used by xref:shell#switch-workspace[switch-ws].
+* `ffile` Used by xref:shell#switch-workspace[switch-ws].
 
 * `:get` Used by the xref:commands.adoc#ws[ws] command.
 

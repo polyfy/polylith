@@ -66,12 +66,14 @@
                 color-mode
                 commit!
                 compact!
-                dir
                 dev!
+                dir
+                ddir
                 fake-poly!
                 fake-sha
                 fake-tag
                 file
+                ffile
                 get
                 git-add!
                 github!
@@ -101,8 +103,6 @@
                 top-ns
                 update!
                 verbose!
-                dir-via
-                file-via
                 workspace!
                 ws
                 ws-dir
@@ -115,11 +115,11 @@
                       :color-mode (as-value color-mode)
                       :changed-files (as-vector changed-files)
                       :dir dir
-                      :dir-via dir-via
-                      :file file
-                      :file-via file-via
+                      :ddir ddir
                       :fake-sha fake-sha
                       :fake-tag fake-tag
+                      :file file
+                      :ffile ffile
                       :help (as-value help)
                       :interface interface
                       :is-all (= "true" all!)

@@ -57,8 +57,8 @@
   Example (shell only):
     switch-ws dir:~/myworkspace
     switch-ws file:../../another/ws.edn
-    switch-ws dir-via:myws
-    switch-ws file-via:myfile
+    switch-ws ddir:myws
+    switch-ws ffile:myfile
     tap
     tap open
     tap clean
