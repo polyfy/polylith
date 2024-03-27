@@ -14,7 +14,7 @@
   database        database *         stx   st-
   department      department *       stx   st-
   schema          schema *           stx   st-
-  schema-fixture  schema-fixture *   -tx   st-
+  schema-fixture  schema-fixture *   -tx   -t-
   user            user *             stx   st-
   web-server      web-server *       stx   st-
   -               web *              stx   st-
