@@ -5,7 +5,7 @@
   (text-table/cell 1 (+ 3 index) (alias->name alias)))
 
 (defn alias-cell [index {:keys [alias]}]
-  (text-table/cell 3 (+ 3 index) alias))
+  (text-table/cell 3 (+ 3 index) alias :purple))
 
 (defn path-cell [index {:keys [dir]}]
   (text-table/cell 5 (+ 3 index) dir))
