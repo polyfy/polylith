@@ -8,6 +8,7 @@
             [polylith.clj.core.shell.candidate.selector.file-explorer :as file-explorer]
             [polylith.clj.core.shell.candidate.selector.remote-branches :as remote-branches]
             [polylith.clj.core.shell.candidate.selector.outdated-libs :as outdated-libs]
+            [polylith.clj.core.shell.candidate.selector.with-test-configs :as with-test-configs]
             [polylith.clj.core.shell.candidate.selector.ws-bricks :as ws-bricks]
             [polylith.clj.core.shell.candidate.selector.ws-explore :as ws-explore]
             [polylith.clj.core.shell.candidate.selector.ws-shortcuts :as ws-shortcuts]
@@ -154,12 +155,13 @@
 (def test-skip (c/fn-explorer "skip" :test #'ws-projects/select))
 (def test-all-bricks (c/flag "all-bricks" :test))
 (def test-all (c/flag "all" :test))
+(def test-with (c/fn-explorer "with" :test #'with-test-configs/select))
 
 (defn test [profiles current-ws? all?]
   (when current-ws?
     (c/single-txt "test" :test
       (vec (concat [test-all test-all-bricks test-brick test-loc test-verbose
-                    test-dev test-project test-project-flag test-since]
+                    test-dev test-project test-project-flag test-since test-with]
                    (when all? [test-skip])
                    profiles)))))
 
@@ -188,12 +190,13 @@
 (def ws-get (c/fn-explorer "get" :ws #'ws-explore/select))
 (def ws-no-changes (c/flag "no-changes" :ws))
 (def ws-color-mode (c/fn-values "color-mode" :ws #'color-modes/select))
+(def ws-with (c/fn-explorer "with" :ws #'with-test-configs/select))
 
 ;; ws
 (defn ws [profiles all?]
   (c/single-txt "ws" :ws
     (vec (concat [ws-project ws-brick ws-project-flag ws-dev ws-latest-sha
-                  ws-loc ws-all-bricks ws-all ws-get ws-out ws-since]
+                  ws-loc ws-all-bricks ws-all ws-get ws-out ws-since ws-with]
                  profiles
                  (when all? [ws-branch ws-outdated ws-replace ws-no-changes ws-color-mode])))))
 

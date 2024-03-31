@@ -7,6 +7,8 @@
 
 | https://github.com/polyfy/polylith/issues/443[443] | Switch workspace via shortcuts
 
+| https://github.com/polyfy/polylith/issues/457[457] | Support snippets of test configuration to be merged into settings
+
 |===
 
 [cols="10,20,100"]

@@ -217,6 +217,95 @@ a| A map of changes since the last stable point in time.
 
 |===
 
+== Test configuration
+
+If you create your own test runner or use one from the community, it can be useful to add snippets of test configuration when running the xref:commands.adoc#test[test] command.
+
+The test snippets can be configured in workspace.edn under `:test-configs` (see the https://github.com/polyfy/polylith/blob/master/examples/test-runners/workspace.edn[test-runners] example):
+
+[source,clojure]
+----
+{
+ ...
+
+ :test {:create-test-runner org.corfield.external-test-runner.interface/create}
+
+ :test-configs {:default-test-runner  {:create-test-runner [:default]}
+                :external-test-runner {:create-test-runner [org.corfield.external-test-runner.interface/create]}
+                :kaocha-test-runner   {:create-test-runner [polylith-kaocha.test-runner/create]}
+                :exclude-dummy        {:org.corfield/external-test-runner {:focus {:exclude [:dummy]}}}
+                :exclude-integration  {:org.corfield/external-test-runner {:focus {:exclude [:integration]}}}}}
+...
+}
+----
+
+If we run the test command, e.g. `poly test`, then the test configuration specified by the `:test` key will be passed to the test runner(s). Let's start a shell and verify this, from the https://github.com/polyfy/polylith/tree/master/examples/test-runners[examples/test-runners] directory:
+
+Let's start a shell:
+
+[source,shell]
+----
+poly
+----
+
+Now you can check the content of the `:test` key:
+[source,shell]
+----
+test-runners$ ws get:settings:test
+----
+
+[source,clojure]
+----
+{:create-test-runner org.corfield.external-test-runner.interface/create}
+----
+
+Yes, it looked the same. Let's use the default test runner:
+[source,shell]
+----
+test-runners$ ws get:settings:test with:default-test-runner
+----
+
+[source,clojure]
+----
+{:create-test-runner [:default]}
+----
+
+The old `org.corfield.external-test-runner.interface/create` value was replaced by `[:default]`.
+
+If the old value instead was set to `[org.corfield.external-test-runner.interface/create]` then the two vectors would instead been merged into `[org.corfield.external-test-runner.interface/create :defalt]`.
+
+When we have two vectors, they will be merged:
+
+[source,shell]
+----
+test-runners$ ws get:settings:test with:default-test-runner:kaocha-test-runner
+----
+
+[source,clojure]
+----
+{:create-test-runner [:default polylith-kaocha.test-runner/create]}
+----
+
+Here is another example, where `:integration` and `:dummy` are concatenated:
+
+[source,shell]
+----
+test-runners$ ws get:settings:test with:exclude-integration:exclude-dummy
+----
+
+[source,clojure]
+----
+{:create-test-runner org.corfield.external-test-runner.interface/create,
+ :org.corfield/external-test-runner {:focus {:exclude [:integration :dummy]}}}
+----
+
+Now when we understand how test configuration can be added, we can run the test command using the default test runner:
+
+[source,shell]
+----
+test-runners$ test with:default-test-runner
+----
+
 == Test Runners from the Community
 
 The default test runner works fine in most cases and is simple and fast.

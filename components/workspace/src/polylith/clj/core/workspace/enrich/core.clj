@@ -5,6 +5,7 @@
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.workspace.enrich.base :as base]
             [polylith.clj.core.workspace.enrich.component :as component]
+            [polylith.clj.core.workspace.enrich.test-configs :as test-configs]
             [polylith.clj.core.workspace.enrich.project :as project]
             [polylith.clj.core.interface.interface :as interface]))
 
@@ -26,7 +27,7 @@
                         workspaces]
   (if (common/invalid-workspace? workspace)
     workspace
-    (let [{:keys [top-namespace interface-ns color-mode]} settings
+    (let [{:keys [top-namespace interface-ns test color-mode]} settings
           suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
           interfaces (interface/calculate components)
           interface-names (into (sorted-set) (keep :name) interfaces)
@@ -45,12 +46,14 @@
           enriched-projects (vec (sort-by project-sorter
                                           (mapv #(project/enrich-project % ws-dir alias-id enriched-components enriched-bases profiles suffixed-top-ns brick->loc brick->lib-imports paths user-input settings name-type->keep-lib-versions outdated-libs library->latest-version)
                                                 projects)))
+          enriched-settings (test-configs/with-configs settings test configs user-input)
           messages (validator/validate-ws suffixed-top-ns settings paths interface-names interfaces profiles enriched-components enriched-bases enriched-projects workspaces config-errors interface-ns user-input color-mode)]
       (cond-> workspace
               true (assoc :interfaces interfaces
                           :components enriched-components
                           :bases enriched-bases
                           :projects enriched-projects
+                          :settings enriched-settings
                           :messages messages)
               true (dissoc :config-errors)
               (seq workspaces) (assoc :workspaces workspaces)))))

@@ -22,6 +22,10 @@
        "\n"
        "  " (s/key ":all" cm) "              All brick tests + all project tests (except development).\n"
        "\n"
+       "  " (s/key "with:CONFIG" cm) "       Merges the " (s/key "CONFIG" cm) " configuration snippet(s) from " (s/key ":test-configs" cm) "\n"
+       "                    in workspace.edn to the " (s/key ":test" cm) " key. More than one " (s/key "CONFIG" cm) " can be\n"
+       "                    selected.\n"
+       "\n"
        "\n"
        "  To also execute the brick tests from the development project, pass in :dev:\n"
        "\n"
@@ -45,7 +49,7 @@
        "  " (s/key "project:proj1:proj2" cm) ".\n"
        "\n"
        "  We can also specify which bricks to include, by listing them like this:\n"
-       "  brick:" (color/component "mycomponent" cm) ":" (color/component "another-component" cm) ":" (color/base "mybase" cm) "\n"
+       "  " (s/key "brick" cm) ":" (color/component "mycomponent" cm) ":" (color/component "another-component" cm) ":" (color/base "mybase" cm) "\n"
        "\n"
        "  Example:\n"
        "    poly test\n"
@@ -60,6 +64,7 @@
        "    poly test :project :dev\n"
        "    poly test :all-bricks :dev\n"
        "    poly test :all :dev\n"
+       "    poly test with:default:kaocha-test-runner\n"
        "    poly doc page:testing\n"
        "    poly doc page:test-runners"))
 
