@@ -16,6 +16,10 @@
 
   :all              All brick tests + all project tests (except development).
 
+  with:CONFIG       Merges the CONFIG configuration snippet(s) from :test-configs
+                    in workspace.edn to the :test key. More than one CONFIG can be
+                    selected.
+
 
   To also execute the brick tests from the development project, pass in :dev:
 
@@ -54,5 +58,6 @@
     poly test :project :dev
     poly test :all-bricks :dev
     poly test :all :dev
+    poly test with:default:kaocha-test-runner
     poly doc page:testing
     poly doc page:test-runners

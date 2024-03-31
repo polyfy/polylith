@@ -1,4 +1,4 @@
-  poly 0.2.20 (2024-03-27) - https://github.com/polyfy/polylith
+  poly 0.2.20 (2024-03-31) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -158,6 +158,7 @@
     poly test :project :dev
     poly test :all-bricks :dev
     poly test :all :dev
+    poly test with:default:kaocha-test-runner
     poly version
     poly ws
     poly ws get:keys
