@@ -2,7 +2,7 @@
  :interface-ns "interface"
  :default-profile-name "default"
  :compact-views #{}
- :test {:create-test-runner [org.corfield.external-test-runner.interface/create]}
+ :test {:create-test-runner org.corfield.external-test-runner.interface/create}
  :vcs {:name "git"
        :auto-add false}
  :tag-patterns {:stable "stable-*"
@@ -24,4 +24,9 @@
                                      :test {:setup-fn se.external.test-setup.interface/setup
                                             :create-test-runner [:default
                                                                  polylith-kaocha.test-runner/create
-                                                                 org.corfield.external-test-runner.interface/create]}}}}
+                                                                 org.corfield.external-test-runner.interface/create]}}}
+ :test-configs {:default-test-runner  {:create-test-runner [:default]}
+                :external-test-runner {:create-test-runner [org.corfield.external-test-runner.interface/create]}
+                :kaocha-test-runner   {:create-test-runner [polylith-kaocha.test-runner/create]}
+                :exclude-dummy        {:org.corfield/external-test-runner {:focus {:exclude [:dummy]}}}
+                :exclude-integration  {:org.corfield/external-test-runner {:focus {:exclude [:integration]}}}}}

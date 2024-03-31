@@ -307,19 +307,19 @@
          (candidates "libs" :next ""))))
 
 (deftest test
-  (is (= [":all" ":all-bricks" ":dev" ":loc" ":project" ":verbose" "brick" "project" "since"]
+  (is (= [":all" ":all-bricks" ":dev" ":loc" ":project" ":verbose" "brick" "project" "since" "with"]
          (candidates "test"))))
 
 (deftest test-:project-
-  (is (= [":all" ":all-bricks" ":dev" ":loc" ":verbose" "brick" "project" "since"]
+  (is (= [":all" ":all-bricks" ":dev" ":loc" ":verbose" "brick" "project" "since" "with"]
          (candidates "test" :next ":project" :next ""))))
 
 (deftest test-project-
-  (is (= [":all" ":all-bricks" ":dev" ":loc" ":project" ":verbose" "brick" "since"]
+  (is (= [":all" ":all-bricks" ":dev" ":loc" ":project" ":verbose" "brick" "since" "with"]
          (candidates "test" :next "project" "poly" :next ""))))
 
 (deftest test-loc-
-  (is (= [":all" ":all-bricks" ":dev" ":project" ":verbose" "brick" "project" "since"]
+  (is (= [":all" ":all-bricks" ":dev" ":project" ":verbose" "brick" "project" "since" "with"]
          (candidates "test" :next "loc" :next ""))))
 
 (deftest version
@@ -328,12 +328,12 @@
 
 (deftest ws
   (is (= [":all" ":all-bricks" ":dev"  ":latest-sha" ":loc" ":project"
-          "brick" "get" "out" "project" "since"]
+          "brick" "get" "out" "project" "since" "with"]
          (candidates "ws"))))
 
 (deftest ws-
   (is (= [":all" ":all-bricks" ":dev"  ":latest-sha" ":loc" ":project"
-          "brick" "get" "out" "project" "since"]
+          "brick" "get" "out" "project" "since" "with"]
          (candidates "ws" :next ""))))
 
 (deftest ws-get
@@ -373,7 +373,7 @@
 
 (deftest ws-out-components-next-
   (is (= [":all" ":all-bricks" ":dev" ":latest-sha" ":loc" ":project"
-          "brick" "get" "project" "since"]
+          "brick" "get" "project" "since" "with"]
          (candidates "ws" :next "out" "components" :next ""))))
 
 (deftest ws-out-parentdir-

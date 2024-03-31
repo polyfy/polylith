@@ -185,6 +185,7 @@
     "    poly test :project :dev\n"
     "    poly test :all-bricks :dev\n"
     "    poly test :all :dev\n"
+    "    poly test with:default:kaocha-test-runner\n"
     "    poly version\n"
     "    poly ws\n"
     "    poly ws get:keys\n"

@@ -14,7 +14,7 @@ poly help
 
 [source,text]
 ----
-  poly 0.2.20 (2024-03-27) - https://github.com/polyfy/polylith
+  poly 0.2.20 (2024-03-31) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -174,6 +174,7 @@ poly help
     poly test :project :dev
     poly test :all-bricks :dev
     poly test :all :dev
+    poly test with:default:kaocha-test-runner
     poly version
     poly ws
     poly ws get:keys
@@ -1096,6 +1097,10 @@ poly help
 
   :all              All brick tests + all project tests (except development).
 
+  with:CONFIG       Merges the CONFIG configuration snippet(s) from :test-configs
+                    in workspace.edn to the :test key. More than one CONFIG can be
+                    selected.
+
 
   To also execute the brick tests from the development project, pass in :dev:
 
@@ -1134,6 +1139,7 @@ poly help
     poly test :project :dev
     poly test :all-bricks :dev
     poly test :all :dev
+    poly test with:default:kaocha-test-runner
     poly doc page:testing
     poly doc page:test-runners
 ----
