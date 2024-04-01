@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.enrich.test-configs)
+(ns ^:no-doc polylith.clj.core.workspace.enrich.test-configs)
 
 (declare merge-data)
 
