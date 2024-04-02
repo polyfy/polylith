@@ -13,15 +13,6 @@ http://scrintal.com[Scrintal's] first commit dates back to April 2019 and the wo
 Polylith enabled us to experiment fast locally and ship features easily.
 The complete buy-in to Polylith paid off when we started pivoting our product at the end of 2020, as even though we are changing it to a completely new product, most bricks can be shared and reused across all our products.
 
-== Funnel
-
-image::images/production-systems/funnel.png[link="images/production-systems/funnel.png"]
-
-https://funnel.io/[Funnel] helps companies collect, prepare and analyze all their marketing data with ease.
-The company was founded in 2014, has 1000+ customers, and integrates with 500+ marketing apps and platforms.
-The tech stack differs from team to team. Python, Typescript, Rust, and Clojure are all languages in use.
-The Clojure adopters chose Polylith in order to get a smooth development experience and to be able to separate how services are deployed and run from how functionality is developed and re-used.
-
 == World Singles Networks
 
 image::images/production-systems/world-singles-networks.png[link="images/production-systems/world-singles-networks.png"]
