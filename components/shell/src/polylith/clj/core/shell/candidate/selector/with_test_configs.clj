@@ -17,12 +17,3 @@
           (sort (set/difference
                   test-configs
                   (set (shared/args groups group)))))))
-
-;(defn selectx [{:keys [group]} groups {:keys [settings projects]}]
-;  (let [color-mode (:color-mode settings)]
-;    (mapv #(c/fn-explorer-child % :project color-mode true group #'select)
-;          (sort (set/difference
-;                  (set (concat ["development"]
-;                               (map :name (filter #(or (-> % :bricks-to-test seq)
-;                                                       (-> % :projects-to-test seq)) projects))))
-;                  (set (shared/args groups group)))))))
