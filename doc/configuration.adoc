@@ -86,6 +86,9 @@ a| Specifies the https://docs.oracle.com/javase/8/docs/api/java/util/regex/Patte
 As explained in xref:tagging.adoc[Tagging], `poly` uses this pattern to calculate the latest committed sha that is considered the _latest stable point in time_. +
 *Default:* `+{:stable "stable-*" :release "v[0-9]*"}+`
 
+a| `:test`
+a| See xref:test-runners.adoc#test-configuration[Test configuration].
+
 a| `:top-namespace`
 a| The top namespace used throughout the workspace in components and bases, specified by you when you create your xref:workspace.adoc[workspace]. +
 *Default:* none, must be specified

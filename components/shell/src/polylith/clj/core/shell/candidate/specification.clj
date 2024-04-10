@@ -157,11 +157,12 @@
 (def test-all (c/flag "all" :test))
 (def test-with (c/fn-explorer "with" :test #'with-test-configs/select))
 
-(defn test [profiles current-ws? all?]
+(defn test [profiles current-ws? has-test-configs? all?]
   (when current-ws?
     (c/single-txt "test" :test
       (vec (concat [test-all test-all-bricks test-brick test-loc test-verbose
-                    test-dev test-project test-project-flag test-since test-with]
+                    test-dev test-project test-project-flag test-since]
+                   (when has-test-configs? [test-with])
                    (when all? [test-skip])
                    profiles)))))
 
@@ -193,11 +194,12 @@
 (def ws-with (c/fn-explorer "with" :ws #'with-test-configs/select))
 
 ;; ws
-(defn ws [profiles all?]
+(defn ws [profiles has-test-configs? all?]
   (c/single-txt "ws" :ws
     (vec (concat [ws-project ws-brick ws-project-flag ws-dev ws-latest-sha
-                  ws-loc ws-all-bricks ws-all ws-get ws-out ws-since ws-with]
+                  ws-loc ws-all-bricks ws-all ws-get ws-out ws-since]
                  profiles
+                 (when has-test-configs? [ws-with])
                  (when all? [ws-branch ws-outdated ws-replace ws-no-changes ws-color-mode])))))
 
 ;; switch-ws
@@ -218,12 +220,13 @@
               (map #(c/group-arg (str "+" %) group-id (str "+" %))
                    profile-keys)))))
 
-(defn candidates [{:keys [profiles user-input]}]
+(defn candidates [{:keys [configs profiles user-input]}]
   (let [{:keys [ws-dir ws-file is-all is-local]} user-input
         ws-shortcuts (user-config/ws-shortcuts-paths)
         info-profiles (->profiles :info profiles is-all)
         test-profiles (->profiles :test profiles is-all)
         ws-profiles (->profiles :ws profiles is-all)
+        has-test-configs? (seq (-> configs :workspace :test-configs))
         current-ws? (or (nil? ws-file)
                         (or (nil? ws-dir)
                             (= "." ws-dir)))]
@@ -237,8 +240,8 @@
                   (help is-all)
                   (info info-profiles is-all system/extended?)
                   (libs is-all system/extended?)
-                  (test test-profiles current-ws? is-all)
-                  (ws ws-profiles is-all)
+                  (test test-profiles current-ws? has-test-configs? is-all)
+                  (ws ws-profiles has-test-configs? is-all)
                   (when system/extended? overview)]))))
 
 (def create-outside-ws-root (c/single-txt "create" [create-workspace]))

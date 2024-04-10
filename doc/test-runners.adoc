@@ -217,6 +217,7 @@ a| A map of changes since the last stable point in time.
 
 |===
 
+[[test-configuration]]
 == Test configuration
 
 If you create your own test runner or use one from the community, it can be useful to add snippets of test configuration when running the xref:commands.adoc#test[test] command.
@@ -274,7 +275,7 @@ The old `org.corfield.external-test-runner.interface/create` value was replaced 
 
 If the old value instead was set to `[org.corfield.external-test-runner.interface/create]` then the two vectors would instead been merged into `[org.corfield.external-test-runner.interface/create :defalt]`.
 
-When we have two vectors, they will be merged:
+Both `default-test-runner` and `kaocha-test-runner` store their values in a vector, and if we select both, the result will be merged:
 
 [source,shell]
 ----
