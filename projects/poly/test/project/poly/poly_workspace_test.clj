@@ -1526,3 +1526,12 @@
            (run-cmd-plain "examples/multiple-workspaces2/backend"
                           "ws"
                           "get:components:hello::interface-deps")))))
+
+(deftest merge-test-configs
+  (is (= {:create-test-runner [:default]
+          :org.corfield/external-test-runner {:focus {:exclude [:integration :dummy]}}}
+         (read-string
+           (run-cmd-plain "examples/test-runners"
+                          "ws"
+                          "get:settings:test"
+                          "with:default-test-runner:exclude-integration:exclude-dummy")))))
