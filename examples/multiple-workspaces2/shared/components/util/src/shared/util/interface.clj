@@ -1,4 +1,4 @@
 (ns shared.util.interface)
 
-(defn with-exclamation-mark [string]
+(defn with-question-and-exclamation-mark [string]
   (str string "!"))

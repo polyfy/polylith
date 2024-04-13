@@ -5,4 +5,4 @@
 (def pi math/pi)
 
 (defn greeting [name]
-  (println (util/with-exclamation-mark (str "Hello " name))))
+  (println (util/with-question-and-exclamation-mark (str "Hello " name))))
