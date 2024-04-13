@@ -1,6 +1,8 @@
 (ns ^:no-doc polylith.clj.core.workspace.external.fromdisk
   (:require [clojure.string :as str]
+            [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.workspace.enrich.core :as enrich]
             [polylith.clj.core.workspace.fromdisk.core :as fromdisk]))
 
 (defn ws-name [{:keys [dir]}]
@@ -41,9 +43,13 @@
 (defn workspaces
   "Returns a vector with included workspaces, in the order they were referenced."
   [{:keys [ws-dir] :as workspace}]
-  (let [wsdir-workspace (atom [])
+  (let [path (file/absolute-path ws-dir)
+        wsdir-workspace (atom [[path]])
         _ (used-workspaces! ws-dir workspace wsdir-workspace true)
         workspaces (mapv second
                          (filter #(-> % second seq)
                                  @wsdir-workspace))]
-    workspaces))
+    (vec (reverse (map #(-> %
+                            (enrich/enrich-workspace workspaces)
+                            (change/with-changes))
+                        workspaces)))))
