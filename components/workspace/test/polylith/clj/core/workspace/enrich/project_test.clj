@@ -113,6 +113,7 @@
                                     brick->lib-imports
                                     {:missing []}
                                     {}
+                                    {}
                                     {:projects {"development" {:alias "dev"}}}
                                     {}
                                     #{}
@@ -185,6 +186,7 @@
                                       brick->loc
                                       brick->lib-imports
                                       {:missing []}
+                                      {}
                                       {}
                                       {:projects {"development" {:alias "dev"}}}
                                       {}
@@ -260,6 +262,7 @@
                                       brick->loc
                                       brick->lib-imports
                                       {:missing []}
+                                      {}
                                       {}
                                       {:active-profiles #{"default"}}
                                       {}

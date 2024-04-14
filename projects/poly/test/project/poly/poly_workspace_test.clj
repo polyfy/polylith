@@ -1535,3 +1535,22 @@
                           "ws"
                           "get:settings:test"
                           "with:default-test-runner:exclude-integration:exclude-dummy")))))
+
+(deftest treat-component-from-other-workspace-as-component
+  (is (= {:src ["howdy"
+                 "math"
+                 "s/util"]}
+         (read-string
+           (run-cmd-plain "examples/multiple-workspaces2/backend"
+                          "ws"
+                          "get:projects:system:component-names")))))
+
+
+(deftest dont-treat-component-from-other-workspace-as-library
+  (is (= {:src {"org.clojure/clojure" {:size    4105111
+                                       :type    "maven"
+                                       :version "1.11.1"}}}
+         (read-string
+           (run-cmd-plain "examples/multiple-workspaces2/backend"
+                          "ws"
+                          "get:projects:system:lib-deps")))))
