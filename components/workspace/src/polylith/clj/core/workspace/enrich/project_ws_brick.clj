@@ -14,6 +14,10 @@
       (str/starts-with? path "components/") [:component (str alias "/" (subs path 11)) k]
       :else nil)))
 
+(defn brick [[type name]]
+  (identity {:brick {:type type
+                     :name name}}))
+
 (defn convert-libs-to-bricks
   "When we read all workspaces from disk, we treat all :local/root as libraries.
    This function identifies the bricks that are read from other
@@ -30,7 +34,20 @@
                                         bricks-data))
         component-names (mapv second (filter #(= :component (first %))
                                              bricks-data))
-        lib-deps-without-bricks (apply dissoc lib-deps (map last bricks-data))]
+        brick-markers (into {} (map (juxt last brick)
+                                    bricks-data))
+        lib-deps-with-markers (merge-with merge lib-deps brick-markers)]
     [base-names
      component-names
-     lib-deps-without-bricks]))
+     lib-deps-with-markers]))
+
+(def data {:src {"org.clojure/clojure" {:size    4105111
+                                        :type    "maven"
+                                        :version "1.11.1"}
+                 "shared/util"         {:brick      {:name "s/util"
+                                                     :type :component}
+                                        :local/root "../../../shared/components/util"
+                                        :path       "../shared/components/util"
+                                        :size       5068
+                                        :type       "local"}}})
+(get-in data [:src "shared/util" :brick])

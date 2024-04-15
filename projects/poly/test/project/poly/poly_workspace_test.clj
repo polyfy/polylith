@@ -1546,11 +1546,11 @@
                           "get:projects:system:component-names")))))
 
 
-(deftest dont-treat-component-from-other-workspace-as-library
-  (is (= {:src {"org.clojure/clojure" {:size    4105111
-                                       :type    "maven"
-                                       :version "1.11.1"}}}
-         (read-string
-           (run-cmd-plain "examples/multiple-workspaces2/backend"
-                          "ws"
-                          "get:projects:system:lib-deps")))))
+(deftest mark-brick-from-another-workspace-as-brick
+  (is (= {:name "s/util"
+          :type :component}
+         (get-in (read-string
+                   (run-cmd-plain "examples/multiple-workspaces2/backend"
+                                  "ws"
+                                  "get:projects:system:lib-deps"))
+                 [:src "shared/util" :brick]))))
