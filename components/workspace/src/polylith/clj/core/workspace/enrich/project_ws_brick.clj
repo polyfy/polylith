@@ -7,16 +7,22 @@
                                                dir->alias))]
       [k alias suffixed-path])))
 
-(defn brick-data [[[k alias suffixed-path] [_ lib-deps]]]
+(defn lib-brick [[[k alias suffixed-path] [_ lib-deps]]]
   (let [path (subs (:path lib-deps) (count suffixed-path))]
     (cond
-      (str/starts-with? path "bases/") [:base (str alias "/" (subs path 6)) k]
-      (str/starts-with? path "components/") [:component (str alias "/" (subs path 11)) k]
-      :else nil)))
+      (str/starts-with? path "bases/") {:type :base
+                                        :alias alias
+                                        :name (subs path 6)
+                                        :lib-key k}
+      (str/starts-with? path "components/") {:type :component
+                                             :alias alias
+                                             :name (subs path 11)
+                                             :lib-key k})))
 
-(defn brick [[type name]]
-  (identity {:brick {:type type
-                     :name name}}))
+(defn brick [{:keys [alias name type]}]
+  {:brick {:alias alias
+           :type type
+           :name name}})
 
 (defn convert-libs-to-bricks
   "When we read all workspaces from disk, we treat all :local/root as libraries.
@@ -25,29 +31,18 @@
    (which include the workspace alias prefix, e.g. s/util)."
   [lib-deps configs]
   (let [dir->alias (into {} (map (juxt #(str (:dir %) "/") :alias) (-> configs :workspace :workspaces)))
-        bricks-data (mapv brick-data
-                          (filter first
+        lib-bricks (mapv lib-brick
+                         (filter first
                                   (map (juxt #(extract-brick % dir->alias)
                                              identity)
                                        lib-deps)))
-        base-names (mapv second (filter #(= :base (first %))
-                                        bricks-data))
-        component-names (mapv second (filter #(= :component (first %))
-                                             bricks-data))
-        brick-markers (into {} (map (juxt last brick)
-                                    bricks-data))
+        base-names (mapv :name (filter #(= :base (:type %))
+                                       lib-bricks))
+        component-names (mapv :name (filter #(= :component (:type %))
+                                            lib-bricks))
+        brick-markers (into {} (map (juxt :lib-key brick)
+                                    lib-bricks))
         lib-deps-with-markers (merge-with merge lib-deps brick-markers)]
     [base-names
      component-names
      lib-deps-with-markers]))
-
-(def data {:src {"org.clojure/clojure" {:size    4105111
-                                        :type    "maven"
-                                        :version "1.11.1"}
-                 "shared/util"         {:brick      {:name "s/util"
-                                                     :type :component}
-                                        :local/root "../../../shared/components/util"
-                                        :path       "../shared/components/util"
-                                        :size       5068
-                                        :type       "local"}}})
-(get-in data [:src "shared/util" :brick])
