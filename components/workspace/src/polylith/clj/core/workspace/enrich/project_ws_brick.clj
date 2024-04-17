@@ -42,7 +42,7 @@
                                             lib-bricks))
         brick-markers (into {} (map (juxt :lib-key brick)
                                     lib-bricks))
-        lib-deps-with-markers (merge-with merge lib-deps brick-markers)]
+        lib-deps-with-ws-bricks (merge-with merge lib-deps brick-markers)]
     [base-names
      component-names
-     lib-deps-with-markers]))
+     lib-deps-with-ws-bricks]))

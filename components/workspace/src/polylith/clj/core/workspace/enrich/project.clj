@@ -63,11 +63,11 @@
         lines-of-code (assoc (loc/lines-of-code ws-dir namespaces) :total lines-of-code-total)
         lib-entries (extract/from-library-deps is-dev lib-deps profiles settings)
         lib-deps-src (select/lib-deps lib-entries c/src?)
-        [base-names-src-x component-names-src-x lib-deps-with-brick-marksers-src] (ws-brick/convert-libs-to-bricks lib-deps-src configs)
+        [base-names-src-x component-names-src-x lib-deps-with-ws-bricks-src] (ws-brick/convert-libs-to-bricks lib-deps-src configs)
         base-names-src (vec (concat base-names-src base-names-src-x))
         component-names-src (vec (concat component-names-src component-names-src-x))
         lib-deps-test (select/lib-deps lib-entries c/test?)
-        [base-names-test-x component-names-test-x lib-deps-with-brick-markers-test] (ws-brick/convert-libs-to-bricks lib-deps-test configs)
+        [base-names-test-x component-names-test-x lib-deps-with-ws-bricks-test] (ws-brick/convert-libs-to-bricks lib-deps-test configs)
         base-names-test (vec (concat base-names-test base-names-test-x))
         component-names-test (vec (concat component-names-test component-names-test-x))
         base-names (cond-> {}
@@ -91,8 +91,8 @@
                              (seq src-paths) (assoc :src src-paths)
                              (seq test-paths) (assoc :test test-paths))
         source-lib-deps (cond-> {}
-                                (seq lib-deps-with-brick-marksers-src) (assoc :src lib-deps-with-brick-marksers-src)
-                                (seq lib-deps-with-brick-markers-test) (assoc :test lib-deps-with-brick-markers-test))
+                                (seq lib-deps-with-ws-bricks-src) (assoc :src lib-deps-with-ws-bricks-src)
+                                (seq lib-deps-with-ws-bricks-test) (assoc :test lib-deps-with-ws-bricks-test))
         enriched-maven-repos (apply merge maven-repos (mapcat :maven-repos (concat components bases)))]
     (-> project
         (merge {:alias (project-alias! alias alias-id is-dev)
