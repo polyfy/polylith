@@ -40,9 +40,9 @@
                                        lib-bricks))
         component-names (mapv :name (filter #(= :component (:type %))
                                             lib-bricks))
-        brick-markers (into {} (map (juxt :lib-key brick)
-                                    lib-bricks))
-        lib-deps-with-ws-bricks (merge-with merge lib-deps brick-markers)]
+        ws-bricks (into {} (map (juxt :lib-key brick)
+                                lib-bricks))
+        lib-deps-with-ws-bricks (merge-with merge lib-deps ws-bricks)]
     [base-names
      component-names
      lib-deps-with-ws-bricks]))
