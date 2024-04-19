@@ -1,47 +1,41 @@
 (ns ^:no-doc polylith.clj.core.workspace.enrich.project-ws-brick
   (:require [clojure.string :as str]))
 
-(defn extract-brick [[k {:keys [path]}] dir->alias]
-  (when path
-    (let [[suffixed-path alias] (first (filter #(str/starts-with? path (first %))
-                                               dir->alias))]
-      [k alias suffixed-path])))
-
-(defn lib-brick [[[k alias suffixed-path] [_ lib-deps]]]
-  (let [path (subs (:path lib-deps) (count suffixed-path))]
-    (cond
-      (str/starts-with? path "bases/") {:type :base
-                                        :alias alias
-                                        :name (subs path 6)
-                                        :lib-key k}
-      (str/starts-with? path "components/") {:type :component
-                                             :alias alias
-                                             :name (subs path 11)
-                                             :lib-key k})))
-
 (defn brick [{:keys [alias name type]}]
   {:brick {:alias alias
            :type type
            :name name}})
 
+(defn brick-lib [[lib-key {:keys [path]}] dir->alias]
+  (when path
+    (let [[suffixed-path alias] (first (filter #(str/starts-with? path (first %))
+                                               dir->alias))
+          brick-path (subs path (count suffixed-path))
+          [type brick-name] (cond (str/starts-with? brick-path "bases/") [:base (subs brick-path 6)]
+                                  (str/starts-with? brick-path "components/") [:component (subs brick-path 11)])]
+      (when (and alias type)
+        {:lib-key lib-key
+         :alias   alias
+         :type type
+         :name brick-name
+         :path path}))))
+
 (defn convert-libs-to-bricks
   "When we read all workspaces from disk, we treat all :local/root as libraries.
-   This function identifies the bricks that are read from other
-   workspaces, and remove them from PROJECT:lib-deps + returns the brick names
-   (which include the workspace alias prefix, e.g. s/util)."
+   This function adds the :brick key to libraries that refer bricks in other workspaces."
   [lib-deps configs]
   (let [dir->alias (into {} (map (juxt #(str (:dir %) "/") :alias) (-> configs :workspace :workspaces)))
-        lib-bricks (mapv lib-brick
-                         (filter first
-                                  (map (juxt #(extract-brick % dir->alias)
-                                             identity)
-                                       lib-deps)))
-        base-names (mapv :name (filter #(= :base (:type %))
-                                       lib-bricks))
-        component-names (mapv :name (filter #(= :component (:type %))
-                                            lib-bricks))
+        brick-libs (filter identity
+                           (map #(brick-lib % dir->alias)
+                                lib-deps))
+        base-names (vec (sort (mapv :name
+                                    (filter #(= :base (:type %))
+                                            brick-libs))))
+        component-names (vec (sort (mapv :name
+                                         (filter #(= :component (:type %))
+                                                 brick-libs))))
         ws-bricks (into {} (map (juxt :lib-key brick)
-                                lib-bricks))
+                                brick-libs))
         lib-deps-with-ws-bricks (merge-with merge lib-deps ws-bricks)]
     [base-names
      component-names
