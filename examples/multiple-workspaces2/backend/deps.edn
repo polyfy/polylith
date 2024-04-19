@@ -9,7 +9,7 @@
             :test {:extra-paths []}
 
             :+default {:extra-deps {backend/hello {:local/root "components/hello"}
-                                    shared/share-me {:local/root "../shared/share-me"}}}
+                                    shared/share-me {:local/root "../shared/components/share-me"}}}
             :+howdy   {:extra-deps {backend/howdy {:local/root "components/howdy"}}}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
