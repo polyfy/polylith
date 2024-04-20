@@ -1,4 +1,5 @@
-(ns shared.util.interface)
+(ns shared.util.interface
+  (:require [shared2.util.interface :as util]))
 
-(defn with-exclamation-mark [string]
-  (str string "!"))
+(defn with-question-and-exclamation-mark [string]
+  (str (util/with-question-mark string) "!"))

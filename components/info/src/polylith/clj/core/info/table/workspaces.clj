@@ -29,7 +29,8 @@
                         alias-cells
                         path-cells)
           line-cells (text-table/line 2 cells)
-          empty-line [(text-table/empty-line 0)]]
+          empty-line-row (+ 3 (count workspaces))
+          empty-line [(text-table/empty-line empty-line-row)]]
       (text-table/table "  " color-mode
                         empty-line cells line-cells))))
 

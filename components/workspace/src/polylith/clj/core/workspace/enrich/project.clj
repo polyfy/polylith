@@ -6,6 +6,7 @@
             [polylith.clj.core.path-finder.interface.select :as select]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.criterias :as c]
+            [polylith.clj.core.workspace.enrich.project-ws-brick :as ws-brick]
             [polylith.clj.core.workspace.enrich.loc :as loc]
             [polylith.clj.core.workspace.enrich.project-test-settings :as test-settings]))
 
@@ -44,6 +45,7 @@
                       brick->lib-imports
                       disk-paths
                       user-input
+                      configs
                       settings
                       name-type->keep-lib-version
                       outdated-libs
@@ -51,14 +53,8 @@
   (let [path-entries (extract/from-unenriched-project is-dev paths disk-paths profiles settings)
         component-names-src (select/names path-entries c/component? c/src? c/exists?)
         component-names-test (select/names path-entries c/component? c/test? c/exists?)
-        component-names (cond-> {}
-                                (seq component-names-src) (assoc :src component-names-src)
-                                (seq component-names-test) (assoc :test component-names-test))
         base-names-src (select/names path-entries c/base? c/src? c/exists?)
         base-names-test (select/names path-entries c/base? c/test? c/exists?)
-        base-names (cond-> {}
-                           (seq base-names-src) (assoc :src base-names-src)
-                           (seq base-names-test) (assoc :test base-names-test))
         all-brick-names (concat component-names-src base-names-src component-names-test base-names-test)
         brick-names-to-test (common/brick-names-to-test test all-brick-names)
         deps (deps/project-deps components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test)
@@ -66,8 +62,20 @@
         lines-of-code-total (project-total-loc all-brick-names brick->loc)
         lines-of-code (assoc (loc/lines-of-code ws-dir namespaces) :total lines-of-code-total)
         lib-entries (extract/from-library-deps is-dev lib-deps profiles settings)
-        src-lib-deps (select/lib-deps lib-entries c/src?)
-        test-lib-deps (select/lib-deps lib-entries c/test?)
+        lib-deps-src (select/lib-deps lib-entries c/src?)
+        [base-names-src-x component-names-src-x lib-deps-with-ws-bricks-src] (ws-brick/convert-libs-to-bricks lib-deps-src configs)
+        base-names-src (vec (concat base-names-src base-names-src-x))
+        component-names-src (vec (concat component-names-src component-names-src-x))
+        lib-deps-test (select/lib-deps lib-entries c/test?)
+        [base-names-test-x component-names-test-x lib-deps-with-ws-bricks-test] (ws-brick/convert-libs-to-bricks lib-deps-test configs)
+        base-names-test (vec (concat base-names-test base-names-test-x))
+        component-names-test (vec (concat component-names-test component-names-test-x))
+        base-names (cond-> {}
+                           (seq base-names-src) (assoc :src base-names-src)
+                           (seq base-names-test) (assoc :test base-names-test))
+        component-names (cond-> {}
+                                (seq component-names-src) (assoc :src component-names-src)
+                                (seq component-names-test) (assoc :test component-names-test))
         project-lib-entries (extract/from-library-deps is-dev project-lib-deps profiles settings)
         project-lib-deps (lib/lib-deps-with-latest-version name
                                                            type
@@ -83,8 +91,8 @@
                              (seq src-paths) (assoc :src src-paths)
                              (seq test-paths) (assoc :test test-paths))
         source-lib-deps (cond-> {}
-                                (seq src-lib-deps) (assoc :src src-lib-deps)
-                                (seq test-lib-deps) (assoc :test test-lib-deps))
+                                (seq lib-deps-with-ws-bricks-src) (assoc :src lib-deps-with-ws-bricks-src)
+                                (seq lib-deps-with-ws-bricks-test) (assoc :test lib-deps-with-ws-bricks-test))
         enriched-maven-repos (apply merge maven-repos (mapcat :maven-repos (concat components bases)))]
     (-> project
         (merge {:alias (project-alias! alias alias-id is-dev)
