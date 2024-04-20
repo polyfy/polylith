@@ -42,7 +42,7 @@
                                poly/poly-cli                 {:local/root "bases/poly-cli"}
 
                                org.clojure/clojure {:mvn/version "1.11.2"}
-                               org.slf4j/slf4j-nop {:mvn/version "2.0.12"}
+                               org.slf4j/slf4j-nop {:mvn/version "2.0.13"}
                                rewrite-clj/rewrite-clj {:mvn/version "1.1.47"}}}
 
             :+default {:extra-paths ["components/deps/test"]

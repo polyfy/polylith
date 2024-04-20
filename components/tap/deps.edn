@@ -1,4 +1,4 @@
 {:paths ["src"]
- :deps {djblue/portal {:mvn/version "0.54.2"}}
+ :deps {djblue/portal {:mvn/version "0.55.1"}}
  :aliases {:test {:extra-paths []
                   :extra-deps {}}}}

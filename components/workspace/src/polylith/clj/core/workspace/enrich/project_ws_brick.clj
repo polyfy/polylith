@@ -20,6 +20,9 @@
          :name brick-name
          :path path}))))
 
+(defn full-name [{:keys [alias name]}]
+  (str alias "/" name))
+
 (defn convert-libs-to-bricks
   "When we read all workspaces from disk, we treat all :local/root as libraries.
    This function adds the :brick key to libraries that refer bricks in other workspaces."
@@ -28,10 +31,10 @@
         brick-libs (filter identity
                            (map #(brick-lib % dir->alias)
                                 lib-deps))
-        base-names (vec (sort (mapv :name
+        base-names (vec (sort (mapv full-name
                                     (filter #(= :base (:type %))
                                             brick-libs))))
-        component-names (vec (sort (mapv :name
+        component-names (vec (sort (mapv full-name
                                          (filter #(= :component (:type %))
                                                  brick-libs))))
         ws-bricks (into {} (map (juxt :lib-key brick)
