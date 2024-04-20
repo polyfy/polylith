@@ -5,6 +5,8 @@
 |===
 | Issue | Description
 
+| https://github.com/polyfy/polylith/issues/431[431] | Add support for multiple workspaces. WORK IN PROGRESS
+
 | https://github.com/polyfy/polylith/issues/443[443] | Switch workspace via shortcuts
 
 | https://github.com/polyfy/polylith/issues/457[457] | Support snippets of test configuration to be merged into settings
