@@ -1140,3 +1140,13 @@ Outputs the type of workspace:
 These workspaces will have `ws-type` set to `:toolsdeps2`.
 
 * All older versions (https://github.com/polyfy/polylith/releases/tag/v0.1.0-alpha9[0.1.0-alpha9] and older) will have `ws-type` set to `:toolsdeps1`.
+
+[#workspaces]
+== workspaces
+
+[source,shell]
+----
+poly ws get:workspaces
+----
+
+A vector with the external workspaces specified by xref:configuration.adoc#ws-workspaces[workspaces]]. Current workspace is not included. Each workspace also includes the `:alias` of the workspace. If you include a workspace that refers one or more other workspaces, then they will also be included in this list of workspaces.

@@ -20,7 +20,9 @@ Here are the changes to the workspace structure over time:
 | ws | release | action | attribute | description
 
 | 4.0 | 0.2.20 | added | configs:workspace | Store current workspace config as is
-|  |  | deleted | configs:workspaces | Replaced by workspace
+|  |  | deleted | configs:workspaces | Moved :workspaces to the root of the workspace
+|  |  | added | configs:workspace:workspaces | Configures external workspaces (if any).
+|  |  | added | projects:PROJECT:lib-deps:SRC:LIBRARY:brick | Set if refers a brick in another workspace.
 | 3.0 | 0.2.19 | added | ENTITIES:ENTITY:keep-lib-versions |
 |  |  | added | projects:PROJECT:necessary |
 |  |  | added | projects:PROJECT:test |
@@ -66,5 +68,6 @@ Used in the above table:
 | ENTITY | Base, component, or project.
 | ENTITIES | Bases, components, or projects.
 | NAMESPACE | A namespace name.
+| LIBRARY | A library name.
 | SOURCE | src or test.
 |===
