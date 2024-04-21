@@ -1547,18 +1547,20 @@
 
 
 (deftest mark-brick-from-another-workspace-as-brick
-  (is (= {:alias "s"
-          :name  "util"
-          :type  :component}
+  (is (= {:alias     "s"
+          :interface "util"
+          :name      "util"
+          :type      :component}
          (read-string
            (run-cmd-plain "examples/multiple-workspaces2/backend"
                           "ws"
                           "get:projects:system:lib-deps:src:shared/util:brick")))))
 
 (deftest mark-library-in-profile-as-brick-if-from-another-workspace
-  (is (= {:alias "s"
-          :name  "share-me"
-          :type  :component}
+  (is (= {:alias     "s"
+          :interface "share-me"
+          :name      "share-me"
+          :type      :component}
          (read-string
            (run-cmd-plain "examples/multiple-workspaces2/backend"
                           "ws"
