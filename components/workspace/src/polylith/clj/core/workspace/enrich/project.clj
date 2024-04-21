@@ -6,7 +6,7 @@
             [polylith.clj.core.path-finder.interface.select :as select]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.criterias :as c]
-            [polylith.clj.core.workspace.enrich.project-ws-brick :as ws-brick]
+            [polylith.clj.core.workspace.enrich.external-ws-brick :as ws-brick]
             [polylith.clj.core.workspace.enrich.loc :as loc]
             [polylith.clj.core.workspace.enrich.project-test-settings :as test-settings]))
 

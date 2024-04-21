@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.workspace.enrich.project-ws-brick
+(ns ^:no-doc polylith.clj.core.workspace.enrich.external-ws-brick
   (:require [clojure.string :as str]))
 
 (defn brick [{:keys [alias name type]}]
