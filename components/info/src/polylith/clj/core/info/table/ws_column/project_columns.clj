@@ -1,5 +1,5 @@
 (ns ^:no-doc polylith.clj.core.info.table.ws-column.project-columns
-  (:require [polylith.clj.core.info.table.ws-column.ws-brick :as ws-brick]
+  (:require [polylith.clj.core.info.table.ws-column.external.cell :as ext-cell]
             [polylith.clj.core.path-finder.interface.criterias :as c]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.select :as select]
@@ -30,9 +30,9 @@
     (concat
       [(text-table/cell column 1 alias :purple :center)]
       (map-indexed #(cell %1 0 column %2 bricks-to-test path-entries is-show-resources) components)
-      (map-indexed #(ws-brick/cell %1 start-row1 column %2 [] alias->workspace is-show-resources status-flags) ws-components)
+      (map-indexed #(ext-cell/cell %1 start-row1 column %2 [] alias->workspace is-show-resources status-flags) ws-components)
       (map-indexed #(cell %1 start-row2 column %2 bricks-to-test path-entries is-show-resources) bases)
-      (map-indexed #(ws-brick/cell %1 start-row3 column %2 [] alias->workspace is-show-resources status-flags) ws-bases)
+      (map-indexed #(ext-cell/cell %1 start-row3 column %2 [] alias->workspace is-show-resources status-flags) ws-bases)
       (when is-show-loc [(text-table/number-cell column start-row4 total-loc-src :center thousand-separator)]))))
 
 (defn columns [projects components bases disk-paths

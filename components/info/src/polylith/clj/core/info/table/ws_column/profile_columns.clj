@@ -1,6 +1,6 @@
 (ns ^:no-doc polylith.clj.core.info.table.ws-column.profile-columns
   (:require [polylith.clj.core.text-table.interface :as text-table]
-            [polylith.clj.core.info.table.ws-column.ws-brick :as ws-brick]
+            [polylith.clj.core.info.table.ws-column.external.cell :as ext-cell]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.status :as status]))
 
@@ -20,9 +20,9 @@
     (concat
       [(text-table/cell column 1 (:name profile) :purple :left)]
       (map-indexed #(cell %1 (:name %2) column is-show-resources path-entries) components)
-      (map-indexed #(ws-brick/cell %1 start-row1 column %2 [] alias->workspace is-show-resources status-flags) ws-components)
+      (map-indexed #(ext-cell/cell %1 start-row1 column %2 [] alias->workspace is-show-resources status-flags) ws-components)
       (map-indexed #(cell (+ %1 start-row2) (:name %2) column is-show-resources path-entries) bases)
-      (map-indexed #(ws-brick/cell %1 start-row3 column %2 [] alias->workspace is-show-resources status-flags) ws-bases))))
+      (map-indexed #(ext-cell/cell %1 start-row3 column %2 [] alias->workspace is-show-resources status-flags) ws-bases))))
 
 (defn columns [start-column
                components
