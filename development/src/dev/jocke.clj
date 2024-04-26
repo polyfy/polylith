@@ -37,9 +37,12 @@
 ;(println (sh/execute "java" "-jar" "projects/poly/target/poly.jar" "test" ":all" "project:okay:setup-fails:x-okay" :dir "examples/for-test"))
 ;(println (sh/execute "java" "-jar" "projects/poly/target/poly.jar" "test" ":all" "project:okay:setup-fails:x-okay" "ws-dir:examples/for-test"))
 
-(def workspace (-> (dev-common/dir ".")
+(def workspace (-> ;(dev-common/dir ".")
                    ;(dev-common/dir "examples/doc-example")
                    ;(dev-common/dir "examples/for-test")
+                   (dev-common/dir "examples/multiple-workspaces2/backend")
+                   ;(dev-common/dir "examples/profiles")
+                   ;(dev-common/dir "examples/test-runners" "with:default-test-runner")
                    ;(dev-common/dir "examples/local-dep" "changed-files:components/util/")
                    ;(dev-common/dir "examples/test-runners" "skip:external-inherit-from-global:multiple-test-runners:development")
                    ;(dev-common/dir "/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-01-14-114017/ws/example" ":all" ":dev") ;"skip:dev:user-s")
@@ -50,6 +53,39 @@
                    ;(dev-common/dir "../sandbox/polylith218")
                    ;(dev-common/dir "../usermanager-example")
                    workspace/workspace))
+
+
+(-> workspace :workspaces)
+
+(-> workspace :projects second :lib-deps)
+(-> workspace :projects second :name)
+
+(:profiles workspace)
+
+;;(map :name (:projects workspace))
+
+
+;projects:development:lib-dep
+
+(mapv :alias (-> workspace :workspaces))
+(keys workspace)
+
+
+
+(-> workspace :settings :test)
+
+(-> workspace :configs :workspace :test)
+(-> workspace :settings :test)
+
+(:project-lib-deps workspace)
+(-> workspace :projects first :project-lib-deps)
+
+(keys workspace)
+
+(:workspaces workspace)
+
+(:workspaces workspace)
+
 
 (:messages workspace)
 (:configs workspace)
@@ -71,21 +107,5 @@
 
 (def project (common/find-project "dev" projects))
 (def project (common/find-project "poly" projects))
-(def project (common/find-project "api" projects))
-(def project (common/find-project "invoice" projects))
-(def project (common/find-project "invoicing" projects))
-(def project (common/find-project "poly-migrator" projects))
-(def project (common/find-project "um" projects))
-(def component (common/find-component "calculate" components))
 (def component (common/find-component "util" components))
-(def component (common/find-component "article" components))
-(def component (common/find-component "shell" components))
-(def component (common/find-component "without-src" components))
 (def base (common/find-base "poly-cli" bases))
-(def base (common/find-base "invoicer-cli" bases))
-
-(def changed-components (-> workspace :changes :changed-components))
-(def changed-bases (-> workspace :changes :changed-bases))
-(def changed-bricks (set (concat changed-components changed-bases)))
-(def brick-changed? (-> (set/intersection bricks changed-bricks)
-                        empty? not))

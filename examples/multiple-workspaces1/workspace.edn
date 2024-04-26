@@ -1,9 +1,0 @@
-{:top-namespace "multi"
- :interface-ns "interface"
- :default-profile-name "default"
- :config-filename "config.edn"
- :compact-views #{}
- :vcs {:name "git"
-       :auto-add false}
- :tag-patterns {:stable "stable-*"
-                :release "v[0-9]*"}}
