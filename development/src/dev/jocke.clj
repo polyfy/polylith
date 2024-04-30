@@ -40,7 +40,7 @@
 (def workspace (-> ;(dev-common/dir ".")
                    ;(dev-common/dir "examples/doc-example")
                    ;(dev-common/dir "examples/for-test")
-                   (dev-common/dir "examples/multiple-workspaces2/backend")
+                   (dev-common/dir "examples/multiple-workspaces/backend")
                    ;(dev-common/dir "examples/profiles")
                    ;(dev-common/dir "examples/test-runners" "with:default-test-runner")
                    ;(dev-common/dir "examples/local-dep" "changed-files:components/util/")

@@ -1523,7 +1523,7 @@
 (deftest component-dependency-on-another-workspace
   (is (= {:src ["math" "s/util"], :test []}
          (read-string
-           (run-cmd-plain "examples/multiple-workspaces2/backend"
+           (run-cmd-plain "examples/multiple-workspaces/backend"
                           "ws"
                           "get:components:hello::interface-deps")))))
 
@@ -1541,7 +1541,7 @@
                  "math"
                  "s/util"]}
          (read-string
-           (run-cmd-plain "examples/multiple-workspaces2/backend"
+           (run-cmd-plain "examples/multiple-workspaces/backend"
                           "ws"
                           "get:projects:system:component-names")))))
 
@@ -1552,7 +1552,7 @@
           :name      "util"
           :type      :component}
          (read-string
-           (run-cmd-plain "examples/multiple-workspaces2/backend"
+           (run-cmd-plain "examples/multiple-workspaces/backend"
                           "ws"
                           "get:projects:system:lib-deps:src:shared/util:brick")))))
 
@@ -1562,6 +1562,6 @@
           :name      "share-me"
           :type      :component}
          (read-string
-           (run-cmd-plain "examples/multiple-workspaces2/backend"
+           (run-cmd-plain "examples/multiple-workspaces/backend"
                           "ws"
                           "get:profiles:default:lib-deps:shared/share-me:brick")))))

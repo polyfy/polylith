@@ -5,14 +5,16 @@
 
 (defn component [{:keys [alias name type interface]} alias->workspace]
   (let [changed-components (set (-> alias alias->workspace :changes :changed-components))]
-    {:name (full-name alias name)
+    {:alias alias
+     :name name
      :type type
-     :interface (full-name alias (or interface "-"))
+     :interface (or interface "-")
      :changed? (contains? changed-components name)}))
 
 (defn base [{:keys [alias name type interface]} alias->workspace]
   (let [changed-bases (set (-> alias alias->workspace :changes :changed-bases))]
-    {:name (full-name alias name)
+    {:alias alias
+     :name name
      :type type
-     :interface (full-name alias (or interface "-"))
+     :interface (or interface "-")
      :changed? (contains? changed-bases name)}))
