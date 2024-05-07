@@ -111,8 +111,13 @@
   (apply concat (map-indexed #(brick-column (+ column (* 2 %1)) %2 libraries src-libs brick->libs empty-character)
                              bricks)))
 
+(defn entity-lib [[name {:keys [brick] :as entity}]]
+  (if (nil? brick)
+    (lib [name entity])
+    []))
+
 (defn profile-lib [{:keys [lib-deps]}]
-  (mapcat lib lib-deps))
+  (mapcat entity-lib lib-deps))
 
 (defn table [{:keys [configs settings user-input profiles components bases projects] :as workspace}]
   (let [{:keys [empty-character thousand-separator color-mode]} settings
@@ -120,7 +125,7 @@
         calculate-latest-version? (common/calculate-latest-version? user-input)
         lib->latest-version (antq/library->latest-version configs calculate-latest-version?)
         entities (concat components bases projects)
-        src-libs (set (concat (mapcat lib (mapcat #(-> % :lib-deps :src) entities))
+        src-libs (set (concat (mapcat entity-lib (mapcat #(-> % :lib-deps :src) entities))
                               (mapcat profile-lib profiles)))
         test-libs (set (mapcat lib (mapcat #(-> % :lib-deps :test) entities)))
         libraries (sort-by (juxt :name :version)
@@ -165,6 +170,7 @@
 (comment
   (require '[dev.jocke :as dev])
   (print-table dev/workspace)
+  (print-table (assoc-in dev/workspace [:user-input :is-all] true))
   (print-table (assoc-in dev/workspace [:user-input :is-hide-lib-size] true))
   (print-table (assoc-in dev/workspace [:user-input :is-outdated] true))
   #__)
