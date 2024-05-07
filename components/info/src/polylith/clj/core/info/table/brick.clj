@@ -1,6 +1,8 @@
 (ns ^:no-doc polylith.clj.core.info.table.brick
   (:require [polylith.clj.core.text-table.interface :as text-table]
             [polylith.clj.core.info.table.profile :as profile]
+            [polylith.clj.core.info.table.ws-column.external.brick :as ext-brick]
+            [polylith.clj.core.info.table.ws-column.external.info :as ext-info]
             [polylith.clj.core.info.table.ws-column.ifc-column :as ifc-column]
             [polylith.clj.core.info.table.ws-column.brick-column :as brick-column]
             [polylith.clj.core.info.table.ws-column.loc-columns :as loc-columns]
@@ -10,20 +12,42 @@
 (defn component-sorter [{:keys [interface name]}]
   [(:name interface) name])
 
-(defn table [{:keys [settings profiles projects components bases paths changes]} is-show-loc is-show-resources]
+(defn component [{:keys [name type interface lines-of-code]} changed-bricks]
+  {:name name
+   :type type
+   :interface (:name interface "-")
+   :lines-of-code lines-of-code
+   :changed? (contains? changed-bricks name)})
+
+(defn base [{:keys [name type lines-of-code]} changed-bricks]
+  {:name name
+   :type type
+   :interface "-"
+   :lines-of-code lines-of-code
+   :changed? (contains? changed-bricks name)})
+
+(defn table [{:keys [settings profiles projects components bases paths changes workspaces]} is-show-loc is-show-resources]
   (let [{:keys [color-mode thousand-separator]} settings
+        {:keys [changed-components changed-bases]} changes
+        changed-bricks (set (concat changed-components changed-bases))
         n#dev (count (filter :is-dev projects))
+        alias->workspace (into {} (map (juxt :alias identity) workspaces))
+        [ws-bases ws-components] (ext-brick/bricks projects profiles)
         inactive-profiles (if (zero? n#dev) [] (profile/inactive-profiles settings profiles))
         sorted-components (sort-by component-sorter components)
-        bricks (concat sorted-components bases)
+        bricks (concat (map #(component % changed-bricks)
+                            (sort-by component-sorter components))
+                       (map #(ext-info/component % alias->workspace) ws-components)
+                       (map #(base % changed-bricks) bases)
+                       (map #(ext-info/base % alias->workspace) ws-bases))
         space-columns (range 2 (* 2 (+ 2 (count projects) (count inactive-profiles) (if is-show-loc 2 0))) 2)
         spaces (concat (repeat (-> space-columns count dec) "  ") (if is-show-loc [" "] ["  "]))
         profile-start-column (+ 5 (* 2 (count projects)))
         loc-start-column (+ profile-start-column (* 2 (count inactive-profiles)))
-        ifc-column (ifc-column/column sorted-components bases)
-        brick-column (brick-column/column bricks changes color-mode)
-        project-columns (proj-columns/columns projects bricks paths is-show-loc is-show-resources thousand-separator)
-        profile-columns (profile-columns/columns profile-start-column bricks inactive-profiles paths is-show-resources)
+        ifc-column (ifc-column/column bricks)
+        brick-column (brick-column/column bricks color-mode)
+        project-columns (proj-columns/columns projects sorted-components bases paths ws-components ws-bases alias->workspace is-show-loc is-show-resources thousand-separator)
+        profile-columns (profile-columns/columns profile-start-column inactive-profiles bricks alias->workspace paths is-show-resources)
         loc-columns (loc-columns/columns is-show-loc bricks loc-start-column thousand-separator)
         header-spaces (text-table/spaces 1 space-columns spaces)
         cells (text-table/merge-cells ifc-column brick-column project-columns profile-columns loc-columns header-spaces)
@@ -40,4 +64,5 @@
 
 (comment
   (print-table dev.jocke/workspace false false)
+  (print-table dev.jocke/workspace true false)
   #__)

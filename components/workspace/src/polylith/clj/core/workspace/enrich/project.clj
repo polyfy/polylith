@@ -6,7 +6,7 @@
             [polylith.clj.core.path-finder.interface.select :as select]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.criterias :as c]
-            [polylith.clj.core.workspace.enrich.project-ws-brick :as ws-brick]
+            [polylith.clj.core.workspace.enrich.external-ws-brick :as ws-brick]
             [polylith.clj.core.workspace.enrich.loc :as loc]
             [polylith.clj.core.workspace.enrich.project-test-settings :as test-settings]))
 
@@ -47,6 +47,7 @@
                       user-input
                       configs
                       settings
+                      workspaces
                       name-type->keep-lib-version
                       outdated-libs
                       library->latest-version]
@@ -63,11 +64,11 @@
         lines-of-code (assoc (loc/lines-of-code ws-dir namespaces) :total lines-of-code-total)
         lib-entries (extract/from-library-deps is-dev lib-deps profiles settings)
         lib-deps-src (select/lib-deps lib-entries c/src?)
-        [base-names-src-x component-names-src-x lib-deps-with-ws-bricks-src] (ws-brick/convert-libs-to-bricks lib-deps-src configs)
+        [base-names-src-x component-names-src-x lib-deps-with-ws-bricks-src] (ws-brick/convert-libs-to-bricks lib-deps-src configs workspaces)
         base-names-src (vec (concat base-names-src base-names-src-x))
         component-names-src (vec (concat component-names-src component-names-src-x))
         lib-deps-test (select/lib-deps lib-entries c/test?)
-        [base-names-test-x component-names-test-x lib-deps-with-ws-bricks-test] (ws-brick/convert-libs-to-bricks lib-deps-test configs)
+        [base-names-test-x component-names-test-x lib-deps-with-ws-bricks-test] (ws-brick/convert-libs-to-bricks lib-deps-test configs workspaces)
         base-names-test (vec (concat base-names-test base-names-test-x))
         component-names-test (vec (concat component-names-test component-names-test-x))
         base-names (cond-> {}

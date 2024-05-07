@@ -1,20 +1,14 @@
 (ns ^:no-doc polylith.clj.core.info.table.ws-column.ifc-column
-  (:require [polylith.clj.core.text-table.interface :as text-table]))
+  (:require [polylith.clj.core.text-table.interface :as text-table]
+            [polylith.clj.core.info.table.ws-column.shared :as shared]))
 
-(defn ifc-name [component]
-  (-> component :interface :name))
+(defn cell [index {:keys [alias interface]}]
+  (text-table/cell 1
+                   (+ 3 index)
+                   (shared/full-name alias interface)
+                   :yellow))
 
-(defn ifc-cell [index component]
-  (let [name (or (-> component :interface :name) "-")
-        row (+ index 3)]
-    (text-table/cell 1 row name :yellow)))
-
-(defn base-cell [row start-row _]
-  (text-table/cell 1 (+ row start-row) "-" :none))
-
-(defn column [components bases]
-  (let [base-start-row (+ (count components) 3)]
-    (concat
-      [(text-table/cell 1 "interface")]
-      (map-indexed ifc-cell components)
-      (map-indexed #(base-cell %1 base-start-row %2) bases))))
+(defn column [bricks]
+  (concat
+    [(text-table/cell 1 "interface")]
+    (map-indexed cell bricks)))

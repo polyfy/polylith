@@ -116,6 +116,7 @@
                                     {}
                                     {:projects {"development" {:alias "dev"}}}
                                     {}
+                                    {}
                                     #{}
                                     {})
                [:alias :name]))
@@ -189,6 +190,7 @@
                                       {}
                                       {}
                                       {:projects {"development" {:alias "dev"}}}
+                                      {}
                                       {}
                                       #{}
                                       {})
@@ -265,6 +267,7 @@
                                       {}
                                       {}
                                       {:active-profiles #{"default"}}
+                                      {}
                                       {}
                                       #{}
                                       {})

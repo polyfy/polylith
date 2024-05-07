@@ -1523,7 +1523,7 @@
 (deftest component-dependency-on-another-workspace
   (is (= {:src ["math" "s/util"], :test []}
          (read-string
-           (run-cmd-plain "examples/multiple-workspaces2/backend"
+           (run-cmd-plain "examples/multiple-workspaces/backend"
                           "ws"
                           "get:components:hello::interface-deps")))))
 
@@ -1541,17 +1541,54 @@
                  "math"
                  "s/util"]}
          (read-string
-           (run-cmd-plain "examples/multiple-workspaces2/backend"
+           (run-cmd-plain "examples/multiple-workspaces/backend"
                           "ws"
                           "get:projects:system:component-names")))))
 
 
 (deftest mark-brick-from-another-workspace-as-brick
-  (is (= {:alias "s"
-          :name  "util"
-          :type  :component}
-         (get-in (read-string
-                   (run-cmd-plain "examples/multiple-workspaces2/backend"
-                                  "ws"
-                                  "get:projects:system:lib-deps"))
-                 [:src "shared/util" :brick]))))
+  (is (= {:alias     "s"
+          :interface "util"
+          :name      "util"
+          :type      :component}
+         (read-string
+           (run-cmd-plain "examples/multiple-workspaces/backend"
+                          "ws"
+                          "get:projects:system:lib-deps:src:shared/util:brick")))))
+
+(deftest mark-library-in-profile-as-brick-if-from-another-workspace
+  (is (= {:alias     "s"
+          :interface "share-me"
+          :name      "share-me"
+          :type      :component}
+         (read-string
+           (run-cmd-plain "examples/multiple-workspaces/backend"
+                          "ws"
+                          "get:profiles:default:lib-deps:shared/share-me:brick")))))
+
+(deftest info-include-bricks-from-other-workspaces
+  (is (= ["  stable since: 1234567                                "
+          "                                                       "
+          "  workspace  alias  path                               "
+          "  ---------------------------                          "
+          "  shared     s      ../shared                          "
+          "                                                       "
+          "  projects: 2   interfaces: 2                          "
+          "  bases:    1   components: 3                          "
+          "                                                       "
+          "  project        alias  status   dev  default  howdy   "
+          "  ----------------------------   -------------------   "
+          "  system *       sys     ---     ---    --      --     "
+          "  development *  dev     s--     s--    --      --     "
+          "                                                       "
+          "  interface   brick          sys   dev  default  howdy "
+          "  ------------------------   ---   ------------------- "
+          "  greeter     hello *        ---   ---    st      --   "
+          "  greeter     howdy *        s--   ---    --      s-   "
+          "  math        math *         s--   s--    --      --   "
+          "  s/share-me  s/share-me *   s--   s--    s-      --   "
+          "  s/util      s/util *       st-   st-    --      --   "
+          "  -           cli *          s--   s--    --      --   "
+          "  -           s/cli *        s--   s--    s-      --   "]
+         (run-cmd "examples/multiple-workspaces/backend"
+                  "info" "+"))))

@@ -634,6 +634,7 @@ E.g. if components `a` and `b` are included in the project, and `a` has not chan
 ** `:src` Stores a map with the libraries that are used in the project for the src context. Contains libraries that are specified by the project and the included bricks.
 *** `:brick` Set if refers to a brick in another workspace.
 **** `:alias` The alias associated with the relative path to the workspace, specified in `:workspaces` in workspace.edn.
+**** `:interface` Set to the interface name if a component.
 **** `:name` The name of the brick.
 **** `:type` Set to `:base` or `:component`.
 *** `:latest-version` Set if there is a newer version of this library, except if xref:libraries.adoc#keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `:update` is given for the libs command.

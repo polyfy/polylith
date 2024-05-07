@@ -18,6 +18,7 @@
       <module fileurl="file://$PROJECT_DIR$/components/help/help.iml" filepath="$PROJECT_DIR$/components/help/help.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/image-creator/image-creator.iml" filepath="$PROJECT_DIR$/components/image-creator/image-creator.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/info/info.iml" filepath="$PROJECT_DIR$/components/info/info.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/interface/interface.iml" filepath="$PROJECT_DIR$/components/interface/interface.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/lib/lib.iml" filepath="$PROJECT_DIR$/components/lib/lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/maven/maven.iml" filepath="$PROJECT_DIR$/components/maven/maven.iml" />
       <module fileurl="file://$PROJECT_DIR$/bases/nav-generator/nav-generator.iml" filepath="$PROJECT_DIR$/bases/nav-generator/nav-generator.iml" />

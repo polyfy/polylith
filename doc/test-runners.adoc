@@ -242,8 +242,6 @@ The test snippets can be configured in workspace.edn under `:test-configs` (see 
 
 If we run the test command, e.g. `poly test`, then the test configuration specified by the `:test` key will be passed to the test runner(s). Let's start a shell and verify this, from the https://github.com/polyfy/polylith/tree/master/examples/test-runners[examples/test-runners] directory:
 
-Let's start a shell:
-
 [source,shell]
 ----
 poly
