@@ -33,4 +33,6 @@
 
 | New sponsor: https://github.com/taehee-sp[taehee-sp] (김태희)
 
+| Remove Funnel as example production system.
+
 |===
