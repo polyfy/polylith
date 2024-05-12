@@ -1,6 +1,6 @@
 (ns polylith.clj.core.deps.project-brick-deps-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.deps.project-brick-deps :as pbd]))
+            [polylith.clj.core.deps.project-brick-deps.project-deps :as pbd]))
 
 (deftest update-indirect-deps--prepare-for-circular-deps
   (let [brick-id->deps (atom {"a" {:direct ["b"]

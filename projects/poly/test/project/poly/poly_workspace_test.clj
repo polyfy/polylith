@@ -1592,3 +1592,34 @@
           "  -           s/cli *        s--   s--    s-      --   "]
          (run-cmd "examples/multiple-workspaces/backend"
                   "info" "+"))))
+
+(deftest deps-with-bricks-from-other-workspaces
+  (is (= ["         g      "
+          "         r     s"
+          "         e     /"
+          "         e  m  u"
+          "         t  a  t"
+          "         e  t  i"
+          "  brick  r  h  l"
+          "  --------------"
+          "  hello  .  x  x"
+          "  howdy  .  x  x"
+          "  math   .  .  ."
+          "  cli    x  .  ."]
+         (run-cmd "examples/multiple-workspaces/backend"
+                  "deps"))))
+
+(deftest deps-project-with-bricks-from-other-workspaces
+  (is (= ["               s"
+          "         h     /"
+          "         o  m  u"
+          "         w  a  t"
+          "         d  t  i"
+          "  brick  y  h  l"
+          "  --------------"
+          "  howdy  .  x  x"
+          "  math   .  .  ."
+          "  cli    x  +  ."]
+         (run-cmd "examples/multiple-workspaces/backend"
+                  "deps" "project:system"))))
+
