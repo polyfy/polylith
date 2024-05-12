@@ -18,12 +18,13 @@
 
 (defn used-workspaces! [ws-dir workspace wsdir-workspace direct-dependency?]
   (let [wss-config (-> workspace :configs :workspace :workspaces)
+        no-changes? (-> workspace :user-input :is-no-changes)
         ws-paths (set (map first @wsdir-workspace))
         configs (filter #(include-ws? % ws-paths)
                         wss-config)]
     (doseq [{:keys [dir alias]} configs]
       (let [path (file/absolute-path (str ws-dir "/" dir))
-            workspace (workspace! {:ws-dir path} wsdir-workspace)
+            workspace (workspace! {:ws-dir path :is-no-changes no-changes?} wsdir-workspace)
             ws-alias (or alias (:name workspace))]
         (swap! wsdir-workspace #(conj % [path
                                          (assoc workspace :alias ws-alias
@@ -31,8 +32,8 @@
 
 (defn workspace! [user-input wsdir-workspace]
   (let [{:keys [config-errors ws-dir] :as workspace}
-        (-> user-input
-            (fromdisk/workspace-from-disk))]
+        (fromdisk/workspace-from-disk user-input)]
+
     (if (or (nil? workspace)
             (seq config-errors))
       workspace
