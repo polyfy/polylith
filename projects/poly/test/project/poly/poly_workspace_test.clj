@@ -1567,28 +1567,59 @@
                           "get:profiles:default:lib-deps:shared/share-me:brick")))))
 
 (deftest info-include-bricks-from-other-workspaces
-  (is (= ["  stable since: 1234567                                "
-          "                                                       "
-          "  workspace  alias  path                               "
-          "  ---------------------------                          "
-          "  shared     s      ../shared                          "
-          "                                                       "
-          "  projects: 2   interfaces: 2                          "
-          "  bases:    1   components: 3                          "
-          "                                                       "
-          "  project        alias  status   dev  default  howdy   "
-          "  ----------------------------   -------------------   "
-          "  system *       sys     ---     ---    --      --     "
-          "  development *  dev     s--     s--    --      --     "
-          "                                                       "
-          "  interface   brick          sys   dev  default  howdy "
-          "  ------------------------   ---   ------------------- "
-          "  greeter     hello *        ---   ---    st      --   "
-          "  greeter     howdy *        s--   ---    --      s-   "
-          "  math        math *         s--   s--    --      --   "
-          "  s/share-me  s/share-me *   s--   s--    s-      --   "
-          "  s/util      s/util *       st-   st-    --      --   "
-          "  -           cli *          s--   s--    --      --   "
-          "  -           s/cli *        s--   s--    s-      --   "]
+  (is (= ["  stable since: 1234567                              "
+          "                                                     "
+          "  workspace  alias  path                             "
+          "  ---------------------------                        "
+          "  shared     s      ../shared                        "
+          "                                                     "
+          "  projects: 2   interfaces: 2                        "
+          "  bases:    1   components: 3                        "
+          "                                                     "
+          "  project      alias  status   dev  default  howdy   "
+          "  --------------------------   -------------------   "
+          "  system       sys     ---     ---    --      --     "
+          "  development  dev     s--     s--    --      --     "
+          "                                                     "
+          "  interface   brick        sys   dev  default  howdy "
+          "  ----------------------   ---   ------------------- "
+          "  greeter     hello        ---   ---    st      --   "
+          "  greeter     howdy        s--   ---    --      s-   "
+          "  math        math         s--   s--    --      --   "
+          "  s/share-me  s/share-me   s--   s--    s-      --   "
+          "  s/util      s/util       st-   st-    --      --   "
+          "  -           cli          s--   s--    --      --   "
+          "  -           s/cli        s--   s--    s-      --   "]
          (run-cmd "examples/multiple-workspaces/backend"
-                  "info" "+"))))
+                  "info" "+" ":no-changes"))))
+
+(deftest deps-with-bricks-from-other-workspaces
+  (is (= ["         g      "
+          "         r     s"
+          "         e     /"
+          "         e  m  u"
+          "         t  a  t"
+          "         e  t  i"
+          "  brick  r  h  l"
+          "  --------------"
+          "  hello  .  x  x"
+          "  howdy  .  x  x"
+          "  math   .  .  ."
+          "  cli    x  .  ."]
+         (run-cmd "examples/multiple-workspaces/backend"
+                  "deps"))))
+
+(deftest deps-project-with-bricks-from-other-workspaces
+  (is (= ["               s"
+          "         h     /"
+          "         o  m  u"
+          "         w  a  t"
+          "         d  t  i"
+          "  brick  y  h  l"
+          "  --------------"
+          "  howdy  .  x  x"
+          "  math   .  .  ."
+          "  cli    x  +  ."]
+         (run-cmd "examples/multiple-workspaces/backend"
+                  "deps" "project:system"))))
+

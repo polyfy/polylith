@@ -1,6 +1,6 @@
 {:deps {backend/stuff {:local/root "../../components/math"}
         backend/cli   {:local/root "../../bases/cli"}
-        backend/hello {:local/root "../../components/howdy"}
+        backend/howdy {:local/root "../../components/howdy"}
         shared/util   {:local/root "../../../shared/components/util"}
 
         org.clojure/clojure {:mvn/version "1.11.1"}}
