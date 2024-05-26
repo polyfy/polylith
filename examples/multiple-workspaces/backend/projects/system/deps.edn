@@ -2,6 +2,7 @@
         backend/cli   {:local/root "../../bases/cli"}
         backend/howdy {:local/root "../../components/howdy"}
         shared/util   {:local/root "../../../shared/components/util"}
+        shared2/util  {:local/root "../../../shared2/components/util"}
 
         org.clojure/clojure {:mvn/version "1.11.1"}}
 

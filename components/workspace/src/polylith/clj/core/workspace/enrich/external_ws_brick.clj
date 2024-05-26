@@ -1,6 +1,8 @@
 (ns ^:no-doc polylith.clj.core.workspace.enrich.external-ws-brick
   (:require [clojure.string :as str]
-            [polylith.clj.core.util.interface :as util]))
+            [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.util.interface.path :as util-path]))
 
 (defn brick [{:keys [alias interface name type]}]
   {:brick (cond-> {:alias alias
@@ -37,9 +39,11 @@
 (defn convert-libs-to-bricks
   "When we read all workspaces from disk, we treat all :local/root as libraries.
    This function adds the :brick key to libraries that refer bricks in other workspaces."
-  [lib-deps configs workspaces]
+  [lib-deps ws-dir workspaces]
   (let [alias->workspace (into {} (map (juxt :alias identity) workspaces))
-        dir->alias (into {} (map (juxt #(str (:dir %) "/") :alias) (-> configs :workspace :workspaces)))
+        dir->alias (into {} (map (juxt #(str (util-path/relative-path (file/absolute-path ws-dir)
+                                                                      (-> % :ws-dir file/absolute-path)) "/") :alias)
+                                 workspaces))
         brick-libs (filter identity
                            (map #(brick-lib % dir->alias alias->workspace)
                                 lib-deps))

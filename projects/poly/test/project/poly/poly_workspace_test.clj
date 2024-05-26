@@ -192,7 +192,7 @@
           "  common                    .  .  .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  x  .  .  ."
           "  config-reader             .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  ."
           "  creator                   .  .  .  .  x  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  t  .  .  .  .  .  x  .  x  .  .  ."
-          "  deps                      .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  ."
+          "  deps                      .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  ."
           "  doc                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  ."
           "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
           "  git                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
@@ -259,23 +259,23 @@
             "  antq                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  api                       +  +  x  .  x  +  .  +  .  +  +  .  +  .  +  +  +  .  +  +  .  +  .  +  .  +  x  +  +  x  +  +  x  x  x  +"
             "  change                    .  .  .  .  x  .  .  .  .  +  x  .  +  .  .  .  .  .  x  +  .  +  .  .  .  .  .  +  +  .  x  .  +  .  .  ."
-            "  check                     .  .  .  .  +  .  .  +  .  +  .  .  +  .  +  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  x  +  .  .  ."
+            "  check                     .  .  .  .  +  .  .  +  .  +  .  .  +  .  .  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  x  +  .  .  ."
             "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  ."
             "  command                   +  +  x  .  x  x  x  x  x  x  x  x  +  x  +  x  +  x  +  +  x  +  x  +  .  +  x  +  x  +  x  +  x  x  x  +"
             "  common                    .  .  .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  +  .  .  .  .  .  x  x  .  x  .  x  .  .  ."
-            "  config-reader             .  .  .  .  x  .  .  +  .  x  .  .  +  .  +  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  x  +  .  .  ."
+            "  config-reader             .  .  .  .  x  .  .  +  .  x  .  .  +  .  .  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  x  +  .  .  ."
             "  creator                   -  -  -  -  x  -  -  -  -  x  x  -  +  -  -  -  -  -  -  +  -  +  -  -  t  -  -  +  +  -  x  -  x  -  -  -"
-            "  deps                      .  .  .  .  x  .  .  .  .  +  .  .  +  .  x  .  .  .  .  .  .  +  .  .  .  .  .  x  x  .  x  .  +  .  .  ."
+            "  deps                      .  .  .  .  x  .  .  .  .  +  .  .  +  .  .  .  .  .  .  .  .  +  .  .  .  .  .  x  x  .  x  .  +  .  .  ."
             "  doc                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  +  .  .  .  .  .  .  .  .  .  .  x  .  .  ."
             "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  git                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  help                      .  .  .  .  x  .  .  .  .  +  .  .  +  .  .  .  .  .  .  .  .  x  .  .  .  .  .  +  +  .  x  .  x  .  .  ."
-            "  image-creator             .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-            "  info                      .  .  .  .  x  .  .  +  .  t  .  .  +  .  +  .  .  .  x  .  .  +  .  .  .  +  .  x  +  .  x  x  +  .  .  ."
+            "  image-creator             .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  info                      .  .  .  .  x  .  .  +  .  t  .  .  +  .  .  .  .  .  x  .  .  +  .  .  .  +  .  x  +  .  x  x  +  .  .  ."
             "  interface                 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  lib                       x  -  -  -  x  x  -  +  -  x  -  -  +  -  +  -  x  -  +  -  -  +  -  -  t  +  -  x  x  -  x  +  +  -  -  -"
+            "  lib                       x  -  -  -  x  x  -  +  -  x  -  -  +  -  -  -  x  -  +  -  -  +  -  -  t  +  -  x  x  -  x  +  +  -  -  -"
             "  maven                     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  overview                  +  .  .  .  x  +  .  x  .  +  .  .  x  x  +  x  +  .  +  .  .  +  .  .  .  +  .  +  +  x  x  +  +  .  .  ."
+            "  overview                  +  .  .  .  x  +  .  x  .  +  .  .  x  x  .  x  +  .  +  .  .  +  .  .  .  +  .  +  +  x  x  +  +  .  .  ."
             "  path-finder               .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  shell                     x  +  .  .  x  +  .  +  x  x  x  .  +  .  +  x  +  .  +  x  .  x  x  +  .  +  .  +  x  x  x  +  +  x  x  +"
@@ -284,17 +284,17 @@
             "  test                      .  .  .  .  x  .  .  .  .  +  x  .  +  .  .  .  .  .  x  +  .  +  .  .  .  .  .  +  +  .  +  .  +  .  .  ."
             "  test-helper               -  -  -  t  -  -  -  -  -  t  -  -  -  -  -  -  -  -  -  -  -  -  -  -  .  -  -  -  t  t  -  -  -  -  -  -"
             "  test-runner-contract      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-            "  test-runner-orchestrator  .  .  .  .  x  .  .  x  .  +  .  .  +  .  +  .  .  .  +  .  .  +  .  .  .  x  .  +  +  .  x  x  +  .  .  ."
+            "  test-runner-orchestrator  .  .  .  .  x  .  .  x  .  +  .  .  +  .  .  .  .  .  +  .  .  +  .  .  .  x  .  +  +  .  x  x  +  .  .  ."
             "  text-table                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  user-config               .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  user-input                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  validator                 .  .  .  .  x  .  .  x  .  +  .  .  +  .  +  .  .  .  x  .  .  +  .  .  .  x  .  +  +  .  x  .  +  .  .  ."
+            "  validator                 .  .  .  .  x  .  .  x  .  +  .  .  +  .  .  .  .  .  x  .  .  +  .  .  .  x  .  +  +  .  x  .  +  .  .  ."
             "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  workspace                 x  x  .  .  x  x  .  x  .  x  x  .  +  .  x  x  +  .  x  +  .  +  .  x  .  +  .  +  x  x  x  x  x  .  .  x"
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  ws-file                   .  .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  .  .  +  .  +  .  .  .  .  .  +  +  .  x  .  x  .  .  ."
-            "  nav-generator             .  .  .  .  +  x  .  +  .  +  .  .  +  .  +  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  +  +  .  .  ."
+            "  nav-generator             .  .  .  .  +  x  .  +  .  +  .  .  +  .  .  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  +  +  .  .  ."
             "  poly-cli                  +  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  t  +  +"]
            (ws-project-deps-table/table ws project)))))
 
@@ -330,23 +330,23 @@
             "  antq                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  api                       +  +  x  .  x  +  .  +  .  +  +  .  +  .  +  +  +  .  +  +  .  +  .  +  .  +  x  +  +  x  +  +  x  x  x  +"
             "  change                    .  .  .  .  x  .  .  .  .  +  x  .  +  .  .  .  .  .  x  +  .  +  .  .  .  .  .  +  +  .  x  .  +  .  .  ."
-            "  check                     .  .  .  .  +  .  .  +  .  +  .  .  +  .  +  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  x  +  .  .  ."
+            "  check                     .  .  .  .  +  .  .  +  .  +  .  .  +  .  .  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  x  +  .  .  ."
             "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  ."
             "  command                   +  +  x  .  x  x  x  x  x  x  x  x  +  x  +  x  +  x  +  +  x  +  x  +  .  +  x  +  x  +  x  +  x  x  x  +"
             "  common                    .  .  .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  +  .  .  .  .  .  x  x  .  x  .  x  .  .  ."
-            "  config-reader             .  .  .  .  x  .  .  +  .  x  .  .  +  .  +  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  x  +  .  .  ."
+            "  config-reader             .  .  .  .  x  .  .  +  .  x  .  .  +  .  .  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  x  +  .  .  ."
             "  creator                   -  -  -  -  x  -  -  -  -  x  x  -  +  -  -  -  -  -  -  +  -  +  -  -  t  -  -  +  +  -  x  -  x  -  -  -"
-            "  deps                      .  .  .  .  x  .  .  .  .  +  .  .  +  .  x  .  .  .  .  .  .  +  .  .  .  .  .  x  x  .  x  .  +  .  .  ."
+            "  deps                      .  .  .  .  x  .  .  .  .  +  .  .  +  .  .  .  .  .  .  .  .  +  .  .  .  .  .  x  x  .  x  .  +  .  .  ."
             "  doc                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  +  .  .  .  .  .  .  .  .  .  .  x  .  .  ."
             "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  git                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  help                      .  .  .  .  x  .  .  .  .  +  .  .  +  .  .  .  .  .  .  .  .  x  .  .  .  .  .  +  +  .  x  .  x  .  .  ."
-            "  image-creator             .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-            "  info                      .  .  .  .  x  .  .  +  .  t  .  .  +  .  +  .  .  .  x  .  .  +  .  .  .  +  .  x  +  .  x  x  +  .  .  ."
+            "  image-creator             .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  info                      .  .  .  .  x  .  .  +  .  t  .  .  +  .  .  .  .  .  x  .  .  +  .  .  .  +  .  x  +  .  x  x  +  .  .  ."
             "  interface                 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  lib                       x  -  -  -  x  x  -  +  -  x  -  -  +  -  +  -  x  -  +  -  -  +  -  -  t  +  -  x  x  -  x  +  +  -  -  -"
+            "  lib                       x  -  -  -  x  x  -  +  -  x  -  -  +  -  -  -  x  -  +  -  -  +  -  -  t  +  -  x  x  -  x  +  +  -  -  -"
             "  maven                     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  overview                  +  .  .  .  x  +  .  x  .  +  .  .  x  x  +  x  +  .  +  .  .  +  .  .  .  +  .  +  +  x  x  +  +  .  .  ."
+            "  overview                  +  .  .  .  x  +  .  x  .  +  .  .  x  x  .  x  +  .  +  .  .  +  .  .  .  +  .  +  +  x  x  +  +  .  .  ."
             "  path-finder               .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  shell                     x  +  .  .  x  +  .  +  x  x  x  .  +  .  +  x  +  .  +  x  .  x  x  +  .  +  .  +  x  x  x  +  +  x  x  +"
@@ -355,17 +355,17 @@
             "  test                      .  .  .  .  x  .  .  .  .  +  x  .  +  .  .  .  .  .  x  +  .  +  .  .  .  .  .  +  +  .  +  .  +  .  .  ."
             "  test-helper               -  -  -  t  -  -  -  -  -  t  -  -  -  -  -  -  -  -  -  -  -  -  -  -  .  -  -  -  t  t  -  -  -  -  -  -"
             "  test-runner-contract      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-            "  test-runner-orchestrator  .  .  .  .  x  .  .  x  .  +  .  .  +  .  +  .  .  .  +  .  .  +  .  .  .  x  .  +  +  .  x  x  +  .  .  ."
+            "  test-runner-orchestrator  .  .  .  .  x  .  .  x  .  +  .  .  +  .  .  .  .  .  +  .  .  +  .  .  .  x  .  +  +  .  x  x  +  .  .  ."
             "  text-table                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  user-config               .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  user-input                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  validator                 .  .  .  .  x  .  .  x  .  +  .  .  +  .  +  .  .  .  x  .  .  +  .  .  .  x  .  +  +  .  x  .  +  .  .  ."
+            "  validator                 .  .  .  .  x  .  .  x  .  +  .  .  +  .  .  .  .  .  x  .  .  +  .  .  .  x  .  +  +  .  x  .  +  .  .  ."
             "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  workspace                 x  x  .  .  x  x  .  x  .  x  x  .  +  .  x  x  +  .  x  +  .  +  .  x  .  +  .  +  x  x  x  x  x  .  .  x"
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  ws-file                   .  .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  .  .  +  .  +  .  .  .  .  .  +  +  .  x  .  x  .  .  ."
-            "  nav-generator             .  .  .  .  +  x  .  +  .  +  .  .  +  .  +  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  +  +  .  .  ."
+            "  nav-generator             .  .  .  .  +  x  .  +  .  +  .  .  +  .  .  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  +  +  .  .  ."
             "  poly-cli                  +  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  t  +  +"]
            (ws-project-deps-table/table ws project)))))
 
@@ -478,7 +478,6 @@
                                                         "deps"
                                                         "file"
                                                         "image-creator"
-                                                        "interface"
                                                         "path-finder"
                                                         "system"
                                                         "test-runner-contract"
@@ -578,7 +577,6 @@
                                                         "validator"]
                                              :indirect ["deps"
                                                         "image-creator"
-                                                        "interface"
                                                         "path-finder"
                                                         "system"
                                                         "test-runner-contract"
@@ -591,7 +589,6 @@
                                                         "validator"]
                                              :indirect ["deps"
                                                         "image-creator"
-                                                        "interface"
                                                         "path-finder"
                                                         "system"
                                                         "test-runner-contract"
@@ -645,7 +642,6 @@
                                                         "ws-explorer"
                                                         "ws-file"]}}
           "deps"                     {:src  {:direct   ["common"
-                                                        "interface"
                                                         "text-table"
                                                         "user-config"
                                                         "util"]
@@ -654,7 +650,6 @@
                                                         "system"
                                                         "version"]}
                                       :test {:direct   ["common"
-                                                        "interface"
                                                         "text-table"
                                                         "user-config"
                                                         "util"]
@@ -680,8 +675,7 @@
                                                         "text-table"
                                                         "user-config"]}
                                       :test {}}
-          "image-creator"            {:src  {:direct ["file"
-                                                      "util"]}
+          "image-creator"            {:src  {}
                                       :test {}}
           "info"                     {:src  {:direct   ["common"
                                                         "path-finder"
@@ -691,7 +685,6 @@
                                              :indirect ["deps"
                                                         "file"
                                                         "image-creator"
-                                                        "interface"
                                                         "system"
                                                         "test-runner-contract"
                                                         "user-config"
@@ -704,7 +697,6 @@
                                                         "validator"]
                                              :indirect ["deps"
                                                         "image-creator"
-                                                        "interface"
                                                         "system"
                                                         "test-runner-contract"
                                                         "user-config"
@@ -721,7 +713,6 @@
                                                         "util"]
                                              :indirect ["deps"
                                                         "image-creator"
-                                                        "interface"
                                                         "path-finder"
                                                         "system"
                                                         "test-runner-contract"
@@ -771,7 +762,6 @@
                                                         "deps"
                                                         "file"
                                                         "image-creator"
-                                                        "interface"
                                                         "path-finder"
                                                         "system"
                                                         "test-runner-contract"
@@ -790,7 +780,6 @@
                                              :indirect ["antq"
                                                         "config-reader"
                                                         "file"
-                                                        "interface"
                                                         "maven"
                                                         "path-finder"
                                                         "system"
@@ -1001,7 +990,6 @@
                                                         "validator"]
                                              :indirect ["file"
                                                         "image-creator"
-                                                        "interface"
                                                         "path-finder"
                                                         "system"
                                                         "text-table"
@@ -1014,7 +1002,6 @@
                                                         "validator"]
                                              :indirect ["file"
                                                         "image-creator"
-                                                        "interface"
                                                         "path-finder"
                                                         "system"
                                                         "text-table"
@@ -1036,7 +1023,6 @@
                                                         "util"]
                                              :indirect ["file"
                                                         "image-creator"
-                                                        "interface"
                                                         "system"
                                                         "text-table"
                                                         "user-config"
@@ -1048,7 +1034,6 @@
                                                         "util"]
                                              :indirect ["file"
                                                         "image-creator"
-                                                        "interface"
                                                         "system"
                                                         "text-table"
                                                         "user-config"
@@ -1538,8 +1523,9 @@
 
 (deftest treat-component-from-other-workspace-as-component
   (is (= {:src ["howdy"
-                 "math"
-                 "s/util"]}
+                "math"
+                "s/util"
+                "s2/util"]}
          (read-string
            (run-cmd-plain "examples/multiple-workspaces/backend"
                           "ws"
@@ -1588,6 +1574,7 @@
           "  math        math         s--   s--    --      --   "
           "  s/share-me  s/share-me   s--   s--    s-      --   "
           "  s/util      s/util       st-   st-    --      --   "
+          "  s2/util     s2/util      st-   st-    --      --   "
           "  -           cli          s--   s--    --      --   "
           "  -           s/cli        s--   s--    s-      --   "]
          (run-cmd "examples/multiple-workspaces/backend"
@@ -1610,16 +1597,17 @@
                   "deps"))))
 
 (deftest deps-project-with-bricks-from-other-workspaces
-  (is (= ["               s"
-          "         h     /"
-          "         o  m  u"
-          "         w  a  t"
-          "         d  t  i"
-          "  brick  y  h  l"
-          "  --------------"
-          "  howdy  .  x  x"
-          "  math   .  .  ."
-          "  cli    x  +  ."]
+  (is (= ["                  s"
+          "               s  2"
+          "         h     /  /"
+          "         o  m  u  u"
+          "         w  a  t  t"
+          "         d  t  i  i"
+          "  brick  y  h  l  l"
+          "  -----------------"
+          "  howdy  .  x  x  +"
+          "  math   .  .  .  ."
+          "  cli    x  +  +  +"]
          (run-cmd "examples/multiple-workspaces/backend"
                   "deps" "project:system"))))
 

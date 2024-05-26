@@ -3,6 +3,7 @@
                   :extra-deps {backend/math {:local/root "components/math"}
                                backend/cli  {:local/root "bases/cli"}
                                shared/util  {:local/root "../shared/components/util"}
+                               shared2/util {:local/root "../shared2/components/util"}
 
                                org.clojure/clojure {:mvn/version "1.11.1"}}}
 

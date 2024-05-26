@@ -45,7 +45,6 @@
                       brick->lib-imports
                       disk-paths
                       user-input
-                      configs
                       settings
                       workspaces
                       name-type->keep-lib-version
@@ -59,18 +58,24 @@
         lib-entries (extract/from-library-deps is-dev lib-deps profiles settings)
         lib-deps-src (select/lib-deps lib-entries c/src?)
         lib-deps-test (select/lib-deps lib-entries c/test?)
-        [base-names-src-x component-names-src-x lib-deps-with-ws-bricks-src] (ws-brick/convert-libs-to-bricks lib-deps-src configs workspaces)
-        [base-names-test-x component-names-test-x lib-deps-with-ws-bricks-test] (ws-brick/convert-libs-to-bricks lib-deps-test configs workspaces)
+        [base-names-src-x component-names-src-x lib-deps-with-ws-bricks-src] (ws-brick/convert-libs-to-bricks lib-deps-src ws-dir workspaces)
+        [base-names-test-x component-names-test-x lib-deps-with-ws-bricks-test] (ws-brick/convert-libs-to-bricks lib-deps-test ws-dir workspaces)
         all-brick-names (concat component-names-src base-names-src component-names-test base-names-test)
         brick-names-to-test (common/brick-names-to-test test all-brick-names)
-        deps (deps/project-deps components bases workspaces component-names-src component-names-test base-names-src base-names-test component-names-src-x component-names-test-x base-names-src-x base-names-test-x suffixed-top-ns brick-names-to-test)
         lib-imports (project-lib-imports all-brick-names brick->lib-imports)
         lines-of-code-total (project-total-loc all-brick-names brick->loc)
         lines-of-code (assoc (loc/lines-of-code ws-dir namespaces) :total lines-of-code-total)
         base-names-src (vec (concat base-names-src base-names-src-x))
-        component-names-src (vec (concat component-names-src component-names-src-x))
         base-names-test (vec (concat base-names-test base-names-test-x))
+        component-names-src (vec (concat component-names-src component-names-src-x))
         component-names-test (vec (concat component-names-test component-names-test-x))
+        deps (deps/project-deps name
+                                components bases workspaces
+                                component-names-src component-names-test
+                                base-names-src base-names-test
+                                component-names-src-x component-names-test-x
+                                base-names-src-x base-names-test-x
+                                suffixed-top-ns brick-names-to-test)
         base-names (cond-> {}
                            (seq base-names-src) (assoc :src base-names-src)
                            (seq base-names-test) (assoc :test base-names-test))

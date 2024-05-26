@@ -27,7 +27,8 @@
    (or what is specified in :interface-ns in workspace.edn) for the 'src' context."
   [suffixed-top-ns {:keys [name interface type namespaces]} interface-names interface-ns color-mode]
   (let [interface-name (:name interface)
-        dependencies (deps/interface-ns-deps suffixed-top-ns interface-name interface-names (:src namespaces))]
+        ;; todo: fix!
+        dependencies []] ; (deps/interface-ns-deps suffixed-top-ns interface-name interface-names (:src namespaces))]
     (mapcat #(brick-error % name type interface-ns color-mode)
             (filterv #(not (common/interface-ns? (get-namespace %) interface-ns))
                      dependencies))))

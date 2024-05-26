@@ -1,9 +1,7 @@
 (ns ^:no-doc polylith.clj.core.deps.interface
-  (:require [polylith.clj.core.deps.base-deps :as base-deps]
-            [polylith.clj.core.deps.lib-deps :as lib-deps]
+  (:require [polylith.clj.core.deps.lib-deps :as lib-deps]
             [polylith.clj.core.deps.project-brick-deps.project-deps :as project-brick-deps]
-            [polylith.clj.core.deps.interface-deps.core :as interface-deps]
-            [polylith.clj.core.deps.interface-deps.ws-deps :as ws-interface-deps]
+            [polylith.clj.core.deps.brick-deps.core :as brick-deps]
             [polylith.clj.core.deps.text-table.brick-deps-table :as brick-deps-table]
             [polylith.clj.core.deps.text-table.brick-project-deps-table :as brick-project-deps-table]
             [polylith.clj.core.deps.text-table.workspace-deps-table :as workspace-deps-table]
@@ -12,17 +10,23 @@
 (defn convert-dep-to-symbol [dep]
   (lib-deps/convert-dep-to-symbol dep))
 
-(defn interface-ns-deps [suffixed-top-ns interface-name interface-names brick-namespaces]
-  (ws-interface-deps/interface-ns-deps suffixed-top-ns interface-name interface-names brick-namespaces))
+(defn brick-deps [ws-alias suffixed-top-ns interface-names workspaces brick]
+  (brick-deps/brick-deps ws-alias suffixed-top-ns interface-names workspaces brick))
 
-(defn interface-deps [suffixed-top-ns interface-names workspaces brick]
-  (interface-deps/interface-deps suffixed-top-ns interface-names workspaces brick))
-
-(defn base-deps [bases base suffixed-top-ns]
-  (base-deps/base-deps bases base suffixed-top-ns))
-
-(defn project-deps [components bases workspaces component-names-src component-names-test base-names-src base-names-test component-names-src-x component-names-test-x base-names-src-x base-names-test-x suffixed-top-ns brick-names-to-test]
-  (project-brick-deps/project-deps components bases workspaces component-names-src component-names-test base-names-src base-names-test component-names-src-x component-names-test-x base-names-src-x base-names-test-x suffixed-top-ns brick-names-to-test))
+(defn project-deps [project-name
+                    components bases workspaces
+                    component-names-src component-names-test
+                    base-names-src base-names-test
+                    component-names-src-x component-names-test-x
+                    base-names-src-x base-names-test-x
+                    suffixed-top-ns brick-names-to-test]
+  (project-brick-deps/project-deps project-name
+                                   components bases workspaces
+                                   component-names-src component-names-test
+                                   base-names-src base-names-test
+                                   component-names-src-x component-names-test-x
+                                   base-names-src-x base-names-test-x
+                                   suffixed-top-ns brick-names-to-test))
 
 (defn print-brick-project-table [workspace project-name brick-name]
   (brick-project-deps-table/print-table workspace project-name brick-name))
