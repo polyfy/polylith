@@ -10,8 +10,8 @@
 (defn convert-dep-to-symbol [dep]
   (lib-deps/convert-dep-to-symbol dep))
 
-(defn brick-deps [ws-alias suffixed-top-ns interface-names base-names workspaces brick]
-  (brick-deps/brick-deps ws-alias suffixed-top-ns interface-names base-names workspaces brick))
+(defn brick-deps [ws-alias suffixed-top-ns interface-names base-names workspaces interface-ns brick]
+  (brick-deps/brick-deps ws-alias suffixed-top-ns interface-names base-names workspaces interface-ns brick))
 
 (defn project-deps [project-name
                     components bases workspaces

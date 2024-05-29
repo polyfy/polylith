@@ -4,8 +4,9 @@
             [polylith.clj.core.workspace.enrich.loc :as loc]
             [polylith.clj.core.workspace.enrich.lib-imports :as lib-imp]))
 
-(defn enrich [ws-alias ws-dir suffixed-top-ns interface-names base-names outdated-libs library->latest-version user-input name-type->keep-lib-version workspaces {:keys [name type namespaces lib-deps] :as base}]
-  (let [{:keys [interface-deps base-deps illegal-deps]} (deps/brick-deps ws-alias suffixed-top-ns interface-names base-names workspaces base)
+(defn enrich [ws-alias ws-dir suffixed-top-ns interface-names base-names outdated-libs library->latest-version user-input name-type->keep-lib-version workspaces interface-ns
+              {:keys [name type namespaces lib-deps] :as base}]
+  (let [{:keys [interface-deps base-deps illegal-deps]} (deps/brick-deps ws-alias suffixed-top-ns interface-names base-names workspaces interface-ns base)
         lib-imports (lib-imp/lib-imports suffixed-top-ns interface-names base)
         lib-deps (lib/lib-deps-with-latest-version name type lib-deps outdated-libs library->latest-version user-input name-type->keep-lib-version)]
     (cond-> (assoc base :lib-deps lib-deps

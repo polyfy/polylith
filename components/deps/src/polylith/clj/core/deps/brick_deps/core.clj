@@ -34,26 +34,33 @@
             (mapcat #(brick-ns-deps suffixed-top-ns brick-id % base-names (source namespaces))
                     alias-suffixed-nss))))
 
-(defn deps-for-source [ws-alias suffixed-top-ns interface-names base-names workspaces {:keys [type] :as brick} source]
-  (let [all-deps (brick-deps-for-source ws-alias suffixed-top-ns workspaces brick base-names source)
-        deps (set (map :to-brick-id all-deps))
-        interface-deps (set/intersection deps interface-names)
-        base-deps (set/intersection deps base-names)
-        valid-deps (when (= :src source)
-                     (if (= "component" type)
-                       interface-deps
-                       (set/union interface-deps base-deps)))
+(defn valid-interface? [{:keys [to-brick-id to-namespace]} interface-names interface-ns]
+  (and (contains? interface-names to-brick-id)
+       (common/interface-ns? to-namespace interface-ns)))
+
+(defn deps-for-source [ws-alias suffixed-top-ns interface-names base-names workspaces {:keys [type] :as brick} interface-ns source]
+  (let [deps (brick-deps-for-source ws-alias suffixed-top-ns workspaces brick base-names source)
+        dep-ids (set (map :to-brick-id deps))
+        interface-deps (if (= :test source)
+                         (set/intersection dep-ids interface-names)
+                         (set (map :to-brick-id
+                                   (filter #(valid-interface? % interface-names interface-ns)
+                                           deps))))
+        base-deps (set/intersection dep-ids base-names)
+        valid-deps (if (= "component" type)
+                     interface-deps
+                     (set/union interface-deps base-deps))
         illegal-deps (filterv #(not (contains? valid-deps (:to-brick-id %)))
-                              all-deps)]
+                              deps)]
     [(vec (sort interface-deps))
      (vec (sort base-deps))
      illegal-deps]))
 
 (defn brick-deps
   "Returns the interface and base dependencies for a brick (component or base)."
-  [ws-alias suffixed-top-ns interface-names base-names workspaces {:keys [type] :as brick}]
-  (let [[ifc-src-deps base-src-deps illegal-deps] (deps-for-source ws-alias suffixed-top-ns interface-names base-names workspaces brick :src)
-        [ifc-test-deps base-test-deps] (deps-for-source ws-alias suffixed-top-ns interface-names base-names workspaces brick :test)]
+  [ws-alias suffixed-top-ns interface-names base-names workspaces interface-ns {:keys [type] :as brick}]
+  (let [[ifc-src-deps base-src-deps illegal-deps] (deps-for-source ws-alias suffixed-top-ns interface-names base-names workspaces brick interface-ns :src)
+        [ifc-test-deps base-test-deps] (deps-for-source ws-alias suffixed-top-ns interface-names base-names workspaces brick interface-ns :test)]
     (cond-> {:interface-deps {:src ifc-src-deps
                               :test ifc-test-deps}}
             (= "base" type) (assoc :base-deps {:src base-src-deps

@@ -8,9 +8,9 @@
   (or (seq src)
       (seq test)))
 
-(defn enrich [ws-alias ws-dir suffixed-top-ns interface-names base-names outdated-libs library->latest-version user-input name-type->keep-lib-versions workspaces
+(defn enrich [ws-alias ws-dir suffixed-top-ns interface-names base-names outdated-libs library->latest-version user-input name-type->keep-lib-versions workspaces interface-ns
               {:keys [name type namespaces lib-deps] :as component}]
-  (let [{:keys [interface-deps _ illegal-deps]} (deps/brick-deps ws-alias suffixed-top-ns interface-names base-names workspaces component)
+  (let [{:keys [interface-deps _ illegal-deps]} (deps/brick-deps ws-alias suffixed-top-ns interface-names base-names workspaces interface-ns component)
         lib-imports (lib-imp/lib-imports suffixed-top-ns interface-names component)
         lines-of-code (loc/lines-of-code ws-dir namespaces)
         lib-deps (lib/lib-deps-with-latest-version name type lib-deps outdated-libs library->latest-version user-input name-type->keep-lib-versions)]
