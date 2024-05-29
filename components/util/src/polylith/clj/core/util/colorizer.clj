@@ -95,7 +95,9 @@
   ([name color-mode]
    (grey color-mode name))
   ([interface namespace color-mode]
-   (grey color-mode (str interface "." namespace))))
+   (grey color-mode (str interface "." namespace)))
+  ([type brick namespace color-mode]
+   (str (entity type brick color-mode) "." (grey color-mode namespace))))
 
 (def entities->type {"projects" "project"
                      "bases" "base"

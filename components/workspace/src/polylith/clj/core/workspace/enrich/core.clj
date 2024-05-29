@@ -14,9 +14,17 @@
   (map #(str alias "/" (:name %))
        interfaces))
 
-(defn ->interface-names [ws-interfaces workspaces]
-  (set (concat (into [] (keep :name) ws-interfaces)
+(defn ws-base-names [{:keys [alias bases]}]
+  (map #(str alias "/" (:name %))
+       bases))
+
+(defn ->interface-names [interfaces workspaces]
+  (set (concat (into [] (keep :name) interfaces)
                (mapcat ws-interface-names workspaces))))
+
+(defn ->base-names [bases workspaces]
+  (set (concat (into [] (keep :name) bases)
+               (mapcat ws-base-names workspaces))))
 
 (defn brick->lib-imports [bricks]
   (into {} (map (juxt :name :lib-imports)) bricks))
@@ -40,13 +48,14 @@
           suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
           interfaces (interface/calculate components)
           interface-names (->interface-names interfaces workspaces)
+          base-names (->base-names bases workspaces)
           calculate-latest-version? (common/calculate-latest-version? user-input)
           library->latest-version (antq/library->latest-version configs calculate-latest-version?)
           outdated-libs (lib/outdated-libs library->latest-version)
           name-type->keep-lib-versions (->name-type->keep-lib-versions bases components projects)
-          enriched-components (mapv #(component/enrich alias ws-dir suffixed-top-ns interface-names outdated-libs library->latest-version user-input name-type->keep-lib-versions workspaces %)
+          enriched-components (mapv #(component/enrich alias ws-dir suffixed-top-ns interface-names base-names outdated-libs library->latest-version user-input name-type->keep-lib-versions workspaces %)
                                     components)
-          enriched-bases (mapv #(base/enrich alias ws-dir suffixed-top-ns interface-names outdated-libs library->latest-version user-input name-type->keep-lib-versions workspaces %)
+          enriched-bases (mapv #(base/enrich alias ws-dir suffixed-top-ns interface-names base-names outdated-libs library->latest-version user-input name-type->keep-lib-versions workspaces %)
                                bases)
           enriched-bricks (into [] cat [enriched-components enriched-bases])
           brick->loc (brick->loc enriched-bricks)
@@ -57,7 +66,7 @@
                                                 projects)))
           enriched-profiles (profile/enrich profiles ws-dir workspaces)
           enriched-settings (test-configs/with-configs settings test configs user-input)
-          messages (validator/validate-ws suffixed-top-ns settings paths interface-names interfaces profiles enriched-components enriched-bases enriched-projects workspaces config-errors interface-ns user-input color-mode)]
+          messages (validator/validate-ws settings paths interface-names interfaces profiles enriched-components enriched-bases enriched-projects workspaces config-errors interface-ns user-input color-mode)]
       (cond-> workspace
               true (assoc :interfaces interfaces
                           :components enriched-components

@@ -22,6 +22,8 @@ Here are the changes to the workspace structure over time:
 | 4.0 | 0.2.20 | added | configs:workspace | Store current workspace config as is
 |  |  | deleted | configs:workspaces | Moved :workspaces to the root of the workspace
 |  |  | added | configs:workspace:workspaces | Configures external workspaces (if any).
+|  |  | added | bases:BASE:illegal-deps | Set if the base has any illegal namespace dependencies.
+|  |  | added | components:COMPONENT:illegal-deps | Set if the component has any illegal namespace dependencies.
 |  |  | added | projects:PROJECT:lib-deps:SRC:LIBRARY:brick | Set if refers a brick in another workspace.
 | 3.0 | 0.2.19 | added | ENTITIES:ENTITY:keep-lib-versions |
 |  |  | added | projects:PROJECT:necessary |
@@ -65,6 +67,8 @@ Used in the above table:
 |===
 | What | Description
 
+| BASE | base.
+| COMPONENT | component.
 | ENTITY | Base, component, or project.
 | ENTITIES | Bases, components, or projects.
 | NAMESPACE | A namespace name.

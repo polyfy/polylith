@@ -76,6 +76,12 @@ poly ws get:bases:user-api
 
 * `:base-deps` Lists the bases this base depends on.
 
+* `:illegal-deps` A vector of illegal dependencies. Populated if the base depends on something an implementing namespace in a component (bases are allowed to depend on bases) from the :src context (:test has no restrictions).
+** `:from-ns` The name of the namespace where we refer the incorrect namespace.
+** `:to-brick-id` The interface name or base name we depend on.
+** `:to-namespace` The namespace we depend on.
+** `:to-type` Set to the type of the brick we depend on ("base" or "component").
+
 * `:interface-deps` Lists the interfaces this base depends on.
 Here it depends on the `user` interface from the `src` context.
 This is because the `se.example.user-api.api` namespace imports `se.example.user.interface`.
@@ -226,6 +232,12 @@ Component keys are the same as for the base plus the `:interfaces` key, except t
 * `:interface`
 ** `:definitions` Lists all public `def`, `defn` and `defmacro` definitions in the interface namespace.
 If a type hint is given, then `:type` will also be set and be part of the contract.
+
+* `:illegal-deps` A vector of illegal dependencies. Populated if the component depends on something else than interfaces, from the :src context (:test has no restrictions).
+** `:from-ns` The name of the namespace where we refer the incorrect namespace.
+** `:to-brick-id` The interface name or base name we depend on.
+** `:to-namespace` The namespace we depend on.
+** `:to-type` Set to the type of the brick we depend on ("base" or "component").
 
 * `:interface-deps` Lists the interfaces this base depends on.
 Here it depends on the `user` interface from the `src` context.
