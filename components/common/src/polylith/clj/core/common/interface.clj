@@ -1,5 +1,6 @@
 (ns ^:no-doc polylith.clj.core.common.interface
-  (:require [polylith.clj.core.common.class-loader :as class-loader]
+  (:require [clojure.string :as str]
+            [polylith.clj.core.common.class-loader :as class-loader]
             [polylith.clj.core.common.core :as core]
             [polylith.clj.core.common.file-output :as file-output]
             [polylith.clj.core.common.ns-extractor :as ns-extractor]
@@ -36,9 +37,6 @@
 
 (defn entity-namespaces [entity & sources]
   (ns-extractor/entity-namespaces entity sources))
-
-(defn entities-namespaces [entities & sources]
-  (ns-extractor/entities-namespaces entities sources))
 
 (defn extract-namespace [suffixed-top-ns ns-to-extract]
   (ns-extractor/extract suffixed-top-ns ns-to-extract))
@@ -94,9 +92,13 @@
 (defn interface-nss [interface-ns]
   (set ["ifc" "interface" interface-ns]))
 
-(defn interface-ns? [namespace interface-ns]
+(defn top-interface-ns? [namespace interface-ns]
   (contains? (interface-nss interface-ns)
              namespace))
+
+(defn interface-ns? [namespace interface-ns]
+  (contains? (interface-nss interface-ns)
+             (first (str/split namespace #"\."))))
 
 (defn sort-profiles [default-profile-name profiles]
   (profile/sort-profiles default-profile-name profiles))

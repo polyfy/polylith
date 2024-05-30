@@ -14,5 +14,5 @@
 
 (defn all-test-namespaces
   "Extracts all test namespaces from alla bricks in the project."
-  [bricks suffixed-top-ns]
+  [bricks {:keys [suffixed-top-ns]}]
   (set (mapcat #(test-namespaces % suffixed-top-ns) bricks)))

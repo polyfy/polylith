@@ -16,7 +16,7 @@
 
 (declare workspace!)
 
-(defn used-workspaces! [ws-dir workspace wsdir-workspace direct-dependency?]
+(defn used-workspaces! [ws-dir workspace wsdir-workspace]
   (let [wss-config (-> workspace :configs :workspace :workspaces)
         no-changes? (-> workspace :user-input :is-no-changes)
         ws-paths (set (map first @wsdir-workspace))
@@ -27,8 +27,7 @@
             workspace (workspace! {:ws-dir path :is-no-changes no-changes?} wsdir-workspace)
             ws-alias (or alias (:name workspace))]
         (swap! wsdir-workspace #(conj % [path
-                                         (assoc workspace :alias ws-alias
-                                                           :is-direct-dependency direct-dependency?)]))))))
+                                         (assoc workspace :alias ws-alias)]))))))
 
 (defn workspace! [user-input wsdir-workspace]
   (let [{:keys [config-errors ws-dir] :as workspace}
@@ -38,7 +37,7 @@
             (seq config-errors))
       workspace
       (do
-        (used-workspaces! ws-dir workspace wsdir-workspace false)
+        (used-workspaces! ws-dir workspace wsdir-workspace)
         workspace))))
 
 (defn workspaces
@@ -46,11 +45,13 @@
   [{:keys [ws-dir] :as workspace}]
   (let [path (file/absolute-path ws-dir)
         wsdir-workspace (atom [[path]])
-        _ (used-workspaces! ws-dir workspace wsdir-workspace true)
-        workspaces (mapv second
+        _ (used-workspaces! ws-dir workspace wsdir-workspace)
+        workspaces (mapv #(-> % second atom)
                          (filter #(-> % second seq)
                                  @wsdir-workspace))]
-    (vec (reverse (map #(-> %
-                            (enrich/enrich-workspace workspaces)
-                            (change/with-changes))
-                        workspaces)))))
+    ;; Make sure we continuously update the workspaces, so that we can calculate BRICK:interface-deps correctly.
+    (doseq [ws-atom workspaces]
+      (reset! ws-atom (-> @ws-atom
+                          (enrich/enrich-workspace (map deref workspaces))
+                          (change/with-changes))))
+    (vec (reverse (map deref workspaces)))))

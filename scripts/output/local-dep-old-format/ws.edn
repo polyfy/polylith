@@ -340,8 +340,9 @@
      {:dir "examples/local-dep"}
      {:dir "examples/local-dep-old-format"}
      {:dir "examples/missing-component"}
-     {:dir "examples/multiple-workspaces2/backend"}
-     {:dir "examples/multiple-workspaces2/shared"}
+     {:dir "examples/multiple-workspaces/backend"}
+     {:dir "examples/multiple-workspaces/shared"}
+     {:dir "examples/multiple-workspaces/shared2"}
      {:dir "examples/profiles"}
      {:dir "examples/poly-rcf"}
      {:dir "examples/poly-rcf/monolith", :name "monolith-poly-rcf"}
@@ -627,10 +628,7 @@
     [polylith.clj.core.clojure-test-test-runner.interface/create]},
    :bricks-to-test [],
    :deps
-   {"invoicer-cli"
-    {:src {:direct ["invoicer"], :indirect ["util"]},
-     :test {:direct ["invoicer"], :indirect ["util"]}},
-    "database" {:src {:direct ["util"]}, :test {:direct ["util"]}},
+   {"database" {:src {:direct ["util"]}, :test {:direct ["util"]}},
     "datomic-ions" {:src {}, :test {}},
     "invoicer"
     {:src {:direct ["util"]},
@@ -644,7 +642,10 @@
     "test-helper-db"
     {:src {}, :test {:direct ["database"], :indirect ["util"]}},
     "util" {:src {}, :test {}},
-    "without-src" {:src {}, :test {}}}}
+    "without-src" {:src {}, :test {}},
+    "invoicer-cli"
+    {:src {:direct ["invoicer"], :indirect ["util"]},
+     :test {:direct ["invoicer"], :indirect ["util"]}}}}
   {:lines-of-code {:src 1, :test 0, :total {:src 67, :test 69}},
    :deps-filename "/privateWS-HOME/local-dep-old-format/deps.edn",
    :namespaces
@@ -793,10 +794,7 @@
     [polylith.clj.core.clojure-test-test-runner.interface/create]},
    :bricks-to-test [],
    :deps
-   {"invoicer-cli"
-    {:src {:direct ["invoicer"], :indirect ["util"]},
-     :test {:direct ["invoicer"], :indirect ["util"]}},
-    "database" {:src {:direct ["util"]}, :test {:direct ["util"]}},
+   {"database" {:src {:direct ["util"]}, :test {:direct ["util"]}},
     "datomic-ions" {:src {}, :test {}},
     "invoicer"
     {:src {:direct ["util"]},
@@ -810,7 +808,10 @@
     "test-helper-db"
     {:src {:direct ["database"], :indirect ["util"]}, :test {}},
     "util" {:src {}, :test {}},
-    "without-src" {:src {}, :test {}}}}],
+    "without-src" {:src {}, :test {}},
+    "invoicer-cli"
+    {:src {:direct ["invoicer"], :indirect ["util"]},
+     :test {:direct ["invoicer"], :indirect ["util"]}}}}],
  :settings
  {:user-config-filename "USER-HOME/.config/polylith/config.edn",
   :top-namespace "com.localdep",
@@ -883,8 +884,8 @@
    :minor 2,
    :patch 20,
    :revision "SNAPSHOT",
-   :date "2024-03-31",
-   :snapshot 13},
+   :date "2024-05-30",
+   :snapshot 18},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
   :ws {:breaking 3, :non-breaking 0},

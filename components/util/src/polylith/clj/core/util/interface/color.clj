@@ -89,4 +89,6 @@
   ([name color-mode]
    (colorizer/namespc name color-mode))
   ([interface namespace color-mode]
-   (colorizer/namespc interface namespace color-mode)))
+   (colorizer/namespc interface namespace color-mode))
+  ([type brick namespace color-mode]
+   (colorizer/namespc type brick namespace color-mode)))

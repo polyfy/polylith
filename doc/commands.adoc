@@ -14,7 +14,7 @@ poly help
 
 [source,text]
 ----
-  poly 0.2.20 (2024-03-31) - https://github.com/polyfy/polylith
+  poly 0.2.20 (2024-05-30) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -1099,7 +1099,8 @@ poly help
 
   with:CONFIG       Merges the CONFIG configuration snippet(s) from :test-configs
                     in workspace.edn to the :test key. More than one CONFIG can be
-                    selected.
+                    selected. See https://github.com/polyfy/polylith/blob/master/
+                    examples/test-runners/workspace.edn as example.
 
 
   To also execute the brick tests from the development project, pass in :dev:

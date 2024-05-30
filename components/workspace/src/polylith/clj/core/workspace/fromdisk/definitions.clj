@@ -23,7 +23,7 @@
            (drop 1 statements)))
 
 (defn sub-namespace [namespace interface-ns]
-  (when (not (common/interface-ns? namespace interface-ns))
+  (when (not (common/top-interface-ns? namespace interface-ns))
     (str/join "." (drop 1 (str/split namespace #"\.")))))
 
 (defn argument [name]
