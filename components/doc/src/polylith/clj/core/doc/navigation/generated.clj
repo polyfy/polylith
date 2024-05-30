@@ -86,6 +86,7 @@
    "settings" []
    "user-input" []
    "version" []
+   "workspaces" []
    "ws-dir" []
    "ws-local-dir" []
    "ws-reader" []
