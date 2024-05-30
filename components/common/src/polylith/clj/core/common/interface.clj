@@ -92,6 +92,10 @@
 (defn interface-nss [interface-ns]
   (set ["ifc" "interface" interface-ns]))
 
+(defn top-interface-ns? [namespace interface-ns]
+  (contains? (interface-nss interface-ns)
+             namespace))
+
 (defn interface-ns? [namespace interface-ns]
   (contains? (interface-nss interface-ns)
              (first (str/split namespace #"\."))))
