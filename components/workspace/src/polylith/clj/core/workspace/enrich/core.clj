@@ -37,7 +37,8 @@
 
 (defn ->name-type->keep-lib-versions [bases components projects]
   (into {}
-        (mapv (juxt #(vector (:name %) (:type %)) :keep-lib-versions)
+        (mapv (juxt #(vector (:name %) (:type %))
+                    #(map str (:keep-lib-versions %)))
               (concat bases components projects))))
 
 (defn enrich-workspace [{:keys [alias ws-dir user-input settings configs components bases profiles config-errors projects paths] :as workspace}
