@@ -31,7 +31,8 @@
 |===
 | Doc updates
 
-| New sponsor: https://github.com/taehee-sp[taehee-sp] (김태희)
+| New sponsors: https://github.com/taehee-sp[taehee-sp] (김태희), https://github.com/tlonist-sang, https://github.com/premiscale
+
 
 | Remove Funnel as example production system.
 
