@@ -40,24 +40,24 @@ Iron, Bronze, Silver, Gold, and Platinum sponsors are also listed and on the htt
 
 === Bronze Sponsors
 
-image::doc/images/sponsors/scrintal.png[link=https://www.scrintal.com,alt=scrintal.com,width=200]
+image::doc/images/sponsors/scrintal.png[link=https://www.scrintal.com,alt="scrintal.com",width=200]
 
 === Iron Sponsors
 
-image:doc/images/sponsors/adgoji.png[link=https://www.adgoji.com,alt=adgoji.com,width=200]
+image:doc/images/sponsors/adgoji.png[link=https://www.adgoji.com,alt="adgoji.com",width=200]
 
 image:doc/images/sponsors/taehee-sp.png[link=https://github.com/taehee-sp,width=150]
 
 === Polylith Fans
 
-image:https://avatars.githubusercontent.com/u/18068051[link=https://github.com/yyna,alt=Jungin Kwon,width=32,role="left"]
-image:https://avatars.githubusercontent.com/u/59614667[link=https://github.com/fluent-development,alt=Multiply,width=32,role="left"]
-image:https://avatars.githubusercontent.com/u/6353427[link=https://github.com/anieri,alt=Anieri,width=32,role="left"]
-image:https://avatars.githubusercontent.com/u/53870456[link=https://github.com/john-shaffer,alt=John Shaffer,width=32,role="left"]
-image:https://avatars.githubusercontent.com/u/47784846?v=4[link=https://github.com/tlonist-sang,alt=tlonist-sang,width=32,role="left"]
+image:https://avatars.githubusercontent.com/u/18068051[link=https://github.com/yyna,alt="Jungin Kwon",width=32,role="left"]
+image:https://avatars.githubusercontent.com/u/59614667[link=https://github.com/fluent-development,alt="Multiply",width=32,role="left"]
+image:https://avatars.githubusercontent.com/u/6353427[link=https://github.com/anieri,alt="Anieri",width=32,role="left"]
+image:https://avatars.githubusercontent.com/u/53870456[link=https://github.com/john-shaffer,alt="John Shaffer",width=32,role="left"]
+image:https://avatars.githubusercontent.com/u/47784846?v=4[link=https://github.com/tlonist-sang,alt="Sanghyun Kim",width=32,role="left"]
 
 === Polylith Friends
 
-image:https://avatars.githubusercontent.com/u/43875[link=https://github.com/seancorfield,alt=Sean Corfield,width=32,role="left"]
-image:https://avatars.githubusercontent.com/u/243097[link=https://github.com/namenu,alt=Hyunwoo Nam,width=32,role="left"]
-image:https://avatars.githubusercontent.com/u/120519034?s=200&v=4[link=https://github.com/premiscale,alt=PremiScale,width=32,role="left"]
+image:https://avatars.githubusercontent.com/u/43875[link=https://github.com/seancorfield,alt="Sean Corfield",width=32,role="left"]
+image:https://avatars.githubusercontent.com/u/243097[link=https://github.com/namenu,alt="Hyunwoo Nam",width=32,role="left"]
+image:https://avatars.githubusercontent.com/u/120519034?s=200&v=4[link=https://github.com/premiscale,alt="PremiScale",width=32,role="left"]
