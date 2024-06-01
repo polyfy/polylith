@@ -1,8 +1,9 @@
 (ns ^:no-doc polylith.clj.core.lib.antq.outdated)
 
-(defn library-selected?
-  "Check if the library is in the set of libraries, if passed in by libraries:LIB1:LIB2.
-   If not passed in, it's empty, and we consider it as selected."
+(defn library-selected-for-update?
+  "Check if the library is in the set of libraries that we want to update,
+  if passed in by libraries:LIB1:LIB2. If not passed in, it's empty,
+  and we consider it as selected."
   [lib-name selected-libs]
   (or (empty? selected-libs)
       (contains? selected-libs lib-name)))
@@ -18,11 +19,11 @@
    If the library doesn't exist in that vector for a brick or project, then
    it's fine to update the library."
   [lib-name entity-name entity-type name-type->keep-lib-versions]
-  (not (contains? (set (get name-type->keep-lib-versions [entity-name entity-type]))
+  (not (contains? (get name-type->keep-lib-versions [entity-name entity-type])
                   lib-name)))
 
 (defn update-lib-version? [entity-name entity-type lib-name lib-def selected-libs lib->latest-version name-type->keep-lib-versions]
-  (and (library-selected? lib-name selected-libs)
+  (and (library-selected-for-update? lib-name selected-libs)
        (old-library-version? lib-def lib-name lib->latest-version)
        (update-library? lib-name entity-name entity-type name-type->keep-lib-versions)))
 

@@ -27,7 +27,6 @@
         lib-deps (lib/brick-lib-deps ws-dir ws-type deps-config top-namespace ns-to-lib namespaces entity-root-path user-home)
         paths (brick-paths/source-paths component-dir deps-config)
         source-paths (config/source-paths deps-config)
-        component-settings (get brick->settings component-name)
         non-top-namespaces (non-top-ns/non-top-namespaces "component" component-name component-dir top-src-dir source-paths)]
     (util/ordered-map :name component-name
                       :type "component"
@@ -36,9 +35,9 @@
                       :namespaces namespaces
                       :non-top-namespaces non-top-namespaces
                       :lib-deps lib-deps
-                      :test (get-in component-settings [component-name :test])
-                      :necessary (get-in component-settings [component-name :necessary])
-                      :keep-lib-versions (get-in component-settings [component-name :keep-lib-versions])
+                      :test (get-in brick->settings [component-name :test])
+                      :necessary (get-in brick->settings [component-name :necessary])
+                      :keep-lib-versions (get-in brick->settings [component-name :keep-lib-versions])
                       :interface (util/ordered-map :name interface-name
                                                    :definitions definitions))))
 
