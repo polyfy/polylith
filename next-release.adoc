@@ -11,7 +11,7 @@
 
 | https://github.com/polyfy/polylith/issues/457[457] | Support snippets of test configuration to be merged into settings
 
-| https://github.com/polyfy/polylith/issues/465[465] | Make sure :keep-lib-versions works when updating libs (bug)
+| https://github.com/polyfy/polylith/issues/465[465] | Make sure :keep-lib-versions works when updating libs for components (bug)
 
 |===
 
