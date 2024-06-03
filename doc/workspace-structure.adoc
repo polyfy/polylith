@@ -1162,4 +1162,10 @@ These workspaces will have `ws-type` set to `:toolsdeps2`.
 poly ws get:workspaces
 ----
 
-A vector with the external workspaces specified by xref:configuration.adoc#ws-workspaces[workspaces]]. Current workspace is not included. Each workspace also includes the `:alias` of the workspace. If you include a workspace that refers one or more other workspaces, then they will also be included in this list of workspaces.
+A vector containing the workspaces, other than the root workspace, recursively retrieved using the workspace directories specified by xref:configuration.adoc#ws-workspaces[workspaces]].
+
+These workspaces are complete, except from these attributes:
+* `:projects` > PROJECT > `:bricks-to-test`
+* `:projects` > PROJECT > `:projects-to-test`
+
+The attribute `:ws-relative-dir` is also added, which is a relative path to the root workspace directory, `ws-dir`, also listed at the top by the xref:commands.adoc#info[info] command (if any).
