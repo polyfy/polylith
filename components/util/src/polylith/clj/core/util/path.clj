@@ -2,8 +2,8 @@
   (:require [clojure.string :as str]
             [polylith.clj.core.util.str :as str-util]))
 
-(defn relative-path [current-path path]
-  (let [str1 (str-util/skip-suffix current-path "/")
+(defn relative-path [root-path path]
+  (let [str1 (str-util/skip-suffix root-path "/")
         str2 (str-util/skip-suffix path "/")
         split1 (str/split str1 #"/")
         split2 (str/split str2 #"/")

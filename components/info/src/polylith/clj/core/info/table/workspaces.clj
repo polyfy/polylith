@@ -7,22 +7,21 @@
 (defn alias-cell [index {:keys [alias]}]
   (text-table/cell 3 (+ 3 index) alias :purple))
 
-(defn path-cell [index {:keys [dir]}]
-  (text-table/cell 5 (+ 3 index) dir))
+(defn path-cell [index {:keys [ws-relative-dir]}]
+  (text-table/cell 5 (+ 3 index) ws-relative-dir))
 
-(defn table [{:keys [settings configs workspaces]}]
+(defn table [{:keys [settings workspaces]}]
   (if (empty? workspaces)
     []
     (let [color-mode (:color-mode settings)
-          ws-configs (-> configs :workspace :workspaces)
           alias->name (into {} (map (juxt :alias :name) workspaces))
           header-cells [(text-table/cell 1 "workspace")
                         (text-table/cell 3 "alias")
                         (text-table/cell 5 "path")]
           space-cells (text-table/spaces 1 [2 4] (repeat "  "))
-          name-cells (map-indexed #(name-cell %1 %2 alias->name) ws-configs)
-          alias-cells (map-indexed alias-cell ws-configs)
-          path-cells (map-indexed path-cell ws-configs)
+          name-cells (map-indexed #(name-cell %1 %2 alias->name) workspaces)
+          alias-cells (map-indexed alias-cell workspaces)
+          path-cells (map-indexed path-cell workspaces)
           cells (concat header-cells
                         space-cells
                         name-cells
