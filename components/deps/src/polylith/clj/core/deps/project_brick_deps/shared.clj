@@ -1,4 +1,4 @@
-(ns polylith.clj.core.deps.project-brick-deps.shared
+(ns ^:no-doc polylith.clj.core.deps.project-brick-deps.shared
   (:require [polylith.clj.core.common.interface :as common]))
 
 (defn ->brick-id [{:keys [name interface]}]

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.deps.project-brick-deps.from-namespaces
+(ns ^:no-doc polylith.clj.core.deps.project-brick-deps.from-namespaces
   (:require [polylith.clj.core.common.interface :as common]))
 
 (defn extract-test-deps-from-imports
