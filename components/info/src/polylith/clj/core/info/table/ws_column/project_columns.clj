@@ -14,7 +14,7 @@
   (let [statuses (status-flags name bricks-to-test path-entries is-show-resources)]
     (text-table/cell column (+ index start-row 3) statuses :purple :center)))
 
-(defn column [index {:keys [alias paths bricks-to-test]}
+(defn column [index {:keys [alias paths base-names component-names bricks-to-test]}
               components bases disk-paths
               ws-components ws-bases alias->workspace
               is-show-loc is-show-resources thousand-separator]
@@ -30,9 +30,9 @@
     (concat
       [(text-table/cell column 1 alias :purple :center)]
       (map-indexed #(cell %1 0 column %2 bricks-to-test path-entries is-show-resources) components)
-      (map-indexed #(ext-cell/cell %1 start-row1 column %2 [] alias->workspace is-show-resources status-flags) ws-components)
+      (map-indexed #(ext-cell/cell %1 start-row1 column %2 base-names component-names [] alias->workspace is-show-resources status-flags) ws-components)
       (map-indexed #(cell %1 start-row2 column %2 bricks-to-test path-entries is-show-resources) bases)
-      (map-indexed #(ext-cell/cell %1 start-row3 column %2 [] alias->workspace is-show-resources status-flags) ws-bases)
+      (map-indexed #(ext-cell/cell %1 start-row3 column %2 base-names component-names [] alias->workspace is-show-resources status-flags) ws-bases)
       (when is-show-loc [(text-table/number-cell column start-row4 total-loc-src :center thousand-separator)]))))
 
 (defn columns [projects components bases disk-paths
