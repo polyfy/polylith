@@ -41,7 +41,7 @@
                     #(set (map str (:keep-lib-versions %))))
               (concat bases components projects))))
 
-(defn enrich-workspace [{:keys [alias ws-dir user-input settings configs components bases profiles config-errors projects paths] :as workspace}
+(defn enrich-workspace [{:keys [ws-dir user-input settings configs components bases profiles config-errors projects paths] :as workspace}
                         workspaces]
   (if (common/invalid-workspace? workspace)
     workspace
@@ -54,9 +54,9 @@
           library->latest-version (antq/library->latest-version configs calculate-latest-version?)
           outdated-libs (lib/outdated-libs library->latest-version)
           name-type->keep-lib-versions (->name-type->keep-lib-versions bases components projects)
-          enriched-components (mapv #(component/enrich alias ws-dir suffixed-top-ns interface-names base-names outdated-libs library->latest-version user-input name-type->keep-lib-versions workspaces interface-ns %)
+          enriched-components (mapv #(component/enrich ws-dir suffixed-top-ns interface-names base-names outdated-libs library->latest-version user-input name-type->keep-lib-versions interface-ns %)
                                     components)
-          enriched-bases (mapv #(base/enrich alias ws-dir suffixed-top-ns interface-names base-names outdated-libs library->latest-version user-input name-type->keep-lib-versions workspaces interface-ns %)
+          enriched-bases (mapv #(base/enrich ws-dir suffixed-top-ns interface-names base-names outdated-libs library->latest-version user-input name-type->keep-lib-versions interface-ns %)
                                bases)
           enriched-bricks (into [] cat [enriched-components enriched-bases])
           brick->loc (brick->loc enriched-bricks)

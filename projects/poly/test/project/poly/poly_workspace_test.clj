@@ -1496,13 +1496,6 @@
                (dissoc :m2-dir)
                (update-in [:vcs :git-root] :git-root ""))))))
 
-(deftest component-dependency-on-another-workspace
-  (is (= {:src ["math" "s/util"], :test []}
-         (read-string
-           (run-cmd-plain "examples/multiple-workspaces/backend"
-                          "ws"
-                          "get:components:hello::interface-deps")))))
-
 (deftest merge-test-configs
   (is (= {:create-test-runner [:default]
           :org.corfield/external-test-runner {:focus {:exclude [:integration :dummy]}}}
@@ -1542,53 +1535,6 @@
            (run-cmd-plain "examples/multiple-workspaces/backend"
                           "ws"
                           "get:profiles:default:lib-deps:shared/share-me:brick")))))
-
-(deftest info-include-bricks-from-other-workspaces
-  (is (= ["  stable since: 1234567                     "
-          "                                            "
-          "  workspace  alias  path                    "
-          "  ----------------------------              "
-          "  shared     s      ../shared               "
-          "  shared2    s2     ../shared2              "
-          "                                            "
-          "  projects: 2   interfaces: 2               "
-          "  bases:    1   components: 3               "
-          "                                            "
-          "  active profiles: default                  "
-          "                                            "
-          "  project      alias  status   dev  howdy   "
-          "  --------------------------   ----------   "
-          "  system       sys     ---     ---   --     "
-          "  development  dev     s--     s--   --     "
-          "                                            "
-          "  interface   brick        sys   dev  howdy "
-          "  ----------------------   ---   ---------- "
-          "  greeter     hello        ---   st-   --   "
-          "  greeter     howdy        s--   ---   s-   "
-          "  math        math         s--   s--   --   "
-          "  s/share-me  s/share-me   ---   s--   --   "
-          "  s/util      s/util       s--   s--   --   "
-          "  s2/util     s2/util      s--   s--   --   "
-          "  -           cli          s--   s--   --   "
-          "  -           s/cli        ---   s--   --   "]
-         (run-cmd "examples/multiple-workspaces/backend"
-                  "info" ":no-changes"))))
-
-(deftest deps-with-bricks-from-other-workspaces
-  (is (= ["         g      "
-          "         r     s"
-          "         e     /"
-          "         e  m  u"
-          "         t  a  t"
-          "         e  t  i"
-          "  brick  r  h  l"
-          "  --------------"
-          "  hello  .  x  x"
-          "  howdy  .  x  x"
-          "  math   .  .  ."
-          "  cli    x  .  ."]
-         (run-cmd "examples/multiple-workspaces/backend"
-                  "deps"))))
 
 (deftest deps-project-with-bricks-from-other-workspaces
   (is (= ["                  s"
