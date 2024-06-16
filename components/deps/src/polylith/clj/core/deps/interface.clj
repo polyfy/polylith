@@ -13,8 +13,8 @@
 (defn brick-deps [suffixed-top-ns interface-names base-names interface-ns brick]
   (brick-deps/brick-deps suffixed-top-ns interface-names base-names interface-ns brick))
 
-(defn project-deps [project-name components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test]
-  (project-brick-deps/project-deps project-name components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test))
+(defn project-deps [components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test]
+  (project-brick-deps/project-deps components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test))
 
 (defn print-brick-project-table [workspace project-name brick-name]
   (brick-project-deps-table/print-table workspace project-name brick-name))

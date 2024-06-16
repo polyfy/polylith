@@ -58,7 +58,7 @@
         lib-imports (project-lib-imports all-brick-names brick->lib-imports)
         lines-of-code-total (project-total-loc all-brick-names brick->loc)
         lines-of-code (assoc (loc/lines-of-code ws-dir namespaces) :total lines-of-code-total)
-        deps (deps/project-deps name components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test)
+        deps (deps/project-deps components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test)
         base-names (cond-> {}
                            (seq base-names-src) (assoc :src base-names-src)
                            (seq base-names-test) (assoc :test base-names-test))
