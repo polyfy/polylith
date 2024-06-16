@@ -6,11 +6,6 @@
    :message message
    :colorized-message message})
 
-(defn other-ws-error [{:keys [config-error alias]}]
-  (error (str config-error ". Found in workspace with alias '" alias "'.")))
-
-(defn errors [current-ws-errors workspaces]
-  (vec (concat (map #(-> % :error error)
-                    current-ws-errors)
-               (map other-ws-error
-                    (filter :config-error workspaces)))))
+(defn errors [current-ws-errors]
+  (vec (map #(-> % :error error)
+            current-ws-errors)))

@@ -101,8 +101,8 @@
                          "common" {:src ["clojure.java.io" "clojure.string"]}
                          "change" {:src ["clojure.set" "clojure.string"]}})
 
-(defn enrich-project [project-name dev?]
-  (select-keys (proj/enrich-project {:name project-name :is-dev dev?}
+(defn enrich-project [alias project-name dev?]
+  (select-keys (proj/enrich-project {:alias alias :name project-name :is-dev dev?}
                                     "."
                                     (atom 0)
                                     components
@@ -115,7 +115,6 @@
                                     {}
                                     {:projects {"development" {:alias "dev"}}}
                                     {}
-                                    {}
                                     #{}
                                     {})
                [:alias :name]))
@@ -123,12 +122,12 @@
 (deftest missing-alias
   (is (= {:alias "?1"
           :name  "system"}
-         (enrich-project "system" false))))
+         (enrich-project nil "system" false))))
 
 (deftest missing-dev-alias
   (is (= {:alias "dev"
           :name  "development"}
-         (enrich-project "development" true))))
+         (enrich-project "dev" "development" true))))
 
 (deftest paths--without-active-profile--returns-expected-map
   (is (= {:alias                    "dev"
@@ -188,7 +187,6 @@
                                       {:missing []}
                                       {}
                                       {:projects {"development" {:alias "dev"}}}
-                                      {}
                                       {}
                                       #{}
                                       {})
@@ -264,7 +262,6 @@
                                       {:missing []}
                                       {}
                                       {:active-profiles #{"default"}}
-                                      {}
                                       {}
                                       #{}
                                       {})
