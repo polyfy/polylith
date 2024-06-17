@@ -208,7 +208,6 @@ This example assumes that you have cloned the repos https://github.com/polyfy/po
 {...
  :ws-shortcuts {:root-dir "/Users/joakimtengstrand/source/polylith"
                 :paths [{:dir "examples/doc-example"}
-                        {:dir "examples/multiple-workspaces2/backend"}
                         {:dir "../clojure-polylith-realworld-example-app" :name "realworld"}
                         {:file "../sandbox/another-ws.edn"}]}
 }

@@ -204,6 +204,4 @@
   (require '[polylith.clj.core.user-input.interface :as user-input])
   (def user-input (user-input/extract-arguments ["info" "ws-dir:examples/multiple-workspaces2/backend"]))
   (def workspace (workspace-from-disk user-input))
-  (keys workspace)
-  (:workspaces workspace)
   #__)

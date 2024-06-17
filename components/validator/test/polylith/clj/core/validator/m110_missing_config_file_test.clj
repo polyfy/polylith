@@ -2,7 +2,7 @@
   (:require [clojure.test :refer :all]
             [polylith.clj.core.validator.m110-invalid-config-file :as m110]))
 
-(deftest errors--in-current-and-other-workspaces
+(deftest errors--in-workspace
   (is (= [{:type "error",
            :code 110,
            :message "Missing config file: deps.edn",
