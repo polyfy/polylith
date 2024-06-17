@@ -373,8 +373,7 @@
 
 (deftest ws-out-components-next-
   (is (= [":all" ":all-bricks" ":dev" ":latest-sha" ":loc" ":project"
-          "brick" "get" "project" "since"
-          ]
+          "brick" "get" "project" "since"]
          (candidates "ws" :next "out" "components" :next ""))))
 
 (deftest ws-out-parentdir-

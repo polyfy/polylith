@@ -644,11 +644,6 @@ E.g. if components `a` and `b` are included in the project, and `a` has not chan
 
 * `:lib-deps`
 ** `:src` Stores a map with the libraries that are used in the project for the src context. Contains libraries that are specified by the project and the included bricks.
-*** `:brick` Set if refers to a brick in another workspace.
-**** `:alias` The alias associated with the relative path to the workspace, specified in `:workspaces` in workspace.edn.
-**** `:interface` Set to the interface name if a component.
-**** `:name` The name of the brick.
-**** `:type` Set to `:base` or `:component`.
 *** `:latest-version` Set if there is a newer version of this library, except if xref:libraries.adoc#keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `:update` is given for the libs command.
 *** `:size` The size of this library in bytes.
 *** `:type` The type of the library, "maven", "local" or "git" (`:mvn/version`, `:local/root` and `:git/url`).
@@ -1153,13 +1148,3 @@ Outputs the type of workspace:
 These workspaces will have `ws-type` set to `:toolsdeps2`.
 
 * All older versions (https://github.com/polyfy/polylith/releases/tag/v0.1.0-alpha9[0.1.0-alpha9] and older) will have `ws-type` set to `:toolsdeps1`.
-
-[#workspaces]
-== workspaces
-
-[source,shell]
-----
-poly ws get:workspaces
-----
-
-A vector with the external workspaces specified by xref:configuration.adoc#ws-workspaces[workspaces]]. Current workspace is not included. Each workspace also includes the `:alias` of the workspace. If you include a workspace that refers one or more other workspaces, then they will also be included in this list of workspaces.

@@ -23,7 +23,7 @@ git tag -f stable-lisa # <1>
 ----
 <1> `-f` tells git to move the tag if it already exists
 
-Run `git log --pretty=format'%h %d%n %s`, you'll see something like:
+Run `git log --pretty=format'%h %d%n %s'`, you'll see something like:
 
 [source,shell]
 ----

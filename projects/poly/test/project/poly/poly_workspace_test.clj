@@ -145,7 +145,7 @@
           "  borkdude/edamame             1.4.25     maven     24    x      x      x      -        -       .  .  x  .  .  .  .  .  ."
           "  clj-commons/fs               1.6.311    maven     12    x      x      x      -        -       .  .  x  .  .  .  .  .  ."
           "  com.github.liquidz/antq      2.8.1201   maven     52    x      x      x      -        -       x  .  .  .  .  .  .  .  ."
-          "  djblue/portal                0.55.1     maven  1,874    x      x      x      -        -       .  .  .  .  .  x  .  .  ."
+          "  djblue/portal                0.56.0     maven  1,874    x      x      x      -        -       .  .  .  .  .  x  .  .  ."
           "  metosin/malli                0.16.1     maven     89    x      x      x      -        -       .  .  .  .  .  .  x  .  ."
           "  mvxcvi/puget                 1.3.4      maven     15    x      x      x      -        -       .  .  .  .  .  .  .  .  x"
           "  org.clojure/clojure          1.11.3     maven  4,009    x      x      x      -        -       .  .  .  .  .  .  .  .  ."
@@ -1496,13 +1496,6 @@
                (dissoc :m2-dir)
                (update-in [:vcs :git-root] :git-root ""))))))
 
-(deftest component-dependency-on-another-workspace
-  (is (= {:src ["math" "s/util"], :test []}
-         (read-string
-           (run-cmd-plain "examples/multiple-workspaces/backend"
-                          "ws"
-                          "get:components:hello::interface-deps")))))
-
 (deftest merge-test-configs
   (is (= {:create-test-runner [:default]
           :org.corfield/external-test-runner {:focus {:exclude [:integration :dummy]}}}
@@ -1511,94 +1504,3 @@
                           "ws"
                           "get:settings:test"
                           "with:default-test-runner:exclude-integration:exclude-dummy")))))
-
-(deftest treat-component-from-other-workspace-as-component
-  (is (= {:src ["howdy"
-                "math"
-                "s/util"
-                "s2/util"]}
-         (read-string
-           (run-cmd-plain "examples/multiple-workspaces/backend"
-                          "ws"
-                          "get:projects:system:component-names")))))
-
-
-(deftest mark-brick-from-another-workspace-as-brick
-  (is (= {:alias     "s"
-          :interface "util"
-          :name      "util"
-          :type      :component}
-         (read-string
-           (run-cmd-plain "examples/multiple-workspaces/backend"
-                          "ws"
-                          "get:projects:system:lib-deps:src:shared/util:brick")))))
-
-(deftest mark-library-in-profile-as-brick-if-from-another-workspace
-  (is (= {:alias     "s"
-          :interface "share-me"
-          :name      "share-me"
-          :type      :component}
-         (read-string
-           (run-cmd-plain "examples/multiple-workspaces/backend"
-                          "ws"
-                          "get:profiles:default:lib-deps:shared/share-me:brick")))))
-
-(deftest info-include-bricks-from-other-workspaces
-  (is (= ["  stable since: 1234567                              "
-          "                                                     "
-          "  workspace  alias  path                             "
-          "  ---------------------------                        "
-          "  shared     s      ../shared                        "
-          "                                                     "
-          "  projects: 2   interfaces: 2                        "
-          "  bases:    1   components: 3                        "
-          "                                                     "
-          "  project      alias  status   dev  default  howdy   "
-          "  --------------------------   -------------------   "
-          "  system       sys     ---     ---    --      --     "
-          "  development  dev     s--     s--    --      --     "
-          "                                                     "
-          "  interface   brick        sys   dev  default  howdy "
-          "  ----------------------   ---   ------------------- "
-          "  greeter     hello        ---   ---    st      --   "
-          "  greeter     howdy        s--   ---    --      s-   "
-          "  math        math         s--   s--    --      --   "
-          "  s/share-me  s/share-me   s--   s--    s-      --   "
-          "  s/util      s/util       st-   st-    --      --   "
-          "  s2/util     s2/util      st-   st-    --      --   "
-          "  -           cli          s--   s--    --      --   "
-          "  -           s/cli        s--   s--    s-      --   "]
-         (run-cmd "examples/multiple-workspaces/backend"
-                  "info" "+" ":no-changes"))))
-
-(deftest deps-with-bricks-from-other-workspaces
-  (is (= ["         g      "
-          "         r     s"
-          "         e     /"
-          "         e  m  u"
-          "         t  a  t"
-          "         e  t  i"
-          "  brick  r  h  l"
-          "  --------------"
-          "  hello  .  x  x"
-          "  howdy  .  x  x"
-          "  math   .  .  ."
-          "  cli    x  .  ."]
-         (run-cmd "examples/multiple-workspaces/backend"
-                  "deps"))))
-
-(deftest deps-project-with-bricks-from-other-workspaces
-  (is (= ["                  s"
-          "               s  2"
-          "         h     /  /"
-          "         o  m  u  u"
-          "         w  a  t  t"
-          "         d  t  i  i"
-          "  brick  y  h  l  l"
-          "  -----------------"
-          "  howdy  .  x  x  +"
-          "  math   .  .  .  ."
-          "  cli    x  +  +  +"]
-         (run-cmd "examples/multiple-workspaces/backend"
-                  "deps" "project:system"))))
-

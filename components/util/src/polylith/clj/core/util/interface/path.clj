@@ -1,4 +1,4 @@
-(ns polylith.clj.core.util.interface.path
+(ns ^:no-doc polylith.clj.core.util.interface.path
   (:require [polylith.clj.core.util.path :as path]))
 
 (defn relative-path

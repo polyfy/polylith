@@ -1,9 +1,7 @@
 (ns ^:no-doc polylith.clj.core.deps.project-brick-deps.project-deps
   (:require [clojure.set :as set]
             [clojure.string :as str]
-            [polylith.clj.core.common.interface :as common]
-            [polylith.clj.core.deps.project-brick-deps.from-namespaces :as from-namespaces]
-            [polylith.clj.core.deps.project-brick-deps.shared :as shared]))
+            [polylith.clj.core.common.interface :as common]))
 
 (defn add-child-paths [{:keys [paths]} child-brick-id child-paths]
   (let [child-paths (if (empty? child-paths)
@@ -53,13 +51,62 @@
       (swap! brick-id->deps assoc parent-brick-id
              (update-dep parent-brick-id brick-id @brick-id->deps)))))
 
+(defn test-namespace [{:keys [namespace]} suffixed-top-ns]
+  (let [{:keys [root-ns depends-on-ns]} (common/extract-namespace suffixed-top-ns namespace)]
+    (when root-ns
+      [(str root-ns "." depends-on-ns)])))
+
+(defn test-namespaces [{:keys [namespaces]} suffixed-top-ns]
+  (mapcat #(test-namespace % suffixed-top-ns) (:test namespaces)))
+
+(defn all-test-namespaces
+  "Extracts all test namespaces from alla bricks in the project."
+  [bricks suffixed-top-ns]
+  (set (mapcat #(test-namespaces % suffixed-top-ns) bricks)))
+
+(defn ->brick-id [{:keys [name interface]}]
+  (or (:name interface) name))
+
+(defn src-deps-from-namespaces
+  "Iterates through all namespaces for a brick's src context and calculates its dependencies."
+  [{:keys [namespaces] :as brick} suffixed-top-ns]
+  (let [brick-id (->brick-id brick)]
+    [brick-id
+     (vec (sort (set (filter #(and (not= brick-id %)
+                                   (-> % nil? not))
+                             (map #(:root-ns (common/extract-namespace suffixed-top-ns %))
+                                  (mapcat :imports (:src namespaces)))))))]))
+
+(defn test-deps-from-namespace
+  "Calculates the test dependencies for a brick's namespace. If it's a test namespace that depends
+   on a namespace of its own, then it inherits all the dependencies from the src context."
+  [suffixed-top-ns ns-to-extract brick-id all-test-namespaces src-brick-id->brick-ids]
+  (let [{:keys [root-ns depends-on-ns]} (common/extract-namespace suffixed-top-ns ns-to-extract)]
+    (if (contains? all-test-namespaces (str root-ns "." depends-on-ns))
+      [(str root-ns " (t)")]
+      (if (= brick-id root-ns)
+        ;; if the test context depends on the src context of itself, use the dependencies from the src context.
+        (src-brick-id->brick-ids brick-id)
+        [root-ns]))))
+
+(defn test-deps-from-namespaces
+  "Iterates through all namespaces for a brick's test context and calculates its dependencies."
+  [{:keys [namespaces] :as brick} suffixed-top-ns all-test-namespaces src-brick-id->brick-ids]
+  (let [plain-brick-id (->brick-id brick)
+        brick-id (str plain-brick-id " (t)")]
+    [brick-id
+     (vec (sort (set (filter #(and (not= brick-id %)
+                                   (-> % nil? not))
+                             (mapcat #(test-deps-from-namespace suffixed-top-ns % plain-brick-id all-test-namespaces src-brick-id->brick-ids)
+                                     (mapcat :imports (:test namespaces)))))))]))
+
 (defn brick-names
   "Converts from interface and base names to brick names."
-  [deps ifc->comp-name]
-  (map #(ifc->comp-name % %) deps))
+  [deps ifc->comp]
+  (map #(ifc->comp % %) deps))
 
 (defn brick-ids-in-project [component-names base-names bricks]
-  (set (concat (map :interface-name
+  (set (concat (map #(-> % :interface :name)
                     (filter #(contains? (set component-names) (:name %))
                             bricks))
                (map :name
@@ -94,11 +141,11 @@
 (defn missing-deps
   "All bricks that we depend on that is not included in the project are considered missing,
    with the exception if brick-ids-to-check is not nil, we only check if any of these are missing."
-  [brick-ids brick-ids-in-project brick-ids-to-check]
+  [brick-ids all-brick-ids-in-project brick-ids-to-check]
   (set/difference (if brick-ids-to-check
                     (set/intersection brick-ids brick-ids-to-check)
                     brick-ids)
-                  brick-ids-in-project))
+                  all-brick-ids-in-project))
 
 (defn finalize-deps
   "At this moment, all the dependencies for a specific project has been calculated and are stored
@@ -113,7 +160,7 @@
 
    During those calculations, we also make sure we translate interfaces names to component names
    (used by the project)."
-  [brick-id brick-id->deps ifc->comp-name all-brick-ids brick-ids-in-project brick-ids-to-check]
+  [brick-id brick-id->deps ifc->comp all-brick-ids brick-ids-in-project brick-ids-to-check]
   (let [{:keys [direct indirect paths]} (brick-id->deps brick-id)
         circular (circular-dep brick-id indirect paths)
         all-direct (set/intersection (drop-suffixes direct) all-brick-ids)
@@ -124,11 +171,11 @@
         missing-indirect (missing-deps indirect all-indirect brick-ids-to-check)
         has-missing? (or (seq missing-direct) (seq missing-indirect))]
     (cond-> {}
-            (seq direct) (assoc :direct (vec (sort (brick-names direct ifc->comp-name))))
-            (seq indirect) (assoc :indirect (vec (sort (brick-names indirect ifc->comp-name))))
+            (seq direct) (assoc :direct (vec (sort (brick-names direct ifc->comp))))
+            (seq indirect) (assoc :indirect (vec (sort (brick-names indirect ifc->comp))))
             has-missing? (assoc :missing-ifc-and-bases {:direct (-> missing-direct sort vec)
                                                         :indirect (-> missing-indirect sort vec)})
-            (seq circular) (assoc :circular (vec (brick-names circular ifc->comp-name))))))
+            (seq circular) (assoc :circular (vec (brick-names circular ifc->comp))))))
 
 (defn merge-missing [{src1 :src test1 :test}
                      {src2 :src test2 :test}]
@@ -161,11 +208,12 @@
    both the src and the test context, and make all the calculations for us.
 
    If a brick is only included in the test context for the project, then we treat all dependencies as test dependencies."
-  [{:keys [brick-id]} brick-id->deps ifc->comp-name all-brick-ids brick-ids-in-project-src brick-ids-in-project-test test-only-brick-ids brick-ids-to-check]
-  (let [test-brick-id (str brick-id " (t)")
-        src-deps (finalize-deps brick-id brick-id->deps ifc->comp-name all-brick-ids brick-ids-in-project-src nil)
-        test-deps (finalize-deps test-brick-id brick-id->deps ifc->comp-name all-brick-ids brick-ids-in-project-test brick-ids-to-check)]
-    (if (contains? test-only-brick-ids brick-id)
+  [brick brick-id->deps ifc->comp all-brick-ids brick-ids-in-project brick-ids-in-project-test test-only-brick-ids brick-ids-to-test]
+  (let [src-brick-id (->brick-id brick)
+        test-brick-id (str src-brick-id " (t)")
+        src-deps (finalize-deps src-brick-id brick-id->deps ifc->comp all-brick-ids brick-ids-in-project nil)
+        test-deps (finalize-deps test-brick-id brick-id->deps ifc->comp all-brick-ids brick-ids-in-project-test brick-ids-to-test)]
+    (if (contains? test-only-brick-ids src-brick-id)
       {:src  {}
        :test (merge-deps src-deps test-deps)}
       {:src  src-deps
@@ -185,21 +233,14 @@
    Bases will keep their names."
   [bricks-to-test components]
   (when bricks-to-test
-    (let [name->brick-id (into {} (map (juxt :name :interface-name)
+    (let [name->brick-id (into {} (map (fn [{:keys [name interface]}]
+                                         [name (:name interface)])
                                        components))]
       (set (map #(name->brick-id % %) bricks-to-test)))))
 
-(defn ->workspace [{:keys [alias settings]}]
-  {:alias alias
-   :suffixed-top-ns (-> settings :top-namespace common/suffix-ns-with-dot)})
-
-(defn calculate-project-deps
-  [project-name
-   components1 bases1 workspaces
-   component-names-src1 component-names-test1
-   base-names-src1 base-names-test1
-   suffixed-top-ns brick-names-to-test]
-  "Calculates the src and test dependencies for a project. The returned dependencies
+(defn project-deps
+  [components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test]
+  "Calculate the src and test dependencies for a project. The returned dependencies
    are stored in a map with a :src and :test key and includes a key for each brick that is included
    in the project, together with the direct, indirect, and circular dependencies (if any) +
    missing dependencies on interfaces and bases (if any).
@@ -240,28 +281,26 @@
    :aliases > :test > :extra-paths syntax is only needed for the development project if your IDE doesn't support
    the :local/root syntax.
    The recommendation is to use the :local/root syntax in all your projects if it's supported by your IDE."
-  (let [brick-names (set (concat component-names-src1 component-names-test1 base-names-src1 base-names-test1))
-        all-bricks (concat components1 bases1)
+  (let [brick-names (set (concat component-names-src component-names-test base-names-src base-names-test))
         bricks (filter #(contains? brick-names (:name %))
-                       all-bricks)
-        component-names (set (concat component-names-src1 component-names-test1))
-        ifc->comp-name (into {} (map (juxt :interface-name :name)
-                                     (concat components1
-                                             (filter #(contains? component-names (:name %))
-                                                     components1))))
-        brick-ids-to-check (brick-names-to-ids brick-names-to-test components1)
-        all-brick-ids (set (map :brick-id all-bricks))
-        brick-ids-in-project-src (brick-ids-in-project component-names-src1 base-names-src1 bricks)
-        brick-ids-in-project-test (brick-ids-in-project (concat component-names-src1 component-names-test1) (concat base-names-src1 base-names-test1) bricks)
+                       (concat bases components))
+        component-names (set (concat component-names-src component-names-test))
+        ;; Make sure we pick the right component if more than one for an interface.
+        all-components (concat components
+                               (filter #(contains? component-names (:name %))
+                                       components))
+        ifc->comp (into {} (map (juxt #(-> % :interface :name) :name)
+                                all-components))
+        brick-ids-to-test (brick-names-to-ids brick-names-to-test all-components)
+        all-brick-ids (set (concat (map #(-> % :interface :name) all-components)
+                                   (map :name bases)))
+        brick-ids-in-project-src (brick-ids-in-project component-names-src base-names-src bricks)
+        brick-ids-in-project-test (brick-ids-in-project (concat component-names-src component-names-test) (concat base-names-src base-names-test) bricks)
         test-only-brick-ids (set/difference brick-ids-in-project-test brick-ids-in-project-src)
-        wss (concat [{:suffixed-top-ns suffixed-top-ns}]
-                    (map ->workspace workspaces))
-        src-brick-id->brick-ids (into {} (map #(from-namespaces/extract-src-deps % wss)
-                                              bricks))
-        all-test-namespaces (set (mapcat #(shared/all-test-namespaces bricks %)
-                                         wss))
-        all-test-brick-id->brick-ids (into {} (map #(from-namespaces/extract-test-deps % wss all-test-namespaces src-brick-id->brick-ids)
-                                                   bricks))
+        all-bricks (concat all-components bases)
+        src-brick-id->brick-ids (into {} (map #(src-deps-from-namespaces % suffixed-top-ns) all-bricks))
+        all-test-namespaces (all-test-namespaces all-bricks suffixed-top-ns)
+        all-test-brick-id->brick-ids (into {} (map #(test-deps-from-namespaces % suffixed-top-ns all-test-namespaces src-brick-id->brick-ids) all-bricks))
         ;; Here we store all our dependencies in a map. Each key is a brick-id (a component interface name or base name) and
         ;; each value is a vector of the brick-ids it depends on. All brick-ids, in both keys and values, is prefixed with (t)
         ;; (e.g. "util (t)") if it belongs to the test context.
@@ -272,80 +311,12 @@
     ;; Step 1: Update brick-id->deps with all our dependencies for this particular project,
     ;;         which calculates :indirect and :paths (used if we have circular dependencies).
     (doseq [brick bricks]
-      (let [src-brick-id (:brick-id brick)
+      (let [src-brick-id (->brick-id brick)
             test-brick-id (str src-brick-id " (t)")]
         (doseq [brick-id (brick-id->brick-ids src-brick-id)]
           (update-deps! src-brick-id brick-id brick-id->brick-ids brick-id->deps #{src-brick-id}))
         (doseq [brick-id (brick-id->brick-ids test-brick-id)]
           (update-deps! test-brick-id brick-id brick-id->brick-ids brick-id->deps #{test-brick-id}))))
     ;; Step 2: For each brick, convert interface names to component names + calculate missing and circular dependencies.
-    (into {} (map (juxt :name #(brick-deps % @brick-id->deps ifc->comp-name all-brick-ids brick-ids-in-project-src brick-ids-in-project-test test-only-brick-ids brick-ids-to-check))
+    (into {} (map (juxt :name #(brick-deps % @brick-id->deps ifc->comp all-brick-ids brick-ids-in-project-src brick-ids-in-project-test test-only-brick-ids brick-ids-to-test))
                   bricks))))
-
-(defn full-name [alias name]
-  (str alias "/" name))
-
-(defn ->component [{:keys [name interface interface-deps namespaces]}]
-  {:name name
-   :interface-name (:name interface)
-   :brick-id (:name interface)
-   :deps interface-deps
-   :namespaces namespaces})
-
-(defn ->base-deps [interface-deps base-deps]
-  (let [src-deps (vec (concat (:src interface-deps) (:src base-deps)))
-        test-deps (vec (concat (:test interface-deps) (:test base-deps)))]
-    {:src src-deps
-     :test test-deps}))
-
-(defn ->base [{:keys [name interface-deps base-deps namespaces]}]
-  {:name name
-   :brick-id name
-   :deps (->base-deps interface-deps base-deps)
-   :namespaces namespaces})
-
-(defn ws-component [alias {:keys [name interface interface-deps namespaces]}]
-  (let [component-name (full-name alias name)
-        interface-name (full-name alias (:name interface))]
-    {:name component-name
-     :alias alias
-     :interface-name interface-name
-     :brick-id interface-name
-     :deps interface-deps
-     :namespaces namespaces}))
-
-(defn ws-base [alias {:keys [name interface-deps base-deps namespaces]}]
-  (let [base-name (full-name alias name)]
-    {:name base-name
-     :alias alias
-     :brick-id base-name
-     :deps (->base-deps interface-deps base-deps)
-     :namespaces namespaces}))
-
-(defn ws-components [{:keys [alias components]}]
-  (mapv #(ws-component alias %) components))
-
-(defn ws-bases [{:keys [alias bases]}]
-  (mapv #(ws-base alias %) bases))
-
-(defn project-deps
-  [project-name
-   components bases workspaces
-   component-names-src component-names-test
-   base-names-src base-names-test
-   component-names-src-x component-names-test-x
-   base-names-src-x base-names-test-x
-   suffixed-top-ns brick-names-to-test]
-  (let [bases1 (into [] cat [(mapv ->base bases)
-                             (mapcat ws-bases workspaces)])
-        components1 (into [] cat [(mapv ->component components)
-                                  (mapcat ws-components workspaces)])
-        component-names-src1 (concat component-names-src component-names-src-x)
-        component-names-test1 (concat component-names-test component-names-test-x)
-        base-names-src1 (concat base-names-src base-names-src-x)
-        base-names-test1 (concat base-names-test base-names-test-x)]
-    (calculate-project-deps project-name
-                            components1 bases1 workspaces
-                            component-names-src1 component-names-test1
-                            base-names-src1 base-names-test1
-                            suffixed-top-ns brick-names-to-test)))

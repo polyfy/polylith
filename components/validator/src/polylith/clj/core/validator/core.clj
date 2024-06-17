@@ -26,7 +26,7 @@
 (defn error-messages [messages]
   (filterv shared/error-message? messages))
 
-(defn validate-ws [settings paths interface-names interfaces profiles components bases projects workspaces config-errors interface-ns {:keys [cmd is-dev]} color-mode]
+(defn validate-ws [settings paths interface-names interfaces profiles components bases projects config-errors interface-ns {:keys [cmd is-dev]} color-mode]
   (->> [(m101/errors components bases interface-ns color-mode)
         (m102/errors components color-mode)
         (m103/errors interfaces components color-mode)
@@ -36,7 +36,7 @@
         (m107/errors cmd settings profiles bases projects color-mode)
         (m108/errors interfaces projects paths color-mode)
         (m109/errors settings color-mode)
-        (m110/errors config-errors workspaces)
+        (m110/errors config-errors)
         (m111/errors components bases projects color-mode)
         (m201/warnings interfaces components color-mode)
         (m202/warnings projects paths color-mode)
