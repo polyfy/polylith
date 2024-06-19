@@ -1189,15 +1189,11 @@
                  "org.jline.reader"
                  "org.jline.reader.impl"
                  "org.jline.terminal"
-                 "polylith.clj.core.nav-generator.help-generator"
-                 "polylith.clj.core.nav-generator.pages-generator"
-                 "polylith.clj.core.nav-generator.ws-generator"
                  "portal.api"
                  "puget.printer"]
           :test ["clojure.lang"
                  "clojure.test"
-                 "malli.core"
-                 "polylith.clj.core.poly-cli.core"]}
+                 "malli.core"]}
          (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"]))))
 
 (deftest polylith-shell-component-lib-deps

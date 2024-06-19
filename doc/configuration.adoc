@@ -349,7 +349,7 @@ a| Tells the xref:commands.adoc#libs[libs] where it can find your local Maven re
 
 [[ws-shortcuts]]
 a| `:ws-shortcuts`
-a| Contains a map with the keys `:root-dir` and `:paths` which are used by the xref:shell#switch-workspace[switching workspace] functionality in the shell. The `:root-dir` stores the root of the paths specified in `:paths` and is prepended to the paths. Each map in `:paths` has either a `:dir` or `:file` key which specifies a path for a workspace. The name of the directory or file will be used by the `ddir:NAME` and `ffile:NAME` arguments, but can be overridden by `:name`.
+a| Contains a map with the keys `:root-dir` and `:paths` which are used by the xref:shell#switch-workspace[switching workspace] functionality in the shell. The `:root-dir` stores the root of the paths specified in `:paths` and is prepended to the paths. Each map in `:paths` has either a `:dir` or `:file` key which specifies a path for a workspace. The name of the directory or file will be used by the `via:NAME` argument, but can be overridden by `:name`.
 
 |===
 

@@ -73,8 +73,7 @@ poly help
   Example (shell only):
     switch-ws dir:~/myworkspace
     switch-ws file:../../another/ws.edn
-    switch-ws ddir:myws
-    switch-ws ffile:myfile
+    switch-ws via:myworkspace
     tap
     tap open
     tap clean
@@ -1025,7 +1024,7 @@ poly help
   After we have switched workspace, all subsequent commands will append either
   ws-dir:DIR or ws-file:FILE, depending on whether we switch to a directory or a file.
 
-  switch-ws [dir:DIR] [file:FILE] [ddir:DIRNAME] [ffile:FILENAME]
+  switch-ws [dir:DIR] [file:FILE] [via:SHORTCUT]
 
     DIR = Switches to the given workspace directory.
           The prompt will be prefixed with 'dir:' to show this.
@@ -1034,11 +1033,8 @@ poly help
            created by something like 'poly ws out:ws.edn'.
            The prompt will be prefixed with 'file:' to show this.
 
-    DIRNAME = Switches to the workspace specified with :dir in
-              ~/.config/polylith/config.edn under the :ws-shortcuts key.
-
-    FILENAME = Switches to the workspace specified with :file in
-               ~/.config/polylith/config.edn under the :ws-shortcuts key.
+    DIRNAME = Switches to the workspace specified under the :ws-shortcuts key in
+              ~/.config/polylith/config.edn.
 
     Example of a config file in ~/.config/polylith/config.edn:
     
@@ -1046,8 +1042,7 @@ poly help
   Example:
     switch-ws dir:~/myworkspace
     switch-ws file:../../another/ws.edn
-    switch-ws ddir:myws
-    switch-ws ffile:myfile
+    switch-ws via:myworkspace
 ----
 
 [#tap]
