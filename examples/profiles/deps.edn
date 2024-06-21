@@ -1,25 +1,20 @@
-{:aliases  {:dev {:extra-paths ["development/src"
-                                "components/calculator1/src"
-                                "components/database1/src"
-                                "components/util1/src"
-                                "bases/base1/src"
-                                "bases/base2/src"]
-                  :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}
-                               metosin/malli {:mvn/version "0.14.0"}}}
+{:aliases  {:dev {:extra-paths ["development/src"]
+                  :extra-deps {
+                               profile/calculator1  {:local/root "components/calculator1"}
+                               profile/test-helper1 {:local/root "components/test-helper1"}
+                               profile/util1        {:local/root "components/util1"}
 
-            :+default {:extra-paths ["components/user1/src"
-                                     "components/user1/test"]
-                       :extra-deps {clj-commons/fs {:mvn/version "1.6.310"}}}
-            :+extra {:extra-paths ["components/admin/src"
-                                   "components/admin/test"]
-                     :extra-deps {}}
+                               org.clojure/clojure {:mvn/version "1.11.1"}}}
 
-            :test {:extra-paths ["components/database1/test"
-                                 "components/test-helper1/src"
-                                 "components/test-helper1/test"
-                                 "components/util1/test"
-                                 "bases/base1/test"
-                                 "bases/base2/test"]}
+            :+default {:extra-paths []
+                       :extra-deps {profile/user1      {:local/root "components/user1"}
+                                    profile/database1 {:local/root "components/database1"}}}
+
+            :+extra {:extra-paths []
+                     :extra-deps {profile/admin     {:local/root "components/admin"}
+                                  profile/database2 {:local/root "components/database2"}}}
+
+            :test {:extra-paths ["projects/service/test"]}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
-                   :extra-deps {polylith/clj-poly {:local/root "../../projects/poly"}}}}}
+                   :extra-deps {polylith/clj-poly {:mvn/version "0.2.19"}}}}}
