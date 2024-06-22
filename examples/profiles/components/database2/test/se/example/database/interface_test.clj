@@ -1,6 +1,5 @@
-(ns se.example.database2.interface-test
-  (:require [clojure.test :as test :refer :all]
-            [se.example.database2.interface :as database2]))
+(ns se.example.database.interface-test
+  (:require [clojure.test :as test :refer :all]))
 
-(deftest dummy-test
-  (is (= 1 1)))
+(deftest always-wrong
+  (is (= 1 2)))
