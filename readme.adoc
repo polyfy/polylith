@@ -1,5 +1,5 @@
 image::doc/images/logo.png[width=400]
-:snapshot-version: 22
+:snapshot-version: 23
 :cljdoc-doc-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc
 
 https://cljdoc.org/d/polylith/clj-poly/0.2.19/doc/readme[image:https://badgen.net/badge/doc/0.2.19/blue[]]
