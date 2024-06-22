@@ -1,20 +1,28 @@
 {:aliases  {:dev {:extra-paths ["development/src"]
-                  :extra-deps {
-                               profile/calculator1  {:local/root "components/calculator1"}
-                               profile/test-helper1 {:local/root "components/test-helper1"}
+                  :extra-deps {profile/calculator1  {:local/root "components/calculator1"}
                                profile/util1        {:local/root "components/util1"}
+                               profile/base1        {:local/root "bases/base1"}
+                               profile/base2        {:local/root "bases/base2"}
 
-                               org.clojure/clojure {:mvn/version "1.11.1"}}}
+                               org.clojure/clojure {:mvn/version "1.11.1"}
+                               metosin/malli {:mvn/version "0.14.0"}}}
 
-            :+default {:extra-paths []
-                       :extra-deps {profile/user1      {:local/root "components/user1"}
-                                    profile/database1 {:local/root "components/database1"}}}
+            :+default {:extra-paths ["components/database1/test"
+                                     "components/user1/test"]
+                       :extra-deps {profile/user1     {:local/root "components/user1"}
+                                    profile/database1 {:local/root "components/database1"}
+                                    clj-commons/fs    {:mvn/version "1.6.310"}}}
 
-            :+extra {:extra-paths []
+            :+extra {:extra-paths ["components/admin/test"
+                                   "components/database2/test"]
                      :extra-deps {profile/admin     {:local/root "components/admin"}
                                   profile/database2 {:local/root "components/database2"}}}
 
-            :test {:extra-paths ["projects/service/test"]}
+            :test {:extra-paths ["components/util1/test"
+                                 "bases/base1/test"
+                                 "bases/base2/test"
+                                 "projects/service/test"]
+                   :extra-deps {profile/test-helper1 {:local/root "components/test-helper1"}}}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
-                   :extra-deps {polylith/clj-poly {:mvn/version "0.2.19"}}}}}
+                   :extra-deps {polylith/clj-poly {:local/root "../../projects/poly"}}}}}
