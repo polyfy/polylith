@@ -205,13 +205,12 @@
 ;; switch-ws
 (def switch-ws-dir (c/fn-explorer "dir" :switch-ws #'file-explorer/select-edn))
 (def switch-ws-file (c/fn-explorer "file" :switch-ws #'file-explorer/select-edn))
-(def switch-ws-ddir (c/fn-explorer "ddir" :switch-ws #'ws-shortcuts/select-dirs))
-(def switch-ws-ffile (c/fn-explorer "ffile" :switch-ws #'ws-shortcuts/select-files))
+(def switch-ws-via (c/fn-explorer "via" :switch-ws #'ws-shortcuts/select))
 
 (defn switch-ws [ws-shortcuts]
   (c/single-txt "switch-ws" :switch-ws
                 (concat [switch-ws-file switch-ws-dir]
-                        (when ws-shortcuts [switch-ws-ddir switch-ws-ffile]))))
+                        (when ws-shortcuts [switch-ws-via]))))
 
 (defn ->profiles [group-id profiles all?]
   (let [profile-keys (map :name profiles)]

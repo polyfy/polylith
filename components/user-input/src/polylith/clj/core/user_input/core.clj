@@ -68,12 +68,10 @@
                 compact!
                 dev!
                 dir
-                ddir
                 fake-poly!
                 fake-sha
                 fake-tag
                 file
-                ffile
                 get
                 git-add!
                 github!
@@ -103,6 +101,7 @@
                 top-ns
                 update!
                 verbose!
+                via
                 with
                 workspace!
                 ws
@@ -116,11 +115,9 @@
                       :color-mode (as-value color-mode)
                       :changed-files (as-vector changed-files)
                       :dir dir
-                      :ddir ddir
                       :fake-sha fake-sha
                       :fake-tag fake-tag
                       :file file
-                      :ffile ffile
                       :help (as-value help)
                       :interface interface
                       :is-all (= "true" all!)
@@ -163,6 +160,7 @@
                       :since since
                       :skip (as-vector skip)
                       :top-ns top-ns
+                      :via via
                       :with (as-vector with)
                       :ws (as-value ws)
                       :ws-dir ws-dir

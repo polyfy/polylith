@@ -7,7 +7,7 @@
 (defn enrich [ws-dir suffixed-top-ns interface-names base-names outdated-libs library->latest-version user-input name-type->keep-lib-version interface-ns
               {:keys [name type namespaces lib-deps] :as base}]
   (let [{:keys [interface-deps base-deps illegal-deps]} (deps/brick-deps suffixed-top-ns interface-names base-names interface-ns base)
-        lib-imports (lib-imp/lib-imports suffixed-top-ns interface-names base)
+        lib-imports (lib-imp/lib-imports suffixed-top-ns interface-names base-names base)
         lib-deps (lib/lib-deps-with-latest-version name type lib-deps outdated-libs library->latest-version user-input name-type->keep-lib-version)]
     (cond-> (assoc base :lib-deps lib-deps
                         :lines-of-code (loc/lines-of-code ws-dir namespaces)
