@@ -4,5 +4,5 @@
    [se.example.database.interface :as db]))
 
 (deftest whoami-test
-  (is (= "always wrong"
+  (is (= "database1"
          (db/whoami))))
