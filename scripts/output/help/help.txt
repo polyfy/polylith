@@ -1,4 +1,4 @@
-  poly 0.2.20 (2024-06-17) - https://github.com/polyfy/polylith
+  poly 0.2.20 (2024-06-23) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -57,7 +57,7 @@
   Example (shell only):
     switch-ws dir:~/myworkspace
     switch-ws file:../../another/ws.edn
-    switch-ws via:myws
+    switch-ws via:myworkspace
     tap
     tap open
     tap clean

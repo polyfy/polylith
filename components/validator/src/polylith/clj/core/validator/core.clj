@@ -12,6 +12,7 @@
             [polylith.clj.core.validator.m109-invalid-test-runner-constructor :as m109]
             [polylith.clj.core.validator.m110-invalid-config-file :as m110]
             [polylith.clj.core.validator.m111-unreadable-namespace :as m111]
+            [polylith.clj.core.validator.m112-illegal-dependency-to-brick :as m112]
             [polylith.clj.core.validator.m201-mismatching-argument-lists :as m201]
             [polylith.clj.core.validator.m202-missing-paths :as m202]
             [polylith.clj.core.validator.m203-path-exists-in-both-dev-and-profile :as m203]
@@ -26,7 +27,7 @@
 (defn error-messages [messages]
   (filterv shared/error-message? messages))
 
-(defn validate-ws [settings paths interface-names interfaces profiles components bases projects config-errors interface-ns {:keys [cmd is-dev]} color-mode]
+(defn validate-ws [settings configs paths interface-names interfaces profiles components bases projects config-errors interface-ns {:keys [cmd is-dev]} color-mode]
   (->> [(m101/errors components bases interface-ns color-mode)
         (m102/errors components color-mode)
         (m103/errors interfaces components color-mode)
@@ -38,6 +39,7 @@
         (m109/errors settings color-mode)
         (m110/errors config-errors)
         (m111/errors components bases projects color-mode)
+        (m112/errors configs color-mode)
         (m201/warnings interfaces components color-mode)
         (m202/warnings projects paths color-mode)
         (m203/warnings settings projects color-mode)

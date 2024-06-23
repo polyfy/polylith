@@ -9,6 +9,8 @@
 
 | https://github.com/polyfy/polylith/issues/457[457] | Support snippets of test configuration to be merged into settings
 
+| https://github.com/polyfy/polylith/issues/458[458] | Show error if a brick depends on another brick in its deps.edn file
+
 | https://github.com/polyfy/polylith/issues/465[465] | Make sure :keep-lib-versions works when updating libs for components (bug)
 
 |===
