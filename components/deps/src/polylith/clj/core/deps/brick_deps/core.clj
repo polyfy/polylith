@@ -7,7 +7,7 @@
         type (cond
                (contains? base-names root-ns) "base"
                (contains? interface-names root-ns) "interface"
-               :library "library")]
+               :else "library")]
     (when (and root-ns
                (not= brick-id root-ns))
       {:from-type from-type
