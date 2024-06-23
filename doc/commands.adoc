@@ -14,7 +14,7 @@ poly help
 
 [source,text]
 ----
-  poly 0.2.20 (2024-06-17) - https://github.com/polyfy/polylith
+  poly 0.2.20 (2024-06-23) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -258,6 +258,11 @@ poly help
     Triggered if a namespace can't be parsed for a brick or project.
     The solution is to fix the invalid namespace (add it if missing)
     or move the file from 'src' to 'resources' or from 'test' to 'test-resources'.
+
+  Error 112 - Illegal dependency on brick.
+    Triggered if a brick depends on a brick from its deps.edn config file.
+    The solution is to remove the dependency and specify the brick in the
+    projects in which it is used.
 
   Warning 201 - Mismatching argument lists in function or macro.
     Triggered if a function or macro is defined in the interface for a component
@@ -1033,8 +1038,8 @@ poly help
            created by something like 'poly ws out:ws.edn'.
            The prompt will be prefixed with 'file:' to show this.
 
-    DIRNAME = Switches to the workspace specified under the :ws-shortcuts key in
-              ~/.config/polylith/config.edn.
+    SHORTCUT = Switches to the workspace specified under the :ws-shortcuts key in
+               ~/.config/polylith/config.edn
 
     Example of a config file in ~/.config/polylith/config.edn:
     
