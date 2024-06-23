@@ -1,0 +1,6 @@
+{:paths ["src"
+         ;; Example of something you shouldn't do. Bricks are specified by projects.
+         "../../components/util/src"]
+ :deps {}
+ :aliases {:test {:extra-paths []
+                  :extra-deps {}}}}

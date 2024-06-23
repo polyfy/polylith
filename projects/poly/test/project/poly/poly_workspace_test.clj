@@ -1508,3 +1508,21 @@
                           "ws"
                           "get:settings:test"
                           "with:default-test-runner:exclude-integration:exclude-dummy")))))
+
+(deftest illegal-brick-dependencies
+  (is (= [{:brick             "mybase"
+           :code              112
+           :colorized-message "Illegal dependency on brick from the 'mybase' base (in deps.edn): ../../components/util"
+           :message           "Illegal dependency on brick from the 'mybase' base (in deps.edn): ../../components/util"
+           :type              "error"}
+          {:brick             "stuff"
+           :code              112
+           :colorized-message "Illegal dependency on brick from the 'stuff' component (in deps.edn): ../../components/util/src"
+           :message           "Illegal dependency on brick from the 'stuff' component (in deps.edn): ../../components/util/src"
+           :type              "error"}]
+
+         (read-string
+           (run-cmd-plain "examples/illegal-brick-deps"
+                          "ws"
+                          "get:messages")))))
+

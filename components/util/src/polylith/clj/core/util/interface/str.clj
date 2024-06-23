@@ -45,6 +45,14 @@
     (str cnt " " thing)
     (str cnt " " thing "s")))
 
+(defn maybe-in-plural
+  ([word collection]
+   (maybe-in-plural word (str word "s") collection))
+  ([singular plural collection]
+   (if (<= 1 (count collection) 1)
+     singular
+     plural)))
+
 (defn sep-1000 [number sep]
   (if (integer? number)
     (let [num (format "%,d" number (java.util.Locale/UK))]
