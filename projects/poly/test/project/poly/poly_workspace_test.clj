@@ -150,7 +150,7 @@
           "  mvxcvi/puget                 1.3.4      maven     15    x      x      x      -        -       .  .  .  .  .  .  .  .  x"
           "  org.clojure/clojure          1.11.3     maven  4,009    x      x      x      -        -       .  .  .  .  .  .  .  .  ."
           "  org.clojure/tools.deps       0.19.1432  maven     58    x      x      x      -        -       .  x  x  .  .  .  .  x  ."
-          "  org.jline/jline              3.26.1     maven  1,394    x      x      x      -        -       .  .  .  .  x  .  .  .  ."
+          "  org.jline/jline              3.26.2     maven  1,394    x      x      x      -        -       .  .  .  .  x  .  .  .  ."
           "  org.slf4j/slf4j-nop          2.0.13     maven      4    x      x      x      -        -       .  .  .  .  .  .  .  .  ."
           "  pjstadig/humane-test-output  0.11.0     maven      7    t      -      -      -        -       .  .  .  .  .  .  .  .  ."
           "  rewrite-clj/rewrite-clj      1.1.47     maven     73    -      -      x      -        -       .  .  .  .  .  .  .  .  ."]
@@ -1197,9 +1197,9 @@
          (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"]))))
 
 (deftest polylith-shell-component-lib-deps
-  (is (= {:src {"org.jline/jline" {:size    1427756
+  (is (= {:src {"org.jline/jline" {:size    1427843
                                    :type    "maven"
-                                   :version "3.26.1"}}}
+                                   :version "3.26.2"}}}
          (ws-explorer/extract (workspace) ["components" "shell" "lib-deps"]))))
 
 (deftest profile-info
