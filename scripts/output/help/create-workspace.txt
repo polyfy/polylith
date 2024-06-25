@@ -17,7 +17,7 @@
 
     TOP-NAMESPACE = The top namespace name.
 
-    BRANCH = The name of the branch, or main if not given.
+    BRANCH = The name of the branch, or the default git main branch if not given.
 
   Example:
     poly create workspace name:myws top-ns:com.my.company

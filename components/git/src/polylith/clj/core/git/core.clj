@@ -6,6 +6,12 @@
 (def branch "master")
 (def repo "https://github.com/polyfy/polylith.git")
 
+(defn main-branch []
+  (let [{:keys [out exit]} (sh/execute-with-return "git" "var" "GIT_DEFAULT_BRANCH")]
+    (if (zero? exit)
+      (first (str/split-lines out))
+      "master")))
+
 (defn is-git-repo? [ws-dir]
   (let [{:keys [out exit]} (sh/execute-with-return "git" "rev-parse" "--is-inside-work-tree" :dir ws-dir)]
     (and (zero? exit)
@@ -21,7 +27,7 @@
   (try
     (when (not git-repo?)
       (sh/execute "git" "init" :dir ws-dir)
-      (sh/execute "git" "checkout" "-b" (or branch "main") :dir ws-dir))
+      (sh/execute "git" "checkout" "-b" (or branch (main-branch)) :dir ws-dir))
     (sh/execute "git" "add" "." :dir ws-dir)
     (sh/execute "git" "commit" "-m" "Workspace created." :dir ws-dir)
     (catch Exception e

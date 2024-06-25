@@ -16,9 +16,8 @@ By default, this command also creates a git repository, so execute it outside an
 
 [source,shell]
 ----
-poly create workspace name:example top-ns:se.example :commit
+poly create workspace name:example top-ns:se.example branch:main :commit
 ----
-
 
 The `poly` tool has created an `example` workspace in the `main` branch of a new git repository and committed all files.
 
@@ -27,12 +26,12 @@ Stick with this name when following this example, but choose whatever name makes
 
 [TIP]
 ====
-You can override the default of `main` for the git branch with the `branch:` option.
-For example, to use `master`:
+
+If the `branch` parameter is not provided, the default branch will be used. You can retrieve the default branch name using the following command:
 
 [source,shell]
 ----
-poly create workspace name:example top-ns:se.example branch:master :commit
+git var GIT_DEFAULT_BRANCH
 ----
 ====
 

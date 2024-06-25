@@ -14,7 +14,7 @@ poly help
 
 [source,text]
 ----
-  poly 0.2.20 (2024-06-23) - https://github.com/polyfy/polylith
+  poly 0.2.20 (2024-06-25) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -403,7 +403,7 @@ poly help
 
     TOP-NAMESPACE = The top namespace name.
 
-    BRANCH = The name of the branch, or main if not given.
+    BRANCH = The name of the branch, or the default git main branch if not given.
 
   Example:
     poly create workspace name:myws top-ns:com.my.company

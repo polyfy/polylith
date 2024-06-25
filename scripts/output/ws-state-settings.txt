@@ -14,7 +14,7 @@
  :vcs
  {:name "git",
   :is-git-repo true,
-  :branch "main",
+  :branch "master",
   :git-root "/privateWS-HOME/example",
   :auto-add true,
   :stable-since {:tag "stable-lisa", :sha "SHA"},
