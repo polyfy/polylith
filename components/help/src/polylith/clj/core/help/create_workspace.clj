@@ -21,7 +21,7 @@
        "\n"
        "    " (s/key "TOP-NAMESPACE" cm) " = The top namespace name.\n"
        "\n"
-       "    " (s/key "BRANCH" cm) " = The name of the branch, or main if not given.\n"
+       "    " (s/key "BRANCH" cm) " = The name of the branch, or the default git main branch if not given.\n"
        "\n"
        "  Example:\n"
        "    poly create workspace name:myws top-ns:com.my.company\n"

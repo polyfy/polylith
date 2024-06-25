@@ -5,6 +5,9 @@
 (def repo core/repo)
 (def branch core/branch)
 
+(defn main-branch []
+  (core/main-branch))
+
 (defn is-git-repo? [ws-dir]
   (core/is-git-repo? ws-dir))
 
