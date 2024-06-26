@@ -245,4 +245,9 @@
 
 (def create-outside-ws-root (c/single-txt "create" [create-workspace]))
 
-(def candidates-outside-ws-root [(help false) version create-outside-ws-root doc switch-ws])
+(defn candidates-outside-ws-root []
+  [(help false)
+   version
+   create-outside-ws-root
+   (doc false false)
+   (switch-ws (user-config/ws-shortcuts-paths))])

@@ -168,12 +168,13 @@
     (cond-> path
             (some? index) (subs (inc index)))))
 
-(defn create-workspace?
-  "True if we try to create a workspace in a directory where there is a non-polylith
-   deps.edn file. If this is the case, it should be possible to create a workspace."
-  [{:keys [cmd args]}]
-  (and (= "create" cmd)
-       (= "workspace" (second args))))
+(defn workspace-type [ws-dir ws-config-file deps-config-file]
+  (if (config-reader/file-exists? ws-config-file :workspace)
+    :toolsdeps2
+    (if (config-reader/file-exists? deps-config-file :development)
+      (let [{:keys [deps]} (config-reader/read-development-deps-config-file ws-dir :toolsdeps1)]
+        (when (:polylith deps)
+          :toolsdeps1)))))
 
 (defn workspace-from-disk
   [user-input]
@@ -182,26 +183,22 @@
         ws-name (workspace-name ws-dir)
         ws-config-file (str ws-dir "/workspace.edn")
         deps-config-file (str ws-dir "/deps.edn")
-        ws-type (cond
-                  (config-reader/file-exists? ws-config-file :workspace) :toolsdeps2
-                  (config-reader/file-exists? deps-config-file :development) :toolsdeps1)]
+        ws-type (workspace-type ws-dir ws-config-file deps-config-file)]
     (when ws-type
       (let [{:keys [deps error]} (config-reader/read-development-deps-config-file ws-dir ws-type)
             {:keys [aliases polylith]} deps
             [ws-config ws-error] (if (or error
                                          (= :toolsdeps2 ws-type))
                                    (ws-config/ws-config-from-disk ws-dir)
-                                   (ws-config/ws-config-from-dev polylith))
-            create-ws? (and ws-error
-                            (create-workspace? user-input))]
+                                   (ws-config/ws-config-from-dev polylith))]
         (cond
-          create-ws? nil
           ws-error {:config-error ws-error}
           error {:config-error error}
           :else (toolsdeps-ws-from-disk ws-name ws-type ws-dir ws-config aliases user-input color-mode))))))
 
 (comment
   (require '[polylith.clj.core.user-input.interface :as user-input])
-  (def user-input (user-input/extract-arguments ["info" "ws-dir:examples/multiple-workspaces2/backend"]))
+  (def user-input (user-input/extract-arguments ["info" "ws-dir:../sandbox/slask/fresh"]))
   (def workspace (workspace-from-disk user-input))
+  (workspace-from-disk user-input)
   #__)

@@ -15,6 +15,8 @@
 
 | https://github.com/polyfy/polylith/issues/465[465] | Make sure `:keep-lib-versions` works when updating libs for components (bug fix)
 
+| https://github.com/polyfy/polylith/issues/477[477] | Cannot run poly tool in folder containing deps.edn (but no workspace.edn)
+
 |===
 
 [cols="10,20,100"]
