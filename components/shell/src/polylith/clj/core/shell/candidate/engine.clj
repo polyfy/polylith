@@ -23,7 +23,7 @@
 (defn spec-candidates []
   (if @ws
     (specification/candidates @ws)
-    specification/candidates-outside-ws-root))
+    (specification/candidates-outside-ws-root)))
 
 (defn first-candidate []
   {:type :candidates
