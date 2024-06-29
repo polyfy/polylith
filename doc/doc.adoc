@@ -206,10 +206,10 @@ The `more` argument covers all other documentation and links that are not specif
 [source,text]
 ----
 example$ doc more:
-blog-posts    slack
-high-level    videos
+blog-posts    python-tool
+high-level    slack
+in-japanese   videos
 podcasts      workspaces
-python-tool
 ----
 
 Let's dig into the different categories:
@@ -306,6 +306,10 @@ Open a specific page, for example, the https://polylith.gitbook.io/polylith/conc
 ----
 example$ doc more:high-level:faq
 ----
+
+=== in japanese
+
+https://x.com/shinseitaro[Shinsei Taro] (しんせいたろう) has translated and reworked version 0.2.19 of the `poly` tool in Japanese, https://zenn.dev/shinseitaro/books/clojure-polylith[here].
 
 === podcasts
 

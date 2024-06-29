@@ -39,6 +39,7 @@
 
 | New sponsors: https://github.com/taehee-sp[taehee-sp] (김태희), https://github.com/tlonist-sang, https://github.com/premiscale
 
+| Translated and https://zenn.dev/shinseitaro/books/clojure-polylith[reworked version] of the 0.2.19 poly tool documentation in Japanese, by https://x.com/shinseitaro[Shinsei Taro] (しんせいたろう). Can be accessed with `poly doc more:in-japanese`
 
 | Remove Funnel as example production system.
 
