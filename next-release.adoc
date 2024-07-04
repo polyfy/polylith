@@ -28,6 +28,8 @@
 |===
 | Other changes
 
+| Allow the use of `+` (to show all profiles) in the `info` command when reading the workspace from file.
+
 | New https://github.com/polyfy/polylith/blob/master/examples/poly-rcf/readme.md[poly-rcf] example workspace that shows how to run https://github.com/hyperfiddle/rcf[Hyperfiddle rcf] tests with the `poly` tool.
 
 | If `:hide-lib-size` is given to the `libs` command, values in the `KB` column appear as `-`. Used for testing purposes.

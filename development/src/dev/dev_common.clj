@@ -10,3 +10,8 @@
   (-> (user-input/extract-arguments (concat [command (str "ws-dir:" ws-dir) "replace:/Users/joakimtengstrand:USER-HOME"]
                                             args))
       (command/execute-command)))
+
+(defn execute-from-file [command ws-file & args]
+  (-> (user-input/extract-arguments (concat [command (str "ws-file:" ws-file) "replace:/Users/joakimtengstrand:USER-HOME"]
+                                            args))
+      (command/execute-command)))
