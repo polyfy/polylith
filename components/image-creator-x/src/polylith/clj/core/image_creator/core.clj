@@ -39,12 +39,10 @@
         canvas (c2d/canvas width height :high)
         graphics (c2d/make-graphics canvas)]
     (doseq [{:keys [x y w h]} canvas-areas]
-       ;;(c2d/set-color graphics 36 39 43)
-       (c2d/set-color graphics 255 255 255)
+       (c2d/set-color graphics 36 39 43)
        (c2d/rect graphics x y w h))
     (when (nil? canvas-areas)
-      (c2d/set-background graphics 255 255 255))
-      ;;(c2d/set-background graphics 36 39 43))
+      (c2d/set-background graphics 36 39 43))
     (c2d/set-font graphics font)
     (c2d/set-font-attributes graphics font-size)
     (set-table! table 0 42 font-width font-height graphics)
