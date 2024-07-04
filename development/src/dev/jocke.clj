@@ -26,22 +26,22 @@
 
 ;; Execute commands
 ;(dev-common/execute "info" ".")
+;(dev-common/execute-from-file "info" "profiles.edn" "+")
+
 ;(dev-common/execute "libs" ".")
 ;(dev-common/execute "info" "../sandbox/polylith218")
-;(dev-common/execute "test :all" ".")
+;(dev-common/execute "test" "." ":all")
 
 ;(def workspace (-> (dev-common/ws-from-file "info" "../sandbox/polylith218/ws.edn")))
 
 
 ;(println (sh/execute "java" "-jar" "projects/poly/target/poly.jar" "check"))
-;(println (sh/execute "java" "-jar" "projects/poly/target/poly.jar" "test" ":all" "project:okay:setup-fails:x-okay" :dir "examples/for-test"))
-;(println (sh/execute "java" "-jar" "projects/poly/target/poly.jar" "test" ":all" "project:okay:setup-fails:x-okay" "ws-dir:examples/for-test"))
 
 (def workspace (-> ;(dev-common/dir ".")
                    ;(dev-common/dir "examples/doc-example")
                    ;(dev-common/dir "examples/for-test")
-                   (dev-common/dir "examples/multiple-workspaces/backend")
-                   ;(dev-common/dir "examples/profiles")
+                   ;(dev-common/dir "examples/profiles" "+")
+                   ;(dev-common/dir "examples/illegal-brick-deps")
                    ;(dev-common/dir "examples/test-runners" "with:default-test-runner")
                    ;(dev-common/dir "examples/local-dep" "changed-files:components/util/")
                    ;(dev-common/dir "examples/test-runners" "skip:external-inherit-from-global:multiple-test-runners:development")
@@ -53,6 +53,10 @@
                    ;(dev-common/dir "../sandbox/polylith218")
                    ;(dev-common/dir "../usermanager-example")
                    workspace/workspace))
+
+
+(:messages workspace)
+(:user-input workspace)
 
 
 (-> workspace :workspaces)
