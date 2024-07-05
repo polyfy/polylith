@@ -192,6 +192,11 @@
           bricks (str/join ", " (concat components bases))]
       (println (str "Bricks to run tests for: " bricks)))))
 
+(defn print-warnings-if-any [{:keys [messages] :as workspace}]
+  (when (seq messages)
+    (validator/print-messages workspace)
+    (println)))
+
 (defn run [{:keys [components bases projects changes settings messages] :as workspace} is-verbose color-mode]
   (if (validator/has-errors? messages)
     (do (validator/print-messages workspace)
@@ -204,6 +209,7 @@
       (if (empty? projects-to-test)
         (print-no-tests-to-run-if-only-dev-exists settings projects)
         (do
+          (print-warnings-if-any workspace)
           (print-projects-to-test projects-to-test color-mode)
           (print-bricks-to-test component-names base-names bricks-to-test color-mode)
           (println)

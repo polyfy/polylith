@@ -7,7 +7,7 @@
 
 (def font-size 20)
 (def font-width 12) ;(c2d/char-width graphics \x)
-(def font-height 24) ; (c2d/font-height graphics))
+(def font-height 24) ; (c2d/font-height graphics)
 
 (defn set-text! [{:keys [color text x]} y graphics]
   (let [[r g b] (color/color->rgb color)]
@@ -41,7 +41,7 @@
     (doseq [{:keys [x y w h]} canvas-areas]
        (c2d/set-color graphics 36 39 43)
        (c2d/rect graphics x y w h))
-    (if (nil? canvas-areas)
+    (when (nil? canvas-areas)
       (c2d/set-background graphics 36 39 43))
     (c2d/set-font graphics font)
     (c2d/set-font-attributes graphics font-size)

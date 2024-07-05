@@ -25,6 +25,7 @@
                           :who-made-this {:url "https://polylith.gitbook.io/polylith/conclusion/who-made-polylith"}}
              :slack {:url "https://clojurians.slack.com/archives/C013B7MQHJQ"}
              :python-tool {:url "https://davidvujic.github.io/python-polylith-docs"}
+             :in-japanese {:url "https://zenn.dev/shinseitaro/books/clojure-polylith"}
              :blog-posts {:url "https://polylith.gitbook.io/polylith/#read-a-blog-post"
                           :understanding-polylith-through-the-lens-of-hexagonal-architecture {:url "https://medium.com/@joakimtengstrand/understanding-polylith-through-the-lens-of-hexagonal-architecture-8e7c8757dab1"}
                           :leveraging-polylith-to-improve-consistency-reduce-complexity-and-increase-changeability {:url "https://medium.com/qantas-engineering-blog/leveraging-polylith-to-improve-consistency-reduce-complexity-and-increase-changeability-2031dd3d5f3d"}

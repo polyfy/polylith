@@ -5,7 +5,7 @@
             [polylith.clj.core.util.interface.str :as str-util]))
 
 (defn brick-path? [path]
-  (and (-> path nil? not)
+  (and path
        (or (str/starts-with? path "../../bases/")
            (str/starts-with? path "../../components/"))))
 

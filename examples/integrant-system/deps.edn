@@ -18,4 +18,4 @@
            :test {:extra-paths ["bases/system/test"]}
 
            :poly {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
-                  :extra-deps {polylith/clj-poly {:mvn/version "0.2.18"}}}}}
+                  :extra-deps {polylith/clj-poly {:local/root "../../projects/poly"}}}}}

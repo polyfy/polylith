@@ -15,13 +15,19 @@ https://github.com/furkan3ayraktar[Furkan Bayraktar] has made a full-blown https
 
 image::images/example-systems/user-manager.png[link="images/example-systems/user-manager.png"]
 
-https://github.com/seancorfield[Sean Corfield] has made a full-blown https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager] web application, which can be compared with non-Polylith systems living in other branches of the repository.
+https://github.com/seancorfield[Sean Corfield] has made a full-blown https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager] web application, which can be compared with non-Polylith systems living in other branches of the repository, .
 
 == Demo Rama Electric
 
 image::images/example-systems/demo-rama-electric.png[link="images/example-systems/demo-rama-electric.png"]
 
 https://github.com/jeans11[Jean Boudet] has made a https://github.com/jeans11/demo-rama-electric[demo web app] to show the use of Rama and Electric together.
+
+== Integrant system
+
+image::images/example-systems/demo-rama-electric.png[link="images/example-systems/integrant-system.png"]
+
+https://github.com/marksto[Mark Sto] has made a small https://github.com/polyfy/polylith/tree/master/examples/integrant-system[example system] to show how you can use https://github.com/weavejester/integrant[Integrant] in Polylith.
 
 == Game of Life
 

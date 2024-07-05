@@ -23,10 +23,15 @@
 |===
 | PR | Author | Description
 
+| https://github.com/polyfy/polylith/pull/482[482]
+| https://github.com/marksto[Mark Sto]
+| Create an https://github.com/polyfy/polylith/tree/master/examples/integrant-system[example project] showing how to use Polylith with an Integrant system
 |===
 
 |===
 | Other changes
+
+| Allow the use of `+` (to show all profiles) in the `info` command when reading the workspace from file.
 
 | New https://github.com/polyfy/polylith/blob/master/examples/poly-rcf/readme.md[poly-rcf] example workspace that shows how to run https://github.com/hyperfiddle/rcf[Hyperfiddle rcf] tests with the `poly` tool.
 
@@ -39,6 +44,9 @@
 
 | New sponsors: https://github.com/taehee-sp[taehee-sp] (김태희), https://github.com/tlonist-sang, https://github.com/premiscale
 
+| Translated and https://zenn.dev/shinseitaro/books/clojure-polylith[reworked version] of the 0.2.19 poly tool documentation in Japanese, by https://x.com/shinseitaro[Shinsei Taro] (しんせいたろう). Can be accessed with `poly doc more:in-japanese`
+
+| Update the overview diagram of https://github.com/polyfy/polylith/blob/master/doc/images/production-systems/world-singles-networks.png[World Singles Networks].
 
 | Remove Funnel as example production system.
 
