@@ -37,7 +37,7 @@
 
 (def tool (if system/extended? "polyx" "poly"))
 
-(def date "2024-06-26")
+(def date "2024-07-05")
 
 ;; Execute 'poly doc version' to see when different changes was introduced.
 (def api-version {:breaking 1, :non-breaking 0})
