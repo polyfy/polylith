@@ -23,6 +23,7 @@ image::images/example-systems/demo-rama-electric.png[link="images/example-system
 
 https://github.com/jeans11[Jean Boudet] has made a https://github.com/jeans11/demo-rama-electric[demo web app] to show the use of Rama and Electric together.
 
+[#integrant-system]
 == Integrant system
 
 image::images/example-systems/demo-rama-electric.png[link="images/example-systems/integrant-system.png"]

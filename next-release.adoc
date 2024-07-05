@@ -42,12 +42,16 @@
 |===
 | Doc updates
 
+| Updated the xref:doc/artifacts.adoc#libraries[Libraries] section and better explained the issues with building multiple libraries from a Polylith workspace.
+
 | New sponsors: https://github.com/taehee-sp[taehee-sp] (김태희), https://github.com/tlonist-sang, https://github.com/premiscale
 
 | Translated and https://zenn.dev/shinseitaro/books/clojure-polylith[reworked version] of the 0.2.19 poly tool documentation in Japanese, by https://x.com/shinseitaro[Shinsei Taro] (しんせいたろう). Can be accessed with `poly doc more:in-japanese`
 
-| Update the overview diagram of https://github.com/polyfy/polylith/blob/master/doc/images/production-systems/world-singles-networks.png[World Singles Networks].
+| Added xref:doc/example-systems.adoc#integrant-system[Integrant system] to the list of example systems.
 
-| Remove Funnel as example production system.
+| Updated the overview diagram of https://github.com/polyfy/polylith/blob/master/doc/images/production-systems/world-singles-networks.png[World Singles Networks].
+
+| Removed Funnel as example production system.
 
 |===
