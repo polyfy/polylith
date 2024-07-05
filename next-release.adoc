@@ -23,6 +23,9 @@
 |===
 | PR | Author | Description
 
+| https://github.com/polyfy/polylith/pull/482[482]
+| https://github.com/marksto[Mark Sto]
+| Create an https://github.com/polyfy/polylith/tree/master/examples/integrant-system[example project] showing how to use Polylith with an Integrant system
 |===
 
 |===
