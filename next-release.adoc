@@ -43,6 +43,8 @@
 
 | Translated and https://zenn.dev/shinseitaro/books/clojure-polylith[reworked version] of the 0.2.19 poly tool documentation in Japanese, by https://x.com/shinseitaro[Shinsei Taro] (しんせいたろう). Can be accessed with `poly doc more:in-japanese`
 
+| Update the overview diagram of https://github.com/polyfy/polylith/blob/master/doc/images/production-systems/world-singles-networks.png[World Singles Networks].
+
 | Remove Funnel as example production system.
 
 |===
