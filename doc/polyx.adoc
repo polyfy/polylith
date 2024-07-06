@@ -85,7 +85,14 @@ example$ info out:info.png
 
 image::images/polyx/output/info.png[width=400]
 
-NOTE: The `polyx` tool always uses a dark-themed terminal style for image output.
+Let's create it with a light background:
+
+[source,shell]
+----
+example$ info color-mode:light out:info.png
+----
+
+image::images/polyx/output/info-light.png[width=400]
 
 Most people typically create `.png` images, but you can choose https://clojure2d.github.io/clojure2d/docs/codox/clojure2d.core.html#var-img-writer-formats[any image format Clojure2d supports].
 

@@ -58,8 +58,8 @@
 
 (defn deps [all? extended?]
   (c/single-txt "deps" :deps
-    (concat [deps-swap-axes deps-brick deps-project]
-            (when all? [compact deps-color-mode])
+    (concat [deps-swap-axes deps-brick deps-project deps-color-mode]
+            (when all? [compact])
             (when (or all? extended?) [deps-out]))))
 
 ;; diff
@@ -124,9 +124,9 @@
 (defn info [profiles all? extended?]
   (c/single-txt "info" :info
     (concat profiles
-            [info-all info-all-bricks info-brick info-loc info-dev
-             info-resources info-project info-project-flag info-since]
-            (when all? [info-fake-sha info-fake-tag info-changed-files info-skip info-no-changes info-color-mode])
+            [info-all info-all-bricks info-brick info-loc info-dev info-resources
+             info-project info-project-flag info-since info-color-mode]
+            (when all? [info-fake-sha info-fake-tag info-changed-files info-skip info-no-changes])
             (when (or all? extended?) [info-out]))))
 
 ;; libs
@@ -140,8 +140,8 @@
 
 (defn libs [all? extended?]
   (c/single-txt "libs" :libs
-    (concat [libs-outdated libs-update libs-libraries]
-            (when all? [compact libs-skip libs-hide-lib-size libs-color-mode])
+    (concat [libs-outdated libs-update libs-libraries libs-color-mode]
+            (when all? [compact libs-skip libs-hide-lib-size])
             (when (or all? extended?) [libs-out]))))
 
 ;; test

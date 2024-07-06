@@ -118,6 +118,11 @@
 
 (comment
   (def workspace dev.jocke/workspace)
+  (def workspace (assoc-in dev.jocke/workspace [:user-input :out] "realworld.png"))
+  (def workspace (-> dev.jocke/workspace
+                     (assoc-in [:user-input :out] "realworld.png")
+                     (assoc-in [:settings :color-mode] "light")))
+
   (print-table workspace)
   (print-table (assoc-in workspace [:user-input :is-swap-axes] true))
   #__)
