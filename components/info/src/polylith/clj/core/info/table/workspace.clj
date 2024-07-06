@@ -62,5 +62,8 @@
                      (assoc-in [:user-input :fake-tag] "")))
   (def workspace (assoc-in dev.jocke/workspace [:user-input :out] "info.png"))
 
+  (project-table/table workspace false false)
+
   (print-info workspace)
   #__)
+

@@ -19,7 +19,9 @@ Polylith is not a perfect match for libraries if you plan to build more than one
 
 The reason is that if the same component appears in multiple libraries with different versions in your classpath then there is a risk that you will end up with a mix of versions of those components, which may cause the code to not even compile, or maybe even worse, that you get unclear behavior.
 
-But if you only have one library, like for example clj-poly, it will work fine. Then you can either choose to expose the library from an API component (see {cljdoc-api-url}/polylith.clj.core.api[clj-poly] as an example) or as an API base (both work equally well).
+Another thing that would also not work is having two or more components that implement the same interface, as only one component will be selected in the classpath. This limitation is probably rarely a problem when creating libraries.
+
+But if you only have one library, like for example {cljdoc-api-url}/polylith.clj.core.api[clj-poly], it will work fine. Then you can either choose to expose the library from an API component or as an API base (both work equally well).
 
 If you still choose to use Polylith, here is some advice.
 

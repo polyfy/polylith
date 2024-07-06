@@ -80,7 +80,7 @@
          (candidates "create" :next "component" :next "name" "c1" :next "interface" "i1"))))
 
 (deftest deps
-  (is (= [":swap-axes" "brick" "project"]
+  (is (= [":swap-axes" "brick" "color-mode" "project"]
          (candidates "deps"))))
 
 (deftest deps-brick
@@ -124,7 +124,7 @@
          (mapv color/clean-colors (candidates "deps" :next "brick" "test")))))
 
 (deftest deps-brick-test-helper
-  (is (= [":swap-axes" "project"]
+  (is (= [":swap-axes" "color-mode" "project"]
          (candidates "deps" :next "brick" "test-helper" :next ""))))
 
 (deftest deps-brick-help
@@ -132,7 +132,7 @@
          (candidates "deps" :next "brick" "help"))))
 
 (deftest deps-brick-file-
-  (is (= [":swap-axes" "project"]
+  (is (= [":swap-axes" "color-mode" "project"]
          (candidates "deps" :next "brick" "file" :next ""))))
 
 (deftest deps-brick-deployer-project-
@@ -156,7 +156,7 @@
          (candidates "deps" :next "project" "api"))))
 
 (deftest deps-project-api-
-  (is (= [":swap-axes" "brick"]
+  (is (= [":swap-axes" "brick" "color-mode"]
          (candidates "deps" :next "project" "api" :next))))
 
 (deftest deps-project-deployer-brick-
@@ -183,7 +183,7 @@
          (clean-colors (candidates "deps" :next "project" "deployer" :next "brick" "")))))
 
 (deftest deps-project-api-brick-file-
-  (is (= [":swap-axes"]
+  (is (= [":swap-axes" "color-mode"]
          (candidates "deps" :next "project" "api" :next "brick" "file" :next))))
 
 (deftest diff
@@ -285,12 +285,12 @@
 
 (deftest info
   (is (= [":all" ":all-bricks" ":dev" ":loc" ":project" ":resources" "brick"
-          "project" "since"]
+          "color-mode" "project" "since"]
          (candidates "info"))))
 
 (deftest info-loc-
   (is (= [":all" ":all-bricks" ":dev" ":project" ":resources" "brick"
-          "project" "since"]
+          "color-mode" "project" "since"]
          (candidates "info" :next "loc" :next ""))))
 
 (deftest info-wsfile-go-back-4-dirs-
@@ -299,11 +299,11 @@
                     "../"))))
 
 (deftest libs
-  (is (= [":outdated" ":update" "libraries"]
+  (is (= [":outdated" ":update" "color-mode" "libraries"]
          (candidates "libs"))))
 
 (deftest libs-
-  (is (= [":outdated" ":update" "libraries"]
+  (is (= [":outdated" ":update" "color-mode" "libraries"]
          (candidates "libs" :next ""))))
 
 (deftest test
@@ -387,7 +387,7 @@
 
 (deftest doc-example-profile
   (reset! engine/ws (-> "examples/doc-example/ws.edn" slurp read-string))
-  (is (= ["+remote" ":project" ":resources" "brick"  "project" "since"]
+  (is (= ["+remote" ":project" ":resources" "brick" "color-mode" "project" "since"]
          (candidates "info" :next
                      "+default" :next
                      "loc" :next
