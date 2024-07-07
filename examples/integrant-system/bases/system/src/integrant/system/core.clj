@@ -8,6 +8,20 @@
 
 ;; Integrant System
 
+;; NB: For our system we follow the Integrant conventions on loading namespaces
+;;     that contain the system components (a.k.a. keys in Integrant's parlance)
+;;     named with qualified keywords that match their namespaces. For instance,
+;;     the 'Config' component rests in the `integrant.system.config` namespace,
+;;     and therefore reclaims a `:integrant.system/config` key in a system map.
+;;
+;;     This approach leverages the uniqueness of Polylith base names and allows
+;;     us to use the same stateful Polylith component across multiple Integrant
+;;     systems/bases without thinking too much about its name.
+;;
+;;     Another option is to use random keys, e.g. `:app/config`, though it may
+;;     lead to possible naming collisions, especially when you plan to somehow
+;;     mix and match these keys between different Integrant (sub)systems.
+
 (def default-ig-config
   {:integrant.system/config      {}
    :integrant.system/embedded-pg {:config (ig/ref :integrant.system/config)
@@ -35,6 +49,10 @@
        ::failed-to-start))))
 
 ;; Base API
+
+;; NB: Properly shutting production systems down is full of its own shenanigans,
+;;     so we don't do much here. For more information, see the article "Killing
+;;     me softly: Graceful shutdowns in Clojure".
 
 (defn shutdown!
   []
