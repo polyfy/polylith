@@ -32,7 +32,7 @@
     (catch Exception _
       (c2d/load-font (io/resource font-resources-path)))))
 
-(defn create-image [filename table canvas-areas color-mode]
+(defn create-image [filename table canvas-areas transparent? color-mode]
   (let [width (+ 25 (* font-width (apply max (mapv #(-> % color/clean-colors count) table))))
         height (+ 45 (* font-height (count table)))
         font (load-font)
@@ -43,7 +43,8 @@
       (apply c2d/set-color background)
       (c2d/rect graphics x y w h))
     (when (nil? canvas-areas)
-      (apply c2d/set-background background))
+      (when (not transparent?)
+        (apply c2d/set-background background)))
     (c2d/set-font graphics font)
     (c2d/set-font-attributes graphics font-size)
     (set-table! table 0 42 font-width font-height color-mode graphics)

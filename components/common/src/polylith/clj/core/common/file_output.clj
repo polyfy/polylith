@@ -5,11 +5,12 @@
 
 (defn print-or-save-table [workspace table-fn canvas-areas post-print-fn]
   (let [filename (-> workspace :user-input :out)
+        transparent? (-> workspace :user-input :is-transparent)
         color-mode (-> workspace :settings :color-mode)
         table (table-fn workspace)]
     (if filename
       (if (file/image-file? filename)
-        (image-creator/create-image filename table canvas-areas color-mode)
+        (image-creator/create-image filename table canvas-areas transparent? color-mode)
         (file/create-file filename table))
       (text-table/print-table table))
     (when post-print-fn

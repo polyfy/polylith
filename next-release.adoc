@@ -17,7 +17,7 @@
 
 | https://github.com/polyfy/polylith/issues/477[477] | Cannot run poly tool in folder containing deps.edn (but no workspace.edn)
 
-| https://github.com/polyfy/polylith/issues/484[484] | Support generating pictures with light background
+| https://github.com/polyfy/polylith/issues/484[484] | Support generating images with light or transparent background
 
 |===
 

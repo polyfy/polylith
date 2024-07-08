@@ -85,7 +85,15 @@ example$ info out:info.png
 
 image::images/polyx/output/info.png[width=400]
 
-Let's create it with a light background:
+[#transparent]
+If you need a transparent background, which can be useful if you are going to use the image graphically, e.g. on a website or to print a T-shirt, you can pass in `:transparent`:
+
+[source,shell]
+----
+example$ deps out:deps.png :transparent
+----
+
+Set the color mode to `light` if you want a white background:
 
 [source,shell]
 ----
