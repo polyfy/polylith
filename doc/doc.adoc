@@ -101,16 +101,16 @@ example$ doc page:
 artifacts                flags                    readme
 base                     git-hooks                shell
 build                    git                      source-code
-colors                   install                  tagging
-component                interface                tap
-configuration            introduction             test-runners
-contact                  libraries                testing
-continuous-integration   license                  tools-deps
-dependencies             naming                   upgrade
-developing-poly          polylith-ci-setup        validations
-development              polyx                    versions
-doc                      production-systems       workspace
-example-systems          profile
+colors                   install                  state
+component                interface                tagging
+configuration            introduction             tap
+contact                  libraries                test-runners
+continuous-integration   license                  testing
+dependencies             naming                   tools-deps
+developing-poly          polylith-ci-setup        upgrade
+development              polyx                    validations
+doc                      production-systems       versions
+example-systems          profile                  workspace
 explore-the-workspace    project
 ----
 
@@ -183,12 +183,12 @@ List all top keys via:
 [source,text]
 ----
 example$ doc ws:
-bases          name           version
-changes        old            ws-dir
-components     paths          ws-local-dir
-configs        projects       ws-reader
-interfaces     settings       ws-type
-messages       user-input
+bases          name           user-input
+changes        old            version
+components     paths          ws-dir
+configs        profiles       ws-local-dir
+interfaces     projects       ws-reader
+messages       settings       ws-type
 ----
 
 Open the description for a specific top key in your web browser:

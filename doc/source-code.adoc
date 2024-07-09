@@ -109,7 +109,7 @@ myworkspace
 You would include `.cljc` files from your backend code by treating it as a library and referencing it via `:local/root`.
 A drawback is that changes to the frontend code files will not be detected by `poly` because they sit outside the `poly` directory structure and are, therefore, unknown to `poly`.
 
-NOTE: We are currently https://github.com/polyfy/polylith/discussions/301[discussing] how to properly recognize and support ClojureScript within a `poly` workspace.
+NOTE: We are working on supporting ClojureScript, see https://github.com/polyfy/polylith/issues/481[this] issue.
 
 ==== b) Outside the Workspace
 

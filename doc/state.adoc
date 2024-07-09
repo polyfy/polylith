@@ -1,0 +1,20 @@
+= State
+
+Managing the lifecycle and dependencies of things like web servers and databases can be complex and error-prone. State management tools like https://github.com/stuartsierra/component[Component], https://github.com/weavejester/integrant[Integrant], and https://github.com/tolitius/mount[Mount] simplify this process by providing a structured way to handle initialization, configuration, and dependencies.
+
+Here is a list with examples that uses Polylith:
+
+[cols="30,30,50"]
+|===
+| Library | Example | Author
+
+| https://github.com/stuartsierra/component[Component]
+| https://github.com/seancorfield/usermanager-example[usermanager-example]
+| https://github.com/seancorfield[Sean Corfield]
+
+| https://github.com/weavejester/integrant[Integrant] | https://github.com/polyfy/polylith/tree/master/examples/integrant-system[integrant-system] | https://github.com/marksto[Mark Sto]
+
+| Mount | - | -
+|===
+
+Hopefully there will soon also be an example in Mount.

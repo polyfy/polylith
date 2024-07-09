@@ -61,6 +61,7 @@
    "readme" {}
    "shell" {}
    "source-code" {}
+   "state" {}
    "tagging" {}
    "tap" {}
    "test-runners" {}

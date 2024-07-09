@@ -51,7 +51,6 @@
      :h (* (+ height 2) ic/font-height)}))
 
 (defn print-table [workspace]
-  (tap> {:user-input (:user-input workspace)})
   (let [{:keys [table heights widths max-height n#spaces]} (table workspace)
         x1s (mapv #(apply + (take % widths))
                   (range (inc (count widths))))
@@ -63,13 +62,10 @@
 
 (comment
   (require '[polylith.clj.core.workspace.interface :as ws])
-  (def input (user-input/extract-arguments ["overview" "ws-dir:examples/for-test"]))
-  (def workspace (-> input
-                     ws/enrich-workspace))
-  (def workspace (assoc-in workspace [:user-input :out] "overview.png"))
-
-  (def workspace (-> dev.jocke/workspace
-                     (assoc-in [:user-input :out] "overview.png")))
+  (def input (assoc (user-input/extract-arguments ["overview" "ws-dir:examples/for-test"])
+                    :is-transparent true
+                    :out "overview.png"))
+  (def workspace (ws/workspace input))
 
   (print-table workspace)
   #__)
