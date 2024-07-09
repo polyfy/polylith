@@ -75,7 +75,7 @@ Start a xref:shell.adoc[shell] from the `example` workspace root dir:
 clojure -M:polyx
 ----
 
-The `polyx` tool can create output images for xref:commands.adoc#info[info], xref:commands.adoc#deps[deps] and xref:commands.adoc#libs[libs] commands.
+The `polyx` tool can create output images for xref:commands.adoc#info[info], xref:commands.adoc#deps[deps], xref:commands.adoc#libs[libs], and xref:commands.adoc#overview[overview] commands.
 Let's create an output image from `info`:
 
 [source,shell]
