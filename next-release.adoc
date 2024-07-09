@@ -44,6 +44,8 @@
 |===
 | Doc updates
 
+| New State page, that links to examples that use Component and Integrant.
+
 | Updated the xref:doc/artifacts.adoc#libraries[Libraries] section and better explained the issues with building multiple libraries from a Polylith workspace.
 
 | New sponsors: https://github.com/taehee-sp[taehee-sp] (김태희), https://github.com/tlonist-sang, https://github.com/premiscale

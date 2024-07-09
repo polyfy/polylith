@@ -25,6 +25,7 @@
                    ["Libraries" {:file "doc/libraries.adoc"}]
                    ["Configuration" {:file "doc/configuration.adoc"}]
                    ["Validations" {:file "doc/validations.adoc"}]
+                   ["State" {:file "doc/state.adoc"}]
                    ["Source code" {:file "doc/source-code.adoc"}]
                    ["Artifacts" {:file "doc/artifacts.adoc"}]
                    ["Explore the workspace" {:file "doc/explore-the-workspace.adoc"}]
