@@ -40,8 +40,9 @@
         graphics (c2d/make-graphics canvas)
         background (if (= "light" color-mode) [graphics 255 255 255] [graphics 36 39 43])]
     (doseq [{:keys [x y w h]} canvas-areas]
-      (apply c2d/set-color background)
-      (c2d/rect graphics x y w h))
+      (when (not transparent?)
+        (apply c2d/set-color background)
+        (c2d/rect graphics x y w h)))
     (when (nil? canvas-areas)
       (when (not transparent?)
         (apply c2d/set-background background)))
