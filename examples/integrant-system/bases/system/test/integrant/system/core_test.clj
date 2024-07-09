@@ -9,11 +9,12 @@
 
 (defn- get-pg-version
   []
-  (-> @state/*state
-      (get-in [:system :integrant.system/data-source])
-      (pg-ops/query-version)))
+  (pg-ops/query-version (state/get :integrant.system/data-source)))
 
 (deftest integrant-system-lifecycle
+  (comment
+    "Scenario tests the production use of the Integrant system")
+
   (testing "System launch succeeds"
     (is (= ::system/started (system/launch!)))
     (let [system-state @state/*state]
@@ -26,7 +27,7 @@
 
   (testing "System restart succeeds and config does not change"
     (let [old-config (get @state/*state :config)
-          new-state  (state/restart!)]
+          new-state  (state/-restart!)]
       (is (map? new-state))
       (is (contains? new-state :system))
       (is (contains? new-state :config))
