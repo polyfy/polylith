@@ -54,12 +54,14 @@
 (def deps-brick (c/fn-explorer "brick" :deps #'ws-deps-entities/select-bricks))
 (def deps-project (c/fn-explorer "project" :deps #'ws-deps-entities/select-projects))
 (def deps-out (c/fn-explorer "out" :deps (file-explorer/select-fn)))
+(def deps-transparent (c/flag "transparent" :deps))
 (def deps-color-mode (c/fn-values "color-mode" :deps #'color-modes/select))
 
 (defn deps [all? extended?]
   (c/single-txt "deps" :deps
     (concat [deps-swap-axes deps-brick deps-project deps-color-mode]
             (when all? [compact])
+            (when extended? [deps-transparent])
             (when (or all? extended?) [deps-out]))))
 
 ;; diff
@@ -110,7 +112,8 @@
 (def info-since (c/fn-explorer "since" :info #'ws-tag-patterns/select))
 (def info-project (c/fn-explorer "project" :info #'ws-projects-to-test/select))
 (def info-brick (c/fn-explorer "brick" :info #'ws-bricks/select))
-(def info-no-changes (c/flag "no-changes" :overview))
+(def info-transparent (c/flag "transparent" :info))
+(def info-no-changes (c/flag "no-changes" :info))
 (def info-resources (c/flag "resources" :info))
 (def info-out (c/fn-explorer "out" :info (file-explorer/select-fn)))
 (def info-project-flag (c/flag-explicit "project" :info))
@@ -127,6 +130,7 @@
             [info-all info-all-bricks info-brick info-loc info-dev info-resources
              info-project info-project-flag info-since info-color-mode]
             (when all? [info-fake-sha info-fake-tag info-changed-files info-skip info-no-changes])
+            (when extended? [info-transparent])
             (when (or all? extended?) [info-out]))))
 
 ;; libs
@@ -136,12 +140,14 @@
 (def libs-libraries (c/fn-explorer "libraries" :libs #'outdated-libs/select))
 (def libs-out (c/fn-explorer "out" :libs (file-explorer/select-fn)))
 (def libs-skip (c/fn-explorer "skip" :libs #'ws-projects/select))
+(def libs-transparent (c/flag "transparent" :libs))
 (def libs-color-mode (c/fn-values "color-mode" :libs #'color-modes/select))
 
 (defn libs [all? extended?]
   (c/single-txt "libs" :libs
     (concat [libs-outdated libs-update libs-libraries libs-color-mode]
             (when all? [compact libs-skip libs-hide-lib-size])
+            (when extended? [libs-transparent])
             (when (or all? extended?) [libs-out]))))
 
 ;; test
@@ -168,8 +174,10 @@
 
 ;; overview
 (def overview-out (c/fn-explorer "out" :overview (file-explorer/select-fn)))
+(def overview-transparent (c/flag "transparent" :overview))
 (def overview-no-changes (c/flag "no-changes" :overview))
-(def overview (c/single-txt "overview" :overview [overview-out overview-no-changes]))
+(def overview-color-mode (c/fn-values "color-mode" :overview #'color-modes/select))
+(def overview (c/single-txt "overview" :overview [overview-out overview-transparent overview-no-changes overview-color-mode]))
 
 ;; version
 (def version (c/single-txt "version"))

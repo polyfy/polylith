@@ -99,6 +99,7 @@
                 swap-axes!
                 tap!
                 top-ns
+                transparent!
                 update!
                 verbose!
                 via
@@ -131,6 +132,7 @@
                       :is-latest-sha (= "true" latest-sha!)
                       :is-local (= "true" local!)
                       :is-no-changes (= "true" no-changes!)
+                      :is-transparent (= "true" transparent!)
                       :is-no-exit (= "true" no-exit!)
                       :is-outdated (= "true" outdated!)
                       :is-swap-axes (= "true" swap-axes!)
