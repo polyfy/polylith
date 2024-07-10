@@ -69,7 +69,11 @@ a| `ESC[90m` +
 a|`ESC[40m`
 |-
 a|image:images/colors/light/white.png[width=65] +
+<<<<<<< HEAD
 [.nowrap]`#ffffff`
+=======
+`#ffffff`
+>>>>>>> 20190bac (Added the white box.)
 |Used as background color by xref:polyx.adoc[polyx] when `color-mode` is set to `light`.
 
 |black (background)
