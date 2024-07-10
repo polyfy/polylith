@@ -2,60 +2,75 @@
 :toc:
 
 The `poly` tool uses color to make its output easier to digest.
+The Dark column shows the colors used in all the examples, while Light is the colors used by xref:polyx.adoc[polyx] when `color-mode` is set to `light`.
 
 [%autowidth]
 |===
-|Name |ANSI Color |Sample Hex |Example `poly` Usages
+|Name |ANSI Color |Dark |Light |Example `poly` Usages
 
-|yellow
+|yellow!
 a|`ESC[33m`
-a|image:images/colors/yellow.png[width=65] +
+a|image:images/colors/dark/yellow.png[width=65] +
 `#f8eeb6`
+a|image:images/colors/light/yellow.png[width=65] +
+`#977f2a`
 |interfaces, warning messages
 
 |green
 a|`ESC[32m`
-a|image:images/colors/green.png[width=65] +
+a|image:images/colors/dark/green.png[width=65] +
 `#bfefc5`
+a|image:images/colors/light/green.png[width=65] +
+`#2c9d3a`
 |components, success messages
 
 |blue
 a|`ESC[34m`
-a|image:images/colors/blue.png[width=65] +
+a|image:images/colors/dark/blue.png[width=65] +
 `#77bcfc`
+a|image:images/colors/light/blue.png[width=65] +
+`#2c68a1`
 |bases
 
 |purple
 a|`ESC[35m` +
 (magenta)
-a|image:images/colors/purple.png[width=65] +
+a|image:images/colors/dark/purple.png[width=65] +
 `#e2aeff`
+a|image:images/colors/light/purple.png[width=65] +
+`#8e58ad`
 |projects
 
 |red
 a|`ESC[31m`
-a|image:images/colors/red.png[width=65] +
+a|image:images/colors/dark/red.png[width=65] +
+`#ee9b9a`
+a|image:images/colors/light/red.png[width=65] +
 `#ee9b9a`
 |error messages
 
 |light grey
 a|`ESC[37m` +
 (white)
-a|image:images/colors/grey-light.png[width=65] +
+a|image:images/colors/dark/grey-light.png[width=65] +
 `#cccccc`
+a|image:images/colors/light/grey-light.png[width=65] +
+`#787878`
 |tags and shas (dark mode)
 
 |dark grey
 a| `ESC[90m` +
 (bright black)
 |-
+|-
 |tags and shas (light mode)
 
 |black (background)
 a|`ESC[40m`
-a|image:images/colors/black.png[width=65] +
+a|image:images/colors/dark/black.png[width=65] +
 `#24272b`
-|Not used by `poly`, default shell background color
+|-
+|Used as background color by xref:polyx.adoc[polyx] when `color-mode` is set to `light`.
 
 |===
 
