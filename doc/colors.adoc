@@ -70,7 +70,7 @@ a|`ESC[40m`
 a|image:images/colors/dark/black.png[width=65] +
 `#24272b`
 |-
-|Used as background color by xref:polyx.adoc[polyx] when `color-mode` is set to `light`.
+|Used as background color by xref:polyx.adoc[polyx] when `color-mode` is set to `dark`.
 
 |===
 
