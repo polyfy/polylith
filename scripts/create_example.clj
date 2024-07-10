@@ -136,8 +136,8 @@
         [(fs/file sections-dir "project/command-line-deps.edn") (fs/file ws-dir "projects/command-line/deps.edn")]))
 
 (defn polyx [{:keys [ws-dir fake-sha images-dir] :as opts}]
-  (poly-infos opts "" "polyx-info.txt" "polyx/output/info.png")
-  (poly-infos opts "color-mode:light" "polyx-info.txt" "polyx/output/info-light.png")
+  (poly-infos opts "" "polyx-info-dark.txt" "polyx/output/info-dark.png")
+  (poly-infos opts "color-mode:light" "polyx-info-light.txt" "polyx/output/info-light.png")
   (sh/polyx {:dir ws-dir}
             (format "overview :no-changes fake-sha:%s out:%s" fake-sha (fs/file images-dir "polyx/output/overview.png"))))
 
