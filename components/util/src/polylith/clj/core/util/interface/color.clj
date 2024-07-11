@@ -27,6 +27,10 @@
                     :white [255 255 255]
                     :yellow [248, 238, 182]}})
 
+(comment
+  (mapv colorizer/rgb (:light colors))
+  #__)
+
 (defn color->rgb [color-mode color]
   (let [cmode (if (= "light" color-mode) :light :dark)
         color-schema (colors cmode)]

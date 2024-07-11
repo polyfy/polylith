@@ -110,3 +110,6 @@
         src (str/join "/" (drop 2 strings))]
     (str entities "/" (entity type name color-mode) "/" src)))
 
+(defn rgb [[k [r g b]]]
+  {k
+   (format "%x%x%x" r g b)})
