@@ -8,7 +8,7 @@ The Dark column shows the colors used in all the examples, while Light is the co
 |===
 |Name |[.nowrap]#ANSI Color# |Dark |Light |Example `poly` Usages
 
-|yellow!
+|yellow
 a|`ESC[33m`
 a|image:images/colors/dark/yellow.png[width=65] +
 [.nowrap]#`#f8eeb6`#
@@ -19,43 +19,43 @@ a|image:images/colors/light/yellow.png[width=65] +
 |green
 a|`ESC[32m`
 a|image:images/colors/dark/green.png[width=65] +
-`#bfefc5`
+[.nowrap]`#bfefc5`
 a|image:images/colors/light/green.png[width=65] +
-`#2c9d3a`
+[.nowrap]`#2c9d3a`
 |components, success messages
 
 |blue
 a|`ESC[34m`
 a|image:images/colors/dark/blue.png[width=65] +
-`#77bcfc`
+[.nowrap]`#77bcfc`
 a|image:images/colors/light/blue.png[width=65] +
-`#2c68a1`
+[.nowrap]`#2c68a1`
 |bases
 
 |purple
 a|`ESC[35m` +
 (magenta)
 a|image:images/colors/dark/purple.png[width=65] +
-`#e2aeff`
+[.nowrap]`#e2aeff`
 a|image:images/colors/light/purple.png[width=65] +
-`#8e58ad`
+[.nowrap]`#8e58ad`
 |projects
 
 |red
 a|`ESC[31m`
 a|image:images/colors/dark/red.png[width=65] +
-`#ee9b9a`
+[.nowrap]`#ee9b9a`
 a|image:images/colors/light/red.png[width=65] +
-`#ee9b9a`
+[.nowrap]`#ee9b9a`
 |error messages
 
 |light grey
 a|`ESC[37m` +
 (white)
 a|image:images/colors/dark/grey-light.png[width=65] +
-`#cccccc`
+[.nowrap]`#cccccc`
 a|image:images/colors/light/grey-light.png[width=65] +
-`#787878`
+[.nowrap]`#787878`
 |tags and shas (dark mode)
 
 |dark grey
@@ -69,13 +69,17 @@ a| `ESC[90m` +
 a|`ESC[40m`
 |-
 a|image:images/colors/light/white.png[width=65] +
+<<<<<<< HEAD
+[.nowrap]`#ffffff`
+=======
 `#ffffff`
+>>>>>>> 20190bac (Added the white box.)
 |Used as background color by xref:polyx.adoc[polyx] when `color-mode` is set to `light`.
 
 |black (background)
 a|`ESC[40m`
 a|image:images/colors/dark/black.png[width=65] +
-`#24272b`
+[.nowrap]`#24272b`
 |-
 |Used as background color by xref:polyx.adoc[polyx] when `color-mode` is set to `dark`.
 

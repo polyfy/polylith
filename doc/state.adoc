@@ -1,20 +1,24 @@
 = State
 
-Managing the lifecycle and dependencies of things like web servers and databases can be complex and error-prone. State management tools like https://github.com/stuartsierra/component[Component], https://github.com/weavejester/integrant[Integrant], and https://github.com/tolitius/mount[Mount] simplify this process by providing a structured way to handle initialization, configuration, and dependencies.
+Managing the lifecycle and dependencies of stateful parts of your system can be complex and error-prone. State management tools like https://github.com/stuartsierra/component[Component], https://github.com/weavejester/integrant[Integrant], and https://github.com/tolitius/mount[Mount] can help you with this by providing a structured way to handle initialization, configuration, and dependencies.
 
 Here is a list with examples that uses Polylith:
 
-[cols="30,30,50"]
+[cols="30,30,50,50"]
 |===
-| Library | Example | Author
+| Library | Example | Author | Comment
 
 | https://github.com/stuartsierra/component[Component]
 | https://github.com/seancorfield/usermanager-example[usermanager-example]
 | https://github.com/seancorfield[Sean Corfield]
+|
 
-| https://github.com/weavejester/integrant[Integrant] | https://github.com/polyfy/polylith/tree/master/examples/integrant-system[integrant-system] | https://github.com/marksto[Mark Sto]
+| https://github.com/weavejester/integrant[Integrant]
+| https://github.com/polyfy/polylith/tree/master/examples/integrant-system[integrant-system] | https://github.com/marksto[Mark Sto]
+| See also https://clojurians.slack.com/archives/C013B7MQHJQ/p1719864242173699[this] thread in Slack.
 
-| Mount | - | -
+| Mount
+|
+|
+| An example in Mount will soon be available!
 |===
-
-Hopefully there will soon also be an example in Mount.

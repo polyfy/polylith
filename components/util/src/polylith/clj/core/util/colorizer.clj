@@ -2,6 +2,37 @@
   (:require [clojure.string :as str]
             [polylith.clj.core.util.colors :as c]))
 
+(def colors {:light {:black [36 39 43]
+                     :cyan [0 255 255]
+                     :blue [44 104 161]
+                     :green [44,157,58]
+                     :grey [255 250 204]
+                     :grey-light [120 120 120]
+                     :grey-dark [120 120 120]
+                     :purple [142 88 173]
+                     :red [238 155 154]
+                     :white [80 80 80]
+                     :yellow [151,127,42]}
+             :dark {:black [36, 39, 43]
+                    :cyan [0, 255, 255]
+                    :blue [119, 188, 252]
+                    :green [191, 239, 197]
+                    :grey [204 204 204]
+                    :grey-light [204 204 204]
+                    :grey-dark [204 204 204]
+                    :purple [226, 174, 255]
+                    :red [238, 155, 154]
+                    :white [255 255 255]
+                    :yellow [248, 238, 182]}})
+
+(defn- rgb [[k [r g b]]]
+  {k
+   (format "%x%x%x" r g b)})
+
+(comment
+  (mapv rgb (:light colors))
+  #__)
+
 (defn- color [color messages]
   (str color (str/join "" messages) c/color-reset))
 
@@ -109,4 +140,3 @@
         type (entities->type entities)
         src (str/join "/" (drop 2 strings))]
     (str entities "/" (entity type name color-mode) "/" src)))
-

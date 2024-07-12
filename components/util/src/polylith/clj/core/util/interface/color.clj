@@ -4,32 +4,9 @@
 
 (def none "none")
 
-(def colors {:light {:black [36 39 43]
-                     :cyan [0 255 255]
-                     :blue [44 104 161]
-                     :green [44,157,58]
-                     :grey [255 250 204]
-                     :grey-light [120 120 120]
-                     :grey-dark [120 120 120]
-                     :purple [142 88 173]
-                     :red [238 155 154]
-                     :white [80 80 80]
-                     :yellow [151,127,42]}
-             :dark {:black [36, 39, 43]
-                    :cyan [0, 255, 255]
-                    :blue [119, 188, 252]
-                    :green [191, 239, 197]
-                    :grey [204 204 204]
-                    :grey-light [204 204 204]
-                    :grey-dark [204 204 204]
-                    :purple [226, 174, 255]
-                    :red [238, 155, 154]
-                    :white [255 255 255]
-                    :yellow [248, 238, 182]}})
-
 (defn color->rgb [color-mode color]
   (let [cmode (if (= "light" color-mode) :light :dark)
-        color-schema (colors cmode)]
+        color-schema (colorizer/colors cmode)]
     (color-schema color [0 255 255])))
 
 (defn clean-colors [message]
