@@ -11,9 +11,9 @@ The Dark column shows the colors used in all the examples, while Light is the co
 |yellow!
 a|`ESC[33m`
 a|image:images/colors/dark/yellow.png[width=65] +
-`#f8eeb6`
+[.nowrap]#`#f8eeb6`#
 a|image:images/colors/light/yellow.png[width=65] +
-`#977f2a`
+[.nowrap]#`#977f2a`#
 |interfaces, warning messages
 
 |green
