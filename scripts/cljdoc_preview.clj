@@ -13,7 +13,7 @@
 ;; constants
 ;;
 
-(def cljdoc-root-temp-dir "/tmp/cljdoc-preview")
+(def cljdoc-root-temp-dir "./.cljdoc-preview")
 (def cljdoc-db-dir (str cljdoc-root-temp-dir  "/db"))
 (def cljdoc-container {:name "cljdoc-server"
                        :image "cljdoc/cljdoc"
