@@ -100,7 +100,7 @@ Set the color mode to `light` if you want a white background:
 example$ info color-mode:light out:info.png
 ----
 
-image::images/polyx/output/info-light.png[width=400]
+image::images/colors/output/info-light.png[width=400]
 
 Most people typically create `.png` images, but you can choose https://clojure2d.github.io/clojure2d/docs/codox/clojure2d.core.html#var-img-writer-formats[any image format Clojure2d supports].
 
