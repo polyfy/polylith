@@ -6,7 +6,7 @@ The Dark column shows the colors used in all the examples, while Light is the co
 
 [%autowidth]
 |===
-|Name |ANSI Color |Dark |Light |Example `poly` Usages
+|Name |[.nowrap]#ANSI Color# |Dark |Light |Example `poly` Usages
 
 |yellow!
 a|`ESC[33m`
