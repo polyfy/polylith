@@ -354,6 +354,7 @@ in the Clojurians Slack:
 example$ doc more:slack
 ----
 
+[#videos]
 === videos
 
 You can list available videos with:
@@ -363,6 +364,7 @@ You can list available videos with:
 example$ doc more:videos:
 a-fresh-take-on-monorepos-in-python
 collaborative-learning-polylith
+how-the-polylith-repo-has-evolved-over-time
 polylith-in-a-nutshell
 polylith–a-software-architecture-based-on-lego-like-blocks
 the-last-architecture-you-will-ever-need

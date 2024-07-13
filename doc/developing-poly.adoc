@@ -438,3 +438,51 @@ https://github.com/clojure/tools.deps[Clojure tools.deps] only checks for update
 This caching behavior means users referencing a specific `SNAPSHOT` will be more likely to temporarily be on an older release if you frequently release under the same `SNAPSHOT` version.
 
 Users can https://clojure.org/reference/deps_and_cli#_classpath_caching[-Sforce] a check for an update, but most probably won't think to do that.
+
+[#visualize-repo]
+== Visualize the repo
+
+You can use https://gource.io[Gource] to visualize how the code has evolved over time.
+
+Here is an example animation:
+
+image::images/developing-polylith/polylith-git-repo-animation.png[link="https://youtu.be/cfVzy9iPpLg"]
+
+=== Install
+
+[source,shell]
+----
+brew install gource
+brew install ffmpeg
+----
+
+=== Generate
+
+This will generate a `polylith.mp4` file:
+
+[source,shell]
+----
+gource --seconds-per-day 0.2 --auto-skip-seconds 1 --max-file-lag 0.1 --background 9dabcb --logo doc/images/developing-polylith/logo.png --disable-bloom --font-size 18 --font-colour 566ca1 --hide filenames --date-format "%d %B %Y" --dir-colour eeeeee --dir-name-depth 2 --caption-colour ff0000 --dir-font-size 12 -o - | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libx264 -preset ultrafast -pix_fmt yuv420p -crf 1 -threads 0 -bf 0 polylith2.mp4
+----
+
+You can also experiment without generating a file:
+
+[source,shell]
+----
+gource --seconds-per-day 0.2 \
+       --auto-skip-seconds 1 \
+       --max-file-lag 0.1 \
+       --background 9dabcb \
+       --logo doc/images/developing-polylith/logo.png \
+       --disable-bloom \
+       --font-size 18 \
+       --font-colour 566ca1 \
+       --hide filenames \
+       --date-format "%d %B %Y" \
+       --dir-colour eeeeee \
+       --dir-name-depth 2 \
+       --caption-colour ff0000 \
+       --dir-font-size 12
+----
+
+See how to tweak the animation https://github.com/acaudwell/Gource/wiki/Controls[here]. All the options are listed https://github.com/acaudwell/Gource/blob/master/README.md#using-gource[here], or execute `gource --help`.
