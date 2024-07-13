@@ -374,6 +374,10 @@ the-last-architecture-you-will-ever-need
 |===
 | Video | What | Published
 
+| https://www.youtube.com/watch?v=cfVzy9iPpLg[how-the-polylith-repo-has-evolved-over-time]
+| An animation that visualizes the evolution of the Polylith repository from its inception in 2020 to mid-2024. Generated in https://gource.io[Gource].
+| 2024
+
 | https://www.youtube.com/watch?v=HU61vjZPPfQ[a-fresh-take-on-monorepos-in-python]
 | https://github.com/DavidVujic[David Vujic] explains how Polylith can be used in https://en.wikipedia.org/wiki/Python_(programming_language)[Python].
 | 2023
