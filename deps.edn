@@ -122,7 +122,7 @@
                       :extra-deps {polylith/clj-poly {:local/root "projects/poly"}}}
 
             :build {:deps {org.clojure/tools.deps {:mvn/version "0.18.1354"}
-                           io.github.clojure/tools.build {:mvn/version "0.9.5"}
+                           io.github.clojure/tools.build {:mvn/version "0.10.5"}
                            org.babashka/http-client {:mvn/version "0.3.11"}
                            slipset/deps-deploy {:mvn/version "0.2.1"}
                            polylith/clj-poly {:local/root "projects/poly"}}

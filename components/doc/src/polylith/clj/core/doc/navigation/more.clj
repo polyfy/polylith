@@ -44,7 +44,8 @@
                       :collaborative-learning-polylith {:url "https://youtu.be/_tpNKAv4fro"}
                       :the-last-architecture-you-will-ever-need {:url "https://youtu.be/pebwHmibla4"}
                       :a-fresh-take-on-monorepos-in-python {:url "https://www.youtube.com/watch?v=HU61vjZPPfQ"}
-                      :polylith–a-software-architecture-based-on-lego-like-blocks {:url "https://www.youtube.com/watch?v=wy4LZykQBkY"}}
+                      :polylith–a-software-architecture-based-on-lego-like-blocks {:url "https://www.youtube.com/watch?v=wy4LZykQBkY"}
+                      :how-the-polylith-repo-has-evolved-over-time {:url "https://youtu.be/cfVzy9iPpLg"}}
              :podcasts {:url "https://polylith.gitbook.io/polylith/#listen-to-a-podcast"
                         :polylith-with-joakim-james-and-furkan {:url clojurescript-podcast-part1
                                                                 :part {:url clojurescript-podcast-part1
