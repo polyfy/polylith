@@ -1,45 +1,73 @@
 = Artifacts
 :cljdoc-api-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/api
 
-We assemble our `poly` bricks (xref:component.adoc[components] and xref:base.adoc[bases]) in xref:project.adoc[deployable projects] from which we build artifacts.
+We assemble our bricks (xref:component.adoc[components] and xref:base.adoc[bases]) in xref:project.adoc[deployable projects] from which we build artifacts.
 
 The base (a project typically has a single base) acts as the runtime entry point.
 
-The `poly` tool has no say in what type of artifacts you build or how you xref:build.adoc[build] them.
+The `poly` tool has no say in what type of artifacts we build or how we xref:build.adoc[build] them.
 Some artifact examples are:
 
 * REST APIs
 * Lambda functions
 * Command line tools
+* Libraries
 
 [#libraries]
 == Libraries
 
-Polylith is not a perfect match for libraries if you plan to build more than one library from the same workspace.
+There are challenges associated with building more than one library from a single workspace.
+But let's start with the simple case.
 
-The reason is that if the same component appears in multiple libraries with different versions in your classpath then there is a risk that you will end up with a mix of versions of those components, which may cause the code to not even compile, or maybe even worse, that you get unclear behavior.
+=== Single library
 
-Another thing that would also not work is having two or more components that implement the same interface, as only one component will be selected in the classpath. This limitation is probably rarely a problem when creating libraries.
+Let's say we have a workspace with three components:
 
-But if you only have one library, like for example {cljdoc-api-url}/polylith.clj.core.api[clj-poly], it will work fine. Then you can either choose to expose the library from an API component or as an API base (both work equally well).
+image::images/artifacts/workspace.png[width=400]
 
-If you still choose to use Polylith, here is some advice.
+Now we can easily build a library of these components (e.g. `libx.jar`) and everything will work just as well as if we had a traditional monolithic codebase:
 
-Use the naming convention of `{libfamily}-{libname}-{version}.jar`.
-For version `1.2.3` of libnames `foo` and  `bar` under libfamily `thingorama`, you'd build:
+image::images/artifacts/single-lib.png[width=400]
 
-* `thingorama-bar-1.2.3.jar`
-* `thingorama-foo-1.2.3.jar`
+It's natural to use a base to expose a library's functionality, as they are meant for that job (exposing APIs).
+For instance, we can use a `libx-api` base to expose the functionality of the `libx` library above.
+Alternatively, we can use a component to expose the functionality, as demonstrated by the {cljdoc-api-url}/polylith.clj.core.api[clj-poly] library.
 
-Including a lib family (e.g. the workspace name) makes it easier to find/sort libraries and makes it clear they belong to the same family of libraries.
+=== Multiple libraries
+Let's say we release `1.1` of library `libx` and `liby`, and then after a while we release `1.2`.
+If someone out there now includes `libx-1.1` and `liby-1.2` in their classpath, we will get this situation:
 
-The burden of ensuring no version mismatches occur when using multiple libraries from a family of libraries falls on the user of those libraries.
-For example, a user may directly reference `thingorama-foo-1.2.3.jar`, but suppose some other library they depend on references `thingorama-bar-1.0.0.jar`.
-It is up to the user to ensure they bring in the compatible `thingorama-bar-1.2.3.jar`.
+image::images/artifacts/multiple-libs.png[width=400]
 
-Another possible approach is to build a single artifact for the lib family that includes all libraries:
+Here the `c` component is used by both `libx` and `liby` and depending on which library that comes first in the classpath, we will get either `1.1` or `1.2` of `c`.
 
-* `thingorama-1.2.3.jar`
+If the interface of `c` has changed between `1.1` and `1.2` then `libx` may fail to compile.
+Even if it does compile, it remains problematic, because
+`c` may exhibit new behavior that hasn't been tested from the `1.1` context.
 
-Issue https://github.com/polyfy/polylith/issues/212[212] explores the problems of isolating libraries that share components.
-See Sean Corfield's comments for an excellent explanation of the issue.
+=== One library per brick
+
+There is another alternative, and that is to build one library/jar per brick:
+
+image::images/artifacts/one-lib-per-brick.png[width=600]
+
+Let's say we have built and released `1.1` of all these five libraries, and then after a while, we release `1.2`. Let's say someone has included version `1.1` of "libx" by including `liba`, `libb`, and `libc`, and version `1.2` of "liby" and included version `1.2` of `libc`, `libd` and `libe`.
+Now, we can't be certain which version of component `c` will be picked up by the classloader, as it depends on the order in which the libraries are specified:
+
+image::images/artifacts/one-lib-per-brick-grouped.png[width=600]
+
+This means we experience the same problem as if we build `libx` and `liby` separately.
+
+=== One library per workspace
+
+The most solid solution is probably to build a single jar out of the entire workspace that includes all the bricks (`myws.jar` in this example) and thus all the libraries:
+
+image::images/artifacts/one-lib-per-workspace.png[width=600]
+
+The disadvantage is that we have included more libraries than the user might need.
+
+=== Adjust the top namespace at build time
+
+The last alternative is to adjust the top namespace for each library, when building the jar. We should keep the namespace of the API base though, so that people don't have to change their `:require` statements when they use the library.
+
+This approach comes with its own challenges, which is discussed in issue https://github.com/polyfy/polylith/issues/212[212].

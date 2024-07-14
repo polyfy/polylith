@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="252.00739"
+   height="120.77616"
+   viewBox="0 0 66.676956 31.95536"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
+   sodipodi:docname="workspaces.svg"
+   inkscape:export-filename="workspace.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="2.2279433"
+     inkscape:cx="166.07245"
+     inkscape:cy="-24.237601"
+     inkscape:window-width="1312"
+     inkscape:window-height="755"
+     inkscape:window-x="932"
+     inkscape:window-y="1639"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1"
+     showgrid="false" />
+  <defs
+     id="defs1">
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect3"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,4.5923034,0,1 @ F,0,1,1,0,4.5923034,0,1 @ F,0,1,1,0,4.5923034,0,1 @ F,0,1,1,0,4.5923034,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect1"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,1.8302928,0,1 @ F,0,0,1,0,1.9656111,0,1 @ F,0,0,1,0,2.0916758,0,1 @ F,0,0,1,0,1.9811925,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <marker
+       style="overflow:visible"
+       id="marker3692"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path3690" />
+    </marker>
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect1-2"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,1.8302928,0,1 @ F,0,0,1,0,1.9656111,0,1 @ F,0,0,1,0,2.0916758,0,1 @ F,0,0,1,0,1.9811925,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect5"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,4.5923034,0,1 @ F,0,1,1,0,4.5923034,0,1 @ F,0,1,1,0,4.5923034,0,1 @ F,0,1,1,0,4.5923034,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect5-7"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,1.3409439,0,1 @ F,0,0,1,0,1.3409439,0,1 @ F,0,0,1,0,0.45486881,0,1 @ F,0,0,1,0,1.4991884,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-38.153485,-132.77331)">
+    <path
+       id="rect4"
+       style="opacity:0.58;fill:#ffffff;fill-opacity:0.580392;stroke:#000000;stroke-width:0.29533595;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.188235"
+       d="M 2.5034601,34.026138 H 200.93475 a 1.3409439,1.3409439 45 0 1 1.34094,1.340944 v 88.107748 a 0.45486881,0.45486881 135 0 1 -0.45487,0.45487 H 2.6617046 A 1.4991884,1.4991884 45 0 1 1.1625162,122.43051 V 35.367082 a 1.3409439,1.3409439 135 0 1 1.3409439,-1.340944 z"
+       inkscape:path-effect="#path-effect5-7"
+       inkscape:original-d="M 1.1625162,34.026138 H 202.27569 V 123.9297 H 1.1625162 Z"
+       transform="matrix(0.32872737,0,0,0.34876388,38.054003,121.20657)" />
+    <rect
+       style="fill:#54af32;fill-opacity:1;stroke:#ffffff;stroke-width:0.120199;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect44"
+       width="6.3705425"
+       height="6.3705425"
+       x="67.719727"
+       y="148.65347"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="../../../source/polylith/doc/images/artifacts/workspace.png" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.19615px;fill:#000000;fill-opacity:1;stroke:#010101;stroke-width:0.100666;stroke-dasharray:none;stroke-opacity:1"
+       x="69.985764"
+       y="152.78778"
+       id="text45"><tspan
+         sodipodi:role="line"
+         id="tspan45"
+         style="fill:#000000;fill-opacity:1;stroke-width:0.100666;stroke-dasharray:none"
+         x="69.985764"
+         y="152.78778">b</tspan></text>
+    <rect
+       style="fill:#54af32;fill-opacity:1;stroke:#ffffff;stroke-width:0.120199;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect45"
+       width="6.3705425"
+       height="6.3705425"
+       x="51.84473"
+       y="148.54773"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.19615px;fill:#000000;fill-opacity:1;stroke:#010101;stroke-width:0.100666;stroke-dasharray:none;stroke-opacity:1"
+       x="54.110771"
+       y="152.68204"
+       id="text46"><tspan
+         sodipodi:role="line"
+         id="tspan46"
+         style="fill:#000000;fill-opacity:1;stroke-width:0.100666;stroke-dasharray:none"
+         x="54.110771"
+         y="152.68204">a</tspan></text>
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#414141;stroke-width:0.301998;stroke-dasharray:none;stroke-opacity:1"
+       id="rect46"
+       width="62.405296"
+       height="23.924379"
+       x="39.980907"
+       y="138.81712" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.19615px;fill:#000000;fill-opacity:1;stroke:#414141;stroke-width:0.100666;stroke-dasharray:none;stroke-opacity:1"
+       x="61.894958"
+       y="136.50557"
+       id="text47"><tspan
+         sodipodi:role="line"
+         id="tspan47"
+         style="fill:#000000;fill-opacity:1;stroke:#414141;stroke-width:0.100666;stroke-dasharray:none;stroke-opacity:1"
+         x="61.894958"
+         y="136.50557">Workspace</tspan></text>
+    <rect
+       style="fill:#54af32;fill-opacity:1;stroke:#ffffff;stroke-width:0.120199;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect50"
+       width="6.3705425"
+       height="6.3705425"
+       x="83.594734"
+       y="148.65347"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.19615px;fill:#000000;fill-opacity:1;stroke:#010101;stroke-width:0.100666;stroke-dasharray:none;stroke-opacity:1"
+       x="85.860741"
+       y="152.78778"
+       id="text51"
+       inkscape:export-filename="workspace.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan51"
+         style="fill:#000000;fill-opacity:1;stroke-width:0.100666;stroke-dasharray:none"
+         x="85.860741"
+         y="152.78778">c</tspan></text>
+  </g>
+</svg>

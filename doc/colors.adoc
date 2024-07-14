@@ -4,6 +4,7 @@
 The `poly` tool uses color to make its output easier to digest.
 The Dark column shows the colors used in all the examples, while Light is the colors used by xref:polyx.adoc[polyx] when `color-mode` is set to `light`.
 
+[#color-schemas]
 [%autowidth]
 |===
 |Name |[.nowrap]#ANSI Color# |Dark |Light |Example `poly` Usages

@@ -31,7 +31,7 @@
 
 | https://github.com/polyfy/polylith/pull/490[490]
 | https://github.com/lread[Lee Read]
-| Force no-wrap on color hex codes in colors.adoc
+| Force no-wrap on color hex codes in the xref:doc/colors.adoc#color-schemas[color schemas] table.
 |===
 
 |===
@@ -48,13 +48,15 @@
 |===
 | Doc updates
 
-| Added the video https://www.youtube.com/watch?v=cfVzy9iPpLg[How the polylith repo has evolved over time] to the xref:doc/developing-poly.adoc#visualize-repo[Developing poly] and xref:doc/doc.adoc#videos[Doc] pages.
+| A xref:doc/polylith-ci-setup.adoc#remove-old-snapshot-releases[note] informing that old SNAPSHOT releases are removed on an ongoing basis.
 
-| New State page, that links to examples that use Component and Integrant.
+| Added the video https://www.youtube.com/watch?v=cfVzy9iPpLg[How the polylith repo has evolved over time] to the xref:doc/developing-poly.adoc#visualize-repo[Developing poly] and xref:doc/doc.adoc#videos[Doc] pages. Can be accessed with `poly doc more:videos:how-the-polylith-repo-has-evolved-over-time`.
+
+| New xref:doc/state.adoc[State] page, that links to examples that use Component and Integrant.
 
 | Updated the xref:doc/artifacts.adoc#libraries[Libraries] section and better explained the issues with building multiple libraries from a Polylith workspace.
 
-| New sponsors: https://github.com/taehee-sp[taehee-sp] (김태희), https://github.com/tlonist-sang, https://github.com/premiscale
+| New sponsors: https://github.com/taehee-sp[Taehee Kim (김태희)], https://github.com/tlonist-sang[Sanghyun Kim], and https://github.com/premiscale[PremiScale]
 
 | Translated and https://zenn.dev/shinseitaro/books/clojure-polylith[reworked version] of the 0.2.19 poly tool documentation in Japanese, by https://x.com/shinseitaro[Shinsei Taro] (しんせいたろう). Can be accessed with `poly doc more:in-japanese`
 
