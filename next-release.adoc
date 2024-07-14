@@ -50,7 +50,7 @@
 
 | A xref:doc/polylith-ci-setup.adoc#remove-old-snapshot-releases[note] informing that old SNAPSHOT releases are removed on an ongoing basis.
 
-| Added the video https://www.youtube.com/watch?v=cfVzy9iPpLg[How the polylith repo has evolved over time] to the xref:doc/developing-poly.adoc#visualize-repo[Developing poly] and xref:doc/doc.adoc#videos[Doc] pages.
+| Added the video https://www.youtube.com/watch?v=cfVzy9iPpLg[How the polylith repo has evolved over time] to the xref:doc/developing-poly.adoc#visualize-repo[Developing poly] and xref:doc/doc.adoc#videos[Doc] pages. Can be accessed with `poly doc more:videos:how-the-polylith-repo-has-evolved-over-time`.
 
 | New xref:doc/state.adoc[State] page, that links to examples that use Component and Integrant.
 
