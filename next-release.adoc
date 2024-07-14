@@ -31,7 +31,7 @@
 
 | https://github.com/polyfy/polylith/pull/490[490]
 | https://github.com/lread[Lee Read]
-| Force no-wrap on color hex codes in colors.adoc
+| Force no-wrap on color hex codes in the xref:doc/colors.adoc#color-schemas[color schemas] table.
 |===
 
 |===
