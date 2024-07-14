@@ -47,6 +47,10 @@ This file is cleared when making the first SNAPSHOT release directly after a fin
 Changes to the workspace structure are listed in the xref:versions.adoc[versions] page.
 ====
 
+====
+NOTE: Old SNAPSHOT releases are regularly deleted (only the ten latest are kept). If you use snapshot releases, ensure you use the latest SNAPSHOT or stable version.
+====
+
 == Deploy Workflow
 
 This workflow has three jobs triggered by any commit to a branch associated with a pull request. These three jobs are `check`, `info`, and `test`. The workflow runs the remaining jobs only if the current branch is the _master_ branch.
