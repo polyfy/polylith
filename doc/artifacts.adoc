@@ -41,7 +41,7 @@ image::images/artifacts/multiple-libs.png[width=400]
 
 Here the `c` component is used by both `libx` and `liby` and depending on which library that comes first in the classpath, we will get either `1.1` or `1.2` of `c`.
 
-If the interface of `c` has changed between `1.1` and `1.2` then `libx` may fail to compile.
+If the interface of `c` has changed between `1.1` and `1.2` then `libx` may even fail to compile.
 Even if it does compile, it remains problematic, because
 `c` may exhibit new behavior that hasn't been tested from the `1.1` context.
 
@@ -64,10 +64,15 @@ The most solid solution is probably to build a single jar out of the entire work
 
 image::images/artifacts/one-lib-per-workspace.png[width=600]
 
-The disadvantage is that we have included more libraries than the user might need.
+This will ensure that we use the same version of all libraries.
+This will ensure that the same version of all libraries is used, regardless of which one(s) the user is interested in.
 
 === Adjust the top namespace at build time
 
 The last alternative is to adjust the top namespace for each library, when building the jar. We should keep the namespace of the API base though, so that people don't have to change their `:require` statements when they use the library.
 
 This approach comes with its own challenges, which is discussed in issue https://github.com/polyfy/polylith/issues/212[212].
+
+=== Conclusion
+
+If you have intended to build two or more libraries from a Polylith workspace, we recommend that you build one library per workspace.
