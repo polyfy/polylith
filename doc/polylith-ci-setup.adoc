@@ -43,7 +43,7 @@ The same snapshot release can be triggered several times and will overwrite the 
 
 ====
 NOTE: The https://github.com/polyfy/polylith/blob/master/next-release.adoc[next-release.adoc] file lists what has been included in the SNAPSHOT release, since the previous final release.
-This file is cleared when making a final release.
+This file is cleared when making the first SNAPSHOT release directly after a final release.
 Changes to the workspace structure are listed in the xref:versions.adoc[versions] page.
 ====
 
