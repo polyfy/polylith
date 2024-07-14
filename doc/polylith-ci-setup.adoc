@@ -49,7 +49,7 @@ Changes to the workspace structure are listed in the xref:versions.adoc[versions
 
 [#remove-old-snapshot-releases]
 ====
-NOTE: Old SNAPSHOT releases are regularly deleted (only the ten latest are kept). If you use snapshot releases, ensure you use the latest SNAPSHOT or stable version.
+NOTE: Old SNAPSHOT releases are regularly deleted. If you use snapshot releases, ensure you use the latest SNAPSHOT or stable version.
 ====
 
 == Deploy Workflow
