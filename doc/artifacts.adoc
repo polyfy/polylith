@@ -23,11 +23,11 @@ But let's start with the simple case.
 
 Let's say we have a workspace with three components:
 
-image::images/artifacts/workspace.png[width=400]
+image::images/artifacts/workspace.png[width=300]
 
 Now we can easily build a library of these components (e.g. `libx.jar`) and everything will work just as well as if we had a traditional monolithic codebase:
 
-image::images/artifacts/single-lib.png[width=400]
+image::images/artifacts/single-lib.png[width=300]
 
 It's natural to use a base to expose a library's functionality, as they are meant for that job (exposing APIs).
 For instance, we can use a `libx-api` base to expose the functionality of the `libx` library above.
@@ -49,12 +49,12 @@ Even if it does compile, it remains problematic, because
 
 There is another alternative, and that is to build one library/jar per brick:
 
-image::images/artifacts/one-lib-per-brick.png[width=600]
+image::images/artifacts/one-lib-per-brick.png[width=400]
 
 Let's say we have built and released `1.1` of all these five libraries, and then after a while, we release `1.2`. Let's say someone has included version `1.1` of "libx" by including `liba`, `libb`, and `libc`, and version `1.2` of "liby" and included version `1.2` of `libc`, `libd` and `libe`.
 Now, we can't be certain which version of component `c` will be picked up by the classloader, as it depends on the order in which the libraries are specified:
 
-image::images/artifacts/one-lib-per-brick-grouped.png[width=600]
+image::images/artifacts/one-lib-per-brick-grouped.png[width=500]
 
 This means we experience the same problem as if we build `libx` and `liby` separately.
 
@@ -62,7 +62,7 @@ This means we experience the same problem as if we build `libx` and `liby` separ
 
 The most solid solution is probably to build a single jar out of the entire workspace that includes all the bricks (`myws.jar` in this example) and thus all the libraries:
 
-image::images/artifacts/one-lib-per-workspace.png[width=600]
+image::images/artifacts/one-lib-per-workspace.png[width=400]
 
 This will ensure that we use the same version of all libraries.
 This will ensure that the same version of all libraries is used, regardless of which one(s) the user is interested in.
