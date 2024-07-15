@@ -51,7 +51,7 @@ There is another alternative, and that is to build one library/jar per brick:
 
 image::images/artifacts/one-lib-per-brick.png[width=400]
 
-Let's say we have built and released `1.1` of all these five libraries, and then after a while, we release `1.2`. Let's say someone has included version `1.1` of "libx" by including `liba`, `libb`, and `libc`, and version `1.2` of "liby" and included version `1.2` of `libc`, `libd` and `libe`.
+Let's say we have built and released `1.1` of all these five libraries, and then after a while, we release `1.2`. Let's say someone has included version `1.1` of "libx" by including `liba`, `libb`, and `libc`, and version `1.2` of "liby" by including `libc`, `libd` and `libe`.
 Now, we can't be certain which version of component `c` will be picked up by the classloader, as it depends on the order in which the libraries are specified:
 
 image::images/artifacts/one-lib-per-brick-grouped.png[width=500]
@@ -64,7 +64,6 @@ The most solid solution is probably to build a single jar out of the entire work
 
 image::images/artifacts/one-lib-per-workspace.png[width=400]
 
-This will ensure that we use the same version of all libraries.
 This will ensure that the same version of all libraries is used, regardless of which one(s) the user is interested in.
 
 === Adjust the top namespace at build time
