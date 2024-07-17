@@ -1,23 +1,9 @@
 
-== Included since 0.2.19
+== Included since 0.2.20
 
 [cols="10,100"]
 |===
 | Issue | Description
-
-| https://github.com/polyfy/polylith/issues/420[420] | When creating a workspace, honor user git config for default main branch name
-
-| https://github.com/polyfy/polylith/issues/443[443] | Switch workspace via shortcuts
-
-| https://github.com/polyfy/polylith/issues/457[457] | Support snippets of test configuration to be merged into settings
-
-| https://github.com/polyfy/polylith/issues/458[458] | Show error if a brick depends on another brick in its deps.edn file
-
-| https://github.com/polyfy/polylith/issues/465[465] | Make sure `:keep-lib-versions` works when updating libs for components (bug fix)
-
-| https://github.com/polyfy/polylith/issues/477[477] | Cannot run poly tool in folder containing deps.edn (but no workspace.edn)
-
-| https://github.com/polyfy/polylith/issues/484[484] | Support generating images with light or transparent background
 
 |===
 
@@ -25,45 +11,14 @@
 |===
 | PR | Author | Description
 
-| https://github.com/polyfy/polylith/pull/482[482]
-| https://github.com/marksto[Mark Sto]
-| Create an https://github.com/polyfy/polylith/tree/master/examples/integrant-system[example project] showing how to use Polylith with an Integrant system
-
-| https://github.com/polyfy/polylith/pull/490[490]
-| https://github.com/lread[Lee Read]
-| Force no-wrap on color hex codes in the xref:doc/colors.adoc#color-schemas[color schemas] table.
 |===
 
 |===
 | Other changes
 
-| Allow the use of `+` (to show all profiles) in the `info` command when reading the workspace from file.
-
-| New https://github.com/polyfy/polylith/blob/master/examples/poly-rcf/readme.md[poly-rcf] example workspace that shows how to run https://github.com/hyperfiddle/rcf[Hyperfiddle rcf] tests with the `poly` tool.
-
-| If `:hide-lib-size` is given to the `libs` command, values in the `KB` column appear as `-`. Used for testing purposes.
-
 |===
 
 |===
 | Doc updates
-
-| A xref:doc/polylith-ci-setup.adoc#remove-old-snapshot-releases[note] informing that old SNAPSHOT releases are removed on an ongoing basis.
-
-| Added the video https://www.youtube.com/watch?v=cfVzy9iPpLg[How the polylith repo has evolved over time] to the xref:doc/developing-poly.adoc#visualize-repo[Developing poly] and xref:doc/doc.adoc#videos[Doc] pages. Can be accessed with `poly doc more:videos:how-the-polylith-repo-has-evolved-over-time`.
-
-| New xref:doc/state.adoc[State] page, that links to examples that use Component and Integrant.
-
-| Updated the xref:doc/artifacts.adoc#libraries[Libraries] section and better explained the issues with building multiple libraries from a Polylith workspace.
-
-| New sponsors: https://github.com/taehee-sp[Taehee Kim (김태희)], https://github.com/tlonist-sang[Sanghyun Kim], and https://github.com/premiscale[PremiScale]
-
-| Translated and https://zenn.dev/shinseitaro/books/clojure-polylith[reworked version] of the 0.2.19 poly tool documentation in Japanese, by https://x.com/shinseitaro[Shinsei Taro] (しんせいたろう). Can be accessed with `poly doc more:in-japanese`
-
-| Added xref:doc/example-systems.adoc#integrant-system[Integrant system] to the list of example systems.
-
-| Updated the overview diagram of https://github.com/polyfy/polylith/blob/master/doc/images/production-systems/world-singles-networks.png[World Singles Networks].
-
-| Removed Funnel as example production system.
 
 |===
