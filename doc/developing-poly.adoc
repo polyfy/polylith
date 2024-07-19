@@ -486,3 +486,70 @@ gource --seconds-per-day 0.2 \
 ----
 
 See how to tweak the animation https://github.com/acaudwell/Gource/wiki/Controls[here]. All the options are listed https://github.com/acaudwell/Gource/blob/master/README.md#using-gource[here], or execute `gource --help`.
+
+[#make-a-snapshot-release]
+=== Make a snapshot release
+
+Run all the tests:
+
+[source,shell]
+----
+poly test :all
+----
+
+If you have made a lot of changes, run the `gen-all` script (this will take a few minutes):
+
+[source,shell]
+----
+bb gen-all
+----
+
+Make a `0.2.20-SNAPSHOT` release:
+
+1. Make sure `revision` is set to `SNAPSHOT`, and set `snapshot` to `34` (current snapshot number) in the https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/components/version/src/polylith/clj/core/version/interface.clj#L27-L28[version] component.
+2. Set the date in the https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/components/version/src/polylith/clj/core/version/interface.clj#L40[version] component (year-month-day).
+3. Set `snapshot` version to `34` in https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/readme.adoc?plain=1#L2[readme.adoc].
+4. Commit and push your changes.
+5. Go to the https://github.com/polyfy/polylith[polylith repo] and merge the `snapshot-022034` branch into master, by clicking the "Compare & pull requests" button at the top. If the CirclCi build is green, merge it into the `master` branch.
+6. Execute `git switch master` and execute `git pull` to get the latest from master.
+7. Execute `git switch -c snapshot-032101` (or whatever should be the next snapshot release).
+
+[#make-a-stable-release]
+=== Make a stable release
+
+In this example, we work with `0.2.20-SNAPSHOT # 34` from the `snapshot-022034` branch, and want to create a `0.2.20` release out of it.
+
+Run all the tests:
+
+[source,shell]
+----
+poly test :all
+----
+
+Run the `gen-all` script (this will take a few minutes):
+
+[source,shell]
+----
+bb gen-all
+----
+
+Compare the output with what's in git, and commit the changes if everything looks good.
+Create a ´0.2.20-SNAPSHOT # 34` release (don't put # and the number together in git comments, because then we will link to old issues and PRs).
+
+Announce in good time in the https://clojurians.slack.com/archives/C013B7MQHJQ[polylith channel] in Slack, that people should start testing current SNAPSHOT version.
+Also mention that there will only be minor changes until release, such as updating the documentation.
+
+Make a `0.2.20` release:
+
+1. Switch to the `master` branch and execute `git pull` to get the latest, followed by `git switch -c `release-0220` to create a release branch.
+2. Change `revision` to `RELEASE` and `snapshot` to `0` in the https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/components/version/src/polylith/clj/core/version/interface.clj#L27-L28[version] component.
+3. Set the date in the https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/components/version/src/polylith/clj/core/version/interface.clj#L40[version] component (year-month-day).
+4. Set `snapshot` version to `0` in https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/readme.adoc?plain=1#L2[readme.adoc].
+5. Set version to `0.2.20` in the https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/readme.adoc?plain=1#L5[badge].
+6. Commit and push your changes.
+7. Go to the https://github.com/polyfy/polylith[polylith repo] and merge the `snapshot-022034` branch into master, by clicking the "Compare & pull requests" button at the top. Write a comment that explains that this is release 0.2.20. If the CirclCi build is green, merge it into the `master` branch.
+8. Execute `git switch master` and execute `git pull` to get the latest from master.
+9. Execute `git switch -c snapshot-032101` to create a first snapshot branch for the next release.
+10. Create a `0.3.21-SNAPSHOT` release, by changing `revision` to `SHAPSHOT` and `snapshot` to `1` in the https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/components/version/src/polylith/clj/core/version/interface.clj#L27-L28[version] component .
+11. Set `snapshot` version to `1` in https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/readme.adoc?plain=1#L2[readme.adoc].
+12. Finish the SNAPSHOT release. The reason we immediately want to make a snapshot release is that if someone creates a PR, and we merge it, we want to make sure that we don't build a stable release by mistake.
