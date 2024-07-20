@@ -16,6 +16,6 @@
 |:--------------------------------------------------------------------------------:|
 | Renamed next-release.adoc to next-release.md (change from Ascii doc to Markdown) |
 
-|                                            Doc updates                                             |
-|:--------------------------------------------------------------------------------------------------:|
-| A new section in the Developing poly page that describes how to make snapshot and stable releases. |
+|                                             Doc updates                                              |
+|:----------------------------------------------------------------------------------------------------:|
+| A new section in the Developing poly page that describes how to create snapshot and stable releases. |
