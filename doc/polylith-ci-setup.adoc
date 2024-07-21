@@ -14,6 +14,7 @@ You can find the CircleCI configuration file link:../.circleci/config.yml[here].
 A https://github.com/polyfy/polylith/releases[release] is triggered when a commit is pushed to master, often a squashed branch that fixes/implements an https://github.com/polyfy/polylith/issues[issue].
 If SNAPSHOT is included in the version name, then it becomes a
 https://github.com/polyfy/polylith/blob/779d0815fb3fbb7dac0a278448926711a7efa82c/components/version/src/polylith/clj/core/version/interface.clj#L26[snapshot] release, otherwise a "final" release.
+The manual steps for creating a release are detailed in the  xref:developing-poly.adoc#create-a-snapshot-release[snapshot] and xref:developing-poly.adoc#create-a-stable-release[stable] sections on the Developing Poly page.
 
 {nbsp} +
 
@@ -42,7 +43,7 @@ is a snapshot, e.g. `0.2.19-SNAPSHOT`, which triggers a build in CircleCi that:
 The same snapshot release can be triggered several times and will overwrite the latest snapshot release.
 
 ====
-NOTE: The https://github.com/polyfy/polylith/blob/master/next-release.adoc[next-release.adoc] file lists what has been included in the SNAPSHOT release, since the previous final release.
+NOTE: The https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md] file lists what has been included in the SNAPSHOT release, since the previous final release.
 This file is cleared when making the first SNAPSHOT release directly after a final release.
 Changes to the workspace structure are listed in the xref:versions.adoc[versions] page.
 ====
