@@ -516,8 +516,8 @@ Make a `0.2.20-SNAPSHOT #34` release:
 - https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/components/version/src/polylith/clj/core/version/interface.clj#L40[date] is set to today's date (yyyy-mm-dd).
 2. Ensure the versions are correctly specified in `readme.adoc`:
 - https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/readme.adoc?plain=1#L2[snapshot-version] is set to `34`.
-- https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/readme.adoc?plain=1#L5[Stable] is set to current stable version, `0.2.19`.
-- https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/readme.adoc?plain=1#L7[Snapshot] version is set to `0.2.20-SNAPSHOT`.
+- https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/readme.adoc?plain=1#L5[stable] version is set to current stable version, `0.2.19`.
+- https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/readme.adoc?plain=1#L7[snapshot] version is set to `0.2.20-SNAPSHOT`.
 3. Commit and push your changes.
 4. Go to the https://github.com/polyfy/polylith[polylith repo] and prepare to merge the `snapshot-022034` branch into `master`, by clicking the "Compare & pull requests" button at the top.
 If the https://app.circleci.com/pipelines/github/polyfy[circlci pipeline] is green, merge it into the `master` branch.
@@ -563,8 +563,8 @@ Make a `0.2.20` release:
 - https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/components/version/src/polylith/clj/core/version/interface.clj#L40[date] is set to today's date (yyyy-mm-dd).
 4. Ensure the versions are correctly specified in `readme.adoc`:
 - https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/readme.adoc?plain=1#L2[snapshot-version] is set to `0`.
-- https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/readme.adoc?plain=1#L5[Stable] is set to current stable version, `0.2.20`.
-- https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/readme.adoc?plain=1#L7[Snapshot] version is set to `0.2.20-SNAPSHOT`.
+- https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/readme.adoc?plain=1#L5[stable] version is set to current stable version, `0.2.20`.
+- https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/readme.adoc?plain=1#L7[snapshot] version is set to `0.2.20-SNAPSHOT`.
 5. Commit and push your changes.
 6. Build a xref:#local-cljdoc[local version] of Cljdoc:
 - Check that new content looks correct.
