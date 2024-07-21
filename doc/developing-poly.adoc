@@ -431,14 +431,6 @@ And now, from the `clojure-polylith-realworld-example-app` dir, you can launch l
 clojure -M:poly
 ----
 
-== SNAPSHOT Releases & Caching
-
-https://github.com/clojure/tools.deps[Clojure tools.deps] only checks for updates once per day by default.
-
-This caching behavior means users referencing a specific `SNAPSHOT` will be more likely to temporarily be on an older release if you frequently release under the same `SNAPSHOT` version.
-
-Users can https://clojure.org/reference/deps_and_cli#_classpath_caching[-Sforce] a check for an update, but most probably won't think to do that.
-
 [#visualize-repo]
 == Visualize the repo
 
@@ -487,8 +479,17 @@ gource --seconds-per-day 0.2 \
 
 See how to tweak the animation https://github.com/acaudwell/Gource/wiki/Controls[here]. All the options are listed https://github.com/acaudwell/Gource/blob/master/README.md#using-gource[here], or execute `gource --help`.
 
+== SNAPSHOT Releases & Caching
+
+https://github.com/clojure/tools.deps[Clojure tools.deps] only checks for updates once per day by default.
+
+This caching behavior means users referencing a specific `SNAPSHOT` will be more likely to temporarily be on an older release if you frequently release under the same `SNAPSHOT` version.
+
+Users can https://clojure.org/reference/deps_and_cli#_classpath_caching[-Sforce] a check for an update, but most probably won't think to do that.
+
+
 [#create-a-snapshot-release]
-== Create a snapshot release
+== Create a SNAPSHOT release
 
 Run all the tests:
 
