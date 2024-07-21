@@ -1,6 +1,6 @@
 = Workspace Structure
 :toc:
-:poly-version: 0.2.18
+:poly-version: 0.2.20
 :cljdoc-api-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/api
 
 The `poly` tool gives us access to the data structure that represents the workspace, which is the same structure that all the `poly` commands operate on internally.
@@ -1112,7 +1112,7 @@ poly ws get:ws-reader
 
 [source,clojure]
 ----
-{:file-extensions ["clj" "cljc"],
+{:file-extensions ["clj" "cljs" "cljc"],
  :language "Clojure",
  :name "polylith-clj",
  :project-url "https://github.com/polyfy/polylith",

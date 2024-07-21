@@ -1,6 +1,6 @@
 = Upgrade
 :toc:
-:poly-version: 0.2.18
+:poly-version: 0.2.20
 
 If the `poly` tool has been xref:install.adoc[installed], it can be upgraded.
 
