@@ -488,7 +488,7 @@ gource --seconds-per-day 0.2 \
 See how to tweak the animation https://github.com/acaudwell/Gource/wiki/Controls[here]. All the options are listed https://github.com/acaudwell/Gource/blob/master/README.md#using-gource[here], or execute `gource --help`.
 
 [#create-a-snapshot-release]
-=== Create a snapshot release
+== Create a snapshot release
 
 Run all the tests:
 
@@ -526,7 +526,7 @@ If the https://app.circleci.com/pipelines/github/polyfy[circlci pipeline] is gre
 - `git switch -c release-0220` if the next release should be a `0.2.20` stable release.
 
 [#create-a-stable-release]
-=== Create a stable release
+== Create a stable release
 
 In this example, we work with `0.2.20-SNAPSHOT #34` from the `snapshot-022034` branch, and want to create a `0.2.20` release out of it.
 
