@@ -101,7 +101,7 @@
     (when-let [file-path (-> (subs path (count root-dir))
                              (skip-slash))]
       (-> file-path
-          (str-util/skip-suffixes [".clj" ".cljc"])
+          (str-util/skip-suffixes [".clj" ".cljs" ".cljc"])
           (str/replace "/" ".")
           (str/replace "_" "-")))))
 

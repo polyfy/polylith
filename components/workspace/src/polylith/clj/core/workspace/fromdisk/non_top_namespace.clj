@@ -17,6 +17,7 @@
 (defn non-data-reader-file? [path]
   (let [filename (last (str/split path #"/"))]
     (not (contains? #{"data_readers.clj"
+                      "data_readers.cljs"
                       "data_readers.cljc"} filename))))
 
 (defn non-top-namespaces-for-source [brick-type brick-name brick-dir top-src-dir source-dir]

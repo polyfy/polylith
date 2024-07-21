@@ -9,8 +9,10 @@
 
 (defn interface-ns? [path interface-ns]
   (and (or (str/ends-with? path ".clj")
+           (str/ends-with? path ".cljs")
            (str/ends-with? path ".cljc"))
        (or (or (= path (str interface-ns ".clj"))
+               (= path (str interface-ns ".cljs"))
                (= path (str interface-ns ".cljc")))
            (str/starts-with? path (str interface-ns "/")))))
 

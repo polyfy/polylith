@@ -68,6 +68,7 @@
 (defn filter-clojure-paths [paths]
   (filterv #(and 
               (or (str/ends-with? % ".clj")
+                  (str/ends-with? % ".cljs")
                   (str/ends-with? % ".cljc"))
               ;; E.g. temporary emacs files might give problems
               (not (hidden-file? %)))

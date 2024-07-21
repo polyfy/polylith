@@ -436,7 +436,7 @@
                 :language "Clojure",
                 :type-position "postfix",
                 :slash "/",
-                :file-extensions [".clj" "cljc"]})
+                :file-extensions [".clj" "cljs" "cljc"]})
 
 (def projects [{:name "poly",
                 :alias "poly",
