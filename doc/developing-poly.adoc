@@ -554,7 +554,7 @@ Also mention that there will only be minor changes until release, such as updati
 
 Make a `0.2.20` release:
 
-1. Execute `git switch master` followed by `git pull` to get the latest (you may need to stash local files first).
+1. Execute `git switch master` followed by `git pull` to get the latest.
 2. Create the release branch by executing `git switch -c release-0220`.
 3. Update the `version` component and ensure that:
 - https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/components/version/src/polylith/clj/core/version/interface.clj#L24-L26[version] is set to `0.2.20`.
