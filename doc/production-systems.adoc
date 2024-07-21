@@ -44,7 +44,7 @@ Thanks to Polylith, we've been able to easily manage and deploy multiple serverl
 
 image::images/production-systems/polylith.png[link="images/production-systems/polylith.png"]
 
-Polylith is mainly developed on a non-profit basis by Joakim Tengstrand with help from Furkan Bayraktar, James Trunk, and other contributors.
+Polylith is mainly developed on a non-profit basis by Joakim Tengstrand with help from Furkan Bayraktar, James Trunk, and other contributors. https://github.com/sponsors/polyfy[Sponsorship] is gratefully received!
 
 The https://github.com/polyfy/polylith[polylith] codebase itself is structured as a Polylith workspace.
 We made our initial commit on June 9, 2019.
