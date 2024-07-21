@@ -15,7 +15,7 @@ https://github.com/furkan3ayraktar[Furkan Bayraktar] has made a full-blown https
 
 image::images/example-systems/user-manager.png[link="images/example-systems/user-manager.png"]
 
-https://github.com/seancorfield[Sean Corfield] has made a full-blown https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager] web application, which can be compared with non-Polylith systems living in other branches of the repository, .
+https://github.com/seancorfield[Sean Corfield] has made a full-blown https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager] web application, which can be compared with non-Polylith systems living in other branches of the repository.
 
 == Demo Rama Electric
 
