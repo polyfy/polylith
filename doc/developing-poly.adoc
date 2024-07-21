@@ -566,7 +566,7 @@ Make a `0.2.20` release:
 - https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/readme.adoc?plain=1#L2[snapshot-version] is set to `0`.
 - https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/readme.adoc?plain=1#L5[stable] version is set to current stable version, `0.2.20`.
 - https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/readme.adoc?plain=1#L7[snapshot] version is set to `0.2.20-SNAPSHOT`.
-5. Search for occurrences of `:poly-version:` constants, and set the version to `0.2.20` wherever it appears.
+5. Search for occurrences of `:poly-version:` constants, and set the version to `0.2.20` wherever it appears (at the top of .adoc files).
 6. Commit and push your changes.
 7. Build a xref:#local-cljdoc[local version] of Cljdoc:
 - Check that new content looks correct.
