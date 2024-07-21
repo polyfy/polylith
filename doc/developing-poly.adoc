@@ -24,7 +24,7 @@ We expect you to include/update tests for your change.
 You've probably gotten the sense that providing good docs for our users is important to us.
 When your change affects our docs or needs to be described for our users, we expect you to do so.
 
-Add a brief line summarizing your change to link:/next-release.adoc[next-release.adoc].
+Add a brief line summarizing your change to link:/next-release.md[next-release.md].
 The `poly` core team moves the content in this file to the changelog for each stable https://github.com/polyfy/polylith/releases[release].
 
 === Submitting a Pull Request
