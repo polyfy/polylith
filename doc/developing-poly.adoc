@@ -434,13 +434,72 @@ clojure -M:poly
 [#visualize-repo]
 == Visualize the repo
 
-You can use https://gource.io[Gource] to visualize how the code has evolved over time.
+=== git-of-theseus
+
+Here we use https://github.com/erikbern/git-of-theseus[git-of-theseus] to show how the https://github.com/polyfy/polylith[polylith] codebase has evolved over time:
+
+image::images/developing-polylith/git-of-theseus/code-over-time.png[]
+
+...and how people have contributed:
+
+image::images/developing-polylith/git-of-theseus/contribution.png[]
+
+==== Install
+
+If you want to try it out yourself, start by cloning the polylith repo (if you haven't already):
+
+[source,shell]
+----
+git clone git@github.com:polyfy/polylith.git
+----
+
+To generate these diagrams, we need to have python and pip installed.
+
+Create Python virtual environment in e.g. a `python-venv` directory, and install git-of-theseus:
+
+[source,shell]
+----
+mkdir python-venv
+cd python-venv
+python -m venv .venv
+source .venv/bin/activate
+pip install git-of-theseus
+----
+
+Now you can ask git-of-theseus to analyze the repository:
+
+[source,shell]
+----
+git-of-theseus-analyze ../polylith
+----
+
+This will generate different json files that can be used by other commands to generate diagrams, e.g.:
+
+[source,shell]
+----
+git-of-theseus-stack-plot cohorts.json --outfile code-over-time.png
+git-of-theseus-stack-plot authors.json --outfile contribution.png
+----
+
+Show more options:
+
+[source,shell]
+----
+git-of-theseus-analyze --help
+git-of-theseus-stack-plot --help
+----
+
+=== Gource
+
+You can also use https://gource.io[Gource] to visualize how the code has evolved over time.
 
 Here is an example animation:
 
-image::images/developing-polylith/polylith-git-repo-animation.png[link="https://youtu.be/cfVzy9iPpLg"]
+image::images/developing-polylith/gource/polylith-git-repo-animation.png[link="https://youtu.be/cfVzy9iPpLg"]
 
-=== Install
+==== Install
+
+If you want to try it out yourself, start by installing it:
 
 [source,shell]
 ----
@@ -448,13 +507,13 @@ brew install gource
 brew install ffmpeg
 ----
 
-=== Generate
+==== Generate
 
 This will generate a `polylith.mp4` file:
 
 [source,shell]
 ----
-gource --seconds-per-day 0.2 --auto-skip-seconds 1 --max-file-lag 0.1 --background 9dabcb --logo doc/images/developing-polylith/logo.png --disable-bloom --font-size 18 --font-colour 566ca1 --hide filenames --date-format "%d %B %Y" --dir-colour eeeeee --dir-name-depth 2 --caption-colour ff0000 --dir-font-size 12 -o - | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libx264 -preset ultrafast -pix_fmt yuv420p -crf 1 -threads 0 -bf 0 polylith2.mp4
+gource --seconds-per-day 0.2 --auto-skip-seconds 1 --max-file-lag 0.1 --background 9dabcb --logo doc/images/developing-polylith/logo.png --disable-bloom --font-size 18 --font-colour 566ca1 --hide filenames --date-format "%d %B %Y" --dir-colour eeeeee --dir-name-depth 2 --caption-colour ff0000 --dir-font-size 12 -o - | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libx264 -preset ultrafast -pix_fmt yuv420p -crf 1 -threads 0 -bf 0 polylith.mp4
 ----
 
 You can also experiment without generating a file:
@@ -524,8 +583,8 @@ Make a `0.2.20-SNAPSHOT #34` release:
 If the https://app.circleci.com/pipelines/github/polyfy[circlci pipeline] is green, merge it into the `master` branch.
 6. Execute `git switch master` followed by `git pull` to get the latest from `master`.
 7. Execute (depending on what the next release should be):
-- `git switch -c snapshot-022035` if the next release should be a `0.2.20-SNAPSHOT #35` snapshot release.
-- `git switch -c release-0220` if the next release should be a `0.2.20` stable release.
+- `git switch -c snapshot-022035` if the next release should be a `0.2.20-SNAPSHOT #35` release.
+- `git switch -c release-0220` if the next release should be a `0.2.20` release.
 
 [#create-a-stable-release]
 == Create a stable release
