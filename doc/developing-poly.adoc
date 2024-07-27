@@ -431,113 +431,6 @@ And now, from the `clojure-polylith-realworld-example-app` dir, you can launch l
 clojure -M:poly
 ----
 
-[#visualize-repo]
-== Visualize the repo
-
-=== git-of-theseus
-
-Here we use https://github.com/erikbern/git-of-theseus[git-of-theseus] to show how the https://github.com/polyfy/polylith[polylith] codebase has evolved over time:
-
-image::images/developing-polylith/git-of-theseus/code-over-time.png[]
-
-...and how people have contributed:
-
-image::images/developing-polylith/git-of-theseus/contribution.png[]
-
-==== Install
-
-If you want to try it out yourself, start by cloning the polylith repo (if you haven't already):
-
-[source,shell]
-----
-git clone git@github.com:polyfy/polylith.git
-----
-
-To generate these diagrams, we need to have python and pip installed.
-
-Create Python virtual environment in e.g. a `python-venv` directory, and install git-of-theseus:
-
-[source,shell]
-----
-mkdir python-venv
-cd python-venv
-python -m venv .venv
-source .venv/bin/activate
-pip install git-of-theseus
-----
-
-Now you can ask git-of-theseus to analyze the repository:
-
-[source,shell]
-----
-git-of-theseus-analyze ../polylith
-----
-
-This will generate different json files that can be used by other commands to generate diagrams, e.g.:
-
-[source,shell]
-----
-git-of-theseus-stack-plot cohorts.json --outfile code-over-time.png
-git-of-theseus-stack-plot authors.json --outfile contribution.png
-----
-
-Show more options:
-
-[source,shell]
-----
-git-of-theseus-analyze --help
-git-of-theseus-stack-plot --help
-----
-
-=== Gource
-
-You can also use https://gource.io[Gource] to visualize how the code has evolved over time.
-
-Here is an example animation:
-
-image::images/developing-polylith/gource/polylith-git-repo-animation.png[link="https://youtu.be/cfVzy9iPpLg"]
-
-==== Install
-
-If you want to try it out yourself, start by installing it:
-
-[source,shell]
-----
-brew install gource
-brew install ffmpeg
-----
-
-==== Generate
-
-This will generate a `polylith.mp4` file:
-
-[source,shell]
-----
-gource --seconds-per-day 0.2 --auto-skip-seconds 1 --max-file-lag 0.1 --background 9dabcb --logo doc/images/developing-polylith/logo.png --disable-bloom --font-size 18 --font-colour 566ca1 --hide filenames --date-format "%d %B %Y" --dir-colour eeeeee --dir-name-depth 2 --caption-colour ff0000 --dir-font-size 12 -o - | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libx264 -preset ultrafast -pix_fmt yuv420p -crf 1 -threads 0 -bf 0 polylith.mp4
-----
-
-You can also experiment without generating a file:
-
-[source,shell]
-----
-gource --seconds-per-day 0.2 \
-       --auto-skip-seconds 1 \
-       --max-file-lag 0.1 \
-       --background 9dabcb \
-       --logo doc/images/developing-polylith/logo.png \
-       --disable-bloom \
-       --font-size 18 \
-       --font-colour 566ca1 \
-       --hide filenames \
-       --date-format "%d %B %Y" \
-       --dir-colour eeeeee \
-       --dir-name-depth 2 \
-       --caption-colour ff0000 \
-       --dir-font-size 12
-----
-
-See how to tweak the animation https://github.com/acaudwell/Gource/wiki/Controls[here]. All the options are listed https://github.com/acaudwell/Gource/blob/master/README.md#using-gource[here], or execute `gource --help`.
-
 == SNAPSHOT Releases & Caching
 
 https://github.com/clojure/tools.deps[Clojure tools.deps] only checks for updates once per day by default.
@@ -625,20 +518,24 @@ Make a `0.2.20` release:
 - https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/readme.adoc?plain=1#L2[snapshot-version] is set to `0`.
 - https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/readme.adoc?plain=1#L5[stable] version is set to current stable version, `0.2.20`.
 - https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/readme.adoc?plain=1#L7[snapshot] version is set to `0.2.20-SNAPSHOT`.
-5. Search for occurrences of `:poly-version:` constants, and set the version to `0.2.20` wherever it appears (at the top of .adoc files).
-6. Commit and push your changes.
-7. Build a xref:#local-cljdoc[local version] of Cljdoc:
+5. Update the doc and its navigation:
+- If a page has been added to the link:../doc[doc] directory, also add it to link:/{docdir}/cljdoc.edn[cljdoc.edn] and execute https://github.com/polyfy/polylith/blob/205210dee83c7837be9546e12aa08707eecdd919/bases/nav-generator/src/polylith/clj/core/nav_generator/main.clj#L30[this] function to generate the doc navigation.
+- If a xref:blog-posts[blog post], xref:videos[video] or xref:high-level[high-level doc] page has been added, then update link:../components/doc/src/polylith/clj/core/doc/navigation/more.clj[more.clj].
+- If any doc content has been added, make sure to update corresponding examples in the doc, e.g. what xref:more[more] outputs.
+6. Search for occurrences of `:poly-version:` constants, and set the version to `0.2.20` wherever it appears (at the top of .adoc files).
+7. Commit and push your changes.
+8. Build a xref:#local-cljdoc[local version] of Cljdoc:
 - Check that new content looks correct.
 - Verify that we have included everything in https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md].
 - Check that the badges at the top and the API at the bottom left are displayed correctly (most namespaces should begin with a `^:no-doc` tag, to exclude them from the API doc).
-8. Go to the https://github.com/polyfy/polylith[polylith repo] and prepare to merge the `release-0220` branch into `master`, by clicking the "Compare & pull requests" button at the top.
+9. Go to the https://github.com/polyfy/polylith[polylith repo] and prepare to merge the `release-0220` branch into `master`, by clicking the "Compare & pull requests" button at the top.
 - Add a comment indicating that this is release 0.2.20.
 - If the https://app.circleci.com/pipelines/github/polyfy[circlci pipeline] is green, merge it into the `master` branch.
 - Ensure that the https://cljdoc.org/d/polylith/clj-poly/0.2.20/doc/readme[poly-clj] documentation has been built, and verify that the badges at the top and the API at the bottom left are displayed correctly.
-9. Update the https://github.com/polyfy/polylith/releases/tag/v0.2.20[release notes] for the 0.2.20 release:
+10. Update the https://github.com/polyfy/polylith/releases/tag/v0.2.20[release notes] for the 0.2.20 release:
 - Summarize the release in the introduction.
 - Copy the content from https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md] into the release notes.
-10. Execute `git switch master` followed by `git pull` to get the latest from master.
-11. Execute `git switch -c snapshot-032101` to create a first snapshot branch for the next release (here we imagine that the next release is 0.3.21).
-12. Create a `0.3.21-SNAPSHOT #1` release, see xref:#create-a-snapshot-release[make a snapshot release for instructions].
-13. Announce in https://clojurians.slack.com/archives/C015AL9QYH1[#releases] in clojurians in Slack, by summarizing the most important changes + the included issues and PRs.
+11. Execute `git switch master` followed by `git pull` to get the latest from master.
+12. Execute `git switch -c snapshot-032101` to create a first snapshot branch for the next release (here we imagine that the next release is 0.3.21).
+13. Create a `0.3.21-SNAPSHOT #1` release, see xref:#create-a-snapshot-release[make a snapshot release for instructions].
+14. Announce in https://clojurians.slack.com/archives/C015AL9QYH1[#releases] in clojurians in Slack, by summarizing the most important changes + the included issues and PRs.

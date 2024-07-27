@@ -70,6 +70,7 @@
    "upgrade" {}
    "validations" {}
    "versions" {}
+   "visualize-the-repo" {}
    "workspace" {}})
 
 (def ws-nav

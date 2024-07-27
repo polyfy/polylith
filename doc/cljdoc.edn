@@ -33,6 +33,7 @@
                    ["Naming" {:file "doc/naming.adoc"}]
                    ["Git hooks" {:file "doc/git-hooks.adoc"}]
                    ["Colors" {:file "doc/colors.adoc"}]
+                   ["Visualize the repo" {:file "doc/visualize-the-repo.adoc"}]
                    ["Developing poly" {:file "doc/developing-poly.adoc"}]
                    ["CI" {}
                     ["Continuous Integration" {:file "doc/continuous-integration.adoc"}]
