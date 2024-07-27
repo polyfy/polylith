@@ -44,6 +44,7 @@
              :videos {:url "https://polylith.gitbook.io/polylith/conclusion/videos"
                       :polylith-in-a-nutshell {:url "https://youtu.be/Xz8slbpGvnk"}
                       :collaborative-learning-polylith {:url "https://youtu.be/_tpNKAv4fro"}
+                      :developer-tooling-for-speed-and-productivity-in-2024 {:url "https://youtu.be/pVvuyaRDA58?si=rBFMEyGtspdmGV29&t=1333"}
                       :the-last-architecture-you-will-ever-need {:url "https://youtu.be/pebwHmibla4"}
                       :a-fresh-take-on-monorepos-in-python {:url "https://www.youtube.com/watch?v=HU61vjZPPfQ"}
                       :polylith–a-software-architecture-based-on-lego-like-blocks {:url "https://www.youtube.com/watch?v=wy4LZykQBkY"}
