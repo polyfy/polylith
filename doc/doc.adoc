@@ -379,7 +379,8 @@ the-last-architecture-you-will-ever-need
 
 | https://youtu.be/pVvuyaRDA58?si=rBFMEyGtspdmGV29&t=1333[developer-tooling-for-speed-and-productivity-in-2024]
 | A talk by https://github.com/vedang[Vedang Manerikar] from the https://inclojure.org[IN/Clojure] 2024 conference, where he talks about the advantages of Polylith.
-| 2024. The speaker notes can be found https://vedang.me/clojure-developer-tooling-for-speed-and-productivity/#h:ABCDF299-13C8-4091-AB6B-CBFC852B3497[here].
+The speaker notes can be found https://vedang.me/clojure-developer-tooling-for-speed-and-productivity/#h:ABCDF299-13C8-4091-AB6B-CBFC852B3497[here].
+| 2024
 
 | https://www.youtube.com/watch?v=cfVzy9iPpLg[how-the-polylith-repo-has-evolved-over-time]
 | An animation that visualizes the evolution of the Polylith repository from its inception in 2020 to mid-2024. Generated in https://gource.io[Gource].
