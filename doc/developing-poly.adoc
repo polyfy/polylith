@@ -539,3 +539,5 @@ Make a `0.2.20` release:
 12. Execute `git switch -c snapshot-032101` to create a first snapshot branch for the next release (here we imagine that the next release is 0.3.21).
 13. Create a `0.3.21-SNAPSHOT #1` release, see xref:#create-a-snapshot-release[make a snapshot release for instructions].
 14. Announce in https://clojurians.slack.com/archives/C015AL9QYH1[#releases] in clojurians in Slack, by summarizing the most important changes + the included issues and PRs + add a link to the #polylith channel.
+15. Announce on X (Twitter) and maybe other places.
+16. Archive the Done column on the https://github.com/orgs/polyfy/projects/1[KanBan board].
