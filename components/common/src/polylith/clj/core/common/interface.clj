@@ -8,6 +8,8 @@
             [polylith.clj.core.common.validate-args :as validate-args]
             [polylith.clj.core.version.interface :as version]))
 
+(def cljs? core/cljs?)
+
 (def entity->short core/entity->short)
 (def entity->long core/entity->long)
 

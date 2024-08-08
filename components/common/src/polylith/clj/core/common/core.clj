@@ -4,6 +4,8 @@
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.user-config.interface :as user-config]))
 
+(def cljs? false)
+
 (def entity->short {"w" "w"
                     "p" "p"
                     "b" "b"
@@ -68,7 +70,7 @@
 (defn filter-clojure-paths [paths]
   (filterv #(and 
               (or (str/ends-with? % ".clj")
-                  (str/ends-with? % ".cljs")
+                  (and cljs? (str/ends-with? % ".cljs"))
                   (str/ends-with? % ".cljc"))
               ;; E.g. temporary emacs files might give problems
               (not (hidden-file? %)))

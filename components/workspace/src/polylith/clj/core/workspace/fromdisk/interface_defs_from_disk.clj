@@ -12,7 +12,8 @@
            (str/ends-with? path ".cljs")
            (str/ends-with? path ".cljc"))
        (or (or (= path (str interface-ns ".clj"))
-               (= path (str interface-ns ".cljs"))
+               (and common/cljs?
+                    (= path (str interface-ns ".cljs")))
                (= path (str interface-ns ".cljc")))
            (str/starts-with? path (str interface-ns "/")))))
 
