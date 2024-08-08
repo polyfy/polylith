@@ -121,7 +121,7 @@
                             :language "Clojure",
                             :type-position "postfix",
                             :slash "/",
-                            :file-extensions [".clj" "cljc"]},
+                            :file-extensions [".clj" ".cljs" ".cljc"]},
                 :paths {:existing ["components/database/src"
                                    "components/database/test"
                                    "components/test-helper/src"

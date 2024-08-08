@@ -96,12 +96,16 @@
   (or (str-util/skip-until path "/")
       path))
 
+(def skipped-suffixes (if common/cljs?
+                        [".clj" ".cljs" ".cljc"]
+                        [".clj" ".cljc"]))
+
 (defn namespace-name [root-dir path]
   (when path
     (when-let [file-path (-> (subs path (count root-dir))
                              (skip-slash))]
       (-> file-path
-          (str-util/skip-suffixes [".clj" ".cljc"])
+          (str-util/skip-suffixes skipped-suffixes)
           (str/replace "/" ".")
           (str/replace "_" "-")))))
 

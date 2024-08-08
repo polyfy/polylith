@@ -34,14 +34,17 @@
                           :the-monorepos-polylith-series {:url "https://corfield.org/blog/2021/04/21/deps-edn-monorepo-2"}
                           :the-micro-monolith-architecture {:url "https://medium.com/@joakimtengstrand/the-micro-monolith-architecture-d135d9cafbe"}
                           :the-origin-of-complexity {:url "https://itnext.io/the-origin-of-complexity-8ecb39130fc"}}
-             :workspaces {:url "https://polylith.gitbook.io/polylith/#look-at-working-code"
+             :workspaces {:url "https://polylith.gitbook.io/polylith#look-at-working-code"
+                          :demo-rama-electric {:url "https://github.com/jeans11/demo-rama-electric"}
                           :game-of-life {:url "https://github.com/tengstrand/game-of-life"}
+                          :integrant-system {:url "https://github.com/polyfy/polylith/tree/master/examples/integrant-system"}
                           :polylith {:url "https://github.com/polyfy/polylith"}
                           :realworld {:url "https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/e6f7f200bc46e4e2595e123947eec442ad91c9ab"}
                           :usermanager {:url "https://github.com/seancorfield/usermanager-example/tree/polylith"}}
              :videos {:url "https://polylith.gitbook.io/polylith/conclusion/videos"
                       :polylith-in-a-nutshell {:url "https://youtu.be/Xz8slbpGvnk"}
                       :collaborative-learning-polylith {:url "https://youtu.be/_tpNKAv4fro"}
+                      :developer-tooling-for-speed-and-productivity-in-2024 {:url "https://youtu.be/pVvuyaRDA58?si=rBFMEyGtspdmGV29&t=1333"}
                       :the-last-architecture-you-will-ever-need {:url "https://youtu.be/pebwHmibla4"}
                       :a-fresh-take-on-monorepos-in-python {:url "https://www.youtube.com/watch?v=HU61vjZPPfQ"}
                       :polylith–a-software-architecture-based-on-lego-like-blocks {:url "https://www.youtube.com/watch?v=wy4LZykQBkY"}
