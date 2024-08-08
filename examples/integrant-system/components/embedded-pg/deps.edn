@@ -1,4 +1,0 @@
-{:paths   ["src"]
- :deps    {io.zonky.test/embedded-postgres {:mvn/version "2.0.7"}}
- :aliases {:test {:extra-paths ["test"]
-                  :extra-deps  {}}}}
