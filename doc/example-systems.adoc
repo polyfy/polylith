@@ -26,7 +26,7 @@ https://github.com/jeans11[Jean Boudet] has made a https://github.com/jeans11/de
 [#integrant-system]
 == Integrant system
 
-image::images/example-systems/demo-rama-electric.png[link="images/example-systems/integrant-system.png"]
+image::images/example-systems/integrant-system.png[link="images/example-systems/integrant-system.png"]
 
 https://github.com/marksto[Mark Sto] has made a small https://github.com/marksto/polylith-integrant[example system] to show how you can use https://github.com/weavejester/integrant[Integrant] in Polylith.
 
