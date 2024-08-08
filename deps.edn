@@ -41,8 +41,8 @@
                                poly/nav-generator            {:local/root "bases/nav-generator"}
                                poly/poly-cli                 {:local/root "bases/poly-cli"}
 
-                               org.clojure/clojure {:mvn/version "1.11.3"}
-                               org.slf4j/slf4j-nop {:mvn/version "2.0.13"}
+                               org.clojure/clojure {:mvn/version "1.11.4"}
+                               org.slf4j/slf4j-nop {:mvn/version "2.0.14"}
                                rewrite-clj/rewrite-clj {:mvn/version "1.1.47"}}}
 
             :+default {:extra-paths ["components/deps/test"]
