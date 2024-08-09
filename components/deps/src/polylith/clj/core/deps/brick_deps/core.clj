@@ -55,10 +55,10 @@
                                     deps))
         base-deps (set/intersection (map :to-brick-id
                                          (filter base? deps)))
-        illegal-deps (filter #(illegal-dep? % interface-ns source) deps)]
+        illegal-deps (filterv #(illegal-dep? % interface-ns source) deps)]
     [(unique-ids interface-deps)
      (unique-ids base-deps)
-     (unique-ids illegal-deps)]))
+     illegal-deps]))
 
 (defn brick-deps
   "Returns the interface and base dependencies for a brick (component or base)."
