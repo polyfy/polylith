@@ -11,7 +11,7 @@
       :namespace "se.example.cli.core-test",
       :file-path "bases/cli/test/se/example/cli/core_test.clj",
       :imports ["clojure.test" "se.example.cli.core"]}]},
-   :lib-imports {:test ["clojure.test" "se.example.cli.core"]},
+   :lib-imports {:test ["clojure.test"]},
    :name "cli",
    :paths {:src ["src" "resources"], :test ["test"]},
    :type "base",
@@ -35,9 +35,7 @@
       :file-path
       "bases/user-api/test/se/example/user_api/core_test.clj",
       :imports ["clojure.test" "se.example.user-api.core"]}]},
-   :lib-imports
-   {:src ["se.example.user-api.api" "slacker.server"],
-    :test ["clojure.test" "se.example.user-api.core"]},
+   :lib-imports {:src ["slacker.server"], :test ["clojure.test"]},
    :name "user-api",
    :paths {:src ["src" "resources"], :test ["test"]},
    :type "base",
@@ -49,7 +47,7 @@
    :base-deps {:src [], :test []}}],
  :changes
  {:since "stable",
-  :since-sha "c492a729a139853dde5132f99da08757b67c87b1",
+  :since-sha "2f7d38594d93af5cf2c5cbd5348eb700c6501e2a",
   :since-tag "stable-lisa",
   :changed-files
   ["bases/user-api/deps.edn"
@@ -65,7 +63,7 @@
    "projects/user-service/deps.edn"
    "workspace.edn"],
   :git-diff-command
-  "git diff c492a729a139853dde5132f99da08757b67c87b1 --name-only",
+  "git diff 2f7d38594d93af5cf2c5cbd5348eb700c6501e2a --name-only",
   :changed-components ["user-remote"],
   :changed-bases ["user-api"],
   :changed-projects ["command-line" "user-service"],
@@ -206,7 +204,7 @@
       :build
       {:deps
        {org.clojure/tools.deps {:mvn/version "0.16.1281"},
-        io.github.clojure/tools.build {:mvn/version "0.9.5"},
+        io.github.clojure/tools.build {:mvn/version "0.10.5"},
         io.github.seancorfield/build-uber-log4j2-handler
         {:git/tag "v0.1.5", :git/sha "55fb6f6"}},
        :paths ["build/resources"],
@@ -241,15 +239,15 @@
      {:dir "examples/local-dep"}
      {:dir "examples/local-dep-old-format"}
      {:dir "examples/missing-component"}
-     {:dir "examples/multiple-workspaces/backend"}
-     {:dir "examples/multiple-workspaces/shared"}
-     {:dir "examples/multiple-workspaces/shared2"}
+     {:dir "examples/integrant-system"}
      {:dir "examples/profiles"}
      {:dir "examples/poly-rcf"}
      {:dir "examples/poly-rcf/monolith", :name "monolith-poly-rcf"}
      {:dir "examples/test-runners"}
+     {:dir "../sandbox/polylith-bug"}
      {:dir "../clojure-polylith-realworld-example-app",
       :name "realworld"}
+     {:file "patrix.edn"}
      {:file "../sandbox/oliver.edn"}]}},
   :workspace
   {:top-namespace "se.example",
@@ -333,7 +331,7 @@
  :projects
  [{:lines-of-code {:src 0, :test 13, :total {:src 42, :test 24}},
    :deps-filename
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-05-30-173726/ws/example/projects/command-line/deps.edn",
+   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-08-10-214102/ws/example/projects/command-line/deps.edn",
    :namespaces
    {:test
     [{:name "project.command-line.test-setup",
@@ -347,9 +345,7 @@
       "projects/command-line/test/project/command_line/dummy_test.clj",
       :imports ["clojure.test"]}]},
    :base-names {:src ["cli"], :test ["cli"]},
-   :lib-imports
-   {:src ["slacker.client"],
-    :test ["clojure.test" "se.example.cli.core"]},
+   :lib-imports {:src ["slacker.client"], :test ["clojure.test"]},
    :is-dev false,
    :name "command-line",
    :project-lib-deps
@@ -378,7 +374,7 @@
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "cl",
    :project-dir
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-05-30-173726/ws/example/projects/command-line",
+   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-08-10-214102/ws/example/projects/command-line",
    :lib-deps
    {:src
     {"org.clojure/clojure"
@@ -401,17 +397,15 @@
     [polylith.clj.core.clojure-test-test-runner.interface/create]},
    :bricks-to-test ["cli" "user-remote"],
    :deps
-   {"user-remote" {:src {}, :test {}},
-    "cli"
-    {:src {:direct ["user-remote"]}, :test {:direct ["user-remote"]}}}}
+   {"cli"
+    {:src {:direct ["user-remote"]}, :test {:direct ["user-remote"]}},
+    "user-remote" {:src {}, :test {}}}}
   {:lines-of-code {:src 0, :test 0, :total {:src 44, :test 26}},
    :deps-filename
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-05-30-173726/ws/example/projects/user-service/deps.edn",
+   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-08-10-214102/ws/example/projects/user-service/deps.edn",
    :namespaces {},
    :base-names {:src ["user-api"], :test ["user-api"]},
-   :lib-imports
-   {:src ["se.example.user-api.api" "slacker.server"],
-    :test ["clojure.test" "se.example.user-api.core"]},
+   :lib-imports {:src ["slacker.server"], :test ["clojure.test"]},
    :is-dev false,
    :name "user-service",
    :project-lib-deps
@@ -437,7 +431,7 @@
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "user-s",
    :project-dir
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-05-30-173726/ws/example/projects/user-service",
+   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-08-10-214102/ws/example/projects/user-service",
    :lib-deps
    {:src
     {"org.clojure/clojure"
@@ -455,11 +449,11 @@
     [polylith.clj.core.clojure-test-test-runner.interface/create]},
    :bricks-to-test ["user" "user-api"],
    :deps
-   {"user" {:src {}, :test {}},
-    "user-api" {:src {:direct ["user"]}, :test {:direct ["user"]}}}}
+   {"user-api" {:src {:direct ["user"]}, :test {:direct ["user"]}},
+    "user" {:src {}, :test {}}}}
   {:lines-of-code {:src 4, :test 0, :total {:src 58, :test 38}},
    :deps-filename
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-05-30-173726/ws/example/deps.edn",
+   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-08-10-214102/ws/example/deps.edn",
    :namespaces
    {:src
     [{:name "dev.lisa",
@@ -467,10 +461,7 @@
       :file-path "development/src/dev/lisa.clj",
       :imports ["slacker.client"]}]},
    :base-names {:src ["cli" "user-api"], :test ["cli" "user-api"]},
-   :lib-imports
-   {:src ["se.example.user-api.api" "slacker.server"],
-    :test
-    ["clojure.test" "se.example.cli.core" "se.example.user-api.core"]},
+   :lib-imports {:src ["slacker.server"], :test ["clojure.test"]},
    :is-dev true,
    :name "development",
    :project-lib-deps
@@ -503,7 +494,7 @@
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "dev",
    :project-dir
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-05-30-173726/ws/example/development",
+   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-08-10-214102/ws/example/development",
    :unmerged
    {:paths
     {:src
@@ -543,20 +534,20 @@
     [polylith.clj.core.clojure-test-test-runner.interface/create]},
    :bricks-to-test [],
    :deps
-   {"user" {:src {}, :test {}},
-    "cli" {:src {:direct ["user"]}, :test {:direct ["user"]}},
-    "user-api" {:src {:direct ["user"]}, :test {:direct ["user"]}}}}],
+   {"cli" {:src {:direct ["user"]}, :test {:direct ["user"]}},
+    "user-api" {:src {:direct ["user"]}, :test {:direct ["user"]}},
+    "user" {:src {}, :test {}}}}],
  :settings
  {:vcs
   {:name "git",
    :is-git-repo true,
-   :branch "main",
+   :branch "master",
    :git-root
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-05-30-173726/ws/example",
+   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-08-10-214102/ws/example",
    :auto-add true,
    :stable-since
    {:tag "stable-lisa",
-    :sha "c492a729a139853dde5132f99da08757b67c87b1"},
+    :sha "2f7d38594d93af5cf2c5cbd5348eb700c6501e2a"},
    :polylith
    {:repo "https://github.com/polyfy/polylith.git", :branch "master"}},
   :top-namespace "se.example",
@@ -585,6 +576,7 @@
   :is-latest-sha false,
   :is-local false,
   :is-no-changes false,
+  :is-transparent false,
   :is-no-exit false,
   :is-outdated false,
   :is-swap-axes false,
@@ -605,19 +597,18 @@
   :unnamed-args []},
  :version
  {:release
-  {:name "0.2.20-SNAPSHOT",
+  {:name "0.2.21",
    :tool "poly",
    :major 0,
    :minor 2,
-   :patch 20,
-   :revision "SNAPSHOT",
-   :date "2024-05-30",
-   :snapshot 18},
+   :patch 21,
+   :revision "",
+   :date "2024-08-10"},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
   :ws {:breaking 3, :non-breaking 0}},
  :ws-dir
- "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-05-30-173726/ws/example",
+ "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-08-10-214102/ws/example",
  :ws-reader
  {:name "polylith-clj",
   :project-url "https://github.com/polyfy/polylith",

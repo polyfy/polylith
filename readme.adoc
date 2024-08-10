@@ -1,8 +1,8 @@
 image::doc/images/logo.png[width=400]
-:snapshot-version: 6
+:snapshot-version: 0
 :cljdoc-doc-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc
 
-https://cljdoc.org/d/polylith/clj-poly/0.2.20/doc/readme[image:https://badgen.net/badge/doc/0.2.20/blue[]]
+https://cljdoc.org/d/polylith/clj-poly/0.2.21/doc/readme[image:https://badgen.net/badge/doc/0.2.21/blue[]]
 ifeval::[{snapshot-version} > 0 && env-cljdoc]
 https://cljdoc.org/d/polylith/clj-poly/0.2.21-SNAPSHOT[image:https://badgen.net/badge/doc/0.2.21-SNAPSHOT%20%23{snapshot-version}/cyan[]]
 endif::[]
