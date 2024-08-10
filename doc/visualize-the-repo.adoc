@@ -5,15 +5,15 @@
 
 === git-of-theseus
 
-Here we use https://github.com/erikbern/git-of-theseus[git-of-theseus] to show how the https://github.com/polyfy/polylith[polylith] codebase has evolved over time:
+Here we use https://github.com/erikbern/git-of-theseus[git-of-theseus] to show how the https://github.com/polyfy/polylith[polylith] codebase has evolved over time.
+
+As you can see, the codebase has been constantly reworked to keep it in shape:
 
 image::images/visualize-the-repo/git-of-theseus/code-over-time.png[]
 
-As you can see, the codebase has been constantly reworked to keep it in shape.
+This second diagram shows how people have contributed with source code (mostly Clojure code) to the codebase:
 
 image::images/visualize-the-repo/git-of-theseus/contribution.png[]
-
-This second diagram shows how people have contributed with source code (mostly Clojure code) to the codebase.
 
 ==== Install
 
