@@ -13,10 +13,10 @@
                                     profile/database1 {:local/root "components/database1"}
                                     clj-commons/fs    {:mvn/version "1.6.310"}}}
 
-            :+extra {:extra-paths ["components/admin/test"
-                                   "components/database2/test"]
-                     :extra-deps {profile/admin     {:local/root "components/admin"}
-                                  profile/database2 {:local/root "components/database2"}}}
+            :+ex/tra {:extra-paths ["components/admin/test"
+                                    "components/database2/test"]
+                      :extra-deps {profile/admin     {:local/root "components/admin"}
+                                   profile/database2 {:local/root "components/database2"}}}
 
             :test {:extra-paths ["components/util1/test"
                                  "bases/base1/test"

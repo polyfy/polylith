@@ -58,7 +58,7 @@
                                         (concat brick-libs
                                                 (filter lib? extra-deps))
                                         user-home)]
-    (util/ordered-map :name (subs (name profile-key) 1)
+    (util/ordered-map :name (subs (str profile-key) 2)
                       :type "profile"
                       :paths paths
                       :lib-deps lib-deps
@@ -67,7 +67,7 @@
                       :project-names project-names)))
 
 (defn profile? [[alias]]
-  (str/starts-with? (name alias) "+"))
+  (str/starts-with? (str alias) ":+"))
 
 (defn profiles [ws-dir default-profile-name aliases name->brick user-home]
   (vec (common/sort-profiles default-profile-name
