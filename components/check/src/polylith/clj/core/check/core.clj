@@ -4,12 +4,13 @@
 
 (defn check [{:keys [messages]}]
   (let [error-messages (validator/error-messages messages)
+        warning-messages (validator/warning-messages messages)
         ok? (empty? error-messages)]
     {:ok? ok?
+     :warning-messages warning-messages
      :error-messages error-messages}))
 
 (defn print-check [{:keys [messages] :as workspace} color-mode]
   (if (empty? messages)
    (println (color/ok color-mode "OK"))
    (validator/print-messages workspace)))
-

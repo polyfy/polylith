@@ -7,6 +7,9 @@
 (defn has-errors? [messages]
   (core/has-errors? messages))
 
+(defn warning-messages [messages]
+  (core/warning-messages messages))
+
 (defn error-messages [messages]
   (core/error-messages messages))
 

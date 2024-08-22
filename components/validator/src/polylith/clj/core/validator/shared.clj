@@ -1,6 +1,9 @@
 (ns ^:no-doc polylith.clj.core.validator.shared
   (:require [clojure.string :as str]))
 
+(defn warning-message? [{:keys [type]}]
+  (= "warning" type))
+
 (defn error-message? [{:keys [type]}]
   (= "error" type))
 
