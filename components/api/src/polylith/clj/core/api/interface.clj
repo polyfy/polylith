@@ -80,6 +80,7 @@
   "The value of ok? is set to true if no error messages, e.g.:
    ```clojure
    {:ok? true
+    :warning-messages []
     :error-messages []}
    ```"
   []

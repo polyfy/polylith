@@ -24,6 +24,9 @@
        (util/xf-some (keep shared/error-message?))
        (boolean)))
 
+(defn warning-messages [messages]
+  (filterv shared/warning-message? messages))
+
 (defn error-messages [messages]
   (filterv shared/error-message? messages))
 

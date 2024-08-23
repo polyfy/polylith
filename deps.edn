@@ -42,8 +42,8 @@
                                poly/poly-cli                 {:local/root "bases/poly-cli"}
 
                                org.clojure/clojure {:mvn/version "1.11.4"}
-                               org.slf4j/slf4j-nop {:mvn/version "2.0.14"}
-                               rewrite-clj/rewrite-clj {:mvn/version "1.1.47"}}}
+                               org.slf4j/slf4j-nop {:mvn/version "2.0.16"}
+                               rewrite-clj/rewrite-clj {:mvn/version "1.1.48"}}}
 
             :+default {:extra-paths ["components/deps/test"]
                        :extra-deps {poly/image-creator {:local/root "components/image-creator"}
