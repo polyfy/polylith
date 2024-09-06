@@ -52,7 +52,6 @@ image:doc/images/sponsors/taehee-sp.png[link=https://github.com/taehee-sp,width=
 
 image:https://avatars.githubusercontent.com/u/18068051[link=https://github.com/yyna,alt="Jungin Kwon",width=32,role="left"]
 image:https://avatars.githubusercontent.com/u/59614667[link=https://github.com/fluent-development,alt="Multiply",width=32,role="left"]
-image:https://avatars.githubusercontent.com/u/6353427[link=https://github.com/anieri,alt="Anieri",width=32,role="left"]
 image:https://avatars.githubusercontent.com/u/53870456[link=https://github.com/john-shaffer,alt="John Shaffer",width=32,role="left"]
 image:https://avatars.githubusercontent.com/u/47784846?v=4[link=https://github.com/tlonist-sang,alt="Sanghyun Kim",width=32,role="left"]
 
