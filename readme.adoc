@@ -1,12 +1,12 @@
 image::doc/images/logo.png[width=400]
-:snapshot-counter: 2
-:current-version: 0.2.22
+:snapshot-number: 2
+:snapshot-version: 0.2.22
 :stable-version: 0.2.21
 :cljdoc-doc-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc
 
 https://cljdoc.org/d/polylith/clj-poly/{stable-version}/doc/readme[image:https://badgen.net/badge/doc/{stable-version}/blue[]]
-ifeval::[{snapshot-counter} > 0 && env-cljdoc]
-https://cljdoc.org/d/polylith/clj-poly/{current-version}-SNAPSHOT[image:https://badgen.net/badge/doc/{current-version}-SNAPSHOT%20%23{snapshot-counter}/cyan[]]
+ifeval::[{snapshot-number} > 0 && env-cljdoc]
+https://cljdoc.org/d/polylith/clj-poly/{snapshot-version}-SNAPSHOT[image:https://badgen.net/badge/doc/{snapshot-version}-SNAPSHOT%20%23{snapshot-number}/cyan[]]
 endif::[]
 https://clojurians.slack.com/messages/C013B7MQHJQ[image:https://badgen.net/badge/slack/join chat/green[]]
 
