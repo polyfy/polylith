@@ -110,7 +110,7 @@
 
     (is (= ["{:aliases  {:dev {:extra-paths [\"development/src\"]"
             ""
-            "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.11.1\"}}}"
+            "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.12.0\"}}}"
             ""
             "            :test {:extra-paths []}"
             ""

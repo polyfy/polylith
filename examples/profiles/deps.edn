@@ -4,7 +4,7 @@
                                profile/base1        {:local/root "bases/base1"}
                                profile/base2        {:local/root "bases/base2"}
 
-                               org.clojure/clojure {:mvn/version "1.11.1"}
+                               org.clojure/clojure {:mvn/version "1.12.0"}
                                metosin/malli {:mvn/version "0.14.0"}}}
 
             :+default {:extra-paths ["components/database1/test"

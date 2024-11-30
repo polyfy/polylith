@@ -2,7 +2,7 @@
  :deps {poly/empty {:local/root "../../bases/empty"}
         poly/sqldb {:local/root "../../components/sqldb"}
 
-        org.clojure/clojure {:mvn/version "1.11.1"}
+        org.clojure/clojure {:mvn/version "1.12.0"}
         org.clojure/tools.deps.alpha {:mvn/version "0.12.985"}}
 
  :aliases {:test {:extra-paths []

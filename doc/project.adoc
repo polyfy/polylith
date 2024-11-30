@@ -108,7 +108,7 @@ Add the `user` component and the `cli` base to your new project by editing `proj
 {:deps {poly/user {:local/root "../../components/user"} ;; <1>
         poly/cli  {:local/root "../../bases/cli"} ;; <2>
 
-        org.clojure/clojure {:mvn/version "1.11.1"}}
+        org.clojure/clojure {:mvn/version "1.12.0"}}
 ----
 <1> Add `user` component
 <2> Add `cli` base

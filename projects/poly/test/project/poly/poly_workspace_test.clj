@@ -1424,7 +1424,7 @@
           "  ---------------------------------------   -   --------------------   -"
           "  clj-commons/fs       1.6.310  maven   -   -    -      x       -      ."
           "  metosin/malli        0.14.0   maven   -   t    x      -       -      x"
-          "  org.clojure/clojure  1.11.1   maven   -   x    x      -       -      ."]
+          "  org.clojure/clojure  1.12.0   maven   -   x    x      -       -      ."]
          (run-cmd "examples/profiles"
                   "libs" ":hide-lib-size"))))
 
@@ -1444,7 +1444,7 @@
           "  ---------------------------------------   -   -"
           "  clj-commons/fs       1.6.310  maven   -   -   ."
           "  metosin/malli        0.14.0   maven   -   t   x"
-          "  org.clojure/clojure  1.11.1   maven   -   x   ."]
+          "  org.clojure/clojure  1.12.0   maven   -   x   ."]
          (run-cmd "examples/profiles"
                   "libs" "skip:dev" ":hide-lib-size"))))
 
@@ -1525,4 +1525,3 @@
            (run-cmd-plain "examples/illegal-brick-deps"
                           "ws"
                           "get:messages")))))
-

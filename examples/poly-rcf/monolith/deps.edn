@@ -4,7 +4,7 @@
                               com.github.seancorfield/honeysql {:mvn/version "2.4.1026"}
                               com.zaxxer/HikariCP {:mvn/version "5.0.1" :exclusions [org.slf4j/slf4j-api]}
                               org.clojure/tools.logging {:mvn/version "1.2.4"}
-                              org.clojure/clojure {:mvn/version "1.11.1"}}}
+                              org.clojure/clojure {:mvn/version "1.12.0"}}}
 
            ;; https://clojure.org/guides/deps_and_cli#test_runner
            :test {:extra-paths ["test"]

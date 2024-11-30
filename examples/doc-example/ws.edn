@@ -169,7 +169,7 @@
     {:deps
      {poly/user-remote {:local/root "../../components/user-remote"},
       poly/cli {:local/root "../../bases/cli"},
-      org.clojure/clojure {:mvn/version "1.11.1"},
+      org.clojure/clojure {:mvn/version "1.12.0"},
       org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
       org.apache.logging.log4j/log4j-slf4j-impl
       {:mvn/version "2.13.3"}},
@@ -185,7 +185,7 @@
        :extra-deps
        {poly/cli {:local/root "bases/cli"},
         poly/user-api {:local/root "bases/user-api"},
-        org.clojure/clojure {:mvn/version "1.11.1"},
+        org.clojure/clojure {:mvn/version "1.12.0"},
         org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
         org.apache.logging.log4j/log4j-slf4j-impl
         {:mvn/version "2.13.3"}}},
@@ -218,7 +218,7 @@
     {:deps
      {poly/user {:local/root "../../components/user"},
       poly/user-api {:local/root "../../bases/user-api"},
-      org.clojure/clojure {:mvn/version "1.11.1"},
+      org.clojure/clojure {:mvn/version "1.12.0"},
       org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
       org.apache.logging.log4j/log4j-slf4j-impl
       {:mvn/version "2.13.3"}},
@@ -351,7 +351,7 @@
    :project-lib-deps
    {:src
     {"org.clojure/clojure"
-     {:version "1.11.1", :type "maven", :size 4105111},
+     {:version "1.12.0", :type "maven", :size 4227052},
      "org.apache.logging.log4j/log4j-core"
      {:version "2.13.3", :type "maven", :size 1714164},
      "org.apache.logging.log4j/log4j-slf4j-impl"
@@ -378,7 +378,7 @@
    :lib-deps
    {:src
     {"org.clojure/clojure"
-     {:version "1.11.1", :type "maven", :size 4105111},
+     {:version "1.12.0", :type "maven", :size 4227052},
      "org.apache.logging.log4j/log4j-core"
      {:version "2.13.3", :type "maven", :size 1714164},
      "org.apache.logging.log4j/log4j-slf4j-impl"
@@ -411,7 +411,7 @@
    :project-lib-deps
    {:src
     {"org.clojure/clojure"
-     {:version "1.11.1", :type "maven", :size 4105111},
+     {:version "1.12.0", :type "maven", :size 4227052},
      "org.apache.logging.log4j/log4j-core"
      {:version "2.13.3", :type "maven", :size 1714164},
      "org.apache.logging.log4j/log4j-slf4j-impl"
@@ -435,7 +435,7 @@
    :lib-deps
    {:src
     {"org.clojure/clojure"
-     {:version "1.11.1", :type "maven", :size 4105111},
+     {:version "1.12.0", :type "maven", :size 4227052},
      "org.apache.logging.log4j/log4j-core"
      {:version "2.13.3", :type "maven", :size 1714164},
      "org.apache.logging.log4j/log4j-slf4j-impl"
@@ -467,7 +467,7 @@
    :project-lib-deps
    {:src
     {"org.clojure/clojure"
-     {:version "1.11.1", :type "maven", :size 4105111},
+     {:version "1.12.0", :type "maven", :size 4227052},
      "org.apache.logging.log4j/log4j-core"
      {:version "2.13.3", :type "maven", :size 1714164},
      "org.apache.logging.log4j/log4j-slf4j-impl"
@@ -510,7 +510,7 @@
     :lib-deps
     {:src
      {"org.clojure/clojure"
-      {:version "1.11.1", :type "maven", :size 4105111},
+      {:version "1.12.0", :type "maven", :size 4227052},
       "org.apache.logging.log4j/log4j-core"
       {:version "2.13.3", :type "maven", :size 1714164},
       "org.apache.logging.log4j/log4j-slf4j-impl"
@@ -520,7 +520,7 @@
    :lib-deps
    {:src
     {"org.clojure/clojure"
-     {:version "1.11.1", :type "maven", :size 4105111},
+     {:version "1.12.0", :type "maven", :size 4227052},
      "org.apache.logging.log4j/log4j-core"
      {:version "2.13.3", :type "maven", :size 1714164},
      "org.apache.logging.log4j/log4j-slf4j-impl"

@@ -127,7 +127,7 @@ Add the `user` component to your `./deps.edn`:
 
                   :extra-deps {poly/user {:local/root "components/user"} ;; <1>
 
-                               org.clojure/clojure {:mvn/version "1.11.1"}}}
+                               org.clojure/clojure {:mvn/version "1.12.0"}}}
 
             :test {:extra-paths ["components/user/test"]}}} ;; <2>
 ----

@@ -214,7 +214,7 @@ poly ws get:configs:projects:command-line
                   :uberjar {:main se.example.cli.core}},
         :deps {org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
                org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"},
-               org.clojure/clojure {:mvn/version "1.11.1"},
+               org.clojure/clojure {:mvn/version "1.12.0"},
                poly/cli {:local/root "../../bases/cli"},
                poly/user-remote {:local/root "../../components/user-remote"}}},
  :name "command-line",
