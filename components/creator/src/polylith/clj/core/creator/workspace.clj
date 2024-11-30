@@ -7,46 +7,19 @@
             [polylith.clj.core.version.interface :as version]))
 
 (defn- gitignore-content [ws-dir data]
-  (template/render ws-dir ".gitignore" data))
+  [(template/render ws-dir ".gitignore" data)])
 
-(defn readme-content [ws-name]
-  ["<img src=\"logo.png\" width=\"30%\" alt=\"Polylith\" id=\"logo\">"
-   ""
-   "The Polylith documentation can be found here:"
-   ""
-   "- The [high-level documentation](https://polylith.gitbook.io/polylith)"
-   "- The [poly tool documentation](https://cljdoc.org/d/polylith/clj-poly/CURRENT)"
-   "- The [RealWorld example app documentation](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app)"
-   ""
-   "You can also get in touch with the Polylith Team on [Slack](https://clojurians.slack.com/archives/C013B7MQHJQ)."
-   ""
-   (str "<h1>" ws-name "</h1>")
-   ""
-   "<p>Add your workspace documentation here...</p>"])
+(defn readme-content [ws-dir data]
+  [(template/render ws-dir "readme.md" data)])
 
-(defn workspace-content [top-ns]
-  [(str "{:top-namespace \"" top-ns "\"")
-   (str " :interface-ns \"interface\"")
-   (str " :default-profile-name \"default\"")
-   (str " :compact-views #{}")
-   (str " :vcs {:name \"git\"")
-   (str "       :auto-add false}")
-   (str " :tag-patterns {:stable \"stable-*\"")
-   (str "                :release \"v[0-9]*\"}")
-   (str " :projects {\"development\" {:alias \"dev\"}}}")])
+(defn workspace-content [ws-dir data]
+  [(template/render ws-dir "workspace.edn" data)])
 
 (defn mvn-version []
   version/name)
 
-(defn deps-content []
-  [(str "{:aliases  {:dev {:extra-paths [\"development/src\"]")
-   (str "")
-   (str "                  :extra-deps {org.clojure/clojure {:mvn/version \"" shared/clojure-ver "\"}}}")
-   (str "")
-   (str "            :test {:extra-paths []}")
-   (str "")
-   (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]")
-   (str "                   :extra-deps {polylith/clj-poly {:mvn/version \"" (mvn-version) "\"}}}}}")])
+(defn deps-content [ws-dir data]
+  [(template/render ws-dir "deps.edn" data)])
 
 (defn calva-settings-content [ws-name]
   [(str "{")
@@ -76,9 +49,9 @@
     (file/create-dir (str ws-dir "/projects"))
     (file/create-dir (str ws-dir "/.vscode"))
     (file/create-file-if-not-exists (str ws-dir "/.gitignore") (gitignore-content ws-dir data))
-    (file/create-file (str ws-dir "/workspace.edn") (workspace-content top-ns))
-    (file/create-file (str ws-dir "/deps.edn") (deps-content))
-    (file/create-file (str ws-dir "/readme.md") (readme-content ws-name))
+    (file/create-file (str ws-dir "/workspace.edn") (workspace-content ws-dir data))
+    (file/create-file (str ws-dir "/deps.edn") (deps-content ws-dir data))
+    (file/create-file (str ws-dir "/readme.md") (readme-content ws-dir data))
     (file/create-file-if-not-exists (str ws-dir "/.vscode/settings.json") (calva-settings-content ws-name))
     (file/create-file (str ws-dir "/development/src/.keep") [""])
     (file/create-file (str ws-dir "/components/.keep") [""])

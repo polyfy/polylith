@@ -4,6 +4,7 @@
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.git.interface :as git]
             [polylith.clj.core.creator.shared :as shared]
+            [polylith.clj.core.creator.template :as template]
             [clojure.string :as str]))
 
 (defn create-project [ws-dir project-name is-git-add]
@@ -11,10 +12,8 @@
         filename (str project-path "/deps.edn")]
     (file/create-dir project-path)
     (file/create-file filename
-                      [(str "{:deps {org.clojure/clojure {:mvn/version \"" shared/clojure-ver "\"}}")
-                       ""
-                       (str " :aliases {:test {:extra-paths []")
-                       (str "                  :extra-deps  {}}}}")])
+                      [(template/render ws-dir "projects/deps.edn"
+                                        {:clojure-ver shared/clojure-ver})])
     (git/add ws-dir filename is-git-add)))
 
 (defn print-alias-message [project-name project-alias color-mode]

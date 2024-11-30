@@ -1,0 +1,8 @@
+{:aliases  {:dev {:extra-paths ["development/src"]
+
+                  :extra-deps {org.clojure/clojure {:mvn/version "{{clojure-ver}}"}}}
+
+            :test {:extra-paths []}
+
+            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                   :extra-deps {polylith/clj-poly {:mvn/version "{{maven-ver}}"}}}}}
