@@ -44,7 +44,8 @@
    ".clj-kondo/.cache"
    ""
    "# Calva VS Code Extension"
-   ".calva/output-window/output.calva-repl"])
+   ".calva/output-window/output.calva-repl"
+   ".calva/repl.calva-repl"])
 
 (defn readme-content [ws-name]
   ["<img src=\"logo.png\" width=\"30%\" alt=\"Polylith\" id=\"logo\">"
