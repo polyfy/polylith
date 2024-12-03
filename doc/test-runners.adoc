@@ -93,7 +93,7 @@ An ideal place to do this is the `:poly` alias in your `./deps.edn` file:
     {:mvn/version "{poly-version}"}
 
     io.github.seancorfield/polylith-external-test-runner ;; <1>
-    {:git/tag "v0.6.0" :git/sha "90e8ac1"
+    {:git/tag "v0.6.1" :git/sha "d0f51c2"
      :deps/root "projects/runner"}
 
     io.github.imrekoszo/polylith-kaocha ;; <2>
