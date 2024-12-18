@@ -30,7 +30,7 @@ Add the uberjar configuration expected by our `build.clj` to your `command-line`
 {:deps {poly/user {:local/root "../../components/user"}
         poly/cli  {:local/root "../../bases/cli"}
 
-        org.clojure/clojure {:mvn/version "1.11.1"}}
+        org.clojure/clojure {:mvn/version "1.12.0"}}
 
  :aliases {:test {:extra-paths []
                   :extra-deps  {}}

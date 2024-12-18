@@ -2,7 +2,7 @@
         poly/company    {:local/root "../../components/company"}
         poly/exclude-me {:local/root "../../components/exclude-me"}
         poly/util       {:local/root "../../components/util"}
-        org.clojure/clojure {:mvn/version "1.11.1"}
+        org.clojure/clojure {:mvn/version "1.12.0"}
         org.clojure/tools.deps {:mvn/version "0.18.1398"}}
 
  :aliases {:test {:extra-paths ["test"]

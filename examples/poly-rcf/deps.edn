@@ -3,7 +3,7 @@
                                poly/rcf   {:local/root "bases/rcf"}
                                poly/empty {:local/root "bases/empty"}
 
-                               org.clojure/clojure {:mvn/version "1.11.1"}}}
+                               org.clojure/clojure {:mvn/version "1.12.0"}}}
 
             :test {:extra-paths ["bases/rcf/test"
                                  "bases/empty/test"]}

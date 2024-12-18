@@ -9,7 +9,7 @@
                                 "components/test-helper-db/src"
                                 "components/util/src"
                                 "bases/invoicer-cli/src"]
-                  :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}
+                  :extra-deps {org.clojure/clojure {:mvn/version "1.12.0"}
                                org.clojure/tools.deps {:mvn/version "0.18.1398"}
                                clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git"
                                                   :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}

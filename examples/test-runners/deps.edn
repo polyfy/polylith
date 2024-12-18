@@ -3,7 +3,7 @@
                   :extra-deps {poly/invoicer {:local/root "components/invoicer"}
                                poly/test-setup {:local/root "components/test-setup"}
 
-                               org.clojure/clojure {:mvn/version "1.11.1"}}}
+                               org.clojure/clojure {:mvn/version "1.12.0"}}}
 
             :test {:extra-paths ["components/invoicer/test"]
                    :extra-deps {polylith-kaocha/kaocha-wrapper

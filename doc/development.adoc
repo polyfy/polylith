@@ -73,7 +73,7 @@ Under the `REPL` view, you should soon see something like:
 
 [source,shell]
 ----
-Clojure 1.11.1
+Clojure 1.12.0
 nREPL server started on port 56855 on host localhost - nrepl://localhost:56855
 ----
 

@@ -4,6 +4,6 @@
         poly/util1       {:local/root "../../components/util1"}
         poly/base1       {:local/root "../../bases/base1"}
         poly/base2       {:local/root "../../bases/base2"}
-        org.clojure/clojure {:mvn/version "1.11.1"}}
+        org.clojure/clojure {:mvn/version "1.12.0"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps  {poly/test-helper1 {:local/root "../../components/test-helper1"}}}}}
