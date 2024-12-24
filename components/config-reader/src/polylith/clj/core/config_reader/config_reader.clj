@@ -70,20 +70,20 @@
        (dirs-with-deps-file ws-dir "project")))
 
 (defn read-development-deps-config-file [ws-dir ws-type]
-  (let [deps-filename (str ws-dir "/deps.edn")]
-    (let [{:keys [config error]} (deps-reader/read-deps-file deps-filename "deps.edn")]
-      (if error
-        {:error error}
-        (let [message (validator/validate-project-dev-config ws-type config "./deps.edn")]
-          (if message
-            {:error message}
-            {:deps config
-             :is-dev true
-             :name "development"
-             :type "project"
-             :project-name "development"
-             :project-dir (str ws-dir "/development")
-             :project-config-dir ws-dir}))))))
+  (let [deps-filename (str ws-dir "/deps.edn")
+        {:keys [config error]} (deps-reader/read-deps-file deps-filename "deps.edn")]
+    (if error
+      {:error error}
+      (let [message (validator/validate-project-dev-config ws-type config "./deps.edn")]
+        (if message
+          {:error message}
+          {:deps config
+           :is-dev true
+           :name "development"
+           :type "project"
+           :project-name "development"
+           :project-dir (str ws-dir "/development")
+           :project-config-dir ws-dir})))))
 
 (defn clean-project-configs [configs]
   (mapv #(dissoc %
@@ -99,12 +99,12 @@
       (filter-config-files)))
 
 (defn read-workspace-config-file [ws-dir]
-  (let [filename-path (str ws-dir "/workspace.edn")]
-    (let [{:keys [config error]} (deps-reader/read-deps-file filename-path "workspace.edn")]
-      (if error
-        {:error error}
-        (let [message (validator/validate-workspace-config config)]
-          (if message
-            {:error (str "Error in ./workspace.edn: " message)
-             :config config}
-            {:config config}))))))
+  (let [filename-path (str ws-dir "/workspace.edn")
+        {:keys [config error]} (deps-reader/read-deps-file filename-path "workspace.edn")]
+    (if error
+      {:error error}
+      (let [message (validator/validate-workspace-config config)]
+        (if message
+          {:error (str "Error in ./workspace.edn: " message)
+           :config config}
+          {:config config})))))

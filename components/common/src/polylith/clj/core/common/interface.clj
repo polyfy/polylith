@@ -8,8 +8,6 @@
             [polylith.clj.core.common.validate-args :as validate-args]
             [polylith.clj.core.version.interface :as version]))
 
-(def cljs? core/cljs?)
-
 (def entity->short core/entity->short)
 (def entity->long core/entity->long)
 
@@ -43,8 +41,8 @@
 (defn extract-namespace [suffixed-top-ns ns-to-extract]
   (ns-extractor/extract suffixed-top-ns ns-to-extract))
 
-(defn filter-clojure-paths [paths]
-  (core/filter-clojure-paths paths))
+(defn filter-clojure-paths [ws-dialects paths]
+  (core/filter-clojure-paths ws-dialects paths))
 
 (defn find-base [base-name bases]
   (core/find-base base-name bases))

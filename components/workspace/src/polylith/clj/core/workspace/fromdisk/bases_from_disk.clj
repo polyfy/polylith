@@ -8,14 +8,14 @@
             [polylith.clj.core.workspace.fromdisk.namespaces-from-disk :as ns-from-disk]
             [polylith.clj.core.workspace.fromdisk.non-top-namespace :as non-top-ns]))
 
-(defn read-base [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns brick->settings config]
+(defn read-base [ws-dir ws-type ws-dialects user-home top-namespace ns-to-lib top-src-dir interface-ns brick->settings config]
   (let [deps-config (:deps config)
         base-name (:name config)
         base-dir (str ws-dir "/bases/" base-name)
         base-src-dirs (brick-dirs/top-src-dirs base-dir top-src-dir deps-config)
         base-test-dirs (brick-dirs/top-test-dirs base-dir top-src-dir deps-config)
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
-        namespaces (ns-from-disk/namespaces-from-disk ws-dir base-src-dirs base-test-dirs suffixed-top-ns interface-ns)
+        namespaces (ns-from-disk/namespaces-from-disk ws-dir ws-dialects base-src-dirs base-test-dirs suffixed-top-ns interface-ns)
         entity-root-path (str "bases/" base-name)
         lib-deps (lib/brick-lib-deps ws-dir ws-type deps-config top-namespace ns-to-lib namespaces entity-root-path user-home)
         source-paths (config/source-paths deps-config)
@@ -32,6 +32,6 @@
                       :lib-deps lib-deps)))
 
 (defn read-bases
-  [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns base-dep-configs brick->settings]
-  (vec (sort-by :name (map #(read-base ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns brick->settings %)
+  [ws-dir ws-type ws-dialects user-home top-namespace ns-to-lib top-src-dir interface-ns base-dep-configs brick->settings]
+  (vec (sort-by :name (map #(read-base ws-dir ws-type ws-dialects user-home top-namespace ns-to-lib top-src-dir interface-ns brick->settings %)
                            base-dep-configs))))

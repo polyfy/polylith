@@ -357,6 +357,7 @@ poly ws get:configs
  :user {:color-mode "dark", :empty-character ".", :thousand-separator ","},
  :workspace {:compact-views #{},
              :default-profile-name "default",
+             :dialects #{"clj"},
              :interface-ns "interface",
              :tag-patterns {:release "v[0-9]*", :stable "stable-*"},
              :top-namespace "se.example",
@@ -720,6 +721,7 @@ poly ws get:settings
  :color-mode "dark",
  :compact-views #{},
  :default-profile-name "default",
+ :dialects #{"clj"},
  :empty-character ".",
  :interface-ns "interface",
  :m2-dir "/Users/joakimtengstrand/.m2",
@@ -747,6 +749,8 @@ poly ws get:settings
 * `:compact-views` The set of views that should be shown in a more compact way, specified in `workspace.edn`.
 
 * `:default-profile-name` The name of the default profile name, specified in `workspace.edn`.
+
+* `:dialects` The set of dialects the tool will support, specified in `workspace.edn`. Valid values are: `"clj"`, `"cljs"`.
 
 * `:empty-character` The character used to represent empty space in output from e.g. the libs command, specified in `workspace.edn`.
 

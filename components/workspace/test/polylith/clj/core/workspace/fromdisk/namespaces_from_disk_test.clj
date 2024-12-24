@@ -76,6 +76,22 @@
   (is (= '("asalias.comp-a.interface")
          (from-disk/import '(:require [asalias.comp-a.interface :as comp-a]) "asalias." "interface"))))
 
+(deftest imports--ns-has-require-macros--returns-namespaces-including-inside-require-macros
+  (let [code '(ns polylith.clj.core.file.core
+                (:require [clojure.java.io :as io]
+                          [polylith.clj.core.util.interface.str :as str-util])
+                (:require-macros [polylith.clj.core.file.core]
+                                 [polylith.clj.core.util.interface.macros])
+                (:import [java.io File PushbackReader FileNotFoundException]
+                         [java.nio.file Files]))]
+    (is (= ["clojure.java.io"
+            "java.io"
+            "java.nio.file"
+            "polylith.clj.core.file.core"
+            "polylith.clj.core.util.interface.macros"
+            "polylith.clj.core.util.interface.str"]
+           (from-disk/imports code suffixed-top-ns interface-ns)))))
+
 (deftest skip-import-when-using-as-alias-if-interface
   (is (= (from-disk/import '(:require [asalias.comp-a.interface :as-alias comp-a]) "asalias." "interface")
          '())))

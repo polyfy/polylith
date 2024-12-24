@@ -5,8 +5,8 @@
             [polylith.clj.core.config-reader.ws-root :as ws-root]))
 
 (defn file-exists?
-  [filename _]
   "The second argument is used for test purposes."
+  [filename _]
   (check-file/file-exists? filename))
 
 (defn clean-project-configs [configs]

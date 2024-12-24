@@ -4,8 +4,6 @@
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.user-config.interface :as user-config]))
 
-(def cljs? false)
-
 (def entity->short {"w" "w"
                     "p" "p"
                     "b" "b"
@@ -67,11 +65,12 @@
 (defn hidden-file? [path]
   (str/starts-with? (path->filename path) "."))
 
-(defn filter-clojure-paths [paths]
+(defn filter-clojure-paths [ws-dialects paths]
   (filterv #(and 
-              (or (str/ends-with? % ".clj")
-                  (and cljs? (str/ends-with? % ".cljs"))
-                  (str/ends-with? % ".cljc"))
+              (or (str/ends-with? % ".cljc")
+                  (str/ends-with? % ".clj")
+                  (and (contains? ws-dialects "cljs") 
+                       (str/ends-with? % ".cljs")))
               ;; E.g. temporary emacs files might give problems
               (not (hidden-file? %)))
            paths))
