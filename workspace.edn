@@ -4,6 +4,7 @@
  :interface-ns "interface"
  :default-profile-name "default"
  :compact-views #{}
+ :dialects #{"clj"}
  :tag-patterns {:stable "stable-*"
                 :release "v[0-9]*"}
  :projects {"poly" {:alias "poly"

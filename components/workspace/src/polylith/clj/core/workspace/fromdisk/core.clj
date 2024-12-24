@@ -4,19 +4,20 @@
             [polylith.clj.core.config-reader.interface :as config-reader]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.git.interface :as git]
+            [polylith.clj.core.path-finder.interface :as path-finder]
+            [polylith.clj.core.user-config.interface :as user-config]
             [polylith.clj.core.user-input.interface :as user-input]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]
-            [polylith.clj.core.user-config.interface :as user-config]
+            [polylith.clj.core.util.interface.dialects :as dialects]
             [polylith.clj.core.version.interface :as version]
-            [polylith.clj.core.path-finder.interface :as path-finder]
+            [polylith.clj.core.workspace.fromdisk.bases-from-disk :as bases-from-disk]
+            [polylith.clj.core.workspace.fromdisk.components-from-disk :as components-from-disk]
             [polylith.clj.core.workspace.fromdisk.profile :as profile]
+            [polylith.clj.core.workspace.fromdisk.projects-from-disk :as projects-from-disk]
             [polylith.clj.core.workspace.fromdisk.tag-pattern :as tag-pattern]
             [polylith.clj.core.workspace.fromdisk.ws-config :as ws-config]
-            [polylith.clj.core.workspace.fromdisk.ws-reader :as ws-reader]
-            [polylith.clj.core.workspace.fromdisk.bases-from-disk :as bases-from-disk]
-            [polylith.clj.core.workspace.fromdisk.projects-from-disk :as projects-from-disk]
-            [polylith.clj.core.workspace.fromdisk.components-from-disk :as components-from-disk]))
+            [polylith.clj.core.workspace.fromdisk.ws-reader :as ws-reader]))
 
 (def no-git-repo "NO-GIT-REPO")
 
@@ -98,7 +99,7 @@
                               aliases
                               user-input
                               color-mode]
-  (let [{:keys [vcs top-namespace interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views test bricks]
+  (let [{:keys [vcs top-namespace interface-ns default-profile-name dialects tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views test bricks]
          :or   {vcs {:name "git", :auto-add false}
                 compact-views {}
                 default-profile-name "default"
@@ -108,18 +109,19 @@
         empty-character (user-config/empty-character)
         m2-dir (user-config/m2-dir)
         user-home (user-config/home-dir)
+        ws-dialects (dialects/clean-dialects dialects)
         thousand-separator (user-config/thousand-separator)
         user-config-filename (user-config/file-path)
         project->settings (:projects ws-config)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
         [component-configs component-errors] (config-reader/read-brick-config-file ws-dir ws-type "component")
-        components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-configs bricks)
+        components (components-from-disk/read-components ws-dir ws-type ws-dialects user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-configs bricks)
         [base-configs base-errors] (config-reader/read-brick-config-file ws-dir ws-type "base")
-        bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-configs bricks)
+        bases (bases-from-disk/read-bases ws-dir ws-type ws-dialects user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-configs bricks)
         name->brick (into {} (comp cat (map (juxt :name identity))) [components bases])
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         [project-configs project-errors] (config-reader/read-project-config-file ws-dir ws-type)
-        projects (projects-from-disk/read-projects ws-dir name->brick project->settings user-input user-home suffixed-top-ns interface-ns project-configs)
+        projects (projects-from-disk/read-projects ws-dir ws-dialects name->brick project->settings user-input user-home suffixed-top-ns interface-ns project-configs)
         profiles (profile/profiles ws-dir default-profile-name aliases name->brick user-home)
         ws-local-dir (->ws-local-dir ws-dir)
         paths (path-finder/paths ws-dir projects profiles)
@@ -171,7 +173,7 @@
 (defn workspace-type [ws-dir ws-config-file deps-config-file]
   (if (config-reader/file-exists? ws-config-file :workspace)
     :toolsdeps2
-    (if (config-reader/file-exists? deps-config-file :development)
+    (when (config-reader/file-exists? deps-config-file :development)
       (let [{:keys [deps]} (config-reader/read-development-deps-config-file ws-dir :toolsdeps1)]
         (when (:polylith deps)
           :toolsdeps1)))))
@@ -197,7 +199,6 @@
           :else (toolsdeps-ws-from-disk ws-name ws-type ws-dir ws-config aliases user-input color-mode))))))
 
 (comment
-  (require '[polylith.clj.core.user-input.interface :as user-input])
   (def user-input (user-input/extract-arguments ["info" "ws-dir:../sandbox/slask/fresh"]))
   (def workspace (workspace-from-disk user-input))
   (workspace-from-disk user-input)
