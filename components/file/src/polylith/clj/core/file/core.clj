@@ -41,7 +41,7 @@
 
 (defn delete-dir [path]
   (doseq [f (reverse (file-seq (io/file path)))]
-    (if (or (Files/isSymbolicLink (.toPath f)) (.exists f))
+    (when (or (Files/isSymbolicLink (.toPath f)) (.exists f))
       (delete-file f))))
 
 (defn exists [^String path]
@@ -125,21 +125,44 @@
     {:files files
      :dirs dirs}))
 
-(defn read-file [path]
+(defn- match-statements [statement splicing? features]
+  (let [feature-statement-tuples (partition 2 2 [nil] statement)]
+    (reduce (fn [acc [feature statement]]
+              (if (and (contains? features feature) (some? statement))
+                (if splicing?
+                  (apply conj acc statement)
+                  (conj acc statement))
+                acc))
+      []
+      feature-statement-tuples)))
+
+(defn- read-cond [features parsed-statement]
+  (let [splicing? (-> parsed-statement meta :edamame/read-cond-splicing)
+        matched-statements (match-statements parsed-statement splicing? features)]
+    (vary-meta matched-statements
+               #(assoc % :edamame.impl.parser/cond-splice true))))
+
+(defn parse-code-str [code-str dialects]
+  (let [features (->> dialects (map keyword) (into #{}))]
+    (edamame/parse-string-all code-str
+      {:fn true
+       :var true
+       :quote true
+       :regex true
+       :deref true
+       :read-eval true
+       :features features
+       :readers (fn [_] (fn [_] nil))
+       :read-cond (if (= 1 (count features))
+                    :allow
+                    (partial read-cond features))
+       :auto-resolve name
+       :auto-resolve-ns true
+       :syntax-quote {:resolve-symbol resolve-symbol}})))
+
+(defn read-file [path dialects]
   (try
-    (edamame/parse-string-all (slurp path)
-                              {:fn true
-                               :var true
-                               :quote true
-                               :regex true
-                               :deref true
-                               :read-eval true
-                               :features #{:clj}
-                               :readers (fn [_] (fn [_] nil))
-                               :read-cond :allow
-                               :auto-resolve name
-                               :auto-resolve-ns true
-                               :syntax-quote {:resolve-symbol resolve-symbol}})
+    (parse-code-str (slurp path) dialects)
     (catch ExceptionInfo e
      (let [{:keys [row col]} (ex-data e)]
        (println (str "  Couldn't read file '" path "', row: " row ", column: " col ". Message: " (.getMessage e)))))))

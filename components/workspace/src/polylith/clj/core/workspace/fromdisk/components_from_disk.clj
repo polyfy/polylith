@@ -20,7 +20,7 @@
         interface-name (common/path-to-ns interface-path-name)
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         namespaces (ns-from-disk/namespaces-from-disk ws-dir ws-dialects component-top-src-dirs component-top-test-dirs suffixed-top-ns interface-ns)
-        definitions (defs-from-disk/defs-from-disk ws-dir top-namespace interface-name (:src namespaces) interface-ns)
+        definitions (defs-from-disk/defs-from-disk ws-dir ws-dialects top-namespace interface-name (:src namespaces) interface-ns)
         entity-root-path (str "components/" component-name)
         lib-deps (lib/brick-lib-deps ws-dir ws-type deps-config top-namespace ns-to-lib namespaces entity-root-path user-home)
         paths (brick-paths/source-paths component-dir deps-config)
