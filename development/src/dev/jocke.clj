@@ -52,6 +52,7 @@
                    ;(dev-common/dir "../clojure-polylith-realworld-example-app")
                    ;(dev-common/dir "../sandbox/polylith218")
                    ;(dev-common/dir "../usermanager-example")
+                   (dev-common/dir "../clojure-polylith-realworld-example-app")
                    workspace/workspace))
 
 

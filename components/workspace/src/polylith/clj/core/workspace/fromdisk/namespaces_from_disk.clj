@@ -121,9 +121,12 @@
           (first content))
        (-> content second boolean)))
 
-(defn ->namespace [ws-dir source-dir suffixed-top-ns interface-ns file-path]
-  (let [all-content (file/read-file file-path)
-        content (first (drop-while #(-> % ns-with-name? not) all-content))
+(defn file-content->ns-statements [file-content]
+  (first (drop-while #(-> % ns-with-name? not) file-content)))
+
+(defn ->namespace [ws-dir ws-dialects source-dir suffixed-top-ns interface-ns file-path]
+  (let [all-content (file/read-file file-path ws-dialects)
+        content (file-content->ns-statements all-content)
         ns-name (namespace-name source-dir file-path)
         relative-path (str-util/skip-prefix file-path (str ws-dir "/"))]
     (if (-> all-content first empty-ns?)
@@ -149,12 +152,12 @@
   (def file-path "components/file/src/polylith/clj/core/file/testing.clj")
   (def source-dir "bases/poly-cli/src/polylith/clj/core/")
   (def file-path "bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj")
-  (file/read-file file-path)
-  (->namespace "." source-dir "polylith.clj.core." "interface" file-path)
+  (file/read-file file-path #{"clj"})
+  (->namespace "." #{"clj"} source-dir "polylith.clj.core." "interface" file-path)
   #__)
 
 (defn source-namespaces-from-disk [ws-dir ws-dialects source-dir suffixed-top-ns interface-ns]
-  (mapv #(->namespace ws-dir source-dir suffixed-top-ns interface-ns %)
+  (mapv #(->namespace ws-dir ws-dialects source-dir suffixed-top-ns interface-ns %)
         (->> source-dir
           file/paths-recursively
           (common/filter-clojure-paths ws-dialects))))

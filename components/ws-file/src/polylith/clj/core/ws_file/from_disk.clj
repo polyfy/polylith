@@ -6,11 +6,12 @@
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.common.interface :as common]))
 
-(defn read-ws-from-file [ws-file {:keys [selected-profiles is-no-changes color-mode] :as user-input}]
+(defn read-ws-from-file 
+  [ws-file {:keys [selected-profiles is-no-changes color-mode] :as user-input}]
   (let [ws-path (common/user-path ws-file)]
     (if (not (file/exists ws-path))
       (println (str "The file '" ws-path "' doesn't exist."))
-      (let [ws (first (file/read-file ws-path))
+      (let [ws (first (file/read-file ws-path #{"clj"}))
             breaking (or (-> ws :version :ws :breaking) 0)
             from-0-to-1? (-> ws :settings :project-to-alias)
             from-1-to-2? (<= breaking 1)
