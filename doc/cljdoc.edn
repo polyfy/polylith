@@ -23,6 +23,7 @@
                    ["Profile" {:file "doc/profile.adoc"}]
                    ["Dependencies" {:file "doc/dependencies.adoc"}]
                    ["Libraries" {:file "doc/libraries.adoc"}]
+                   ["Templates" {:file "doc/templates.adoc"}]
                    ["Configuration" {:file "doc/configuration.adoc"}]
                    ["Validations" {:file "doc/validations.adoc"}]
                    ["State" {:file "doc/state.adoc"}]
