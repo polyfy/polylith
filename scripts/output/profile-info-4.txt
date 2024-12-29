@@ -15,7 +15,7 @@
   interface  brick           cl   user-s   dev  remote   loc (t)
   ------------------------   -----------   -----------   -------
   user       user            ---   stx     st-    --       9   7
-  user       user-remote *   stx   ---     ---    st      14   6
-  -          cli             stx   ---     st-    --       7   6
-  -          user-api *      ---   stx     st-    --      13   6
-                             21     22     29             43  25
+  user       user-remote *   stx   ---     ---    st      14   7
+  -          cli             stx   ---     st-    --       7   7
+  -          user-api *      ---   stx     st-    --      13   7
+                             21     22     29             43  28

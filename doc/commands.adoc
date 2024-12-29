@@ -14,7 +14,7 @@ poly help
 
 [source,text]
 ----
-  poly 0.2.22 (2024-08-23) - https://github.com/polyfy/polylith
+  poly 0.3.22 (2024-12-29) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
