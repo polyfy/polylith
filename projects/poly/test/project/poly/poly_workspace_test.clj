@@ -1450,6 +1450,42 @@
          (run-cmd "examples/profiles"
                   "libs" "skip:dev" ":hide-lib-size"))))
 
+(deftest mix-example
+  (is (= ["                                           c"
+          "                                           o"
+          "                                           m"
+          "                            c              p"
+          "                            o              -"
+          "                            m              c"
+          "                            p              l"
+          "                            -        c  c  j"
+          "                         c  c  c     o  o  s"
+          "                         o  l  o     m  m  -"
+          "                         m  j  m     p  p  w"
+          "                         p  -  p     -  -  i"
+          "                         -  c  -  c  c  c  t"
+          "                         c  l  c  o  l  l  h"
+          "                         l  j  l  m  j  j  -"
+          "                         j  c  j  p  s  s  m"
+          "                         -  -  -  -  -  -  a"
+          "                         c  c  o  c  c  o  c"
+          "                         l  l  n  l  l  n  r"
+          "                         j  j  l  j  j  l  o"
+          "  brick                  c  s  y  c  c  y  s"
+          "  ------------------------------------------"
+          "  comp-clj-cljc          .  .  .  .  .  .  ."
+          "  comp-clj-cljc-cljs     .  .  .  .  .  .  ."
+          "  comp-clj-only          .  .  .  x  .  .  ."
+          "  comp-cljc              .  x  .  .  .  .  ."
+          "  comp-cljs-cljc         .  .  .  .  .  .  ."
+          "  comp-cljs-only         .  .  .  x  .  .  x"
+          "  comp-cljs-with-macros  .  .  .  .  .  .  ."
+          "  clj-base               x  .  x  .  .  .  ."
+          "  cljs-base              .  .  .  .  x  x  ."]
+         (run-cmd "examples/mix-example"
+                  "deps"))))
+
+
 (deftest test-runner-inherit-test-runner-from-global
   (is (= ["{:create-test-runner"
           " [org.corfield.external-test-runner.interface/create],"
