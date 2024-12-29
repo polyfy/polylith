@@ -19,6 +19,7 @@ Here are the changes to the workspace structure over time:
 |===
 | ws | release | action | attribute | description
 
+| 5.0 | 0.3.22 | added | ws-dialects | A set of supported dialects. Valid values: "clj" and/or "cljs".
 | 4.0 | 0.2.20 | added | configs:workspace | Stores the configuration in workspace.edn.
 |  |  | deleted | configs:workspaces | Replaced by configs:workspace.
 |  |  | added | bases:BASE:illegal-deps | Set if the base has any illegal namespace dependencies.

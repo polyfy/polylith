@@ -42,7 +42,7 @@
 ;; Execute 'poly doc page:versions' to see when different changes was introduced.
 (def api-version {:breaking 1, :non-breaking 0})
 (def test-runner-api-version {:breaking 1, :non-breaking 0})
-(def workspace-version {:breaking 3, :non-breaking 0})
+(def workspace-version {:breaking 5, :non-breaking 0})
 
 (defn version
   ([]
