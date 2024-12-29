@@ -76,17 +76,15 @@ If you have resource files that are only used in the test context, then they can
 [[frontend]]
 == Frontend Code Options
 
-The `poly` tool doesn't understand https://clojurescript.org/[ClojureScript] `.cljs` files, but it recognizes `.cljc` files, which you can use to share code between your backend and frontend.
+The `poly` tool will include `.cljs` files if you enable ClojureScript support in your. You can enable it by adding `:dialects #{"clj" "cljs"}` to your `workspace.edn` file. Once you add this, your bricks can utilise `clj`, `cljs`, and `cljc` files in any combination.
 
 Three frontend code organization alternatives are:
 
-=== 1. Frontend in Base or Components
+=== 1. Frontend Project
 
-This option puts all your frontend code in a xref:base.adoc[base].
+You can have bases that uses `cljs` files as entry points to serve frontend applications. You can use those bases from projects where you can build and deploy frontend applications. You can split your code into multiple compoenents and share code between your frontend and backend applications.
 
-The `poly` tool recognizes `.cljc` files in the base, resulting in a ClojureScript view of the component when used from the frontend.
-
-If you want to share the `.cljc` code with the backend, you would put that code in one or more xref:component.adoc[components].
+You can see an example of this at the https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend[RealWorld example] where https://github.com/thheller/shadow-cljs[shadow-cljs] is used to run, build, and test the frontend application.
 
 === 2. Frontend in a Non-`poly` Directory
 
@@ -139,3 +137,8 @@ Some downsides to this strategy are:
 
 * You are no longer working with a monorepo and might even have separate frontend and backend releases
 * You have a greater risk of the frontend and backend code becoming out of synch
+
+[[clojurescript]]
+== Using ClojureScript on the backend
+
+You can use ClojureScript with Polylith to create backend services that target NodeJS environments. You can also have mixes workspaces with `clj`, `cljs`, and `cljc` code spread across components and bases. You can target https://shadow-cljs.github.io/docs/UsersGuide.html#target-node-script[`:node-script`] in shadow-cljs to run, build, and deploy backend services to NodeJS environments.
