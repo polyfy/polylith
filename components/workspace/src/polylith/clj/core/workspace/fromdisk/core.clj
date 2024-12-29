@@ -145,6 +145,7 @@
                                    :m2-dir m2-dir)]
     (util/ordered-map :name ws-name
                       :ws-type (name ws-type)
+                      :ws-dialects ws-dialects
                       :ws-dir ws-dir
                       :ws-local-dir ws-local-dir
                       :ws-reader ws-reader/reader
