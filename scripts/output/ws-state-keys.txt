@@ -11,6 +11,7 @@
  :settings
  :user-input
  :version
+ :ws-dialects
  :ws-dir
  :ws-reader
  :ws-type]
