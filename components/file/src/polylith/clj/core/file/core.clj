@@ -136,29 +136,50 @@
       []
       feature-statement-tuples)))
 
-(defn- read-cond [features parsed-statement]
+(defn- handle-reader-conditional [features parsed-statement]
   (let [splicing? (-> parsed-statement meta :edamame/read-cond-splicing)
         matched-statements (match-statements parsed-statement splicing? features)]
     (vary-meta matched-statements
                #(assoc % :edamame.impl.parser/cond-splice true))))
 
+(defn- parse-code-str* [code-str features read-cond]
+  (edamame/parse-string-all code-str
+    {:fn true
+     :var true
+     :quote true
+     :regex true
+     :deref true
+     :read-eval true
+     :features features
+     :readers (fn [_] (fn [_] nil))
+     :read-cond read-cond
+     :auto-resolve name
+     :auto-resolve-ns true
+     :syntax-quote {:resolve-symbol resolve-symbol}}))
+
+(defn ns-with-name? [content]
+  (and (sequential? content)
+       (= (symbol "ns")
+          (first content))
+       (-> content second boolean)))
+
+(defn- clear-ns-statements [code features]
+  (reduce (fn [acc statement]
+            (if (ns-with-name? statement)
+              (let [code (parse-code-str* (str statement) features 
+                           (partial handle-reader-conditional features))]
+                (conj acc (first code)))
+              (conj acc statement)))
+    []
+    code))
+
 (defn parse-code-str [code-str dialects]
-  (let [features (->> dialects (map keyword) (into #{}))]
-    (edamame/parse-string-all code-str
-      {:fn true
-       :var true
-       :quote true
-       :regex true
-       :deref true
-       :read-eval true
-       :features features
-       :readers (fn [_] (fn [_] nil))
-       :read-cond (if (= 1 (count features))
-                    :allow
-                    (partial read-cond features))
-       :auto-resolve name
-       :auto-resolve-ns true
-       :syntax-quote {:resolve-symbol resolve-symbol}})))
+  (let [features (->> dialects (map keyword) (into #{}))
+        multi-dialect? (< 1 (count features))]
+    (if multi-dialect?
+      (let [code (parse-code-str* code-str features :preserve)]
+        (clear-ns-statements code features))
+      (parse-code-str* code-str features :allow))))
 
 (defn read-file [path dialects]
   (try

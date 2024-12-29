@@ -140,6 +140,34 @@
             "polylith.clj.core.util.interface.str"]
            (from-disk/imports code suffixed-top-ns interface-ns)))))
 
+(deftest imports--ns-has-reader-conditionals-and-dialects-include-both-clj-and-cljs--returns-all-namespaces-without-errors
+  (let [file-content (file.core/parse-code-str
+                      "(ns polylith.clj.core.file.core
+                         (:require #?@(:clj [[clojure.test :refer [deftest is]]]
+                                       :cljs [[cljs.test :refer [deftest is]]])
+                                   [polylith.clj.core.util.interface.str :as str-util])
+                                   #?(:clj (:import [java.io File PushbackReader FileNotFoundException]
+                                                    [java.nio.file Files])))
+                       
+                       (def a-map {:attr #?(:clj 1 :cljs 2)})
+                       
+                       (ns polylith.clj.core.file.main
+                         (:require #?@(:clj [[clojure.test :refer [deftest is]]]
+                                       :cljs [[cljs.test :refer [deftest is]]])
+                                   [polylith.clj.core.util.interface.text :as text-util])
+                                   #?(:clj (:import [java.io File]
+                                                    [java.nio.file Files])))
+                       
+                       (def some-other \"code\")"
+                      #{"clj" "cljs"})
+        code (from-disk/file-content->ns-statements file-content)]
+    (is (= ["cljs.test"
+            "clojure.test"
+            "java.io"
+            "java.nio.file"
+            "polylith.clj.core.util.interface.str"]
+           (from-disk/imports code suffixed-top-ns interface-ns)))))
+
 (deftest skip-import-when-using-as-alias-if-interface
   (is (= (from-disk/import '(:require [asalias.comp-a.interface :as-alias comp-a]) "asalias." "interface")
          '())))
