@@ -29,6 +29,7 @@ poly ws get:keys
  :settings
  :user-input
  :version
+ :ws-dialects
  :ws-dir
  :ws-local-dir
  :ws-reader
@@ -1076,6 +1077,23 @@ Each subsequent snapshot release will increase this value by one.
 *** `:non-breaking` The non-breaking version of the original `ws` format.
 
 Changes to the xref:workspace-structure.adoc[workspace structure] is documented in the xref:versions.adoc[versions] page.
+
+
+[#ws-dialects]
+== ws-dialects
+
+[source,shell]
+----
+poly ws get:ws-dialects
+----
+
+[source,clojure]
+----
+#{"clj"}
+----
+
+The set of Clojure dialects that is read by this workspace. Calculated from `:dialects` in `workspace.edn`, and if not set, `#{"clj"}` is used as default.
+
 
 [#ws-dir]
 == ws-dir
