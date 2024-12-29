@@ -1,0 +1,25 @@
+{
+  "name": "mix-example",
+  "description": "Clojure/ClojureScript and Polylith codebase",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "shadow-cljs -d cider/cider-nrepl:0.47.1 -d zprint:0.4.16 watch cljs-project test",
+    "test:ci": "shadow-cljs compile test-ci && karma start --single-run"
+  },
+  "workspaces": [
+    "bases/cljs-base",
+    "components/comp-clj-cljc-cljs",
+    "components/comp-cljc",
+    "components/comp-cljs-cljc",
+    "components/comp-cljs-only",
+    "components/comp-cljs-with-macros",
+    "projects/cljs-project"
+  ],
+  "devDependencies": {
+    "shadow-cljs": "^2.28.20",
+    "karma": "6.4.4",
+    "karma-chrome-launcher": "3.2.0",
+    "karma-cljs-test": "0.1.0"
+  }
+}

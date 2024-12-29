@@ -1,0 +1,10 @@
+{
+  "name": "@poly/comp-cljs-cljc",
+  "description": "The cljs-cljc component",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "react": "16.9.0",
+    "react-dom": "16.9.0"
+  }
+}

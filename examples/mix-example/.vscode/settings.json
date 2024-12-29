@@ -1,0 +1,16 @@
+{
+  "calva.replConnectSequences": [
+    {
+      "projectType": "shadow-cljs",
+      "name": "mix-example",
+      "cljsType": "shadow-cljs",
+      "menuSelections": {
+        "cljsLaunchBuilds": [
+          "cljs-project",
+          "test"
+        ],
+        "cljsDefaultBuild": "cljs-project"
+      },
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{:top-namespace "com.example"
+ :interface-ns "ifc"
+ :default-profile-name "default"
+ :dialects #{"clj" "cljs"}
+ :compact-views #{}
+ :vcs {:name "git"
+       :auto-add false}
+ :tag-patterns {:stable "stable-*"
+                :release "v[0-9]*"}
+ :projects {"development" {:alias "dev"}
+            "clj-project" {:alias "clj"}
+            "cljs-project" {:alias "cljs"}}}

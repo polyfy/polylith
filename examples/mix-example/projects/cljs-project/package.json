@@ -1,0 +1,28 @@
+{
+  "name": "@poly/cljs-project",
+  "description": "The cljs project",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "shadow-cljs -d cider/cider-nrepl:0.47.1 -d zprint:0.4.16 watch cljs-project test",
+    "test:ci": "shadow-cljs compile test-ci && karma start --single-run",
+    "build": "shadow-cljs release cljs-project",
+    "server": "shadow-cljs server",
+    "clean": "rm -rf target; rm -rf resources/cljs_project/public/js",
+    "clean-win": "rmdir /s /q resources/cljs_project/public/js & rmdir /s /q target"
+  },
+  "dependencies": {
+    "@poly/cljs-base": "*",
+    "@poly/comp-clj-cljc-cljs": "*",
+    "@poly/comp-cljc": "*",
+    "@poly/comp-cljs-cljc": "*",
+    "@poly/comp-cljs-only": "*",
+    "@poly/comp-cljs-with-macros": "*"
+  },
+  "devDependencies": {
+    "shadow-cljs": "^2.28.20",
+    "karma": "6.4.4",
+    "karma-chrome-launcher": "3.2.0",
+    "karma-cljs-test": "0.1.0"
+  }
+}
