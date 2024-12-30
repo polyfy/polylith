@@ -1,0 +1,121 @@
+= Templates
+:toc:
+
+Whenever you run the xref:commands.adoc#create[create command],
+Polylith uses template files to generate the desired files in
+the new component, base, project, or workspace.
+
+Polylith has a default set of template files for this but you
+can override some or all of them on a per-project or global (user)
+level.
+
+Each template can use a number of variable substitutions (listed
+below), using `{{var-name}}` for the placeholder to be replaced.
+The specific variables provided for each template are shown in the
+various `create` sections below.
+
+Because Polylith uses https://github.com/yogthos/Selmer[Selmer]
+for rendering the templates, you can also use any of the built-in
+filters and tags in your templates. For example, you might want
+to add a copyright notice at the top of your source files:
+
+[source,text]
+----
+;; copyright (c) {% now "yyyy" %} acme inc, all rights reserved
+
+(ns {{interface-ns}}
+  (:require [{{impl-ns}} :as impl]))
+----
+
+Since you can override the `development` and projects' `deps.edn` files,
+you can provide your own default dependencies, such as testing libraries,
+and you can override how test files are rendered to `:require` those
+testing libraries and provide default tests using that style.
+
+The full set of template files is:
+
+[source,text]
+----
+templates
+├── .gitignore
+├── bases
+│   ├── deps.edn
+│   ├── main.clj
+│   └── test.clj
+├── components
+│   ├── deps.edn
+│   ├── impl.clj
+│   ├── interface.clj
+│   └── test.clj
+├── deps.edn
+├── projects
+│   └── deps.edn
+├── readme.md
+└── workspace.edn
+----
+
+`templates/components/impl.clj` is optional (and has no default version).
+
+The per-project templates should be added to the `.polylith` folder
+within the project, e.g., `<project>/.polylith/templates/components/interface.clj`
+
+The per-user templates to should be added to the `.config/polylith` folder
+in your home directory, e.g., `$HOME/.config/polylith/templates/workspace.edn`
+
+For each template needed by the `poly create` command, the per-project one
+is used if present, else the per-user one is used if present, else Polylith's
+internal default version.
+
+== create workspace
+
+This command uses the following template files to generate parts of the
+new workspace:
+
+* `templates/.gitignore` -> the top-level `.gitignore` file
+* `templates/deps.edn` -> the top-level `deps.edn` file
+* `templates/readme.md` -> the top-level `readme.md` file
+* `templates/workspace.edn` -> the top-level `workspace.edn` file
+
+For all these templates, the following variables are provided:
+
+* `{{clojure-ver}}` -- the default version of Clojure to use; currently `"1.12.0"`
+* `{{maven-ver}}` -- the default version of Polylith to use
+* `{{top-ns}}` -- the top namespace name (from the `create workspace` command)
+* `{{ws-name}}` -- the name of the workspace (from the `create workspace` command)
+
+== create component
+
+This command uses the following template files to generate the new component:
+
+* `templates/components/deps.edn` -> the new component's `deps.edn` file
+  * no variable substitutions are provided
+* `templates/components/interface.clj` -> the new component's interface source file (based on the `:interface-ns` setting in `workspace.edn` etc)
+  * `{{interface-ns}}` -- the interface namespace (from the `create component` command)
+  * `{{impl-ns}}` -- the `impl.clj` namespace name (derived from the interface name)
+* if present, `templates/components/impl.clj` -> the new component's `impl.clj` source file
+  * `{{interface-ns}}` -- the interface namespace (from the `create component` command)
+  * `{{impl-ns}}` -- the `impl.clj` namespace name (derived from the interface name)
+* `templates/components/test.clj` -> the new component's interface test file
+  * `{{test-ns}}` -- the namespace of the new test file
+  * `{{src-ns}}` -- the namespace of the new source file -- the interface namespace
+  * `{{alias}}` -- an alias that can be used for the source file in `:require`
+
+== create base
+
+This command uses the following template files to generate the new base:
+
+* `templates/bases/deps.edn` -> the new base's `deps.edn` file
+  * no variable substitutions are provided
+* `templates/bases/main.clj` -> the new base's `core.clj` source file
+  * `{{main-ns}}` -- the core namespace
+* `templates/bases/test.clj` -> the new base's interface test file
+  * `{{test-ns}}` -- the namespace of the new test file
+  * `{{src-ns}}` -- the namespace of the new source file -- the `core` namespace
+  * `{{alias}}` -- an alias that can be used for the source file in `:require`
+
+== create project
+
+This command uses the following template files to generate the new project:
+
+* `templates/projects/deps.edn` -> the new project's `deps.edn` file
+  * `{{clojure-ver}}` -- the default version of Clojure to use; currently `"1.12.0"`
