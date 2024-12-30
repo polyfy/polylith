@@ -88,9 +88,12 @@ poly help
     poly check :dev
     poly create component name:user
     poly create component name:admin interface:user
+    poly create component name:admin interface:user dialect:cljs
     poly create base name:mybase
     poly create project name:myproject
+    poly create project name:myproject dialect:cljs
     poly create workspace name:myws top-ns:com.my.company
+    poly create workspace name:myws top-ns:com.my.company dialect:cljs
     poly create workspace name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company branch:master :commit
     poly deps
@@ -317,10 +320,6 @@ poly help
     poly create workspace name:myws top-ns:com.my.company branch:master
 ----
 
-Polylith uses templates for each of the files it creates via this command.
-Those can be overridden on a global (per-user) or per-project basis.
-See the xref:templates.adoc[templates documentation] for more details.
-
 [#create-component]
 === create component
 
@@ -328,9 +327,11 @@ See the xref:templates.adoc[templates documentation] for more details.
 ----
   Creates a component.
 
-  poly create component name:NAME [interface:INTERFACE] [:git-add]
+  poly create component name:NAME [interface:INTERFACE] [dialect:DIALECT] [:git-add]
 
     NAME = The name of the component to create.
+
+    DIALECT = The value is sent to Selmer when the component is created.
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
                then we can pass in this flag instead, to explicitly add the
@@ -340,6 +341,7 @@ See the xref:templates.adoc[templates documentation] for more details.
 
   Example:
     poly create component name:user
+    poly create component name:user dialect:cljs
     poly create component name:user :git-add
     poly create component name:admin interface:user
 ----
@@ -351,9 +353,11 @@ See the xref:templates.adoc[templates documentation] for more details.
 ----
   Creates a base.
 
-  poly create base name:NAME [:git-add]
+  poly create base name:NAME [dialect:DIALECT] [:git-add] 
 
-    NAME = The name of the base to create.
+    NAME    = The name of the base to create.
+
+    DIALECT = The value is sent to Selmer when the base is created.
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
                then we can pass in this flag instead, to explicitly add the
@@ -361,6 +365,7 @@ See the xref:templates.adoc[templates documentation] for more details.
 
   Example:
     poly create base name:mybase
+    poly create base name:mybase dialect:cljs
     poly create base name:mybase :git-add
 ----
 
@@ -371,8 +376,10 @@ See the xref:templates.adoc[templates documentation] for more details.
 ----
   Creates a project.
 
-  poly create project name:NAME [:git-add]
+  poly create project name:NAME [dialect:DIALECT] [:git-add]
     NAME = The name of the project to create.
+
+    DIALECT = The value is sent to Selmer when the project is created.
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
                then we can pass in this flag instead, to explicitly add the
@@ -380,6 +387,7 @@ See the xref:templates.adoc[templates documentation] for more details.
 
   Example:
     poly create project name:myproject
+    poly create project name:myproject dialect:cljs
     poly create project name:myproject :git-add
 ----
 
@@ -400,17 +408,20 @@ See the xref:templates.adoc[templates documentation] for more details.
 
   2. Initiate the workspace manually by executing commands similar to the ones above.
 
-  poly create workspace [name:NAME] top-ns:TOP-NAMESPACE [:commit] [branch:BRANCH]
+  poly create workspace [name:NAME] top-ns:TOP-NAMESPACE [dialect:DIALECT] [:commit] [branch:BRANCH]
 
     NAME = The name of the workspace to create, which must be given
            if created outside a git repository. Otherwise it's optional.
 
     TOP-NAMESPACE = The top namespace name.
 
+    DIALECT = The value is sent to Selmer when the project is created.
+
     BRANCH = The name of the branch, or the default git main branch if not given.
 
   Example:
     poly create workspace name:myws top-ns:com.my.company
+    poly create workspace name:myws top-ns:com.my.company dialect:cljs
     poly create workspace name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company branch:master :commit
 ----
@@ -433,7 +444,7 @@ See the xref:templates.adoc[templates documentation] for more details.
     FILENAME = The name of the text file to create, containing the
                output from this command.
 
-  To get help for a specific diagram, type:
+  To get help for a specific diagram, type: 
     poly help deps ARGS:
 
       ARGS = :brick           Help for the brick diagram.
@@ -490,7 +501,7 @@ See the xref:templates.adoc[templates documentation] for more details.
     FILENAME = The name of the text file to create, containing the
                output from this command.
 
-         p
+         p      
          a  u  u
          y  s  t
          e  e  i
@@ -531,7 +542,7 @@ See the xref:templates.adoc[templates documentation] for more details.
     FILENAME   = The name of the text file to create, containing the
                  output from this command.
 
-         p
+         p      
          a  u  u
          y  s  t
          e  e  i
@@ -710,7 +721,7 @@ See the xref:templates.adoc[templates documentation] for more details.
 
   1. stable since: dec73ec | stable-lisa
 
-     Shows the most recent commit marked as stable, or the last release if
+     Shows the most recent commit marked as stable, or the last release if 
      since:release or since:previous-release was given, or the first commit
      in the repository if no tag was found, followed by the tag (if found).
      More information can be found in the 'diff' command help.
@@ -824,7 +835,7 @@ See the xref:templates.adoc[templates documentation] for more details.
       --x  The brick is marked to be executed from this project.
 
     If :r or :resources is also passed in:
-      s---  The project contains a path to the 'src' directory, e.g.
+      s---  The project contains a path to the 'src' directory, e.g. 
             'components/user/src' (or is indirectly added by a :local/root).
       -r--  The project contains a path to the 'resources' directory, e.g.
             'components/user/resources' (or is indirectly added by a :local/root).
@@ -1046,7 +1057,7 @@ See the xref:templates.adoc[templates documentation] for more details.
                ~/.config/polylith/config.edn
 
     Example of a config file in ~/.config/polylith/config.edn:
-
+    
 
   Example:
     switch-ws dir:~/myworkspace
@@ -1227,3 +1238,4 @@ See the xref:templates.adoc[templates documentation] for more details.
     poly doc ws
     poly doc ws:components
 ----
+
