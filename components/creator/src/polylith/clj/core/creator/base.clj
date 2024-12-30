@@ -5,7 +5,7 @@
   (let [{:keys [top-namespace]} settings
         bases-dir (str ws-dir "/bases/" base-name)]
     (brick/create-resources-dir ws-dir "bases" base-name is-git-add)
-    (brick/create-config-file ws-dir "bases" base-name is-git-add)
+    (brick/create-config-file ws-dir "bases" base-name dialect is-git-add)
     (brick/create-src-ns ws-dir "bases" top-namespace bases-dir "core" base-name dialect is-git-add)
     (brick/create-test-ns ws-dir "bases" top-namespace bases-dir "core" base-name "core" dialect is-git-add)))
 
