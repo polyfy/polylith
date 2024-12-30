@@ -72,9 +72,12 @@
     poly check :dev
     poly create component name:user
     poly create component name:admin interface:user
+    poly create component name:admin interface:user dialect:cljs
     poly create base name:mybase
     poly create project name:myproject
+    poly create project name:myproject dialect:cljs
     poly create workspace name:myws top-ns:com.my.company
+    poly create workspace name:myws top-ns:com.my.company dialect:cljs
     poly create workspace name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company branch:master :commit
     poly deps
