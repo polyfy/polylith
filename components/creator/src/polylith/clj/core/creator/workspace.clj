@@ -35,11 +35,12 @@
    (str "    ]")
    (str "}")])
 
-(defn create-ws [ws-dir ws-name top-ns create-ws-dir? git-repo? branch commit?]
+(defn create-ws [ws-dir ws-name top-ns dialect create-ws-dir? git-repo? branch commit?]
   (let [data {:clojure-ver shared/clojure-ver
               :maven-ver   (mvn-version)
               :top-ns      top-ns
-              :ws-name     ws-name}]
+              :ws-name     ws-name
+              :dialect     dialect}]
     (when create-ws-dir?
       (file/create-dir ws-dir))
     (file/create-dir (str ws-dir "/bases"))
@@ -63,7 +64,7 @@
   (when git-repo?
     (println "  Workspace created in existing git repo.")))
 
-(defn create [root-dir ws-name top-ns branch commit?]
+(defn create [root-dir ws-name top-ns dialect branch commit?]
   (let [create-ws-dir? (not (str/blank? ws-name))
         ws-dir (if create-ws-dir? (str root-dir "/" ws-name) root-dir)
         git-repo? (git/is-git-repo? root-dir)]
@@ -73,4 +74,4 @@
       (and (not create-ws-dir?)
            (not git-repo?)) (println "  Current directory must be a git repo. Leave out :commit and try again.")
       (and commit? git-repo?) (println "  Can't commit a workspace inside an existing git repo.")
-      :else (create-ws ws-dir ws-name top-ns create-ws-dir? git-repo? branch commit?))))
+      :else (create-ws ws-dir ws-name top-ns dialect create-ws-dir? git-repo? branch commit?))))

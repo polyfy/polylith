@@ -7,13 +7,14 @@
             [polylith.clj.core.creator.template :as template]
             [clojure.string :as str]))
 
-(defn create-project [ws-dir project-name is-git-add]
+(defn create-project [ws-dir project-name dialect is-git-add]
   (let [project-path (str ws-dir "/projects/" project-name)
         filename (str project-path "/deps.edn")]
     (file/create-dir project-path)
     (file/create-file filename
                       [(template/render ws-dir "projects/deps.edn"
-                                        {:clojure-ver shared/clojure-ver})])
+                                        {:clojure-ver shared/clojure-ver
+                                         :dialect dialect})])
     (git/add ws-dir filename is-git-add)))
 
 (defn print-alias-message [project-name project-alias color-mode]
@@ -28,11 +29,11 @@
     (common/find-project project-name projects) [false (str "  Project " (color/project project-name color-mode) " (or alias) already exists.")]
     :else [true]))
 
-(defn create [{:keys [ws-dir projects settings]} project-name is-git-add]
+(defn create [{:keys [ws-dir projects settings]} project-name dialect is-git-add]
   (let [color-mode (:color-mode settings color/none)
         [ok? message] (validate project-name projects color-mode)]
     (if (not ok?)
       (println message)
       (do
-        (create-project ws-dir project-name is-git-add)
+        (create-project ws-dir project-name dialect is-git-add)
         :ok))))
