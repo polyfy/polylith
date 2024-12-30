@@ -8,9 +8,9 @@
 (def create-brick-message
   (str "  Remember to add :local/root dependencies to dev and project 'deps.edn' files."))
 
-(defn create-config-file [ws-dir bricks-dir brick-name is-git-add]
+(defn create-config-file [ws-dir bricks-dir brick-name dialect is-git-add]
   (let [deps-filename (str ws-dir "/" bricks-dir "/" brick-name "/deps.edn")]
-    (file/create-file deps-filename [(template/render ws-dir (str bricks-dir "/deps.edn") {})])
+    (file/create-file deps-filename [(template/render ws-dir (str bricks-dir "/deps.edn") {:dialect dialect})])
     (git/add ws-dir deps-filename is-git-add)))
 
 (defn validate [brick-name workspace]
@@ -39,7 +39,8 @@
         ns-name (str top-namespace "." interface-name "." namespace)
         [template data]
         (if (= "bases" brick-type)
-          ["bases/main.clj" {:main-ns ns-name}]
+          ["bases/main.clj" {:main-ns ns-name
+                             :dialect dialect}]
           ["components/interface.clj" {:interface-ns ns-name
                                        :dialect dialect
                                        :impl-ns (str top-namespace "." interface-name ".impl")}])]
