@@ -3,6 +3,7 @@
 
 | Issue                                                | Description  |
 |:-----------------------------------------------------|--------------|
+| [482](https://github.com/polyfy/polylith/issues/481) | Add support for ClojureScript
 | [508](https://github.com/polyfy/polylith/issues/508) | Allow slash in profile names
 | [509](https://github.com/polyfy/polylith/issues/509) | Include warnings in the check function in the API 
 
