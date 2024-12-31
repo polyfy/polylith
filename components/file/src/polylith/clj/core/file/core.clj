@@ -142,20 +142,26 @@
     (vary-meta matched-statements
                #(assoc % :edamame.impl.parser/cond-splice true))))
 
-(defn- parse-code-str* [code-str features read-cond]
-  (edamame/parse-string-all code-str
-    {:fn true
-     :var true
-     :quote true
-     :regex true
-     :deref true
-     :read-eval true
-     :features features
-     :readers (fn [_] (fn [_] nil))
-     :read-cond read-cond
-     :auto-resolve name
-     :auto-resolve-ns true
-     :syntax-quote {:resolve-symbol resolve-symbol}}))
+(defn- parse-code-str* [file-path code-str features read-cond]
+  (try (edamame/parse-string-all code-str
+                                 {:fn true
+                                  :var true
+                                  :quote true
+                                  :regex true
+                                  :deref true
+                                  :read-eval true
+                                  :features features
+                                  :readers (fn [_] (fn [_] nil))
+                                  :read-cond read-cond
+                                  :auto-resolve name
+                                  :auto-resolve-ns true
+                                  :syntax-quote {:resolve-symbol resolve-symbol}})
+       (catch Throwable error
+         (println "  Failed to parse following statements from the file:")
+         (println "  File:" file-path)
+         (println "")
+         (println (str "  " (str/replace code-str #"\n" "\n  ")))
+         (throw error))))
 
 (defn ns-with-name? [content]
   (and (sequential? content)
@@ -163,27 +169,27 @@
           (first content))
        (-> content second boolean)))
 
-(defn- clear-ns-statements [code features]
+(defn- clear-ns-statements [file-path code features]
   (reduce (fn [acc statement]
             (if (ns-with-name? statement)
-              (let [code (parse-code-str* (str statement) features 
+              (let [code (parse-code-str* file-path (str statement) features 
                            (partial handle-reader-conditional features))]
                 (conj acc (first code)))
               (conj acc statement)))
     []
     code))
 
-(defn parse-code-str [code-str dialects]
+(defn parse-code-str [file-path code-str dialects]
   (let [features (->> dialects (map keyword) (into #{}))
         multi-dialect? (< 1 (count features))]
     (if multi-dialect?
-      (let [code (parse-code-str* code-str features :preserve)]
-        (clear-ns-statements code features))
-      (parse-code-str* code-str features :allow))))
+      (let [code (parse-code-str* file-path code-str features :preserve)]
+        (clear-ns-statements file-path code features))
+      (parse-code-str* file-path code-str features :allow))))
 
 (defn read-file [path dialects]
   (try
-    (parse-code-str (slurp path) dialects)
+    (parse-code-str path (slurp path) dialects)
     (catch ExceptionInfo e
      (let [{:keys [row col]} (ex-data e)]
        (println (str "  Couldn't read file '" path "', row: " row ", column: " col ". Message: " (.getMessage e)))))))
