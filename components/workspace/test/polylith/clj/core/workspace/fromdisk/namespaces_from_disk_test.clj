@@ -95,6 +95,7 @@
 
 (deftest imports--ns-has-reader-conditionals-and-dialects-include-both-clj-and-cljs--returns-all-namespaces
   (let [file-content (file.core/parse-code-str
+                      "some-file-path.cljc"
                       "(ns polylith.clj.core.file.core
                          (:require #?@(:clj [[clojure.test :refer [deftest is]]]
                                        :cljs [[cljs.test :refer [deftest is]]])
@@ -112,6 +113,7 @@
 
 (deftest imports--ns-has-reader-conditionals-and-dialects-include-only-clj--returns-clj-namespaces
   (let [file-content (file.core/parse-code-str
+                      "some-file-path.cljc"
                       "(ns polylith.clj.core.file.core
                          (:require #?@(:clj [[clojure.test :refer [deftest is]]]
                                        :cljs [[cljs.test :refer [deftest is]]])
@@ -128,6 +130,7 @@
 
 (deftest imports--ns-has-reader-conditionals-and-dialects-include-only-cljs--returns-cljs-namespaces
   (let [file-content (file.core/parse-code-str
+                      "some-file-path.cljc"
                       "(ns polylith.clj.core.file.core
                          (:require #?@(:clj [[clojure.test :refer [deftest is]]]
                                        :cljs [[cljs.test :refer [deftest is]]])
@@ -142,6 +145,7 @@
 
 (deftest imports--ns-has-reader-conditionals-and-dialects-include-both-clj-and-cljs--returns-all-namespaces-without-errors
   (let [file-content (file.core/parse-code-str
+                      "some-file-path.cljc"
                       "(ns polylith.clj.core.file.core
                          (:require #?@(:clj [[clojure.test :refer [deftest is]]]
                                        :cljs [[cljs.test :refer [deftest is]]])
