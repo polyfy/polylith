@@ -15,7 +15,8 @@
   (let [{:keys [is-show-loc is-show-resources fake-sha fake-tag]} user-input
         {:keys [color-mode]} settings
         {:keys [since-sha since-tag]} changes
-        since (stable-since/table (or fake-sha since-sha) (or fake-tag since-tag) color-mode)
+        git-repo? (-> settings :vcs :is-git-repo)
+        since (stable-since/table git-repo? (or fake-sha since-sha) (or fake-tag since-tag) color-mode)
         number-of-entities (number-of-entities/table workspace)
         profiles (active-profiles/table settings)
         projects (project-table/table workspace is-show-loc is-show-resources)
@@ -61,6 +62,8 @@
                      (assoc-in [:user-input :fake-sha] "aaaaa")
                      (assoc-in [:user-input :fake-tag] "")))
   (def workspace (assoc-in dev.jocke/workspace [:user-input :out] "info.png"))
+
+  (def workspace dev.jocke/workspace)
 
   (project-table/table workspace false false)
 
