@@ -89,7 +89,7 @@ For all these templates, the following variables are provided:
 This command uses the following template files to generate the new component:
 
 * `templates/components/deps.edn` -> the new component's `deps.edn` file
-  * no variable substitutions are provided
+  * `{{dialect}}` -- the dialect, e.g. "cljs" (from the create component command)
 * `templates/components/interface.clj` -> the new component's interface source file (based on the `:interface-ns` setting in `workspace.edn` etc)
   * `{{interface-ns}}` -- the interface namespace (from the `create component` command)
   * `{{impl-ns}}` -- the `impl.clj` namespace name (derived from the interface name)
@@ -108,7 +108,7 @@ This command uses the following template files to generate the new component:
 This command uses the following template files to generate the new base:
 
 * `templates/bases/deps.edn` -> the new base's `deps.edn` file
-  * no variable substitutions are provided
+  * `{{dialect}}` -- the dialect, e.g. "cljs" (from the create base command)
 * `templates/bases/main.clj` -> the new base's `core.clj` source file
   * `{{dialect}}` -- the dialect, e.g. "cljs" (from the create base command)
   * `{{main-ns}}` -- the core namespace
