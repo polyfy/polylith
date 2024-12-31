@@ -1,4 +1,4 @@
-(ns polylith.clj.core.ws-file.from-3-to-4.converter)
+(ns ^:no-doc polylith.clj.core.ws-file.from-3-to-4.converter)
 
 (defn convert
   "We forgot to increase the ws number to 4.
