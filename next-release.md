@@ -16,8 +16,9 @@
 | [522](https://github.com/polyfy/polylith/pull/522) | Jeroen van Dijk | Update dep info of polylith-external-test-runner to v0.6.1 |
 
 
-|                                                                    Other changes |
-|---------------------------------------------------------------------------------|
+| Other changes                                                                                                                    |
+|----------------------------------------------------------------------------------------------------------------------------------|
+| If no project other than development, and we include development in a test run, then only print that there are not tests to run. |
 
 | Doc updates                                                                                                                                                                                                                    |
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
