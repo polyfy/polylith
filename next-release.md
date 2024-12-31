@@ -19,6 +19,7 @@
 | Other changes                                                                                                                    |
 |----------------------------------------------------------------------------------------------------------------------------------|
 | If no project other than development, and we include development in a test run, then only print that there are not tests to run. |
+| Print improved error message if edamame can't parse a file.                                                                      | 
 
 | Doc updates                                                                                                                                                                                                                    |
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
