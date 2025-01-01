@@ -351,6 +351,7 @@
      {:dir "examples/local-dep-old-format"}
      {:dir "examples/missing-component"}
      {:dir "examples/integrant-system"}
+     {:dir "examples/mix-example"}
      {:dir "examples/profiles"}
      {:dir "examples/poly-rcf"}
      {:dir "examples/poly-rcf/monolith", :name "monolith-poly-rcf"}
