@@ -10,15 +10,20 @@ https://cljdoc.org/d/polylith/clj-poly/{snapshot-version}-SNAPSHOT[image:https:/
 endif::[]
 https://clojurians.slack.com/messages/C013B7MQHJQ[image:https://badgen.net/badge/slack/join chat/green[]]
 
-== Welcome to the wonderful world of Polylith for Clojure!
+== Welcome to the wonderful world of Polylith for Clojure and ClojureScript!
 
 Polylith is made by developers for developers.
 Our goal is to maximize productivity and increase the quality of the systems we create.
 Although Polylith is not a build tool, it integrates into your build pipeline.
 
+ifndef::env-cljdoc[]
+We recommend exploring the documentation further {cljdoc-doc-url}[here], where you’ll find a convenient menu on the left for easier navigation.
+endif::[]
+
 Polylith, as a concept, is documented https://polylith.gitbook.io/polylith[here].
 
 The documentation you are reading now describes the Polylith tool built for https://clojure.org/[Clojure], a powerful and simple functional language for the https://en.wikipedia.org/wiki/Java_virtual_machine[JVM].
+The tool also supports https://clojurescript.org[ClojureScript].
 
 Polylith introduces the architectural concept of “service level building blocks” which can be combined like LEGO® bricks to build our services and systems.
 Polylith’s LEGO-like bricks are easy to reason about, test, refactor, and reuse.
@@ -38,7 +43,7 @@ Enjoy the ride!
 
 Please https://github.com/sponsors/polyfy[sponsor] the important work of Polylith! ❤️
 
-Iron, Bronze, Silver, Gold, and Platinum sponsors are also listed and on the https://polylith.gitbook.io/polylith[front page] of the Polylith docs.
+Iron, Bronze, Silver, Gold, and Platinum sponsors are also listed on the https://polylith.gitbook.io/polylith[front page] of the Polylith docs.
 
 === Bronze Sponsors
 
