@@ -76,13 +76,17 @@ If you have resource files that are only used in the test context, then they can
 [[frontend]]
 == Frontend Code Options
 
-The `poly` tool will include `.cljs` files if you enable ClojureScript support in your. You can enable it by adding `:dialects #{"clj" "cljs"}` to your `workspace.edn` file. Once you add this, your bricks can utilise `clj`, `cljs`, and `cljc` files in any combination.
+The `poly` tool will include `.cljs` files if ClojureScript is enabled.
+To enable it, add `:dialects #{"clj" "cljs"}` to your `workspace.edn` file.
+Once you add this, your bricks can utilise `clj`, `cljs`, and `cljc` files in any combination.
 
 Three frontend code organization alternatives are:
 
 === 1. Frontend Project
 
-You can have bases that uses `cljs` files as entry points to serve frontend applications. You can use those bases from projects where you can build and deploy frontend applications. You can split your code into multiple compoenents and share code between your frontend and backend applications.
+You can have bases that uses `cljs` files as entry points to serve frontend applications.
+You can use those bases from projects where you can build and deploy frontend applications.
+You can split your code into multiple components and share code between your frontend and backend applications.
 
 You can see an example of this at the https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend[RealWorld example] where https://github.com/thheller/shadow-cljs[shadow-cljs] is used to run, build, and test the frontend application.
 
@@ -106,8 +110,6 @@ myworkspace
 
 You would include `.cljc` files from your backend code by treating it as a library and referencing it via `:local/root`.
 A drawback is that changes to the frontend code files will not be detected by `poly` because they sit outside the `poly` directory structure and are, therefore, unknown to `poly`.
-
-NOTE: We are working on supporting ClojureScript, see https://github.com/polyfy/polylith/issues/481[this] issue.
 
 ==== b) Outside the Workspace
 
