@@ -64,6 +64,7 @@
    "state" {}
    "tagging" {}
    "tap" {}
+   "templates" {}
    "test-runners" {}
    "testing" {}
    "tools-deps" {}
@@ -88,6 +89,7 @@
    "settings" []
    "user-input" []
    "version" []
+   "ws-dialects" []
    "ws-dir" []
    "ws-local-dir" []
    "ws-reader" []

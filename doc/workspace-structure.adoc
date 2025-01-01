@@ -29,6 +29,7 @@ poly ws get:keys
  :settings
  :user-input
  :version
+ :ws-dialects
  :ws-dir
  :ws-local-dir
  :ws-reader
@@ -357,6 +358,7 @@ poly ws get:configs
  :user {:color-mode "dark", :empty-character ".", :thousand-separator ","},
  :workspace {:compact-views #{},
              :default-profile-name "default",
+             :dialects #{"clj"},
              :interface-ns "interface",
              :tag-patterns {:release "v[0-9]*", :stable "stable-*"},
              :top-namespace "se.example",
@@ -718,6 +720,7 @@ poly ws get:settings
  :color-mode "dark",
  :compact-views #{},
  :default-profile-name "default",
+ :dialects #{"clj"},
  :empty-character ".",
  :interface-ns "interface",
  :m2-dir "/Users/joakimtengstrand/.m2",
@@ -745,6 +748,8 @@ poly ws get:settings
 * `:compact-views` The set of views that should be shown in a more compact way, specified in `workspace.edn`.
 
 * `:default-profile-name` The name of the default profile name, specified in `workspace.edn`.
+
+* `:dialects` The set of dialects the tool will support, specified in `workspace.edn`. Valid values are: `"clj"`, `"cljs"`.
 
 * `:empty-character` The character used to represent empty space in output from e.g. the libs command, specified in `workspace.edn`.
 
@@ -1070,6 +1075,23 @@ Each subsequent snapshot release will increase this value by one.
 *** `:non-breaking` The non-breaking version of the original `ws` format.
 
 Changes to the xref:workspace-structure.adoc[workspace structure] is documented in the xref:versions.adoc[versions] page.
+
+
+[#ws-dialects]
+== ws-dialects
+
+[source,shell]
+----
+poly ws get:ws-dialects
+----
+
+[source,clojure]
+----
+#{"clj"}
+----
+
+The set of Clojure dialects that is read by this workspace. Calculated from `:dialects` in `workspace.edn`, and if not set, `#{"clj"}` is used as default.
+
 
 [#ws-dir]
 == ws-dir

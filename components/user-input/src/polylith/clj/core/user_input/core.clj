@@ -67,6 +67,7 @@
                 commit!
                 compact!
                 dev!
+                dialect
                 dir
                 fake-poly!
                 fake-sha
@@ -115,6 +116,7 @@
                       :branch branch
                       :color-mode (as-value color-mode)
                       :changed-files (as-vector changed-files)
+                      :dialect (as-value dialect)
                       :dir dir
                       :fake-sha fake-sha
                       :fake-tag fake-tag

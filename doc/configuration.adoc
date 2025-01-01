@@ -41,6 +41,7 @@ poly ws get:configs:workspace
 {:bricks {"user-remote" {:keep-lib-versions [ring/ring slacker/slacker]}}
  :compact-views #{},
  :default-profile-name "default",
+ :dialects #{"clj"},
  :interface-ns "interface",
  :projects {"command-line" {:alias "cl",
                             :test {:setup-fn project.command-line.test-setup/setup,
