@@ -79,27 +79,27 @@ new workspace:
 For all these templates, the following variables are provided:
 
 * `{{clojure-ver}}` -- the default version of Clojure to use; currently `"1.12.0"`
-* `{{dialect}}` -- the dialect, e.g. "cljs" (from the create workspace command)
+* `{{dialect}}` -- the dialect, e.g. "cljs" (from the xref:commands.adoc#create-workspace[create workspace] command)
 * `{{maven-ver}}` -- the default version of Polylith to use
-* `{{top-ns}}` -- the top namespace name (from the `create workspace` command)
-* `{{ws-name}}` -- the name of the workspace (from the `create workspace` command)
+* `{{top-ns}}` -- the top namespace name (from the xref:commands.adoc#create-workspace[create workspace] command)
+* `{{ws-name}}` -- the name of the workspace (from the xref:commands.adoc#create-workspace[create workspace] command)
 
 == create component
 
 This command uses the following template files to generate the new component:
 
 * `templates/components/deps.edn` -> the new component's `deps.edn` file
-** `{{dialect}}` -- the dialect, e.g. "cljs" (from the create component command)
+** `{{dialect}}` -- the dialect, e.g. "cljs" (from the xref:commands.adoc#create-component[create component] command)
 * `templates/components/interface.clj` -> the new component's interface source file (based on the `:interface-ns` setting in `workspace.edn` etc)
-** `{{dialect}}` -- the dialect, e.g. "cljs" (from the create component command)
+** `{{dialect}}` -- the dialect, e.g. "cljs" (from the xref:commands.adoc#create-component[create component] command)
 ** `{{interface-ns}}` -- the interface namespace (from the `create component` command)
 ** `{{impl-ns}}` -- the `impl.clj` namespace name (derived from the interface name)
 * if present, `templates/components/impl.clj` -> the new component's `impl.clj` source file
-** `{{dialect}}` -- the dialect, e.g. "cljs" (from the create component command)
-** `{{interface-ns}}` -- the interface namespace (from the `create component` command)
+** `{{dialect}}` -- the dialect, e.g. "cljs" (from the xref:commands.adoc#create-component[create component] command)
+** `{{interface-ns}}` -- the interface namespace (from the xref:commands.adoc#create-component[create component] command)
 ** `{{impl-ns}}` -- the `impl.clj` namespace name (derived from the interface name)
 * `templates/components/test.clj` -> the new component's interface test file
-** `{{dialect}}` -- the dialect, e.g. "cljs" (from the create component command)
+** `{{dialect}}` -- the dialect, e.g. "cljs" (from the xref:commands.adoc#create-component[create component] command)
 ** `{{test-ns}}` -- the namespace of the new test file
 ** `{{src-ns}}` -- the namespace of the new source file -- the interface namespace
 ** `{{alias}}` -- an alias that can be used for the source file in `:require`
@@ -109,12 +109,12 @@ This command uses the following template files to generate the new component:
 This command uses the following template files to generate the new base:
 
 * `templates/bases/deps.edn` -> the new base's `deps.edn` file
-** `{{dialect}}` -- the dialect, e.g. "cljs" (from the create base command)
+** `{{dialect}}` -- the dialect, e.g. "cljs" (from the xref:commands.adoc#create-base[create base] command)
 * `templates/bases/main.clj` -> the new base's `core.clj` source file
-** `{{dialect}}` -- the dialect, e.g. "cljs" (from the create base command)
+** `{{dialect}}` -- the dialect, e.g. "cljs" (from the xref:commands.adoc#create-base[create base] command)
 ** `{{main-ns}}` -- the core namespace
 * `templates/bases/test.clj` -> the new base's interface test file
-** `{{dialect}}` -- the dialect, e.g. "cljs" (from the create base command)
+** `{{dialect}}` -- the dialect, e.g. "cljs" (from the xref:commands.adoc#create-base[create base] command)
 ** `{{test-ns}}` -- the namespace of the new test file
 ** `{{src-ns}}` -- the namespace of the new source file -- the `core` namespace
 ** `{{alias}}` -- an alias that can be used for the source file in `:require`
@@ -124,5 +124,5 @@ This command uses the following template files to generate the new base:
 This command uses the following template files to generate the new project:
 
 * `templates/projects/deps.edn` -> the new project's `deps.edn` file
-** `{{dialect}}` -- the dialect, e.g. "cljs" (from the create project command)
+** `{{dialect}}` -- the dialect, e.g. "cljs" (from the xref:commands.adoc#create-project[create project] command)
 ** `{{clojure-ver}}` -- the default version of Clojure to use; currently `"1.12.0"`
