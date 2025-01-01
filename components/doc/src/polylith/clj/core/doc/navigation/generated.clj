@@ -64,6 +64,7 @@
    "state" {}
    "tagging" {}
    "tap" {}
+   "templates" {}
    "test-runners" {}
    "testing" {}
    "tools-deps" {}
