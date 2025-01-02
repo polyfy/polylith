@@ -73,6 +73,11 @@ a| [nowrap]`:default-profile-name`
 a| The name of the profile that `poly` automatically merges into the xref:development.adoc[development] project when using xref:profile.adoc[profiles], and no profile is specified. +
 *Default:* `"default"`
 
+a| [nowrap]`:dialects`
+a| The Clojure dialects the `poly` tool will read ("clj" and/or "cljs") where
+"cljc" is always read. +
+*Default:* `#{"cljs"}`
+
 a| `:interface-ns`
 a| Tells `poly` when to consider a namespace an interface and what naming convention the xref:commands.adoc#create-component[create component] command should use.
 See xref:interface.adoc#interface-ns[Interface] for important details. +
