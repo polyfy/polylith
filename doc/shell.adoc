@@ -316,12 +316,14 @@ definitions               implementing-components   name                      ty
 [source,text]
 ----
 example$ doc help:
-check                deps-brick           doc                  tap
-create-base          deps-project-brick   info                 test
-create-component     deps-project         libs                 version
-create-project       deps-workspace       overview             ws
-create-workspace     deps                 shell
-create               diff                 switch-ws
+check                deps-project         shell
+create-base          deps-workspace       switch-ws
+create-component     deps                 tap
+create-project       diff                 test
+create-workspace     doc                  version
+create               info                 ws
+deps-brick           libs
+deps-project-brick   overview
 ----
 * Tag patterns defined in `workspace.edn` are suggested for the `since:` argument:
 +
