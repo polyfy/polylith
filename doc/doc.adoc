@@ -98,20 +98,21 @@ Notice that the shell lists all pages:
 [source,text]
 ----
 example$ doc page:
-artifacts                flags                    readme
-base                     git-hooks                shell
-build                    git                      source-code
-colors                   install                  state
-component                interface                tagging
-configuration            introduction             tap
-contact                  libraries                test-runners
-continuous-integration   license                  testing
-dependencies             naming                   tools-deps
-developing-poly          polylith-ci-setup        upgrade
-development              polyx                    validations
-doc                      production-systems       versions
-example-systems          profile                  visualize-the-repo
-explore-the-workspace    project                  workspace
+artifacts                git-hooks                source-code
+base                     git                      state
+build                    install                  tagging
+colors                   interface                tap
+component                introduction             templates
+configuration            libraries                test-runners
+contact                  license                  testing
+continuous-integration   naming                   tools-deps
+dependencies             polylith-ci-setup        upgrade
+developing-poly          polyx                    validations
+development              production-systems       versions
+doc                      profile                  visualize-the-repo
+example-systems          project                  workspace
+explore-the-workspace    readme
+flags                    shell
 ----
 
 These are the same pages you see listed in the left menu in your web browser.
@@ -183,12 +184,13 @@ List all top keys via:
 [source,text]
 ----
 example$ doc ws:
-bases          name           user-input
-changes        old            version
-components     paths          ws-dir
-configs        profiles       ws-local-dir
-interfaces     projects       ws-reader
-messages       settings       ws-type
+bases          old            ws-dialects
+changes        paths          ws-dir
+components     profiles       ws-local-dir
+configs        projects       ws-reader
+interfaces     settings       ws-type
+messages       user-input
+name           version
 ----
 
 Open the description for a specific top key in your web browser:
@@ -415,7 +417,9 @@ List example poly workspace with:
 [source,shell]
 ----
 example$ doc more:workspaces:
+demo-rama-electric
 game-of-life
+integrant-system
 polylith
 realworld
 usermanager
@@ -431,7 +435,7 @@ usermanager
 | https://github.com/tengstrand/game-of-life[game-of-life]
 | A tiny workspace that implements https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life[Game of Life], created by https://github.com/tengstrand[Joakim Tengstrand].
 
-| link:/examples/integrant-system[example-system]
+| link:/examples/integrant-system[integrant-system]
 | A small example system to show how you can use https://github.com/weavejester/integrant[Integrant] in Polylith, created by https://github.com/marksto[Mark Sto].
 
 | https://github.com/polyfy/polylith[polylith]
