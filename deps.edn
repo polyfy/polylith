@@ -64,6 +64,7 @@
                                  "components/lib/test"
                                  "components/path-finder/test"
                                  "components/shell/test"
+                                 "components/test/test"
                                  "components/test-runner-contract/test"
                                  "components/test-runner-orchestrator/test"
                                  "components/user-input/test"
