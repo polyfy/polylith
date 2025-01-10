@@ -23,10 +23,12 @@
                                          is-dev-user-input
                                          is-run-all-brick-tests))
       (fn
-        ([] {:bricks-to-test {}})
+        ([] {:bricks-to-test {} :bricks-to-test-2 {}})
         ([acc] acc)
-        ([acc {:keys [name bricks-to-test]}]
-         (update acc :bricks-to-test assoc name bricks-to-test)))
+        ([acc {:keys [name bricks-to-test bricks-to-test-2]}]
+         (-> acc
+             (update :bricks-to-test assoc name bricks-to-test)
+             (update :bricks-to-test-2 assoc name bricks-to-test-2))))
       projects)))
 
 ;; The development project is only included in the tests if we pass in :dev,
@@ -36,7 +38,11 @@
   (is (= {:bricks-to-test
           {"core" ["article" "rest-api"]
            "development" []
-           "extension" ["article"]}}
+           "extension" ["article"]}
+          :bricks-to-test-2
+          {"core" ["article" "rest-api"]
+           "development" []
+           "extension" ["article" "cli"]}}
          (test {:changed-projects []
                 :changed-components ["article"]
                 :changed-bases ["rest-api" "cli"]
@@ -47,6 +53,10 @@
 
 (deftest with-bricks-to-test--with-one-changed-component-that-is-excluded---returns-bricks-to-test-for-changed-projects
   (is (= {:bricks-to-test
+          {"core" []
+           "development" []
+           "extension" []}
+          :bricks-to-test-2
           {"core" []
            "development" []
            "extension" []}}
@@ -68,7 +78,18 @@
                    "user"]
            "development" []
            "extension" ["article"
-                        "comment"]}}
+                        "comment"]}
+          :bricks-to-test-2
+          {"core" ["article"
+                   "comment"
+                   "rest-api"
+                   "tag"
+                   "user"]
+           "development" []
+           "extension" ["article"
+                        "cli"
+                        "comment"
+                        "section"]}}
          (test {:changed-projects []
                 :changed-components ["article"]
                 :changed-bases []
@@ -91,7 +112,23 @@
                           "tag"
                           "user"]
            "extension" ["article"
-                        "comment"]}}
+                        "comment"]}
+          :bricks-to-test-2
+          {"core" ["article"
+                   "comment"
+                   "rest-api"
+                   "tag"
+                   "user"]
+           "development" ["article"
+                          "comment"
+                          "profile"
+                          "rest-api"
+                          "tag"
+                          "user"]
+           "extension" ["article"
+                        "cli"
+                        "comment"
+                        "section"]}}
          (test {:changed-projects []
                 :changed-components ["article"]
                 :changed-bases []
@@ -102,6 +139,15 @@
 
 (deftest with-bricks-to-test--with-run-all-brick-tests-and-development-selected--returns-all-bricks-for-development
   (is (= {:bricks-to-test
+          {"core" []
+           "development" ["article"
+                          "comment"
+                          "profile"
+                          "rest-api"
+                          "tag"
+                          "user"]
+           "extension" []}
+          :bricks-to-test-2
           {"core" []
            "development" ["article"
                           "comment"
@@ -123,11 +169,16 @@
           {"core" ["tag"
                    "user"]
            "development" []
+           "extension" []}
+          :bricks-to-test-2
+          {"core" ["tag"
+                   "user"]
+           "development" []
            "extension" []}}
          (test {:changed-projects []
                 :test {:include ["tag" "user"]}
-                :changed-components ["article" "comment" "rest-api" "tag" "user"]
-                :changed-bases []
+                :changed-components ["article" "comment" "tag" "user"]
+                :changed-bases ["rest-api"]
                 :selected-bricks nil
                 :selected-projects #{}
                 :is-dev-user-input false
@@ -141,10 +192,19 @@
                    "tag"
                    "user"]
            "development" []
-           "extension" ["article"]}}
+           "extension" ["article"]}
+          :bricks-to-test-2
+          {"core" ["article"
+                   "comment"
+                   "rest-api"
+                   "tag"
+                   "user"]
+           "development" []
+           "extension" ["article"
+                        "cli"]}}
          (test {:changed-projects ["core"]
                 :changed-components ["article"]
-                :changed-bases []
+                :changed-bases ["cli"]
                 :selected-bricks nil
                 :selected-projects #{}
                 :is-dev-user-input false
@@ -152,6 +212,10 @@
 
 (deftest with-bricks-to-test--with-two-changed-components-and-one-selected-brick--returns-selected-bricks-that-are-also-changed
   (is (= {:bricks-to-test
+          {"core" ["user"]
+           "development" []
+           "extension" []}
+          :bricks-to-test-2
           {"core" ["user"]
            "development" []
            "extension" []}}
@@ -167,6 +231,10 @@
   (is (= {:bricks-to-test
           {"core" []
            "development" []
+           "extension" []}
+          :bricks-to-test-2
+          {"core" []
+           "development" []
            "extension" []}}
          (test {:changed-projects []
                 :changed-components []
@@ -180,11 +248,31 @@
   (is (= {:bricks-to-test
           {"core" ["tag"]
            "development" []
+           "extension" []}
+          :bricks-to-test-2
+          {"core" ["tag"]
+           "development" []
            "extension" []}}
          (test {:changed-projects []
                 :changed-components []
                 :changed-bases []
                 :selected-bricks ["tag"]
+                :selected-projects #{}
+                :is-dev-user-input false
+                :is-run-all-brick-tests true})))
+
+  (is (= {:bricks-to-test
+          {"core" []
+           "development" []
+           "extension" []}
+          :bricks-to-test-2
+          {"core" []
+           "development" []
+           "extension" ["section"]}}
+         (test {:changed-projects []
+                :changed-components []
+                :changed-bases []
+                :selected-bricks ["section"]
                 :selected-projects #{}
                 :is-dev-user-input false
                 :is-run-all-brick-tests true}))))

@@ -14,6 +14,9 @@
     (set/intersection (into #{} (mapcat :src) [base-names component-names])
                       (into #{} (mapcat :test) [base-names component-names]))))
 
+(defn bricks-referenced [{:keys [base-names component-names]}]
+  (into #{} (comp (mapcat vals) cat) [base-names component-names]))
+
 (defn include-project? [{:keys [is-dev alias name]} selected-projects is-dev-user-input]
   (or (or (contains? selected-projects name)
           (contains? selected-projects alias))
@@ -55,6 +58,7 @@
         include-project (include-project? project selected-projects is-dev-user-input)
         project-has-changed (project-changed? project changed-projects)]
     (assoc project
+      ;; only ever includes bricks that have test sources
       :bricks-to-test
       (->> [:src :test]
            (into
@@ -67,4 +71,18 @@
                                       project-has-changed
                                       is-run-all-brick-tests
                                       (bricks-for-source project %))))
+           (vec))
+      ;; might include bricks that don't have test sources
+      :bricks-to-test-2
+      (->> [:src :test]
+           (into
+             (sorted-set)
+             (mapcat #(bricks-to-test project
+                                      %
+                                      changed-bricks
+                                      user-selected-bricks
+                                      include-project
+                                      project-has-changed
+                                      is-run-all-brick-tests
+                                      (bricks-referenced project))))
            (vec)))))
