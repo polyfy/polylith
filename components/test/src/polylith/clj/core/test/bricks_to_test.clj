@@ -49,8 +49,11 @@
 (defn with-bricks-to-test [project changed-projects changed-components changed-bases selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests]
   (assoc project
          :bricks-to-test
-         (-> (concat (bricks-to-test project :src changed-projects changed-bases selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests)
-                     (bricks-to-test project :src changed-projects changed-components selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests)
-                     (bricks-to-test project :test changed-projects changed-bases selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests)
-                     (bricks-to-test project :test changed-projects changed-components selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests))
-             set sort vec)))
+         (vec
+          (into
+           (sorted-set)
+           cat
+           [(bricks-to-test project :src changed-projects changed-bases selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests)
+            (bricks-to-test project :src changed-projects changed-components selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests)
+            (bricks-to-test project :test changed-projects changed-bases selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests)
+            (bricks-to-test project :test changed-projects changed-components selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests)]))))
