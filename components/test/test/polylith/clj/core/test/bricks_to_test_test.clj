@@ -23,12 +23,12 @@
                                          is-dev-user-input
                                          is-run-all-brick-tests))
       (fn
-        ([] {:bricks-to-test {} :bricks-to-test-2 {}})
+        ([] {:bricks-to-test {} :bricks-to-test-all-sources {}})
         ([acc] acc)
-        ([acc {:keys [name bricks-to-test bricks-to-test-2]}]
+        ([acc {:keys [name bricks-to-test bricks-to-test-all-sources]}]
          (-> acc
              (update :bricks-to-test assoc name bricks-to-test)
-             (update :bricks-to-test-2 assoc name bricks-to-test-2))))
+             (update :bricks-to-test-all-sources assoc name bricks-to-test-all-sources))))
       projects)))
 
 ;; The development project is only included in the tests if we pass in :dev,
@@ -39,7 +39,7 @@
           {"core" ["article" "rest-api"]
            "development" []
            "extension" ["article"]}
-          :bricks-to-test-2
+          :bricks-to-test-all-sources
           {"core" ["article" "rest-api"]
            "development" []
            "extension" ["article" "cli"]}}
@@ -56,7 +56,7 @@
           {"core" []
            "development" []
            "extension" []}
-          :bricks-to-test-2
+          :bricks-to-test-all-sources
           {"core" []
            "development" []
            "extension" []}}
@@ -79,7 +79,7 @@
            "development" []
            "extension" ["article"
                         "comment"]}
-          :bricks-to-test-2
+          :bricks-to-test-all-sources
           {"core" ["article"
                    "comment"
                    "rest-api"
@@ -113,7 +113,7 @@
                           "user"]
            "extension" ["article"
                         "comment"]}
-          :bricks-to-test-2
+          :bricks-to-test-all-sources
           {"core" ["article"
                    "comment"
                    "rest-api"
@@ -147,7 +147,7 @@
                           "tag"
                           "user"]
            "extension" []}
-          :bricks-to-test-2
+          :bricks-to-test-all-sources
           {"core" []
            "development" ["article"
                           "comment"
@@ -170,7 +170,7 @@
                    "user"]
            "development" []
            "extension" []}
-          :bricks-to-test-2
+          :bricks-to-test-all-sources
           {"core" ["tag"
                    "user"]
            "development" []
@@ -193,7 +193,7 @@
                    "user"]
            "development" []
            "extension" ["article"]}
-          :bricks-to-test-2
+          :bricks-to-test-all-sources
           {"core" ["article"
                    "comment"
                    "rest-api"
@@ -215,7 +215,7 @@
           {"core" ["user"]
            "development" []
            "extension" []}
-          :bricks-to-test-2
+          :bricks-to-test-all-sources
           {"core" ["user"]
            "development" []
            "extension" []}}
@@ -232,7 +232,7 @@
           {"core" []
            "development" []
            "extension" []}
-          :bricks-to-test-2
+          :bricks-to-test-all-sources
           {"core" []
            "development" []
            "extension" []}}
@@ -249,7 +249,7 @@
           {"core" ["tag"]
            "development" []
            "extension" []}
-          :bricks-to-test-2
+          :bricks-to-test-all-sources
           {"core" ["tag"]
            "development" []
            "extension" []}}
@@ -265,7 +265,7 @@
           {"core" []
            "development" []
            "extension" []}
-          :bricks-to-test-2
+          :bricks-to-test-all-sources
           {"core" []
            "development" []
            "extension" ["section"]}}
