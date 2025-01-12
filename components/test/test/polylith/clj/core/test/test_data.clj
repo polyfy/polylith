@@ -18,6 +18,15 @@
            :base-names {:src ["rest-api"]
                         :test ["rest-api"]}})
 
+(def ext {:is-dev false
+          :alias "ext"
+          :name "extension"
+          :component-names {:src ["article" "comment" "section"]
+                            :test ["article" "comment"]}
+          :base-names {:src ["cli"]
+                       :test []}})
+
 (defn projects [test]
   [dev
-   (assoc core :test test)])
+   (assoc core :test test)
+   (assoc ext :test test)])
