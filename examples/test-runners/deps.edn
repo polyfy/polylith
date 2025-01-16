@@ -9,16 +9,16 @@
                    :extra-deps {polylith-kaocha/kaocha-wrapper
                                 ;{:local/root "../../../sandbox/polylith-kaocha/projects/kaocha-wrapper"}
                                 {:git/url "https://github.com/imrekoszo/polylith-kaocha"
-                                 :git/tag "v0.8.4"
-                                 :git/sha "f096de8"
+                                 :git/tag "v0.8.6"
+                                 :git/sha "7282409"
                                  :deps/root "projects/kaocha-wrapper"}}}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polylith-kaocha/test-runner
                                 ;{:local/root "../../../sandbox/polylith-kaocha/projects/test-runner"}
                                 {:git/url "https://github.com/imrekoszo/polylith-kaocha"
-                                 :git/tag "v0.8.4"
-                                 :git/sha "f096de8"
+                                 :git/tag "v0.8.6"
+                                 :git/sha "7282409"
                                  :deps/root "projects/test-runner"}
                                 io.github.seancorfield/polylith-external-test-runner
                                 {:git/tag "v0.4.0" :git/sha "eb954fe"

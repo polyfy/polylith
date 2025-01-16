@@ -6,6 +6,6 @@
  :aliases {:test {:extra-paths []
                   :extra-deps {polylith-kaocha/kaocha-wrapper
                                {:git/url "https://github.com/imrekoszo/polylith-kaocha"
-                                :git/tag "v0.8.4"
-                                :git/sha "f096de8"
+                                :git/tag "v0.8.6"
+                                :git/sha "7282409"
                                 :deps/root "projects/kaocha-wrapper"}}}}}
