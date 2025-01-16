@@ -24,10 +24,18 @@
                                  "components/comp-cljs-with-macros/test"
                                  
                                  "bases/clj-base/test"
-                                 "bases/cljs-base/test"]}
+                                 "bases/cljs-base/test"]
+                   :extra-deps {polylith-kaocha/kaocha-wrapper
+                                {:git/url "https://github.com/imrekoszo/polylith-kaocha"
+                                 :git/tag "v0.8.6"
+                                 :git/sha "7282409"
+                                 :deps/root "projects/kaocha-wrapper"}}}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
-                   :extra-deps {polylith/clj-poly
-                                {:git/url "https://github.com/polyfy/polylith.git"
-                                 :sha "38e14b1e58931d31b491eb4054450cd4975b529f"
-                                 :deps/root "projects/poly"}}}}}
+                   :extra-deps {polylith-kaocha/test-runner
+                                {:git/url "https://github.com/imrekoszo/polylith-kaocha"
+                                 :git/tag "v0.8.6"
+                                 :git/sha "7282409"
+                                 :deps/root "projects/test-runner"}
+                                polylith/clj-poly
+                                {:local/root "../../projects/poly"}}}}}
