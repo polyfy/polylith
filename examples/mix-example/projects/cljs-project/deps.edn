@@ -20,4 +20,8 @@
                                 "../../components/comp-cljs-with-macros/test"
 
                                 "../../bases/cljs-base/test"]
-                  :extra-deps  {}}}}
+                  :extra-deps  {polylith-kaocha/kaocha-wrapper
+                                {:git/url "https://github.com/imrekoszo/polylith-kaocha"
+                                 :git/tag "v0.8.6"
+                                 :git/sha "7282409"
+                                 :deps/root "projects/kaocha-wrapper"}}}}}
