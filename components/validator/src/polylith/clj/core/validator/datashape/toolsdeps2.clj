@@ -57,6 +57,14 @@
     [:or project-test-config-schema
      vector?]]]) ;; legacy
 
+(def dialect
+  [:enum "clj" "cljs"])
+
+(def dialects-schema
+  [:or
+   [:vector {:min 1} dialect]
+   [:set {:min 1} dialect]])
+
 (def workspace-schema
   [:map
    [:vcs {:optional true} [:or string? map?]]
@@ -69,7 +77,8 @@
    [:tag-patterns {:optional true} map?]
    [:projects {:optional true}
     [:map-of :string project-settings-schema]]
-   [:test {:optional true} test-runner-config-schema]])
+   [:test {:optional true} test-runner-config-schema]
+   [:dialects {:optional true} dialects-schema]])
 
 (defn validate-workspace-config [config]
   (-> workspace-schema

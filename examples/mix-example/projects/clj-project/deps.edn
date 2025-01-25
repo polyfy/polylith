@@ -1,0 +1,15 @@
+{:deps {poly/comp-clj-cljc {:local/root "../../components/comp-clj-cljc"}
+        poly/comp-clj-cljc-cljs {:local/root "../../components/comp-clj-cljc-cljs"}
+        poly/comp-clj-only {:local/root "../../components/comp-clj-only"}
+        poly/comp-cljc {:local/root "../../components/comp-cljc"}
+
+        poly/clj-base {:local/root "../../components/clj-base"}
+        
+        org.clojure/clojure {:mvn/version "1.12.0"}}
+
+ :aliases {:test {:extra-paths []
+                  :extra-deps  {polylith-kaocha/kaocha-wrapper
+                                {:git/url "https://github.com/imrekoszo/polylith-kaocha"
+                                 :git/tag "v0.8.6"
+                                 :git/sha "7282409"
+                                 :deps/root "projects/kaocha-wrapper"}}}}}

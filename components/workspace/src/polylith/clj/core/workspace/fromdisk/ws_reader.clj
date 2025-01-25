@@ -1,9 +1,6 @@
-(ns ^:no-doc polylith.clj.core.workspace.fromdisk.ws-reader
-  (:require [polylith.clj.core.common.interface :as common]))
+(ns ^:no-doc polylith.clj.core.workspace.fromdisk.ws-reader)
 
-(def file-extensions (if common/cljs?
-                       ["clj" "cljs" "cljc"]
-                       ["clj" "cljc"]))
+(def file-extensions ["clj" "cljs" "cljc"])
 
 (def reader
   {:name "polylith-clj"

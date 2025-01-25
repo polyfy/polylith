@@ -14,12 +14,9 @@
     {:non-top-ns non-top-ns
      :file (str brick-type "s/" brick-name "/" source-dir "/" path)}))
 
-(def data-reader-files (if common/cljs?
-                         #{"data_readers.clj"
+(def data-reader-files #{"data_readers.clj"
                            "data_readers.cljs"
-                           "data_readers.cljc"}
-                         #{"data_readers.clj"
-                           "data_readers.cljc"}))
+                           "data_readers.cljc"})
 
 (defn non-data-reader-file? [path]
   (let [filename (last (str/split path #"/"))]
