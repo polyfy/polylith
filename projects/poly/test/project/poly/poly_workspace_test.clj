@@ -153,7 +153,7 @@
           "  org.clojure/tools.deps           0.20.1440   maven     58    x      x      x      -        -       .  .  x  x  .  .  .  .  .  x  ."
           "  org.jline/jline                  3.26.3      maven  1,394    x      x      x      -        -       .  .  .  .  .  .  x  .  .  .  ."
           "  org.slf4j/slf4j-nop              2.0.16      maven      4    x      x      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
-          "  pjstadig/humane-test-output      0.11.0      maven      -    t      -      -      -        -       .  .  .  .  .  .  .  .  .  .  ."
+          "  pjstadig/humane-test-output      0.11.0      maven      7    t      -      -      -        -       .  .  .  .  .  .  .  .  .  .  ."
           "  rewrite-clj/rewrite-clj          1.1.48      maven     74    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
           "  selmer/selmer                    1.12.61     maven     63    x      x      x      -        -       .  x  .  .  .  .  .  .  .  .  ."]
 
