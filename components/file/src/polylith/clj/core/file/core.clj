@@ -125,6 +125,14 @@
     {:files files
      :dirs dirs}))
 
+(defn source-reader [tag]
+  (cond
+    (= tag 'uuid) #(java.util.UUID/fromString %)
+    (= tag 'inst) #(java.time.Instant/parse %)
+    :else (fn [data]
+            {:unknown-tag tag
+             :value data})))
+
 (defn read-file [path]
   (try
     (edamame/parse-string-all (slurp path)
@@ -135,7 +143,7 @@
                                :deref true
                                :read-eval true
                                :features #{:clj}
-                               :readers (fn [_] (fn [_] nil))
+                               :readers source-reader
                                :read-cond :allow
                                :auto-resolve name
                                :auto-resolve-ns true
