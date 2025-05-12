@@ -14,7 +14,7 @@
 | [520](https://github.com/polyfy/polylith/pull/520) | Sean Corfield   | Using Selmer templates for create fragments                |
 | [521](https://github.com/polyfy/polylith/pull/521) | Sean Corfield   | Update circleci to use Clojure 1.12                        |
 | [522](https://github.com/polyfy/polylith/pull/522) | Jeroen van Dijk | Update dep info of polylith-external-test-runner to v0.6.1 |
-
+| [535](https://github.com/polyfy/polylith/pull/535) | [brettatoms](https://github.com/brettatoms) | fix comparing maven version numbers |
 
 | Other changes                                                                                                                    |
 |----------------------------------------------------------------------------------------------------------------------------------|
