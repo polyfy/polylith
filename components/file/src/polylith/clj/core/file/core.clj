@@ -125,6 +125,14 @@
     {:files files
      :dirs dirs}))
 
+(defn source-reader [tag]
+  (cond
+    (= tag 'uuid) #(java.util.UUID/fromString %)
+    (= tag 'inst) #(java.time.Instant/parse %)
+    :else (fn [data]
+            {:unknown-tag tag
+             :value data})))
+
 (defn- match-statements [statement splicing? features]
   (let [feature-statement-tuples (partition 2 2 [nil] statement)]
     (reduce (fn [acc [feature statement]]
@@ -151,7 +159,7 @@
                                   :deref true
                                   :read-eval true
                                   :features features
-                                  :readers (fn [_] (fn [_] nil))
+                                  :readers source-reader
                                   :read-cond read-cond
                                   :auto-resolve name
                                   :auto-resolve-ns true
@@ -172,7 +180,7 @@
 (defn- clear-ns-statements [file-path code features]
   (reduce (fn [acc statement]
             (if (ns-with-name? statement)
-              (let [code (parse-code-str* file-path (str statement) features 
+              (let [code (parse-code-str* file-path (str statement) features
                            (partial handle-reader-conditional features))]
                 (conj acc (first code)))
               (conj acc statement)))

@@ -6,6 +6,7 @@
 | [482](https://github.com/polyfy/polylith/issues/481) | Add support for ClojureScript
 | [508](https://github.com/polyfy/polylith/issues/508) | Allow slash in profile names
 | [509](https://github.com/polyfy/polylith/issues/509) | Include warnings in the check function in the API 
+| [533](https://github.com/polyfy/polylith/issues/533) | Maps with tag literals as keys in test namespaces breaks test runner
 | [534](https://github.com/polyfy/polylith/issues/534) | Use correct regex in workspace.edn
 
 | PR                                                 | Author          | Description                                                  
