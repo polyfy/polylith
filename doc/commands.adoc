@@ -14,7 +14,7 @@ poly help
 
 [source,text]
 ----
-  poly 0.2.22 (2024-08-23) - https://github.com/polyfy/polylith
+  poly 0.2.22 (2024-09-29) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -58,9 +58,9 @@ poly help
   used depending on the value of SINCE (or the first commit if no match was found).
   If prefixed with 'previous-', e.g. 'previous-release', then the SHA directly before
   the most recent matching tag of the 'release' pattern will be used:
-    stable  -> the latest tag that matches stable-*, defined by
+    stable  -> the latest tag that matches ^stable-*, defined by
                :tag-patterns > :stable in workspace.edn.
-    release -> the latest tag that matches v[0-9]*, defined by
+    release -> the latest tag that matches ^v[0-9]*, defined by
                :tag-patterns > :release in workspace.edn.
     KEY     -> any key in :tag-patterns.
     SHA     -> a git SHA-1 hash (if no key was found in :tag-patterns).
@@ -317,10 +317,6 @@ poly help
     poly create workspace name:myws top-ns:com.my.company branch:master
 ----
 
-Polylith uses templates for each of the files it creates via this command.
-Those can be overridden on a global (per-user) or per-project basis.
-See the xref:templates.adoc[templates documentation] for more details.
-
 [#create-component]
 === create component
 
@@ -351,7 +347,7 @@ See the xref:templates.adoc[templates documentation] for more details.
 ----
   Creates a base.
 
-  poly create base name:NAME [:git-add]
+  poly create base name:NAME [:git-add] 
 
     NAME = The name of the base to create.
 
@@ -433,7 +429,7 @@ See the xref:templates.adoc[templates documentation] for more details.
     FILENAME = The name of the text file to create, containing the
                output from this command.
 
-  To get help for a specific diagram, type:
+  To get help for a specific diagram, type: 
     poly help deps ARGS:
 
       ARGS = :brick           Help for the brick diagram.
@@ -490,7 +486,7 @@ See the xref:templates.adoc[templates documentation] for more details.
     FILENAME = The name of the text file to create, containing the
                output from this command.
 
-         p
+         p      
          a  u  u
          y  s  t
          e  e  i
@@ -531,7 +527,7 @@ See the xref:templates.adoc[templates documentation] for more details.
     FILENAME   = The name of the text file to create, containing the
                  output from this command.
 
-         p
+         p      
          a  u  u
          y  s  t
          e  e  i
@@ -595,16 +591,16 @@ See the xref:templates.adoc[templates documentation] for more details.
 
   If prefixed with 'previous-', e.g. 'previous-release', then the SHA directly before
   the most recent matching tag of the 'release' pattern will be used:
-    stable  -> the latest tag that matches stable-*, defined by
+    stable  -> the latest tag that matches ^stable-*, defined by
                :tag-patterns > :stable in workspace.edn.
-    release -> the latest tag that matches v[0-9]*, defined by
+    release -> the latest tag that matches ^v[0-9]*, defined by
                :tag-patterns > :release in workspace.edn.
     KEY     -> any key in :tag-patterns.
     SHA     -> a git SHA-1 hash (if no key was found in :tag-patterns).
 
   Internally, it executes 'git diff SHA --name-only' where SHA is the SHA-1
   of the first commit in the repository, or the SHA-1 of the most recent tag
-  that matches the default pattern 'stable-*' or the passed in since:SINCE.
+  that matches the default pattern '^stable-*' or the passed in since:SINCE.
 
   Stable points are normally set by the CI server or by individual developers,
   e.g. Lisa, with 'git tag -f stable-lisa'.
@@ -612,7 +608,7 @@ See the xref:templates.adoc[templates documentation] for more details.
   The pattern can be changed in :tag-patterns in workspace.edn.
 
   The way the latest tag is found is by taking the first line that matches the
-  'stable-*' regular expression, or if no match was found, the first commit in
+  '^stable-*' regular expression, or if no match was found, the first commit in
   the repository:
     git log --pretty=format:'%H %d'
 
@@ -710,7 +706,7 @@ See the xref:templates.adoc[templates documentation] for more details.
 
   1. stable since: dec73ec | stable-lisa
 
-     Shows the most recent commit marked as stable, or the last release if
+     Shows the most recent commit marked as stable, or the last release if 
      since:release or since:previous-release was given, or the first commit
      in the repository if no tag was found, followed by the tag (if found).
      More information can be found in the 'diff' command help.
@@ -824,7 +820,7 @@ See the xref:templates.adoc[templates documentation] for more details.
       --x  The brick is marked to be executed from this project.
 
     If :r or :resources is also passed in:
-      s---  The project contains a path to the 'src' directory, e.g.
+      s---  The project contains a path to the 'src' directory, e.g. 
             'components/user/src' (or is indirectly added by a :local/root).
       -r--  The project contains a path to the 'resources' directory, e.g.
             'components/user/resources' (or is indirectly added by a :local/root).
@@ -1046,7 +1042,7 @@ See the xref:templates.adoc[templates documentation] for more details.
                ~/.config/polylith/config.edn
 
     Example of a config file in ~/.config/polylith/config.edn:
-
+    
 
   Example:
     switch-ws dir:~/myworkspace
@@ -1227,3 +1223,4 @@ See the xref:templates.adoc[templates documentation] for more details.
     poly doc ws
     poly doc ws:components
 ----
+

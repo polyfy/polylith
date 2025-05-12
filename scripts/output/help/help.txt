@@ -1,4 +1,4 @@
-  poly 0.2.22 (2024-08-23) - https://github.com/polyfy/polylith
+  poly 0.2.22 (2024-09-29) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -42,9 +42,9 @@
   used depending on the value of SINCE (or the first commit if no match was found).
   If prefixed with 'previous-', e.g. 'previous-release', then the SHA directly before
   the most recent matching tag of the 'release' pattern will be used:
-    stable  -> the latest tag that matches stable-*, defined by
+    stable  -> the latest tag that matches ^stable-*, defined by
                :tag-patterns > :stable in workspace.edn.
-    release -> the latest tag that matches v[0-9]*, defined by
+    release -> the latest tag that matches ^v[0-9]*, defined by
                :tag-patterns > :release in workspace.edn.
     KEY     -> any key in :tag-patterns.
     SHA     -> a git SHA-1 hash (if no key was found in :tag-patterns).
