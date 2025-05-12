@@ -5,8 +5,8 @@
  :test {:create-test-runner org.corfield.external-test-runner.interface/create}
  :vcs {:name "git"
        :auto-add false}
- :tag-patterns {:stable "stable-*"
-                :release "v[0-9]*"}
+ :tag-patterns {:stable "^stable-*"
+                :release "^v[0-9]*"}
  :projects {"development" {:alias "dev"}
 
             "external-inherit-from-global" {:alias "inherit"

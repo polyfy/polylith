@@ -4,7 +4,7 @@
   (merge tag-patterns
          {:stable (or (:stable tag-patterns)
                       stable-tag-pattern
-                      "stable-*")
+                      "^stable-*")
           :release (or (:release tag-patterns)
                        release-tag-pattern
-                       "v[0-9]*")}))
+                       "^v[0-9]*")}))

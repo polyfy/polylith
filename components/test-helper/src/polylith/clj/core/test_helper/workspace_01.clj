@@ -107,8 +107,8 @@
                            :interface-ns "interface",
                            :default-profile-name "default",
                            :active-profiles #{"default"},
-                           :tag-patterns {:stable "stable-*"
-                                          :release "v[0-9]*"}
+                           :tag-patterns {:stable "^stable-*"
+                                          :release "^v[0-9]*"}
                            :color-mode "none",
                            :compact-views #{},
                            :user-config-filename "/Users/joakimtengstrand/.config/polylith/config.edn",
