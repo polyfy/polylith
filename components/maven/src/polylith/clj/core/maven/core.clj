@@ -1,19 +1,9 @@
 (ns ^:no-doc polylith.clj.core.maven.core
-  (:require [clojure.string :as str]))
-
-(defn values [val]
-  (try
-    (Long/parseLong val)
-    (catch NumberFormatException _
-      val)))
-
-(defn as-vals [version]
-  (when version
-    (mapv values (str/split (str version) #"\."))))
+  (:import [org.apache.maven.artifact.versioning ComparableVersion]))
 
 (defn sort-libs [coord1 coord2 mvn-key]
-  (let [v1 (-> coord1 mvn-key as-vals)
-        v2 (-> coord2 mvn-key as-vals)]
+  (let [v1 (-> coord1 mvn-key ComparableVersion.)
+        v2 (-> coord2 mvn-key ComparableVersion.)]
     (if (and v1 v2)
       (if (< (compare v1 v2) 0)
         [coord1 coord2]
