@@ -6,8 +6,8 @@
                         :interface-ns "interface"
                         :default-profile-name "default"
                         :compact-views #{}
-                        :tag-patterns {:stable "stable-*"
-                                       :release "v[0-9]*"}
+                        :tag-patterns {:stable "^stable-*"
+                                       :release "^v[0-9]*"}
                         :profile-to-alias {"api" "api"
                                            "core" "core"}
                         :ns-to-lib '{me.raynes  clj-commons/fs
