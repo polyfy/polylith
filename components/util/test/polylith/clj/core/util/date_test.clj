@@ -3,6 +3,10 @@
             [polylith.clj.core.util.interface.date :as sut]))
 
 (deftest parse-date--date
+  (is (= #inst"2025-01-01T00:00:00.000-00:00"
+         (sut/parse-date "2025"))))
+
+(deftest parse-date--date
   (is (= #inst"2025-01-15T00:00:00.000-00:00"
          (sut/parse-date "2025-01-15"))))
 
