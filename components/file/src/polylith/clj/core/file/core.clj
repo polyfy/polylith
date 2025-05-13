@@ -6,8 +6,7 @@
             [clojure.tools.reader :refer [resolve-symbol]]
             [edamame.core :as edamame]
             [me.raynes.fs :as fs]
-            [polylith.clj.core.util.interface.str :as str-util]
-            [polylith.clj.core.util.interface.date :as date-util])
+            [polylith.clj.core.util.interface.str :as str-util])
   (:import (clojure.lang ExceptionInfo)
            [java.io File FileNotFoundException]
            [java.nio.file Files]))
@@ -129,7 +128,7 @@
 (defn source-reader [tag]
   (cond
     (= tag 'uuid) #(java.util.UUID/fromString %)
-    (= tag 'inst) #(date-util/parse-date %)
+    (= tag 'inst) #(clojure.instant/read-instant-date %)
     :else (fn [data]
             {:unknown-tag tag
              :value data})))
