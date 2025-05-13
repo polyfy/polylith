@@ -1209,8 +1209,6 @@
                  "java.io"
                  "java.net"
                  "java.nio.file"
-                 "java.time"
-                 "java.time.format"
                  "java.util"
                  "malli.core"
                  "malli.error"
