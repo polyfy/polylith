@@ -801,6 +801,7 @@ poly ws get:user-input
  :is-commit false
  :is-compact false
  :is-dev false
+ :is-fail-if-nothing-to-test false
  :is-fake-poly false
  :is-github false
  :is-hide-lib-size false
@@ -892,6 +893,10 @@ Sometimes used when taking screenshots for this documentation.
 Used in combination with the `libs` and `deps` commands.
 
 * `:is-dev` Set to `true` if `:dev` is given.
+
+* `:is-fail-if-nothing-to-test` Set to `true` if `:fail-if-nothing-to-test` is given.
+Instructs the xref:commands.adoc#test[test] command to return a non-zero exit code (1) if there are no tests to run.
+Only suggested by the xref:commands.adoc#shell[shell] if started with e.g. `poly :all`.
 
 * `:is-fake-poly` Set to `true` if `:fake-poly` is given.
 Used when using the `polyx` tool with the `help` command,

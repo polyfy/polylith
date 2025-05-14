@@ -154,6 +154,7 @@
 (def test-since (c/fn-explorer "since" :test #'ws-tag-patterns/select))
 (def test-project (c/fn-explorer "project" :test #'ws-projects-to-test/select))
 (def test-brick (c/fn-explorer "brick" :test #'ws-bricks/select))
+(def test-fail-if-nothing-to-test-flag (c/flag "fail-if-nothing-to-test" :test))
 (def test-project-flag (c/flag-explicit "project" :test))
 (def test-dev (c/flag "dev" :test))
 (def test-loc (c/flag "loc" :test))
@@ -167,9 +168,9 @@
   (when current-ws?
     (c/single-txt "test" :test
       (vec (concat [test-all test-all-bricks test-brick test-loc test-verbose
-                    test-dev test-project test-project-flag test-since]
+                    test-dev test-project test-project-flag  test-since]
                    (when has-test-configs? [test-with])
-                   (when all? [test-skip])
+                   (when all? [test-skip test-fail-if-nothing-to-test-flag])
                    profiles)))))
 
 ;; overview

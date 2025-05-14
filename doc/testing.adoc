@@ -196,6 +196,13 @@ Execution time: 1 seconds
 ----
 <1> Notice evidence of the now-passing test
 
+TIP: From the build pipeline there is an option to return an error code if there are no tests to run:
+[source,shell]
+----
+poly test :fail-if-nothing-to-test
+----
+(you need to start a shell with e.g. `poly :all` to enable auto-complete for `:fail-if-nothing-to-test`)
+
 Brick tests are not evaluated for execution from the `development` project by default.
 Specify the `:dev` argument to include the `development` project.
 
