@@ -139,8 +139,8 @@
             " :compact-views #{}"
             " :vcs {:name \"git\""
             "       :auto-add false}"
-            " :tag-patterns {:stable \"stable-*\""
-            "                :release \"v[0-9]*\"}"
+            " :tag-patterns {:stable \"^stable-.*\""
+            "                :release \"^v[0-9].*\"}"
             " :projects {\"development\" {:alias \"dev\"}}}"]
            (helper/content "ws1" "workspace.edn")))
 

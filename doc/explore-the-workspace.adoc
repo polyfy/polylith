@@ -47,7 +47,7 @@ poly ws get:settings
  :empty-character ".",
  :interface-ns "interface",
  :m2-dir "/Users/joakimtengstrand/.m2",
- :tag-patterns {:release "v[0-9]*", :stable "stable-*"},
+ :tag-patterns {:release "^v[0-9].*", :stable "^stable-.*"},
  :thousand-separator ",",
  :top-namespace "se.example",
  :user-config-filename "/Users/joakimtengstrand/.config/polylith/config.edn",

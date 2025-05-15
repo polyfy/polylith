@@ -4,8 +4,8 @@
  :interface-ns "interface"
  :default-profile-name "default"
  :compact-views #{}
- :tag-patterns {:stable "^stable-*"
-                :release "^v[0-9]*"}
+ :tag-patterns {:stable "^stable-.*"
+                :release "^v[0-9].*"}
  :projects {"development" {:alias "dev"}
 
             "failing-test" {:alias "failing"

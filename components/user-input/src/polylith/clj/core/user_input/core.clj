@@ -69,6 +69,7 @@
                 dev!
                 dialect
                 dir
+                fail-if-nothing-to-test!
                 fake-poly!
                 fake-sha
                 fake-tag
@@ -128,6 +129,7 @@
                       :is-compact (= "true" compact!)
                       :is-dev (= "true" dev!)
                       :is-fake-poly (= "true" fake-poly!)
+                      :is-fail-if-nothing-to-test (= "true" fail-if-nothing-to-test!)
                       :is-git-add (when git-add! (= "true" git-add!))
                       :is-github (= "true" github!)
                       :is-hide-lib-size (= "true" hide-lib-size!)

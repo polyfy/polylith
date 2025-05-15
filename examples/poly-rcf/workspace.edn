@@ -4,8 +4,8 @@
  :compact-views #{}
  :vcs {:name "git"
        :auto-add false}
- :tag-patterns {:stable "^stable-*"
-                :release "^v[0-9]*"}
+ :tag-patterns {:stable "^stable-.*"
+                :release "^v[0-9].*"}
 
  ;; Add this line to use the external test runner.
  ;; :test {:create-test-runner [org.corfield.external-test-runner.interface/create]}

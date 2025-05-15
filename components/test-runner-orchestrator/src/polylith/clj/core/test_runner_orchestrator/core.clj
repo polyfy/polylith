@@ -160,8 +160,7 @@
 (defn affected-by-changes? [{:keys [bricks-to-test projects-to-test]}]
   (seq (concat bricks-to-test projects-to-test)))
 
-
-(defn print-no-tests-to-run-if-only-dev-exists [settings projects {:keys [is-dev selected-projects]}]
+(defn print-no-tests-to-run [settings projects {:keys [is-dev selected-projects]}]
   (let [git-repo? (-> settings :vcs :is-git-repo)
         dev? (or is-dev
                  (seq (set/intersection selected-projects
@@ -211,9 +210,11 @@
           projects-to-test (sort-by :name (filterv affected-by-changes? projects))
           bricks-to-test (-> workspace :user-input :selected-bricks)
           component-names (into #{} (map :name) components)
-          base-names (into #{} (map :name) bases)]
-      (if (empty? projects-to-test)
-        (print-no-tests-to-run-if-only-dev-exists settings projects user-input)
+          base-names (into #{} (map :name) bases)
+          no-tests-to-run? (empty? projects-to-test)
+          {:keys [is-fail-if-nothing-to-test]} user-input]
+      (if no-tests-to-run?
+        (print-no-tests-to-run settings projects user-input)
         (do
           (print-warnings-if-any workspace)
           (print-projects-to-test projects-to-test color-mode)
@@ -224,4 +225,7 @@
               (run-tests-for-project test-opts)
               (System/gc)))))
       (print-execution-time start-time)
-      true)))
+      (if (and no-tests-to-run?
+               is-fail-if-nothing-to-test)
+        false
+        true))))

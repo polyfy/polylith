@@ -68,10 +68,10 @@ We think that git tags that start with `stable-` is a magnificent naming convent
 
 [source,clojure]
 ----
- :tag-patterns {:stable "stable-*" ;; <1>
-                :release "v[0-9]*"}
+ :tag-patterns {:stable "^stable-.*" ;; <1>
+                :release "^v[0-9].*"}
 ----
-<1> Override the default `stable-*` regular expression to your own convention, if you wish
+<1> Override the default `stable-.*` regular expression to your own convention, if you wish
 
 ****
 Internally, `poly` finds the _stable point in time_ commit via:
@@ -88,7 +88,7 @@ e7ebe683a775ec28b7c2b5d77e01e79d48149d13 (HEAD -> master, tag: stable-lisa)
 c91fdad4a34927d9aacfe4b04ea2f304f3303282
 ----
 
-The `poly` tool parses the output for the first line that matches the `:stable` tag pattern (by default `stable-*`).
+The `poly` tool parses the output for the first line that matches the `:stable` tag pattern (by default `stable-.*`).
 If it finds no matches, the first commit in the git repository is the _stable point in time_ commit.
 ****
 
@@ -177,10 +177,10 @@ The `poly` tool matches release tags as defined by your `workspace.edn`:
 
 [source,clojure]
 ----
- :tag-patterns {:stable "stable-*"
-                :release "v[0-9]*"} ;; <1>
+ :tag-patterns {:stable "stable-.*"
+                :release "v[0-9].*"} ;; <1>
 ----
-<1> Default regular expression for git `:release` tags is `v[0-9]*`.
+<1> Default regular expression for git `:release` tags is `v[0-9].*`.
 
 You can use the `since` argument on your CI server to run only the necessary tests since the previous release.
 Unaffected code does not need to be retested.

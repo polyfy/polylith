@@ -5,8 +5,8 @@
  :default-profile-name "default"
  :compact-views #{}
  :dialects #{"clj"}
- :tag-patterns {:stable "stable-*"
-                :release "v[0-9]*"}
+ :tag-patterns {:stable "^stable-.*"
+                :release "^v[0-9].*"}
  :projects {"poly" {:alias "poly"
                     :necessary ["api" "clojure-test-test-runner"]
                     :test {:setup-fn project.poly.hto/activate!}}
