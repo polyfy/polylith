@@ -1491,8 +1491,8 @@
             :default-profile-name "default"
             :empty-character      "."
             :interface-ns         "interface"
-            :tag-patterns         {:release "^v[0-9]*"
-                                   :stable  "^stable-*"}
+            :tag-patterns         {:release "^v[0-9].*"
+                                   :stable  "^stable-.*"}
             :thousand-separator   ","
             :top-namespace        "se.example"
             :vcs                  {:auto-add    true
