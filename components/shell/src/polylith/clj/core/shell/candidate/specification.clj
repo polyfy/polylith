@@ -168,7 +168,7 @@
   (when current-ws?
     (c/single-txt "test" :test
       (vec (concat [test-all test-all-bricks test-brick test-loc test-verbose
-                    test-dev test-project test-project-flag  test-since]
+                    test-dev test-project test-project-flag test-since]
                    (when has-test-configs? [test-with])
                    (when all? [test-skip test-fail-if-nothing-to-test-flag])
                    profiles)))))
