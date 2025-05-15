@@ -358,7 +358,7 @@ poly ws get:configs
  :workspace {:compact-views #{},
              :default-profile-name "default",
              :interface-ns "interface",
-             :tag-patterns {:release "v[0-9]*", :stable "stable-*"},
+             :tag-patterns {:release "^v[0-9].*", :stable "^stable-.*"},
              :top-namespace "se.example",
              :vcs {:auto-add true, :name "git"}}}
 ----
@@ -723,7 +723,7 @@ poly ws get:settings
  :empty-character ".",
  :interface-ns "interface",
  :m2-dir "/Users/joakimtengstrand/.m2",
- :tag-patterns {:release "v[0-9]*", :stable "stable-*"},
+ :tag-patterns {:release "v[0-9].*", :stable "stable-.*"},
  :thousand-separator ",",
  :top-namespace "polylith.clj.core",
  :user-config-filename "/Users/joakimtengstrand/.config/polylith/config.edn",
