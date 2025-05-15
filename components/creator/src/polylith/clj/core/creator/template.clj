@@ -1,4 +1,4 @@
-(ns polylith.clj.core.creator.template
+(ns ^:no-doc polylith.clj.core.creator.template
   (:require [clojure.java.io :as io]
             [selmer.parser :as parser]))
 

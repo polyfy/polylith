@@ -1,0 +1,9 @@
+{
+  "name": "@poly/comp-cljs-only",
+  "description": "The cljs-only component",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+
+  }
+}

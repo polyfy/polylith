@@ -612,6 +612,7 @@
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
   :ws {:breaking 3, :non-breaking 0}},
+ :ws-dialects #{"clj"},
  :ws-dir
  "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2025-05-15-091646/ws/example",
  :ws-reader
@@ -619,5 +620,5 @@
   :project-url "https://github.com/polyfy/polylith",
   :language "Clojure",
   :type-position "postfix",
-  :file-extensions ["clj" "cljc"]},
+  :file-extensions ["clj" "cljs" "cljc"]},
  :ws-type "toolsdeps2"}

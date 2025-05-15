@@ -15,10 +15,11 @@
         new-paths
         [new-paths]))))
 
-(defn substitute-alias [sources alias->path]
+(defn substitute-alias
   "If the incoming vector of sources are strings, e.g. ['src' 'resources'] then do nothing,
    but if it is an alias, e.g. [:src-paths :resources-paths], then return the substituted values
    taken from the alias->path map."
+  [sources alias->path]
   (vec (mapcat #(substitute-if-alias % alias->path)
                sources)))
 

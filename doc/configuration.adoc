@@ -41,6 +41,7 @@ poly ws get:configs:workspace
 {:bricks {"user-remote" {:keep-lib-versions [ring/ring slacker/slacker]}}
  :compact-views #{},
  :default-profile-name "default",
+ :dialects #{"clj"},
  :interface-ns "interface",
  :projects {"command-line" {:alias "cl",
                             :test {:setup-fn project.command-line.test-setup/setup,
@@ -71,6 +72,11 @@ For example, to turn compact format on for both `deps` and `libs`, set to `+#{"d
 a| [nowrap]`:default-profile-name`
 a| The name of the profile that `poly` automatically merges into the xref:development.adoc[development] project when using xref:profile.adoc[profiles], and no profile is specified. +
 *Default:* `"default"`
+
+a| [nowrap]`:dialects`
+a| The Clojure dialects the `poly` tool will read ("clj" and/or "cljs") where
+"cljc" is always read. +
+*Default:* `#{"cljs"}`
 
 a| `:interface-ns`
 a| Tells `poly` when to consider a namespace an interface and what naming convention the xref:commands.adoc#create-component[create component] command should use.
