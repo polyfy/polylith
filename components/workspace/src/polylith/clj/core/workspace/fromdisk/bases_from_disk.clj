@@ -23,6 +23,7 @@
     (util/ordered-map :name base-name
                       :type "base"
                       :maven-repos (:mvn/repos deps-config)
+                      :maven-local-repo (:mvn/local-repo deps-config)
                       :paths (brick-paths/source-paths base-dir deps-config)
                       :namespaces namespaces
                       :non-top-namespaces non-top-namespaces

@@ -31,6 +31,7 @@
     (util/ordered-map :name component-name
                       :type "component"
                       :maven-repos (:mvn/repos deps-config)
+                      :maven-local-repo (:mvn/local-repo deps-config)
                       :paths paths
                       :namespaces namespaces
                       :non-top-namespaces non-top-namespaces
