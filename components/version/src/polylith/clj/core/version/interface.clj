@@ -25,7 +25,7 @@
 (def minor 2)
 (def patch 22)
 (def revision SNAPSHOT) ;; Set to SNAPSHOT or RELEASE.
-(def snapshot 8) ;; Increase by one for every snapshot release, or set to 0 if a release.
+(def snapshot 9) ;; Increase by one for every snapshot release, or set to 0 if a release.
                   ;; Also update :snapshot-version: at the top of readme.adoc.
 (def snapshot? (= SNAPSHOT revision))
 
@@ -37,7 +37,7 @@
 
 (def tool (if system/extended? "polyx" "poly"))
 
-(def date "2025-05-15")
+(def date "2025-05-26")
 
 ;; Execute 'poly doc page:versions' to see when different changes was introduced.
 (def api-version {:breaking 1, :non-breaking 0})
