@@ -12,10 +12,7 @@
            The prompt will be prefixed with 'file:' to show this.
 
     SHORTCUT = Switches to the workspace specified under the :ws-shortcuts key in
-               ~/.config/polylith/config.edn
-
-    Example of a config file in ~/.config/polylith/config.edn:
-    
+               ~/.config/polylith/config.edn (see ~/.config/polylith/config.edn)
 
   Example:
     switch-ws dir:~/myworkspace

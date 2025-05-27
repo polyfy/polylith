@@ -1,0 +1,14 @@
+{:mvn/local-repo "/Users/joakimtengstrand/maven-repo"
+ :deps {org.clojure/clojure {:mvn/version "1.10.0"}}
+ :aliases  {:dev {:extra-paths ["development/src"]
+
+                  :extra-deps {poly/stuff {:local/root "components/stuff"}
+                               org.clojure/clojure {:mvn/version "1.10.0"}}}
+
+            :test {:extra-paths ["components/stuff/test"]
+                   :extra-deps {io.github.cognitect-labs/test-runner
+                                {:git/tag "v0.5.1" :git/sha "dfb30dd"}}
+                   :main-opts ["-m" "cognitect.test-runner" "-d" "components/stuff/test"]}
+
+            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                   :extra-deps {polylith/clj-poly {:local/root "../../projects/poly"}}}}}
