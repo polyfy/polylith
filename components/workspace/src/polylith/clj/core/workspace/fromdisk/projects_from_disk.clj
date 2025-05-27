@@ -123,7 +123,7 @@
 
 (defn read-project
   ([{:keys [deps project-name project-dir project-config-dir is-dev]} ws-dir ws-dialects name->brick project->settings user-home suffixed-top-ns interface-ns]
-   (let [{:keys [paths deps override-deps aliases mvn/repos]} deps
+   (let [{:keys [paths deps override-deps aliases mvn/repos mvn/local-repo]} deps
          project-src-paths (cond-> paths is-dev (concat (-> aliases :dev :extra-paths)))
          project-src-deps (cond-> deps is-dev (merge (-> aliases :dev :extra-deps)))
          project-test-paths (-> aliases :test :extra-paths)
@@ -159,6 +159,7 @@
                        :lib-deps lib-deps
                        :project-lib-deps project-lib-deps
                        :maven-repos maven-repos
+                       :maven-local-repo local-repo
                        :namespaces namespaces
                        :test test
                        :necessary (get-in project->settings [project-name :necessary])

@@ -666,6 +666,9 @@ E.g. if components `a` and `b` are included in the project, and `a` has not chan
 ** `:test` Number of lines of code living in the project's `test` directory.
 ** `:total` The total number of lines of code for all the bricks that are included in this project.
 
+* `:maven-local-repo` The local maven repo used by this project.
+If `mvn/local-repo` is specified by the project, it will be stored as `:maven-local-repo` here.
+
 * `:maven-repos` The maven repos that are used by this project.
 If `:mvn/repos` is specified by a brick that is included in this project, then it will automatically turn up in this list.
 
