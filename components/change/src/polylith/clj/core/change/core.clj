@@ -8,7 +8,10 @@
 
 (defn project-affected? [{:keys [name component-names base-names]}
                          changed-components changed-bases changed-projects]
-  (let [bricks (set (concat (:src component-names) (:src base-names)))
+  (let [bricks (set (concat (:src component-names)
+                            (:test component-names)
+                            (:src base-names)
+                            (:test base-names)))
         changed-bricks (set (concat changed-components changed-bases))
         brick-changed? (-> (set/intersection bricks changed-bricks)
                            empty? not)
