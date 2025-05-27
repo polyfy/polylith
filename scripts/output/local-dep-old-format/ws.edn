@@ -885,13 +885,14 @@
    :snapshot 7},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
-  :ws {:breaking 3, :non-breaking 0},
+  :ws {:breaking 5, :non-breaking 0},
   :from {:ws {:breaking 0, :non-breaking 0}}},
+ :ws-dialects #{"clj"},
  :ws-dir "/privateWS-HOME/local-dep-old-format",
  :ws-reader
  {:name "polylith-clj",
   :project-url "https://github.com/polyfy/polylith",
   :language "Clojure",
   :type-position "postfix",
-  :file-extensions ["clj" "cljc"]},
+  :file-extensions ["clj" "cljs" "cljc"]},
  :ws-type "toolsdeps1"}

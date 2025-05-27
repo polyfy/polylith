@@ -22,10 +22,10 @@
 (def SNAPSHOT "SNAPSHOT")
 
 (def major 0)
-(def minor 2)
+(def minor 3)
 (def patch 22)
 (def revision SNAPSHOT) ;; Set to SNAPSHOT or RELEASE.
-(def snapshot 10) ;; Increase by one for every snapshot release, or set to 0 if a release.
+(def snapshot 1) ;; Increase by one for every snapshot release, or set to 0 if a release.
                   ;; Also update :snapshot-version: at the top of readme.adoc.
 (def snapshot? (= SNAPSHOT revision))
 
@@ -42,7 +42,7 @@
 ;; Execute 'poly doc page:versions' to see when different changes was introduced.
 (def api-version {:breaking 1, :non-breaking 0})
 (def test-runner-api-version {:breaking 1, :non-breaking 0})
-(def workspace-version {:breaking 3, :non-breaking 0})
+(def workspace-version {:breaking 5, :non-breaking 0})
 
 (defn version
   ([]

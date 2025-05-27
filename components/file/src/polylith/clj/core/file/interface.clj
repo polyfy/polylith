@@ -71,8 +71,8 @@
 (defn not-hidden? [name]
   (core/not-hidden? name))
 
-(defn read-file [path]
-  (core/read-file path))
+(defn read-file [path dialects]
+  (core/read-file path dialects))
 
 (defn size [path]
   (core/size path))
