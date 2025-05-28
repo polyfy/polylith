@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.fromdisk.empty-file-test
+(ns polylith.clj.core.workspace.fromdisk.corrupt-file-test
   (:require [clojure.test :refer :all]
             [clojure.java.io :as io]
             [clojure.string :as str]
@@ -58,12 +58,44 @@
         (is (map? namespaces) "Should return a namespaces map")
         (is (vector? (:src namespaces)) "Should have src vector")
         (is (= 1 (count (:src namespaces))) "Should have one namespace")
-        
         (let [ns-info (first (:src namespaces))]
           (is (:is-invalid ns-info) "Empty file namespace should be marked as invalid")
           (is (contains? ns-info :file-path) "Should contain file path")
-          (is (not (nil? (:file-path ns-info))) "File path should not be nil")))
+          (is (not (nil? (:file-path ns-info))) "File path should not be nil")
+          (is (:empty-file ns-info) "File should be marked as empty")))
       
+      (finally
+        ;; Clean up
+        (fs/delete-dir temp-dir)))))
+
+(deftest real-file-loading--corrupt-file--should-return-error-with-file-path
+  (let [temp-dir (str (fs/temp-dir "poly-test"))
+        empty-file-path (str temp-dir "/src/test/core.clj")]
+    (try
+      ;; Create directory structure
+      (fs/mkdirs (str temp-dir "/src/test"))
+      ;; Create an empty file
+      (spit empty-file-path "(ns core)\n\n { \n\n\n\n\n ( \n\n\n\n } ")
+
+      ;; Try to load namespaces from this directory structure
+      (let [namespaces (from-disk/namespaces-from-disk
+                         temp-dir
+                         [(str temp-dir "/src")]
+                         []
+                         "test."
+                         "interface")]
+
+        ;; The namespace extraction should succeed but mark the file as invalid
+        (is (map? namespaces) "Should return a namespaces map")
+        (is (vector? (:src namespaces)) "Should have src vector")
+        (is (= 1 (count (:src namespaces))) "Should have one namespace")
+
+        (let [ns-info (first (:src namespaces))]
+          (is (:is-invalid ns-info) "Corrupt file should be marked as invalid")
+          (is (contains? ns-info :file-path) "Should contain file path")
+          (is (not (nil? (:file-path ns-info))) "File path should not be nil")
+          (is (= (:error-message ns-info) "Unmatched delimiter: }, expected: ) to match ( at [8 2]"))))
+
       (finally
         ;; Clean up
         (fs/delete-dir temp-dir)))))
