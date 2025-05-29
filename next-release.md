@@ -9,6 +9,7 @@
 | [532](https://github.com/polyfy/polylith/issues/532) | Use :mvn/local-repo if specified in a project when running tests
 | [533](https://github.com/polyfy/polylith/issues/533) | Maps with tag literals as keys in test namespaces breaks test runner
 | [534](https://github.com/polyfy/polylith/issues/534) | Use correct regex in :tag-patterns in workspace.edn
+| [523](https://github.com/polyfy/polylith/issues/523) | Reporting not helpful for obscure errors
 
 | PR                                                 | Author          | Description                                                  
 |:---------------------------------------------------|-----------------|------------------------------------------------------------|
@@ -18,6 +19,7 @@
 | [521](https://github.com/polyfy/polylith/pull/521) | Sean Corfield   | Update circleci to use Clojure 1.12                        |
 | [522](https://github.com/polyfy/polylith/pull/522) | Jeroen van Dijk | Update dep info of polylith-external-test-runner to v0.6.1 |
 | [535](https://github.com/polyfy/polylith/pull/535) | [brettatoms](https://github.com/brettatoms) | fix comparing maven version numbers |
+| [547](https://github.com/polyfy/polylith/pull/547) | Jeroen van Dijk | Better error messages for corrupt namespaces               |
 
 | Other changes                                                                                                                    |
 |----------------------------------------------------------------------------------------------------------------------------------|
