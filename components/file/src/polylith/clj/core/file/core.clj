@@ -155,7 +155,6 @@
     (catch ExceptionInfo e
       (let [{:keys [row col]} (ex-data e)]
         (println (str "  Couldn't read file '" path "', row: " row ", column: " col ". Message: " (.getMessage e)))
-       ;; Return a map with error information including the file path
         {:error true
          :file-path path
          :message (.getMessage e)
@@ -163,7 +162,6 @@
          :col col}))
     (catch Exception e
       (println (str "  Error reading file '" path "': " (.getMessage e)))
-      ;; Return a map with error information for non-ExceptionInfo exceptions
       {:error true
        :file-path path
        :message (.getMessage e)})))
