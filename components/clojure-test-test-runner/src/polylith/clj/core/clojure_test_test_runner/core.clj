@@ -4,12 +4,6 @@
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.util.interface.str :as str-util]))
 
-(defn ->test-statement [ns-name]
-  (let [ns-symbol (symbol ns-name)]
-    `(do (use 'clojure.test)
-         (require '~ns-symbol)
-         (clojure.test/run-tests '~ns-symbol))))
-
 (defn brick-test-namespaces [bricks test-brick-names]
   (let [brick-name->namespaces (into {} (map (juxt :name #(-> % :namespaces :test))) bricks)]
     (into []
@@ -49,17 +43,20 @@
     (str "Running tests from the " (color/project project-name color-mode) " project, including "
          (str-util/count-things "brick" bricks-cnt) project-msg ": " entities-msg)))
 
-(defn run-test-statements [project-name eval-in-project test-statements run-message is-verbose color-mode]
+(defn run-test-statements [project-name eval-in-project ns-names run-message is-verbose color-mode]
   (println (str run-message))
-  (when is-verbose (println (str "# test-statements:\n" test-statements) "\n"))
 
-  (doseq [statement test-statements]
-    (let [{:keys [error fail pass]}
+  (doseq [ns-name ns-names]
+    (let [ns-symbol (symbol ns-name)
+          {:keys [error fail pass]}
           (try
-            (eval-in-project statement)
+            (when is-verbose (println "\n# namespace:" ns-symbol))
+            (eval-in-project `(require '~ns-symbol))
+            (eval-in-project `(use 'clojure.test))
+            (eval-in-project `(clojure.test/run-tests '~ns-symbol))
             (catch Exception e
               (.printStackTrace e)
-              (println (str (color/error color-mode "Couldn't run test statement") " for the " (color/project project-name color-mode) " project: " statement " " (color/error color-mode e)))))
+              (println (str (color/error color-mode "Couldn't run test statement") " for the " (color/project project-name color-mode) ", namespace: " ns-symbol ", " (color/error color-mode e)))))
           result-str (str "Test results: " pass " passes, " fail " failures, " error " errors.")]
       (when (or (nil? error)
                 (< 0 error)
@@ -82,10 +79,10 @@
         test-sources-present* (delay (-> paths :test seq))
         bricks-to-test* (delay bricks-to-test)
         projects-to-test* (delay projects-to-test)
-        test-statements* (->> [(brick-test-namespaces (into components bases) @bricks-to-test*)
-                               (project-test-namespaces name @projects-to-test* namespaces)]
-                              (into [] (comp cat (map ->test-statement)))
-                              (delay))]
+        ns-names* (->> [(brick-test-namespaces (into components bases) @bricks-to-test*)
+                        (project-test-namespaces name @projects-to-test* namespaces)]
+                       (into [] cat)
+                       (delay))]
 
     (reify test-runner-contract/TestRunner
       (test-runner-name [_] "Polylith built-in clojure.test runner")
@@ -94,11 +91,11 @@
 
       (tests-present? [this {_eval-in-project :eval-in-project :as _opts}]
         (and (test-runner-contract/test-sources-present? this)
-             (seq @test-statements*)))
+             (seq @ns-names*)))
 
       (run-tests [this {:keys [color-mode eval-in-project is-verbose] :as opts}]
         (when (test-runner-contract/tests-present? this opts)
           (let [run-message (run-message name components bases @bricks-to-test*
                                          @projects-to-test* color-mode)]
             (run-test-statements
-             name eval-in-project @test-statements* run-message is-verbose color-mode)))))))
+             name eval-in-project @ns-names* run-message is-verbose color-mode)))))))
