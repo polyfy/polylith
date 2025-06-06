@@ -353,7 +353,7 @@ poly help
 ----
   Creates a base.
 
-  poly create base name:NAME [dialect:DIALECT] [:git-add]
+  poly create base name:NAME [dialect:DIALECT] [:git-add] 
 
     NAME    = The name of the base to create.
 
@@ -444,7 +444,7 @@ poly help
     FILENAME = The name of the text file to create, containing the
                output from this command.
 
-  To get help for a specific diagram, type:
+  To get help for a specific diagram, type: 
     poly help deps ARGS:
 
       ARGS = :brick           Help for the brick diagram.
@@ -501,7 +501,7 @@ poly help
     FILENAME = The name of the text file to create, containing the
                output from this command.
 
-         p
+         p      
          a  u  u
          y  s  t
          e  e  i
@@ -542,7 +542,7 @@ poly help
     FILENAME   = The name of the text file to create, containing the
                  output from this command.
 
-         p
+         p      
          a  u  u
          y  s  t
          e  e  i
@@ -721,7 +721,7 @@ poly help
 
   1. stable since: dec73ec | stable-lisa
 
-     Shows the most recent commit marked as stable, or the last release if
+     Shows the most recent commit marked as stable, or the last release if 
      since:release or since:previous-release was given, or the first commit
      in the repository if no tag was found, followed by the tag (if found).
      More information can be found in the 'diff' command help.
@@ -835,7 +835,7 @@ poly help
       --x  The brick is marked to be executed from this project.
 
     If :r or :resources is also passed in:
-      s---  The project contains a path to the 'src' directory, e.g.
+      s---  The project contains a path to the 'src' directory, e.g. 
             'components/user/src' (or is indirectly added by a :local/root).
       -r--  The project contains a path to the 'resources' directory, e.g.
             'components/user/resources' (or is indirectly added by a :local/root).
@@ -1235,3 +1235,4 @@ poly help
     poly doc ws
     poly doc ws:components
 ----
+
