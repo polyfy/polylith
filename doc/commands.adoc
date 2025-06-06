@@ -14,7 +14,7 @@ poly help
 
 [source,text]
 ----
-  poly 0.2.22 (2025-06-02) - https://github.com/polyfy/polylith
+  poly 0.3.22 (2025-06-02) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -88,9 +88,12 @@ poly help
     poly check :dev
     poly create component name:user
     poly create component name:admin interface:user
+    poly create component name:admin interface:user dialect:cljs
     poly create base name:mybase
     poly create project name:myproject
+    poly create project name:myproject dialect:cljs
     poly create workspace name:myws top-ns:com.my.company
+    poly create workspace name:myws top-ns:com.my.company dialect:cljs
     poly create workspace name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company branch:master :commit
     poly deps
@@ -324,9 +327,11 @@ poly help
 ----
   Creates a component.
 
-  poly create component name:NAME [interface:INTERFACE] [:git-add]
+  poly create component name:NAME [interface:INTERFACE] [dialect:DIALECT] [:git-add]
 
     NAME = The name of the component to create.
+
+    DIALECT = The value is sent to Selmer when the component is created.
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
                then we can pass in this flag instead, to explicitly add the
@@ -336,6 +341,7 @@ poly help
 
   Example:
     poly create component name:user
+    poly create component name:user dialect:cljs
     poly create component name:user :git-add
     poly create component name:admin interface:user
 ----
@@ -347,9 +353,11 @@ poly help
 ----
   Creates a base.
 
-  poly create base name:NAME [:git-add] 
+  poly create base name:NAME [dialect:DIALECT] [:git-add] 
 
-    NAME = The name of the base to create.
+    NAME    = The name of the base to create.
+
+    DIALECT = The value is sent to Selmer when the base is created.
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
                then we can pass in this flag instead, to explicitly add the
@@ -357,6 +365,7 @@ poly help
 
   Example:
     poly create base name:mybase
+    poly create base name:mybase dialect:cljs
     poly create base name:mybase :git-add
 ----
 
@@ -367,8 +376,10 @@ poly help
 ----
   Creates a project.
 
-  poly create project name:NAME [:git-add]
+  poly create project name:NAME [dialect:DIALECT] [:git-add]
     NAME = The name of the project to create.
+
+    DIALECT = The value is sent to Selmer when the project is created.
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
                then we can pass in this flag instead, to explicitly add the
@@ -376,6 +387,7 @@ poly help
 
   Example:
     poly create project name:myproject
+    poly create project name:myproject dialect:cljs
     poly create project name:myproject :git-add
 ----
 
@@ -396,17 +408,20 @@ poly help
 
   2. Initiate the workspace manually by executing commands similar to the ones above.
 
-  poly create workspace [name:NAME] top-ns:TOP-NAMESPACE [:commit] [branch:BRANCH]
+  poly create workspace [name:NAME] top-ns:TOP-NAMESPACE [dialect:DIALECT] [:commit] [branch:BRANCH]
 
     NAME = The name of the workspace to create, which must be given
            if created outside a git repository. Otherwise it's optional.
 
     TOP-NAMESPACE = The top namespace name.
 
+    DIALECT = The value is sent to Selmer when the project is created.
+
     BRANCH = The name of the branch, or the default git main branch if not given.
 
   Example:
     poly create workspace name:myws top-ns:com.my.company
+    poly create workspace name:myws top-ns:com.my.company dialect:cljs
     poly create workspace name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company branch:master :commit
 ----
@@ -1039,7 +1054,7 @@ poly help
            The prompt will be prefixed with 'file:' to show this.
 
     SHORTCUT = Switches to the workspace specified under the :ws-shortcuts key in
-               ~/.config/polylith/config.edn (see ~/.config/polylith/config.edn)
+               ~/.config/polylith/config.edn
 
   Example:
     switch-ws dir:~/myworkspace

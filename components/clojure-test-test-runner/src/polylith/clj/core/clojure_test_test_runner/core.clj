@@ -4,16 +4,26 @@
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.util.interface.str :as str-util]))
 
+(defn- clj-namespace? [{:keys [file-path]}]
+  (or (str/ends-with? file-path ".clj")
+      (str/ends-with? file-path ".cljc")))
+
 (defn brick-test-namespaces [bricks test-brick-names]
-  (let [brick-name->namespaces (into {} (map (juxt :name #(-> % :namespaces :test))) bricks)]
-    (into []
-          (comp (mapcat brick-name->namespaces)
-                (map :namespace))
-          test-brick-names)))
+  (let [brick-name->namespaces (->> bricks
+                                    (map (juxt :name #(-> % :namespaces :test)))
+                                    (into {}))]
+    (->> test-brick-names
+         (mapcat brick-name->namespaces)
+         (filter clj-namespace?)
+         (map :namespace)
+         (into []))))
 
 (defn project-test-namespaces [project-name projects-to-test namespaces]
   (when (contains? (set projects-to-test) project-name)
-    (mapv :namespace (:test namespaces))))
+    (->> (:test namespaces)
+         (filter clj-namespace?)
+         (map :namespace)
+         (into []))))
 
 (defn components-msg [component-names color-mode]
   (when (seq component-names)
