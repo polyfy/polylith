@@ -135,22 +135,36 @@
 
 (defn read-file [path]
   (try
-    (edamame/parse-string-all (slurp path)
-                              {:fn true
-                               :var true
-                               :quote true
-                               :regex true
-                               :deref true
-                               :read-eval true
-                               :features #{:clj}
-                               :readers source-reader
-                               :read-cond :allow
-                               :auto-resolve name
-                               :auto-resolve-ns true
-                               :syntax-quote {:resolve-symbol resolve-symbol}})
+    (let [content (slurp path)]
+      (if (str/blank? content)
+        ;; Return a special marker for empty files
+        :polylith.clj.core.file.interface/empty-file
+        (edamame/parse-string-all content
+                                  {:fn true
+                                   :var true
+                                   :quote true
+                                   :regex true
+                                   :deref true
+                                   :read-eval true
+                                   :features #{:clj}
+                                   :readers source-reader
+                                   :read-cond :allow
+                                   :auto-resolve name
+                                   :auto-resolve-ns true
+                                   :syntax-quote {:resolve-symbol resolve-symbol}})))
     (catch ExceptionInfo e
-     (let [{:keys [row col]} (ex-data e)]
-       (println (str "  Couldn't read file '" path "', row: " row ", column: " col ". Message: " (.getMessage e)))))))
+      (let [{:keys [row col]} (ex-data e)]
+        (println (str "  Couldn't read file '" path "', row: " row ", column: " col ". Message: " (.getMessage e)))
+        {:error true
+         :file-path path
+         :message (.getMessage e)
+         :row row
+         :col col}))
+    (catch Exception e
+      (println (str "  Error reading file '" path "': " (.getMessage e)))
+      {:error true
+       :file-path path
+       :message (.getMessage e)})))
 
 (defn copy-resource-file! [source target-path]
   (delete-file target-path)
