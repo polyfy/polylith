@@ -86,7 +86,7 @@
     :import
     (map import-list->package-str
          statement-body)
-    
+
     nil))
 
 (defn imports [ns-statements suffixed-top-ns interface-ns]
@@ -126,15 +126,38 @@
 
 (defn ->namespace [ws-dir ws-dialects source-dir suffixed-top-ns interface-ns file-path]
   (let [all-content (file/read-file file-path ws-dialects)
-        content (file-content->ns-statements all-content)
         ns-name (namespace-name source-dir file-path)
         relative-path (str-util/skip-prefix file-path (str ws-dir "/"))]
-    (if (-> all-content first empty-ns?)
+    (cond
+      ;; Handle empty files specially
+      (= ::file/empty-file all-content)
+      {:name ns-name
+       :namespace ""
+       :file-path relative-path
+       :imports []
+       :is-invalid true
+       :empty-file true}
+
+      ;; Handle error results from read-file
+      (:error all-content)
+      {:name ns-name
+       :namespace ""
+       :file-path relative-path
+       :imports []
+       :is-invalid true
+       :error-message (:message all-content)}
+
+      ;; Handle empty collection result
+      (-> all-content first empty-ns?)
       {:name ns-name
        :namespace ""
        :file-path relative-path
        :imports []}
-      (let [imports (imports content suffixed-top-ns interface-ns)
+
+      ;; Normal case - process the namespace
+      :else
+      (let [content (file-content->ns-statements all-content)
+            imports (imports content suffixed-top-ns interface-ns)
             invalid? (not (or (str/ends-with? relative-path "/data_readers.clj")
                               (-> content ns-with-name?)))]
         (cond-> {:name ns-name

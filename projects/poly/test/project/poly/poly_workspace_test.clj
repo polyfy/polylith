@@ -1222,8 +1222,10 @@
                  "puget.printer"
                  "selmer.parser"]
           :test ["clojure.lang"
+                 "clojure.string"
                  "clojure.test"
-                 "malli.core"]}
+                 "malli.core"
+                 "me.raynes.fs"]}
          (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"]))))
 
 (deftest polylith-shell-component-lib-deps

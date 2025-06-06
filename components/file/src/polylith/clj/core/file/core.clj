@@ -197,10 +197,24 @@
 
 (defn read-file [path dialects]
   (try
-    (parse-code-str path (slurp path) dialects)
+    (let [content (slurp path)]
+      (if (str/blank? content)
+        ;; Return a special marker for empty files
+        :polylith.clj.core.file.interface/empty-file
+        (parse-code-str path content dialects)))
     (catch ExceptionInfo e
-     (let [{:keys [row col]} (ex-data e)]
-       (println (str "  Couldn't read file '" path "', row: " row ", column: " col ". Message: " (.getMessage e)))))))
+      (let [{:keys [row col]} (ex-data e)]
+        (println (str "  Couldn't read file '" path "', row: " row ", column: " col ". Message: " (.getMessage e)))
+        {:error true
+         :file-path path
+         :message (.getMessage e)
+         :row row
+         :col col}))
+    (catch Exception e
+      (println (str "  Error reading file '" path "': " (.getMessage e)))
+      {:error true
+       :file-path path
+       :message (.getMessage e)})))
 
 (defn copy-resource-file! [source target-path]
   (delete-file target-path)
