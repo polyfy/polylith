@@ -48,6 +48,17 @@
 (defn add-first [words val]
   (cons val words))
 
+(defn ensure-slash [string]
+  (str/replace string #"\\" "/"))
+
+(defn normalize-newline
+  "If Windows, replace new line with carriage return"
+  [s]
+  (when s
+    (-> s
+        (str/replace #"\r\n" "\n")
+        (str/replace #"\r" "\n"))))
+
 (defn keep?
   "The split-text function will generate empty strings
    for initial separators (e.g. spaces) and if more than one

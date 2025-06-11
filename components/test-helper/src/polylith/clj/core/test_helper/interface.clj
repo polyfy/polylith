@@ -7,6 +7,9 @@
 (defn content [dir filename]
   (core/content dir filename))
 
+(defn content-data [dir filename]
+  (core/content-data dir filename))
+
 (defn execute-command [current-dir & args]
   (core/execute-command current-dir args))
 

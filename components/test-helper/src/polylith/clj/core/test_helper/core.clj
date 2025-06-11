@@ -40,3 +40,6 @@
 
 (defn content [dir filename]
   (str/split-lines (slurp (str (sub-dir dir) "/" filename))))
+
+(defn content-data [dir filename]
+  (read-string (slurp (str (sub-dir dir) "/" filename))))

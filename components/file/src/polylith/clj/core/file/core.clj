@@ -79,7 +79,8 @@
         io/file
         .toPath
         fs/normalized
-        .toString)))
+        .toString
+        str-util/ensure-slash)))
 
 (defn current-dir []
   (absolute-path ""))
@@ -93,7 +94,9 @@
     (fs/copy+ from to)))
 
 (defn filename [^File file]
-  (.getName file))
+  (-> file
+      .getName
+      str-util/ensure-slash))
 
 (defn lines-of-code [file-path]
   (try
@@ -182,16 +185,17 @@
 (defn visible-paths-recursively [dir]
   (into []
         (comp (filter (complement fs/hidden?))
-              (map str))
+              (map #(str-util/ensure-slash (str %))))
         (files-and-dirs-recursively dir)))
 
 (defn paths-recursively [dir]
-  (map str (files-and-dirs-recursively dir)))
+  (map #(str-util/ensure-slash (str %))
+       (files-and-dirs-recursively dir)))
 
 (defn relative-paths [path]
   (let [length (inc (count path))]
-    (map #(str (subs % length))
-         (map str (paths-recursively path)))))
+    (map #(subs % length)
+         (paths-recursively path))))
 
 (defn create-missing-dirs [filename]
   (io/make-parents filename))
@@ -199,6 +203,3 @@
 (defn pretty-spit [filename collection]
   (spit (io/file filename)
         (with-out-str (pp/write collection :dispatch pp/code-dispatch))))
-
-(defn read-deps-file [path]
-  (tda/slurp-deps (file path)))

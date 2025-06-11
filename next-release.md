@@ -10,6 +10,7 @@
 | [532](https://github.com/polyfy/polylith/issues/532) | Use :mvn/local-repo if specified in a project when running tests
 | [533](https://github.com/polyfy/polylith/issues/533) | Maps with tag literals as keys in test namespaces breaks test runner
 | [534](https://github.com/polyfy/polylith/issues/534) | Use correct regex in :tag-patterns in workspace.edn
+| [549](https://github.com/polyfy/polylith/issues/534) | Handle paths correctly in Windows
 
 | PR                                                 | Author          | Description                                                  
 |:---------------------------------------------------|-----------------|------------------------------------------------------------|

@@ -1,22 +1,25 @@
 (ns polylith.clj.core.creator.component-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.creator.brick :as brick]
+            [polylith.clj.core.util.interface.str :as str-util]
             [polylith.clj.core.test-helper.interface :as helper]))
 
 (use-fixtures :each helper/test-setup-and-tear-down)
 
 (deftest create-component--with-missing-name--return-error-message
-  (let [output (with-out-str
-                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
-                 (helper/execute-command "ws1" "create" "component" "name:"))]
+  (let [output (str-util/normalize-newline
+                 (with-out-str
+                   (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                   (helper/execute-command "ws1" "create" "component" "name:")))]
     (is (= "  A brick name must be given.\n"
            output))))
 
 (deftest create-component--when-component-already-exists--return-error-message
-  (let [output (with-out-str
-                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
-                 (helper/execute-command "ws1" "create" "component" "name:my-component")
-                 (helper/execute-command "ws1" "create" "component" "name:my-component"))]
+  (let [output (str-util/normalize-newline
+                 (with-out-str
+                   (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                   (helper/execute-command "ws1" "create" "component" "name:my-component")
+                   (helper/execute-command "ws1" "create" "component" "name:my-component")))]
     (is (= (str brick/create-brick-message "\n"
                 "  The brick 'my-component' already exists.\n")
            output))))
@@ -24,9 +27,10 @@
 (deftest create-component--without-giving-an-interface--performs-expected-actions
   (let [src-ifc-dir "ws1/components/my-component/src/se/example/my_component"
         test-ifc-dir "ws1/components/my-component/test/se/example/my_component"
-        output (with-out-str
-                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
-                 (helper/execute-command "ws1" "create" "component" "name:my-component"))]
+        output (str-util/normalize-newline
+                 (with-out-str
+                   (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                   (helper/execute-command "ws1" "create" "component" "name:my-component")))]
     (is (= (str brick/create-brick-message "\n")
            output))
 
@@ -77,9 +81,10 @@
 (deftest create-component--without-with-a-different-interface--performs-expected-actions
   (let [src-ifc-dir "ws1/components/my-component/src/se/example/my_interface"
         test-ifc-dir "ws1/components/my-component/test/se/example/my_interface"
-        output (with-out-str
-                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
-                 (helper/execute-command "ws1" "create" "component" "name:my-component" "interface:my-interface"))]
+        output (str-util/normalize-newline
+                 (with-out-str
+                   (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                   (helper/execute-command "ws1" "create" "component" "name:my-component" "interface:my-interface")))]
     (is (= (str brick/create-brick-message "\n")
            output))
 
