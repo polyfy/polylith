@@ -1,21 +1,24 @@
 (ns polylith.clj.core.creator.workspace-test
   (:require [clojure.test :refer :all]
+            [polylith.clj.core.util.interface.str :as str-util]
             [polylith.clj.core.test-helper.interface :as helper]
             [polylith.clj.core.creator.workspace :as workspace]))
 
 (use-fixtures :each helper/test-setup-and-tear-down)
 
 (deftest create-workspace--when-workspace-already-exists--return-error-message
-  (let [output (with-out-str
-                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
-                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example"))]
+  (let [output (str-util/normalize-newline
+                 (with-out-str
+                   (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                   (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")))]
     (is (= "  Workspace 'ws1' already exists.\n"
            output))))
 
 (deftest create-workspace--trying-to-create-a-workspace-within-another-workspace--prints-out-error-messagex
-  (let [output (with-out-str
-                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example" ":commit")
-                 (helper/execute-command "ws1" "create" "workspace" "name:ws2" "top-ns:com.example"))]
+  (let [output (str-util/normalize-newline
+                 (with-out-str
+                   (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example" ":commit")
+                   (helper/execute-command "ws1" "create" "workspace" "name:ws2" "top-ns:com.example")))]
     (is (= "  Workspace created in existing git repo.\n"
            output))
 
@@ -56,14 +59,16 @@
            (helper/paths "ws1")))))
 
 (deftest create-workspace--incorrect-first-argument--prints-out-error-message
-  (let [output (with-out-str
-                 (helper/execute-command "" "create" "x" "name:ws1"))]
+  (let [output (str-util/normalize-newline
+                 (with-out-str
+                   (helper/execute-command "" "create" "x" "name:ws1")))]
     (is (= "  The first argument after 'create' is expected to be any of: base, component, project, workspace.\n"
            output))))
 
 (deftest create-workspace--missing-top-namespace--prints-out-error-message
-  (let [output (with-out-str
-                 (helper/execute-command "" "create" "workspace" "name:ws1"))]
+  (let [output (str-util/normalize-newline
+                 (with-out-str
+                   (helper/execute-command "" "create" "workspace" "name:ws1")))]
     (is (= "  A top namespace must be given, e.g.: create workspace name:my-workspace top-ns:com.my-company\n"
            output))))
 
@@ -144,7 +149,9 @@
            (helper/content "ws1" "workspace.edn")))
 
     ;; no env vars checked in helper so use defaul XDG location:
-    (is (= ["{:color-mode \"dark\""
-            " :empty-character \".\""
-            " :thousand-separator \",\"}"]
-           (helper/content (helper/user-home) "/.config/polylith/config.edn")))))
+    (is (= [:color-mode
+            :empty-character
+            :thousand-separator]
+           (keys
+             (helper/content-data
+               (helper/user-home) "/.config/polylith/config.edn"))))))

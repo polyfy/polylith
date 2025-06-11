@@ -1,23 +1,26 @@
 (ns polylith.clj.core.creator.project-test
   (:require [clojure.test :refer :all]
+            [polylith.clj.core.util.interface.str :as str-util]
             [polylith.clj.core.test-helper.interface :as helper]
             [polylith.clj.core.util.interface.color :as color]))
 
 (use-fixtures :each helper/test-setup-and-tear-down)
 
 (deftest create-project--whith-missing-name--return-error-message
-  (let [output (with-out-str
-                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
-                 (helper/execute-command "ws1" "create" "project" "name:"))]
+  (let [output (str-util/normalize-newline
+                 (with-out-str
+                   (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                   (helper/execute-command "ws1" "create" "project" "name:")))]
 
     (is (= (str "  A project name must be given.\n")
            (color/clean-colors output)))))
 
 (deftest create-project--when-project-already-exists--return-error-message
-  (let [output (with-out-str
-                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
-                 (helper/execute-command "ws1" "create" "project" "name:proj1")
-                 (helper/execute-command "ws1" "create" "project" "name:proj1"))]
+  (let [output (str-util/normalize-newline
+                 (with-out-str
+                   (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                   (helper/execute-command "ws1" "create" "project" "name:proj1")
+                   (helper/execute-command "ws1" "create" "project" "name:proj1")))]
 
     (is (= (str "  It's recommended to add an alias to :projects in ./workspace.edn for the proj1 project.\n"
                 "  Project proj1 (or alias) already exists.\n")
@@ -25,9 +28,10 @@
 
 (deftest create-project--performs-expected-actions
   (let [dir "ws1/projects/proj1"
-        output (with-out-str
-                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example" ":create")
-                 (helper/execute-command "ws1" "create" "project" "name:proj1"))]
+        output (str-util/normalize-newline
+                 (with-out-str
+                   (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example" ":create")
+                   (helper/execute-command "ws1" "create" "project" "name:proj1")))]
 
     (is (= "  It's recommended to add an alias to :projects in ./workspace.edn for the proj1 project.\n"
            (color/clean-colors output)))
