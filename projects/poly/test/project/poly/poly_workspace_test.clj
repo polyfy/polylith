@@ -227,7 +227,7 @@
           "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
           "  ws-file                   .  .  .  .  x  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  ."
           "  nav-generator             .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-          "  poly-cli                  .  .  .  x  .  t  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  t  .  t  .  ."]
+          "  poly-cli                  .  .  .  x  .  t  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  t  .  .  .  ."]
          (ws-ifc-deps-table/table (workspace)))))
 
 (deftest polylith-workspace-project-deps-table
@@ -298,7 +298,7 @@
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  ws-file                   .  .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  .  .  +  .  +  .  .  .  .  .  +  +  .  x  .  x  .  .  ."
             "  nav-generator             .  .  .  .  +  x  .  .  .  +  .  .  +  .  .  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  +  +  .  .  ."
-            "  poly-cli                  +  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  t  +  +"]
+            "  poly-cli                  +  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  +  +"]
            (ws-project-deps-table/table ws project)))))
 
 (deftest polylith-workspace-project-deps-table-indirect
@@ -369,56 +369,56 @@
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  ws-file                   .  .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  .  .  +  .  +  .  .  .  .  .  +  +  .  x  .  x  .  .  ."
             "  nav-generator             .  .  .  .  +  x  .  .  .  +  .  .  +  .  .  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  +  +  .  .  ."
-            "  poly-cli                  +  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  t  +  +"]
+            "  poly-cli                  +  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  +  +"]
            (ws-project-deps-table/table ws project)))))
 
 (deftest polylith-brick-and-project-deps
   (let [{:keys [components projects] :as ws} (workspace)
         project (common/find-project "poly" projects)
         brick (common/find-component "workspace" components)]
-    (is (= ["  used by       <  workspace  >  uses         "
-            "  ------------                   -------------"
-            "  api                            antq         "
-            "  command                        change       "
-            "  shell                          common       "
-            "  poly-cli (t)                   config-reader"
-            "                                 deps         "
-            "                                 file         "
-            "                                 git          "
-            "                                 interface    "
-            "                                 lib          "
-            "                                 path-finder  "
-            "                                 test         "
-            "                                 user-config  "
-            "                                 user-input   "
-            "                                 util         "
-            "                                 validator    "
-            "                                 version      "
-            "                                 ws-file      "]
+    (is (= ["  used by  <  workspace  >  uses         "
+            "  -------                   -------------"
+            "  api                       antq         "
+            "  command                   change       "
+            "  shell                     common       "
+            "                            config-reader"
+            "                            deps         "
+            "                            file         "
+            "                            git          "
+            "                            interface    "
+            "                            lib          "
+            "                            path-finder  "
+            "                            test         "
+            "                            user-config  "
+            "                            user-input   "
+            "                            util         "
+            "                            validator    "
+            "                            version      "
+            "                            ws-file      "]
            (brick-deps-table/table ws project brick "none")))))
 
 (deftest polylith-project-brick-deps
   (let [{:keys [components] :as ws} (workspace)
         brick (common/find-component "workspace" components)]
-    (is (= ["  used by       <  workspace  >  uses         "
-            "  ------------                   -------------"
-            "  api                            antq         "
-            "  command                        change       "
-            "  shell                          common       "
-            "  poly-cli (t)                   config-reader"
-            "                                 deps         "
-            "                                 file         "
-            "                                 git          "
-            "                                 interface    "
-            "                                 lib          "
-            "                                 path-finder  "
-            "                                 test         "
-            "                                 user-config  "
-            "                                 user-input   "
-            "                                 util         "
-            "                                 validator    "
-            "                                 version      "
-            "                                 ws-file      "]
+    (is (= ["  used by  <  workspace  >  uses         "
+            "  -------                   -------------"
+            "  api                       antq         "
+            "  command                   change       "
+            "  shell                     common       "
+            "                            config-reader"
+            "                            deps         "
+            "                            file         "
+            "                            git          "
+            "                            interface    "
+            "                            lib          "
+            "                            path-finder  "
+            "                            test         "
+            "                            user-config  "
+            "                            user-input   "
+            "                            util         "
+            "                            validator    "
+            "                            version      "
+            "                            ws-file      "]
            (brick-ifc-deps/table ws brick)))))
 
 (deftest polylith-poly-project-deps
@@ -828,8 +828,7 @@
                                                         "config-reader"
                                                         "user-input"
                                                         "util"
-                                                        "validator"
-                                                        "workspace"]
+                                                        "validator"]
                                              :indirect ["antq"
                                                         "change"
                                                         "check"
@@ -857,6 +856,7 @@
                                                         "text-table"
                                                         "user-config"
                                                         "version"
+                                                        "workspace"
                                                         "ws-explorer"
                                                         "ws-file"]}}
           "sh"                       {:src  {}

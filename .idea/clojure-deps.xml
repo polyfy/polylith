@@ -15,6 +15,94 @@
     </option>
   </component>
   <component name="DepsProjectsManager">
+    <option name="dirTypeMappings">
+      <set>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/bases/poly-cli/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/change/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/clojure-test-test-runner/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/command/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/common/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/config-reader/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/creator/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/deps/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/git/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/lib/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/path-finder/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/shell/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/test-runner-contract/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/test-runner-orchestrator/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/test/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/user-input/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/util/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/validator/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/workspace/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/ws-explorer/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/projects/poly/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+      </set>
+    </option>
     <option name="projectFiles">
       <set>
         <option value="file://$PROJECT_DIR$/deps.edn" />
