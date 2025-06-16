@@ -1,15 +1,17 @@
 (ns polylith.clj.core.creator.base-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.creator.brick :as brick]
+            [polylith.clj.core.util.interface.str :as str-util]
             [polylith.clj.core.test-helper.interface :as helper]))
 
 (use-fixtures :each helper/test-setup-and-tear-down)
 
 (deftest create-base--when-component-already-exists--return-error-message
-  (let [output (with-out-str
-                 (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example" "color-mode:none")
-                 (helper/execute-command "ws1" "create" "b" "name:my-base" "color-mode:none")
-                 (helper/execute-command "ws1" "create" "base" "name:my-base"))]
+  (let [output (str-util/normalize-newline
+                 (with-out-str
+                   (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example" "color-mode:none")
+                   (helper/execute-command "ws1" "create" "b" "name:my-base" "color-mode:none")
+                   (helper/execute-command "ws1" "create" "base" "name:my-base")))]
     (is (= (str "  The short form 'create w' is deprecated and support for it will be dropped. Please use 'create workspace' instead.\n"
                 "  The short form 'create b' is deprecated and support for it will be dropped. Please use 'create base' instead.\n"
                 brick/create-brick-message "\n"
@@ -19,9 +21,10 @@
 (deftest create-base--performs-expected-actions
   (let [src-api-dir "ws1/bases/my-base/src/se/example/my_base"
         test-api-dir "ws1/bases/my-base/test/se/example/my_base"
-        output (with-out-str
-                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example" ":commit")
-                 (helper/execute-command "ws1" "create" "base" "name:my-base"))]
+        output (str-util/normalize-newline
+                 (with-out-str
+                   (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example" ":commit")
+                   (helper/execute-command "ws1" "create" "base" "name:my-base")))]
     (is (= (str brick/create-brick-message "\n")
            output))
 

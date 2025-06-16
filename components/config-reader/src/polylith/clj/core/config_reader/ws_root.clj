@@ -36,5 +36,5 @@
       (find-ws-root-dir (file/absolute-path ""))
       (-> ws-dir
           common/user-path
-          (str-util/skip-if-ends-with "/")
-          (str-util/skip-if-ends-with "\\")))))
+          (str/replace #"\\" "/")
+          (str-util/skip-if-ends-with "/")))))

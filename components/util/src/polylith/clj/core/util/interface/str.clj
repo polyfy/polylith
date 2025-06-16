@@ -40,6 +40,12 @@
 (defn line [length]
   (str-util/line length))
 
+(defn ensure-slash [string]
+  (str-util/ensure-slash string))
+
+(defn normalize-newline [string]
+  (str-util/normalize-newline string))
+
 (defn count-things [thing cnt]
   (if (<= cnt 1)
     (str cnt " " thing)

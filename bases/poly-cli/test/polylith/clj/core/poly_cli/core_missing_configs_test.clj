@@ -1,5 +1,6 @@
 (ns polylith.clj.core.poly-cli.core-missing-configs-test
   (:require [clojure.test :refer :all]
+            [polylith.clj.core.util.interface.str :as str-util]
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.config-reader.interface :as config-reader]
             [polylith.clj.core.poly-cli.core :as cli]))
@@ -24,7 +25,9 @@
   (let [check-fn (fn [] (with-redefs [config-reader/file-exists? (fn [_ type] (not= :workspace type))
                                       config-reader/read-development-deps-config-file (fn [_ _] {})]
                           (cli/-main "check" "ws-dir:examples/local-dep" "color-mode:none" ":no-exit")))
-        output (with-out-str (check-fn))]
+        output (str-util/normalize-newline
+                 (with-out-str
+                   (check-fn)))]
     (is (= "  The command can only be executed from the workspace root, or by also passing in :: or ws-dir:DIR.\n"
            output))
     (is (= 0
@@ -34,7 +37,9 @@
   (let [check-fn (fn [] (with-redefs [config-reader/file-exists? (fn [_ type] (not= :development type))
                                       validator/validate-project-dev-config (fn [_ _ _] "Missing file")]
                           (cli/-main "check" "ws-dir:examples/local-dep" "color-mode:none" ":no-exit")))
-        output (with-out-str (check-fn))]
+        output (str-util/normalize-newline
+                 (with-out-str
+                   (check-fn)))]
     (is (= "  Missing file\n"
            output))
     (is (= 1
@@ -43,7 +48,9 @@
 (deftest check-a-workspace-with-missing-project-config-file
   (let [check-fn (fn [] (with-redefs [validator/validate-project-deployable-deps-config (fn [_ _ _] "Invalid file")]
                           (cli/-main "check" "ws-dir:examples/local-dep" "color-mode:none" ":no-exit")))
-        output (with-out-str (check-fn))]
+        output (str-util/normalize-newline
+                 (with-out-str
+                   (check-fn)))]
     (is (= "  Error 110: Invalid file\n"
            output))
     (is (= 110
@@ -53,7 +60,9 @@
   (let [check-fn (fn [] (with-redefs [validator/validate-brick-config (fn [_ _ _]
                                                                         "Invalid file")]
                           (cli/-main "check" "ws-dir:examples/local-dep" "color-mode:none" ":no-exit")))
-        output (with-out-str (check-fn))]
+        output (str-util/normalize-newline
+                 (with-out-str
+                   (check-fn)))]
     (is (= "  Error 110: Invalid file\n"
            output))
     (is (= 110

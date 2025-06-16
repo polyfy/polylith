@@ -1,16 +1,17 @@
 (ns ^:no-doc polylith.clj.core.test-runner-orchestrator.core
   (:refer-clojure :exclude [test])
   (:require
-   [clojure.set :as set]
-   [clojure.string :as str]
-   [polylith.clj.core.common.interface :as common]
-   [polylith.clj.core.deps.interface :as deps]
-   [polylith.clj.core.test-runner-contract.interface :as test-runner-contract]
-   [polylith.clj.core.test-runner-contract.interface.initializers :as test-runner-initializers]
-   [polylith.clj.core.test-runner-contract.interface.verifiers :as test-runner-verifiers]
-   [polylith.clj.core.util.interface.color :as color]
-   [polylith.clj.core.util.interface.time :as time-util]
-   [polylith.clj.core.validator.interface :as validator]))
+    [clojure.set :as set]
+    [clojure.string :as str]
+    [polylith.clj.core.common.interface :as common]
+    [polylith.clj.core.deps.interface :as deps]
+    [polylith.clj.core.test-runner-contract.interface :as test-runner-contract]
+    [polylith.clj.core.test-runner-contract.interface.initializers :as test-runner-initializers]
+    [polylith.clj.core.test-runner-contract.interface.verifiers :as test-runner-verifiers]
+    [polylith.clj.core.util.interface.color :as color]
+    [polylith.clj.core.util.interface.time :as time-util]
+    [polylith.clj.core.util.interface.str :as str-util]
+    [polylith.clj.core.validator.interface :as validator]))
 
 (defn resolve-deps [{:keys [name] :as project} settings is-verbose color-mode]
   (try
@@ -136,7 +137,8 @@
               create-test-runner)]
     (when (seq test-runners-seeing-test-sources)
       (let [lib-paths (resolve-deps project settings is-verbose color-mode)
-            all-paths (into [] cat [(:src paths) (:test paths) lib-paths])
+            all-paths (map str-util/ensure-slash
+                           (into [] cat [(:src paths) (:test paths) lib-paths]))
             class-loader-delay (delay (common/create-class-loader all-paths color-mode))]
         (when is-verbose (println (str "# paths:\n" all-paths "\n")))
         (doseq [current-test-runner test-runners-seeing-test-sources]
