@@ -1,6 +1,6 @@
 = Test Runners
 :toc:
-:poly-version: 0.2.21
+:poly-version: 0.2.22
 :cljdoc-api-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/api
 
 Starting with version `0.2.15`, the `poly` tool lets you choose your test runners.
