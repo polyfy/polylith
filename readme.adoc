@@ -1,6 +1,6 @@
 image::doc/images/logo.png[width=400]
-:snapshot-number: 0
-:snapshot-version: 0.2.22
+:snapshot-number: 1
+:snapshot-version: 0.2.23
 :stable-version: 0.2.22
 :cljdoc-doc-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc
 
