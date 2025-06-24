@@ -1,0 +1,77 @@
+(ns polylith.clj.core.common.interface
+  (:require [polylith.clj.core.common.core :as core]
+            [polylith.clj.core.common.ns-extractor :as ns-extractor]
+            [polylith.clj.core.common.validate-args :as validate-args]))
+
+(def entity->short core/entity->short)
+
+(defn absolute-path [path entity-root-path]
+  (core/absolute-path path entity-root-path))
+
+(defn color-mode [user-input]
+  (core/color-mode user-input))
+
+(defn compact? [workspace view]
+  (core/compact? workspace view))
+
+(defn create-class-loader [paths color-mode]
+  ::class-loader)
+
+(defn eval-in [_class-loader form]
+  (eval form))
+
+(defn entity-imports [entity & sources]
+  (ns-extractor/entity-imports entity sources))
+
+(defn entity-namespaces [entity & sources]
+  (ns-extractor/entity-namespaces entity sources))
+
+(defn entities-namespaces [entities & sources]
+  (ns-extractor/entities-namespaces entities sources))
+
+(defn extract-namespace [suffixed-top-ns ns-to-extract]
+  (ns-extractor/extract suffixed-top-ns ns-to-extract))
+
+(defn filter-clojure-paths [paths]
+  (core/filter-clojure-paths paths))
+
+(defn find-base [base-name bases]
+  (core/find-base base-name bases))
+
+(defn find-brick [name workspace]
+  (core/find-brick name workspace))
+
+(defn find-component [name components]
+  (core/find-component name components))
+
+(defn find-project [project-name projects]
+  (core/find-project project-name projects))
+
+(defn ns-to-path [namespace]
+  (core/ns-to-path namespace))
+
+(defn path-to-ns [namespace]
+  (when namespace
+    (core/path-to-ns namespace)))
+
+(defn suffix-ns-with-dot [namespace]
+  (core/sufix-ns-with-dot namespace))
+
+(defn validate-args [unnamed-args example]
+  (validate-args/validate unnamed-args example))
+
+(defn toolsdeps1? [workspace]
+  (= :toolsdeps1 (-> workspace :version :from :ws :type)))
+
+(defn user-path [path]
+  (core/user-path path))
+
+(defn invalid-workspace? [workspace]
+  (core/invalid-workspace? workspace))
+
+(defn interface-nss [interface-ns]
+  (set ["ifc" "interface" interface-ns]))
+
+(defn interface-ns? [namespace interface-ns]
+  (contains? (interface-nss interface-ns)
+             namespace))
