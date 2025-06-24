@@ -545,8 +545,15 @@ Make a `0.2.20` release:
 - Summarize the release in the introduction.
 - Copy the content from https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md] into the release notes.
 12. Execute `git switch master` followed by `git pull` to get the latest from master.
-13. Execute `git switch -c snapshot-032101` to create a first snapshot branch for the next release (here we imagine that the next release is 0.3.21).
-14. Create a `0.3.21-SNAPSHOT #1` release, see xref:#create-a-snapshot-release[make a snapshot release for instructions].
-15. Announce in https://clojurians.slack.com/archives/C015AL9QYH1[#releases] in clojurians in Slack, by summarizing the most important changes + the included issues and PRs + add a link to the #polylith channel.
-16. Announce on X (Twitter) and maybe other places.
-17. Archive the Done column on the https://github.com/orgs/polyfy/projects/1[KanBan board].
+13. Execute `git switch -c snapshot-022101` to create a first snapshot branch for the next release (here we imagine that the next release is 0.2.21).
+14. Update the version component:
+- Update version to 0.2.21 SNAPSHOT #1 (revision to SNAPSHOT, patch to 21, snapshot to 1)
+15. Update readme.adoc:
+- set `:snapshot-number:` to 1
+- set `:snapshot-version:` to 0.2.21
+16. Update https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md]:
+- Change the heading to "Included since 0.2.20"
+- Clean everything (remove everything under each header)
+17. Create a `0.2.21-SNAPSHOT #1` release, see xref:#create-a-snapshot-release[make a snapshot release for instructions].
+18. Announce in https://clojurians.slack.com/archives/C015AL9QYH1[#releases] in clojurians in Slack, by summarizing the most important changes + the included issues and PRs + add a link to the #polylith channel.
+19. Announce on X (Twitter) and maybe other places.
