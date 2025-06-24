@@ -1,0 +1,9 @@
+{
+  "name": "@poly/comp-cljc",
+  "description": "The cljc component",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+
+  }
+}

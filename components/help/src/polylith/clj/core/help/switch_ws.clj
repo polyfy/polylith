@@ -16,7 +16,7 @@
        "           The prompt will be prefixed with 'file:' to show this.\n"
        "\n"
        "    " (s/key "SHORTCUT" cm) " = Switches to the workspace specified under the " (s/key ":ws-shortcuts" cm) " key in\n"
-       "               ~/.config/polylith/config.edn (see ~/.config/polylith/config.edn)\n"
+       "               ~/.config/polylith/config.edn\n"
        "\n"
        "  Example:\n"
        "    switch-ws dir:~/myworkspace\n"

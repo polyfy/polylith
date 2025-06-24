@@ -1,0 +1,9 @@
+{
+  "name": "@poly/comp-cljs-with-macros",
+  "description": "The cljs-with-macros component",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+
+  }
+}

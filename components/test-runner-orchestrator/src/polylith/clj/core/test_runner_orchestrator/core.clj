@@ -162,11 +162,16 @@
 (defn affected-by-changes? [{:keys [bricks-to-test projects-to-test]}]
   (seq (concat bricks-to-test projects-to-test)))
 
-(defn print-no-tests-to-run [settings projects]
-  (let [git-repo? (-> settings :vcs :is-git-repo)]
+(defn print-no-tests-to-run [settings projects {:keys [is-dev selected-projects]}]
+  (let [git-repo? (-> settings :vcs :is-git-repo)
+        dev? (or is-dev
+                 (seq (set/intersection selected-projects
+                                        #{"dev" "development"})))]
     (when (= 1 (count projects))
       (if git-repo?
-        (println "  No tests to run. To run tests for 'dev', type: poly test :dev")
+        (if dev?
+          (println "  No tests to run.")
+          (println "  No tests to run. To run tests for 'dev', type: poly test :dev"))
         (println "  No tests to run. Not a git repo. Execute 'git init' + commit files and directories, to add support for testing.")))))
 
 (defn print-projects-to-test [projects-to-test color-mode]
@@ -199,7 +204,7 @@
     (validator/print-messages workspace)
     (println)))
 
-(defn run [{:keys [components bases projects changes user-input settings messages] :as workspace} is-verbose color-mode]
+(defn run [{:keys [components bases projects changes settings user-input messages] :as workspace} is-verbose color-mode]
   (if (validator/has-errors? messages)
     (do (validator/print-messages workspace)
         false)
@@ -211,7 +216,7 @@
           no-tests-to-run? (empty? projects-to-test)
           {:keys [is-fail-if-nothing-to-test]} user-input]
       (if no-tests-to-run?
-        (print-no-tests-to-run settings projects)
+        (print-no-tests-to-run settings projects user-input)
         (do
           (print-warnings-if-any workspace)
           (print-projects-to-test projects-to-test color-mode)
