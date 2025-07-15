@@ -544,16 +544,17 @@ Make a `0.2.20` release:
 11. Update the https://github.com/polyfy/polylith/releases/tag/v0.2.20[release notes] for the 0.2.20 release:
 - Summarize the release in the introduction.
 - Copy the content from https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md] into the release notes.
-12. Execute `git switch master` followed by `git pull` to get the latest from master.
-13. Execute `git switch -c snapshot-022101` to create a first snapshot branch for the next release (here we imagine that the next release is 0.2.21).
-14. Update the version component:
+12. Update the https://github.com/polyfy/homebrew-polylith[Polylith Homebrew Tap].
+13. Execute `git switch master` followed by `git pull` to get the latest from master.
+14. Execute `git switch -c snapshot-022101` to create a first snapshot branch for the next release (here we imagine that the next release is 0.2.21).
+15. Update the version component:
 - Update version to 0.2.21 SNAPSHOT #1 (revision to SNAPSHOT, patch to 21, snapshot to 1)
-15. Update readme.adoc:
+16. Update readme.adoc:
 - set `:snapshot-number:` to 1
 - set `:snapshot-version:` to 0.2.21
-16. Update https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md]:
+17. Update https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md]:
 - Change the heading to "Included since 0.2.20"
 - Clean everything (remove everything under each header)
-17. Create a `0.2.21-SNAPSHOT #1` release, see xref:#create-a-snapshot-release[make a snapshot release for instructions].
-18. Announce in https://clojurians.slack.com/archives/C015AL9QYH1[#releases] in clojurians in Slack, by summarizing the most important changes + the included issues and PRs + add a link to the #polylith channel.
-19. Announce on X (Twitter) and maybe other places.
+18. Create a `0.2.21-SNAPSHOT #1` release, see xref:#create-a-snapshot-release[make a snapshot release for instructions].
+19. Announce in https://clojurians.slack.com/archives/C015AL9QYH1[#releases] in clojurians in Slack, by summarizing the most important changes + the included issues and PRs + add a link to the #polylith channel.
+20. Announce on social media
