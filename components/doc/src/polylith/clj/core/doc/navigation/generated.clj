@@ -89,6 +89,7 @@
    "settings" []
    "user-input" []
    "version" []
+   "ws-dialects" []
    "ws-dir" []
    "ws-local-dir" []
    "ws-reader" []
