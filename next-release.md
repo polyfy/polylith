@@ -3,7 +3,7 @@
 
 ### Issues and PRs:
 - Add support for ClojureScript, issue [482](https://github.com/polyfy/polylith/issues/481)
-- Fixe typo in the documentation, PR [560](https://github.com/polyfy/polylith/pull/560)
+- Fix typo in the documentation, PR [560](https://github.com/polyfy/polylith/pull/560)
 
 ### Other changes
 - 
