@@ -21,7 +21,7 @@ There are two kinds of `projects` in Polylith: development and deployable.
 ** Doesn't have a `src` directory.
 We discourage a `src` directory for deployable projects; all production code should normally only live in bricks.
 
-The `:project` key in `./workspace.edn` configures project aliases and, optionally, how `poly` should run your xref:testing.adoc[tests].
+The `:projects` key in `./workspace.edn` configures project aliases and, optionally, how `poly` should run your xref:testing.adoc[tests].
 
 Let's continue with our xref:introduction.adoc[tutorial].
 The last thing you did was create a `cli` xref:base.adoc#create-component[base].
