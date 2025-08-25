@@ -35,7 +35,8 @@
 
 (defn create-src-ns [ws-dir brick-type top-namespace bricks-dir namespace interface-name dialect is-git-add]
   (let [top-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
-        ns-file (str bricks-dir "/src/" top-dir (common/ns-to-path interface-name) "/" (common/ns-to-path namespace) ".clj")
+        file-suffix (if (= "cljs" dialect) ".cljs" ".clj")
+        ns-file (str bricks-dir "/src/" top-dir (common/ns-to-path interface-name) "/" (common/ns-to-path namespace) file-suffix)
         ns-name (str top-namespace "." interface-name "." namespace)
         [template data]
         (if (= "bases" brick-type)
@@ -47,15 +48,17 @@
     (file/create-missing-dirs ns-file)
     (file/create-file ns-file [(template/render ws-dir template data)])
     (when-let [opt-impl (and (= "components" brick-type)
-                             (template/render ws-dir "components/impl.clj" data))]
+                             (template/render ws-dir (str "components/impl" file-suffix) data))]
       (file/create-file (str bricks-dir "/src/" top-dir
-                             (common/ns-to-path interface-name) "/impl.clj")
+                             (common/ns-to-path interface-name)
+                             "/impl" file-suffix)
                         [opt-impl]))
     (git/add ws-dir ns-file is-git-add)))
 
 (defn create-test-ns [ws-dir brick-type top-namespace bricks-dir namespace entity-name alias dialect is-git-add]
   (let [top-dir  (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
-        ns-file  (str bricks-dir "/test/" top-dir (common/ns-to-path entity-name) "/" (common/ns-to-path namespace) "_test.clj")
+        file-suffix (if (= "cljs" dialect) ".cljs" ".clj")
+        ns-file  (str bricks-dir "/test/" top-dir (common/ns-to-path entity-name) "/" (common/ns-to-path namespace) "_test" file-suffix)
         template (str brick-type "/test.clj")
         data     {:test-ns (str top-namespace "." entity-name "." namespace "-test")
                   :src-ns  (str top-namespace "." entity-name "." namespace)
