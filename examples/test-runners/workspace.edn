@@ -15,12 +15,12 @@
                                                    :create-test-runner [org.corfield.external-test-runner.interface/create]}}
 
             "kaocha-override-global" {:alias "override"
-                                      :necessary ["invoicer" "test-setup"]
+                                      :necessary ["auth-ui" "invoicer" "test-setup"]
                                       :test {:setup-fn se.external.test-setup.interface/setup
                                              :create-test-runner [polylith-kaocha.test-runner/create]}}
 
             "multiple-test-runners" {:alias "multiple"
-                                     :necessary ["invoicer" "test-setup"]
+                                     :necessary ["auth-ui" "invoicer" "test-setup"]
                                      :test {:setup-fn se.external.test-setup.interface/setup
                                             :create-test-runner [:default
                                                                  polylith-kaocha.test-runner/create
