@@ -95,6 +95,9 @@ As explained in xref:tagging.adoc[Tagging], `poly` uses this pattern to calculat
 a| `:test`
 a| See xref:test-runners.adoc#test-configuration[Test configuration].
 
+a| `:test-configs`
+a| See xref:test-runners.adoc#test-configuration[Test configuration].
+
 a| `:top-namespace`
 a| The top namespace used throughout the workspace in components and bases, specified by you when you create your xref:workspace.adoc[workspace]. +
 *Default:* none, must be specified
@@ -198,16 +201,16 @@ You make changes via manual edits or the xref:libraries#update[libs :update] com
 
 === Projects
 
-Each xref:project.adoc[project] has its own `deps.edn` configuration file.
+Each xref:project.adoc[project] has its own `deps.edn` and/or `package.json` configuration file.
 
 You'll find:
 
-* The xref:development.adoc[development] project config in `./deps.edn`.
+* The xref:development.adoc[development] project config in `./deps.edn` and/or `./package.json`.
 The xref:commands.adoc#create-workspace[create workspace] command creates the initial file.
-* Deployable xref:project.adoc[projects] are configured in `projects/_PROJECT-DIR_/deps.edn` where `_PROJECT-DIR_` is the deployable project's directory (and name).
+* Deployable xref:project.adoc[projects] are configured in `projects/_PROJECT-DIR_/deps.edn` and/or `projects/_PROJECT-DIR_/package.json` where `_PROJECT-DIR_` is the deployable project's directory (and name).
 The xref:commands.adoc#create-project[create project] command creates the initial file.
 
-You can retrieve a project's tools.deps config via, e.g.:
+You can retrieve a project's configurations via, e.g.:
 
 [source,shell]
 ----
@@ -236,6 +239,9 @@ a| Content of project `deps.edn`
 
 a| `:name`
 a| (derived) The project name
+
+a| `:package`
+a| Content of project `package.json`
 
 a| `:type`
 a| (derived) Always `"project"` for projects
@@ -272,6 +278,9 @@ a| Content of base `deps.edn`.
 a| `:name`
 a| (derived) The base name.
 
+a| `:package`
+a| Content of project `package.json`
+
 a| `:type`
 a| (derived) Always `"base"` for bases.
 |===
@@ -305,6 +314,9 @@ a| The content of `deps.edn`.
 
 a| `:name`
 a| (derived) The component name.
+
+a| `:package`
+a| Content of project `package.json`
 
 a| `:type`
 a| (derived) Always `"component"` for components.

@@ -17,9 +17,6 @@
                                      (mapcat :imports namespaces)))]
     (set (filter identity (map #(included-nss % ns-libs) used-namespaces)))))
 
-(defn with-name [lib-name]
-  [lib-name {}])
-
 (defn with-version [ws-dir included-ns ns-to-lib lib->deps user-home]
   (let [lib-name (ns-to-lib included-ns)
         version (lib->deps lib-name)]

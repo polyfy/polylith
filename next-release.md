@@ -1,6 +1,11 @@
 
 ## Included since 0.2.22
 
+The biggest change in 0.3.0 is support for ClojureScript.
+- The poly tool now handles .cljs files as well as package.json configuration files.
+- The package.json configuration can be retrieved by e.g. `ws get:configs:components:web-ui:package` or `ws get:configs:projects:development:package` (from the [realworld example app](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend)).
+- Be sure to update to the latest versions of the [External](https://github.com/seancorfield/polylith-external-test-runner) and [Kaocha](https://github.com/imrekoszo/polylith-kaocha) test runners if you use any of these.
+
 ### Issues and PRs:
 - Add support for ClojureScript, issue [482](https://github.com/polyfy/polylith/issues/481)
 - Fix typo in the documentation, PR [560](https://github.com/polyfy/polylith/pull/560)

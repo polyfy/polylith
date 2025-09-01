@@ -16,17 +16,26 @@
 (defn print-messages [workspace]
   (message-printer/print-messages workspace))
 
+(defn validate-brick-package-config [config filename]
+  (toolsdeps2/validate-brick-package-config config filename))
+
+(defn validate-deployable-project-package-config [config filename]
+  (toolsdeps2/validate-deployable-project-package-config config filename))
+
+(defn validate-dev-project-package-config [config filename]
+  (toolsdeps2/validate-development-project-package-config config filename))
+
 (defn validate-project-dev-config [ws-type config filename]
   (dispatch/validate-project-dev-deps-config ws-type config filename))
 
-(defn validate-brick-config [_ config filename]
-  (toolsdeps2/validate-brick-config config filename))
+(defn validate-brick-deps-config [_ config filename]
+  (toolsdeps2/validate-brick-deps-config config filename))
 
 (defn validate-workspace-config [config]
   (toolsdeps2/validate-workspace-config config))
 
-(defn validate-project-deployable-deps-config [ws-type config filename]
-  (dispatch/validate-project-deployable-deps-config ws-type config filename))
+(defn validate-deployable-project-deps-config [ws-type config filename]
+  (dispatch/validate-deployable-project-deps-config ws-type config filename))
 
 (defn validate-ws [settings configs paths interface-names interfaces profiles components bases projects config-errors interface-ns user-input color-mode]
   (core/validate-ws settings configs paths interface-names interfaces profiles components bases projects config-errors interface-ns user-input color-mode))

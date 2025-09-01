@@ -1192,6 +1192,7 @@
 
 (deftest polylith-poly-project-lib-imports
   (is (= {:src  ["antq.api"
+                 "clojure.data.json"
                  "clojure.edn"
                  "clojure.java.browse"
                  "clojure.java.io"

@@ -114,13 +114,13 @@
         user-config-filename (user-config/file-path)
         project->settings (:projects ws-config)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
-        [component-configs component-errors] (config-reader/read-brick-config-file ws-dir ws-type "component")
+        [component-configs component-errors] (config-reader/read-brick-config-files ws-dir ws-type "component")
         components (components-from-disk/read-components ws-dir ws-type ws-dialects user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-configs bricks)
-        [base-configs base-errors] (config-reader/read-brick-config-file ws-dir ws-type "base")
+        [base-configs base-errors] (config-reader/read-brick-config-files ws-dir ws-type "base")
         bases (bases-from-disk/read-bases ws-dir ws-type ws-dialects user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-configs bricks)
         name->brick (into {} (comp cat (map (juxt :name identity))) [components bases])
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
-        [project-configs project-errors] (config-reader/read-project-config-file ws-dir ws-type)
+        [project-configs project-errors] (config-reader/read-project-config-files ws-dir ws-type)
         projects (projects-from-disk/read-projects ws-dir ws-dialects name->brick project->settings user-input user-home suffixed-top-ns interface-ns project-configs)
         profiles (profile/profiles ws-dir default-profile-name aliases name->brick user-home)
         ws-local-dir (->ws-local-dir ws-dir)
@@ -175,7 +175,7 @@
   (if (config-reader/file-exists? ws-config-file :workspace)
     :toolsdeps2
     (when (config-reader/file-exists? deps-config-file :development)
-      (let [{:keys [deps]} (config-reader/read-development-deps-config-file ws-dir :toolsdeps1)]
+      (let [{:keys [deps]} (config-reader/read-development-config-files ws-dir :toolsdeps1)]
         (when (:polylith deps)
           :toolsdeps1)))))
 
@@ -188,7 +188,7 @@
         deps-config-file (str ws-dir "/deps.edn")
         ws-type (workspace-type ws-dir ws-config-file deps-config-file)]
     (when ws-type
-      (let [{:keys [deps error]} (config-reader/read-development-deps-config-file ws-dir ws-type)
+      (let [{:keys [deps error]} (config-reader/read-development-config-files ws-dir ws-type)
             {:keys [aliases polylith]} deps
             [ws-config ws-error] (if (or error
                                          (= :toolsdeps2 ws-type))

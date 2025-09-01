@@ -4,7 +4,34 @@
             [malli.util :as mu]
             [polylith.clj.core.validator.datashape.shared :as shared]))
 
-(defn validate-brick-config [config filename]
+(defn validate-brick-package-config
+  "Validator for package.json files for components and bases"
+  [config filename]
+  (-> [:map
+       [:name string?]]
+      (m/explain config)
+      (me/humanize)
+      (shared/error-message filename)))
+
+(defn validate-deployable-project-package-config
+  "Validator for package.json files for deployable projects, under the 'projects' directory"
+  [config filename]
+  (-> [:map
+       [:dependencies map?]]
+      (m/explain config)
+      (me/humanize)
+      (shared/error-message filename)))
+
+(defn validate-development-project-package-config
+  "Validator for package.json file for the development project (at the workspace root)"
+  [config filename]
+  (-> [:map
+       [:workspaces [:sequential string?]]]
+      (m/explain config)
+      (me/humanize)
+      (shared/error-message filename)))
+
+(defn validate-brick-deps-config [config filename]
   (-> [:map
        [:paths [:* [:alt keyword? string?]]]
        [:deps [:map-of symbol? map?]]
