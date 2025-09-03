@@ -56,5 +56,6 @@
                   :requires [create-example]
                   :task create-example/-main}
 
+  ;; Make sure you have 'bb' and 'tree' installed, and that you use the latest version of clojure (e.g. "brew upgrade clojure").
   gen-all {:doc "Run update-commands-docs then create-example"
            :depends [update-commands-doc create-example]}}}
