@@ -12,6 +12,7 @@
 
 (defn read-component [ws-dir ws-type ws-dialects user-home top-namespace ns-to-lib top-src-dir interface-ns brick->settings config]
   (let [deps-config (:deps config)
+        package-config (:package config)
         component-name (:name config)
         component-dir (str ws-dir "/components/" component-name)
         component-top-src-dirs (brick-dirs/top-src-dirs component-dir top-src-dir deps-config)
@@ -22,7 +23,7 @@
         namespaces (ns-from-disk/namespaces-from-disk ws-dir ws-dialects component-top-src-dirs component-top-test-dirs suffixed-top-ns interface-ns)
         definitions (defs-from-disk/defs-from-disk ws-dir ws-dialects top-namespace interface-name (:src namespaces) interface-ns)
         entity-root-path (str "components/" component-name)
-        lib-deps (lib/brick-lib-deps ws-dir ws-type deps-config top-namespace ns-to-lib namespaces entity-root-path user-home)
+        lib-deps (lib/brick-lib-deps ws-dir ws-type deps-config package-config top-namespace ns-to-lib namespaces entity-root-path user-home)
         paths (brick-paths/source-paths component-dir deps-config)
         source-paths (config/source-paths deps-config)
         non-top-namespaces (non-top-ns/non-top-namespaces "component" component-name component-dir top-src-dir source-paths)]

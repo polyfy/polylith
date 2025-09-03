@@ -10,6 +10,7 @@
 
 (defn read-base [ws-dir ws-type ws-dialects user-home top-namespace ns-to-lib top-src-dir interface-ns brick->settings config]
   (let [deps-config (:deps config)
+        package-config (:package config)
         base-name (:name config)
         base-dir (str ws-dir "/bases/" base-name)
         base-src-dirs (brick-dirs/top-src-dirs base-dir top-src-dir deps-config)
@@ -17,7 +18,7 @@
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         namespaces (ns-from-disk/namespaces-from-disk ws-dir ws-dialects base-src-dirs base-test-dirs suffixed-top-ns interface-ns)
         entity-root-path (str "bases/" base-name)
-        lib-deps (lib/brick-lib-deps ws-dir ws-type deps-config top-namespace ns-to-lib namespaces entity-root-path user-home)
+        lib-deps (lib/brick-lib-deps ws-dir ws-type deps-config package-config top-namespace ns-to-lib namespaces entity-root-path user-home)
         source-paths (config/source-paths deps-config)
         non-top-namespaces (non-top-ns/non-top-namespaces "base" base-name base-dir top-src-dir source-paths)]
     (util/ordered-map :name base-name

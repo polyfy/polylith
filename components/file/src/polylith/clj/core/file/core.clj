@@ -2,7 +2,6 @@
   (:require [clojure.java.io :as io]
             [clojure.pprint :as pp]
             [clojure.string :as str]
-            [clojure.tools.deps :as tda]
             [clojure.tools.reader :refer [resolve-symbol]]
             [edamame.core :as edamame]
             [me.raynes.fs :as fs]
@@ -253,3 +252,10 @@
 (defn pretty-spit [filename collection]
   (spit (io/file filename)
         (with-out-str (pp/write collection :dispatch pp/code-dispatch))))
+
+(defn directory-size [^File path]
+  (cond
+    (nil? path) 0
+    (not (.exists path)) 0
+    (.isFile path) (.length path)
+    :else (reduce + (map directory-size (.listFiles path)))))

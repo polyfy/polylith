@@ -62,6 +62,9 @@
 (defn directories [dir]
   (core/directory-paths dir))
 
+(defn directory-size [^String path]
+  (core/directory-size (File. path)))
+
 (defn files-and-dirs [dir home-dir]
   (core/dirs-and-files dir home-dir))
 
