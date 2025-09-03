@@ -10,7 +10,7 @@
  :projects {"development" {:alias "dev"}
 
             "external-inherit-from-global" {:alias "inherit"
-                                            :necessary ["invoicer" "test-setup"]
+                                            :necessary ["auth-ui" "invoicer" "test-setup"]
                                             :test {:setup-fn se.external.test-setup.interface/setup
                                                    :create-test-runner [org.corfield.external-test-runner.interface/create]}}
 
