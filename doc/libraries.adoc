@@ -137,8 +137,23 @@ a| As a Git dependency, e.g.:
 clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git",
                    :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}
 ----
+
 [[key-path]]
 The `poly` tool will calculate the `KB` column for a Git dependency, only if the key path matches the path for the libary under `~/.gitlibs/libs` (the Git owner and repo from the `:git/url`).
+|===
+
+https://en.wikipedia.org/wiki/Npm[NPM] dependencies are read from `package.json` files:
+
+[%autowidth]
+|===
+| Type | Description
+
+| NPM
+a| A dependency is specified like this, e.g.:
+[source,json]
+----
+"karma": "6.4.4"
+----
 |===
 
 == Configuration
