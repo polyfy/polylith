@@ -50,7 +50,7 @@
 
 (defn download-deps []
   (status/line :head "Downloading deps")
-  (sh/shell "clojure -A:dev:test -P"))
+  (sh/shell "clojure -P -M:dev:test"))
 
 (defn output-dir-tree [from-dir dir out-file]
   (sh/shell {:dir from-dir :out out-file}
@@ -317,7 +317,7 @@
         opts (assoc opts :ws-dir ws-dir)]
     (fs/create-dir ws-parent-dir)
     (shell {:dir ws-parent-dir} "git clone https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app.git")
-    (shell "clojure -A:dev:test -P")
+    (shell "clojure -P -M:dev:test")
     (shell "git tag stable-lisa")
 
     (let [out-txt #(format "realworld/realworld-%s.txt" %)
@@ -358,7 +358,7 @@
     (shell {:dir ws-parent-dir} "git clone https://github.com/polyfy/polylith.git")
     ;; 1. Checkout latest workspace structure 0.x
     (shell "git checkout v0.1.0-alpha9")
-    (shell "clojure -A:dev:test -P")
+    (shell "clojure -P -M:dev:test")
     (status/line :head "Read workspace 0.0")
     (poly {:out (out "info-0.txt")} "info fake-sha:40d2f62 :no-changs color-mode:none")
     (poly {:out (out "libs-0.txt")} "libs color-mode:none")
@@ -388,7 +388,7 @@
     (fs/create-dir ws-parent-dir)
     (shell {:dir ws-parent-dir} "git clone https://github.com/seancorfield/usermanager-example.git")
     (shell "git checkout polylith")
-    (shell "clojure -A:dev:test -P")
+    (shell "clojure -P -M:dev:test")
     (poly {:out (out "info.txt")} "info :no-chanes color-mode:none")
     (poly {:out (out "libs.txt")} "libs color-mode:none")
     (poly {:out (out "deps.txt")} "deps color-mode:none")))
@@ -403,6 +403,7 @@
                    :out str/trim)
         out #(fs/file output-dir "local-dep" %)]
     (fs/create-dir ws-parent-dir)
+    (shell "clojure -P -M:dev:test")
     (poly {:out (out "info.txt")}                 "info color-mode:none fake-sha:aaaaa :no-changes")
     (poly {:out (out "libs.txt")}                 "libs color-mode:none")
     (poly {:out (out "libs-compact.txt")}         "libs :compact color-mode:none")
