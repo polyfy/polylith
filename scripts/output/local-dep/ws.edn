@@ -22,19 +22,14 @@
    :base-deps {:src [], :test []}}],
  :changes
  {:since "stable",
-  :changed-projects ["development" "invoicing"],
+  :changed-projects [],
   :changed-bases [],
   :since-sha "SHA",
-  :changed-files
-  ["deps.edn"
-   "development/config.edn"
-   "projects/invoicing/config.edn"
-   "projects/invoicing/deps.edn"
-   "workspace.edn"],
+  :changed-files [],
   :git-diff-command "git diff SHA --name-only",
   :changed-components [],
   :since-tag "stable-master",
-  :changed-or-affected-projects ["development" "invoicing"]},
+  :changed-or-affected-projects []},
  :components
  [{:lines-of-code {:src 4, :test 6},
    :interface {:name "database", :definitions []},
@@ -118,7 +113,7 @@
      {:local/root "../../migrate-me",
       :type "local",
       :path "migrate-me",
-      :size 24902}}}}
+      :size 310}}}}
   {:lines-of-code {:src 4, :test 6},
    :interface {:name "test-helper", :definitions []},
    :namespaces
@@ -198,7 +193,7 @@
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
       :version "d9ed4e4",
-      :size 136433}}}}
+      :size 136427}}}}
   {:lines-of-code {:src 0, :test 5},
    :interface {:definitions []},
    :namespaces
@@ -216,67 +211,69 @@
    :lib-deps {}}],
  :configs
  {:components
-  [{:deps
+  [{:name "database",
+    :type "component",
+    :deps
     {:paths ["src" "resources"],
      :deps {},
-     :aliases {:test {:extra-paths ["test"], :extra-deps {}}}},
-    :name "database",
-    :type "component"}
-   {:deps
+     :aliases {:test {:extra-paths ["test"], :extra-deps {}}}}}
+   {:name "datomic-ions",
+    :type "component",
+    :deps
     {:mvn/repos
      {"datomic-cloud"
       {:url "s3://datomic-releases-1fc2183a/maven/releases"}},
      :paths ["src"],
      :deps {},
-     :aliases {:test {:extra-paths [], :extra-deps {}}}},
-    :name "datomic-ions",
-    :type "component"}
-   {:deps
+     :aliases {:test {:extra-paths [], :extra-deps {}}}}}
+   {:name "invoicer",
+    :type "component",
+    :deps
     {:paths ["src" "resources"],
      :deps {},
      :aliases
      {:test
       {:extra-paths ["test"],
        :extra-deps
-       {migrate-me/migrate-me {:local/root "../../migrate-me"}}}}},
-    :name "invoicer",
-    :type "component"}
-   {:deps
+       {migrate-me/migrate-me {:local/root "../../migrate-me"}}}}}}
+   {:name "test-helper",
+    :type "component",
+    :deps
     {:paths ["src"],
      :deps {},
-     :aliases {:test {:extra-paths ["test"], :extra-deps {}}}},
-    :name "test-helper",
-    :type "component"}
-   {:deps
+     :aliases {:test {:extra-paths ["test"], :extra-deps {}}}}}
+   {:name "test-helper-db",
+    :type "component",
+    :deps
     {:paths ["src"],
      :deps {},
-     :aliases {:test {:extra-paths [], :extra-deps {}}}},
-    :name "test-helper-db",
-    :type "component"}
-   {:deps
+     :aliases {:test {:extra-paths [], :extra-deps {}}}}}
+   {:name "util",
+    :type "component",
+    :deps
     {:paths ["src"],
      :deps
      {clj-time/clj-time
       {:git/url "https://github.com/clj-time/clj-time.git",
        :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}},
-     :aliases {:test {:extra-paths ["test"], :extra-deps {}}}},
-    :name "util",
-    :type "component"}
-   {:deps
+     :aliases {:test {:extra-paths ["test"], :extra-deps {}}}}}
+   {:name "without-src",
+    :type "component",
+    :deps
     {:paths [],
      :deps {},
-     :aliases {:test {:extra-paths ["test"], :extra-deps {}}}},
-    :name "without-src",
-    :type "component"}],
+     :aliases {:test {:extra-paths ["test"], :extra-deps {}}}}}],
   :bases
-  [{:deps
+  [{:name "invoicer-cli",
+    :type "base",
+    :deps
     {:paths ["src"],
      :deps {},
-     :aliases {:test {:extra-paths ["test"], :extra-deps {}}}},
-    :name "invoicer-cli",
-    :type "base"}],
+     :aliases {:test {:extra-paths ["test"], :extra-deps {}}}}}],
   :projects
-  [{:deps
+  [{:name "development",
+    :type "project",
+    :deps
     {:aliases
      {:dev
       {:extra-paths
@@ -316,10 +313,10 @@
        {polylith/clj-poly {:local/root "../../projects/poly"}}},
       :poly219
       {:main-opts ["-m" "polylith.clj.core.poly-cli.core"],
-       :extra-deps {polylith/clj-poly {:mvn/version "0.2.19"}}}}},
-    :name "development",
-    :type "project"}
-   {:deps
+       :extra-deps {polylith/clj-poly {:mvn/version "0.2.19"}}}}}}
+   {:name "invoicing",
+    :type "project",
+    :deps
     {:deps
      {poly/database {:local/root "../../components/database"},
       poly/datomic-ions {:local/root "../../components/datomic-ions"},
@@ -335,9 +332,7 @@
        :extra-deps
        {poly/test-helper {:local/root "../../components/test-helper"},
         poly/test-helper-db
-        {:local/root "../../components/test-helper-db"}}}}},
-    :name "invoicing",
-    :type "project"}],
+        {:local/root "../../components/test-helper-db"}}}}}}],
   :user
   {:color-mode "dark",
    :empty-character ".",
@@ -346,22 +341,8 @@
    {:root-dir "USER-HOME/source/polylith",
     :paths
     [{:dir "examples/doc-example"}
-     {:dir "examples/for-test"}
-     {:dir "examples/local-dep"}
-     {:dir "examples/local-dep-old-format"}
-     {:dir "examples/missing-component"}
-     {:dir "examples/integrant-system"}
-     {:dir "examples/local-maven-repo"}
-     {:dir "examples/mix-example"}
-     {:dir "examples/profiles"}
-     {:dir "examples/poly-rcf"}
-     {:dir "examples/poly-rcf/monolith", :name "monolith-poly-rcf"}
-     {:dir "examples/test-runners"}
-     {:dir "../sandbox/polylith-bug"}
      {:dir "../clojure-polylith-realworld-example-app",
-      :name "realworld"}
-     {:file "patrix.edn"}
-     {:file "../sandbox/oliver.edn"}]}},
+      :name "realworld"}]}},
   :workspace
   {:vcs {:auto-add false, :name "git"},
    :top-namespace "com.localdep",
@@ -457,15 +438,7 @@
    {:src ["clj-time.core"],
     :test ["clojure.test" "com.localdep.migrate-me.core"]},
    :is-dev false,
-   :bricks-to-test-all-sources
-   ["database"
-    "datomic-ions"
-    "invoicer"
-    "invoicer-cli"
-    "test-helper"
-    "test-helper-db"
-    "util"
-    "without-src"],
+   :bricks-to-test-all-sources [],
    :name "invoicing",
    :project-lib-deps
    {:src
@@ -513,13 +486,13 @@
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
       :version "d9ed4e4",
-      :size 136433}},
+      :size 136427}},
     :test
     {"migrate-me/migrate-me"
      {:local/root "../../migrate-me",
       :type "local",
       :path "migrate-me",
-      :size 24902}}},
+      :size 310}}},
    :projects-to-test [],
    :component-names
    {:src ["database" "datomic-ions" "invoicer" "util"],
@@ -533,14 +506,7 @@
    :test
    {:create-test-runner
     [polylith.clj.core.clojure-test-test-runner.interface/create]},
-   :bricks-to-test
-   ["database"
-    "invoicer"
-    "invoicer-cli"
-    "test-helper"
-    "test-helper-db"
-    "util"
-    "without-src"],
+   :bricks-to-test [],
    :deps
    {"invoicer-cli"
     {:src {:direct ["invoicer"], :indirect ["util"]},
@@ -587,7 +553,7 @@
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
       :version "d9ed4e4",
-      :size 136433},
+      :size 136427},
      "uncomplicate/neanderthal"
      {:version "0.46.0",
       :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
@@ -598,7 +564,7 @@
      {:local/root "migrate-me",
       :type "local",
       :path "migrate-me",
-      :size 24902}}},
+      :size 310}}},
    :paths
    {:src
     ["bases/invoicer-cli/src"
@@ -660,7 +626,7 @@
        :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
        :type "git",
        :version "d9ed4e4",
-       :size 136433},
+       :size 136427},
       "uncomplicate/neanderthal"
       {:version "0.46.0",
        :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
@@ -671,7 +637,7 @@
        {:local/root "migrate-me",
         :type "local",
         :path "migrate-me",
-        :size 24902}]]}},
+        :size 310}]]}},
    :lib-deps
    {:src
     {"org.clojure/clojure"
@@ -683,7 +649,7 @@
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
       :version "d9ed4e4",
-      :size 136433},
+      :size 136427},
      "uncomplicate/neanderthal"
      {:version "0.46.0",
       :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
@@ -694,7 +660,7 @@
      {:local/root "migrate-me",
       :type "local",
       :path "migrate-me",
-      :size 24902}}},
+      :size 310}}},
    :projects-to-test [],
    :component-names
    {:src
@@ -795,13 +761,13 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.3.22-SNAPSHOT",
+  {:name "0.3.0-SNAPSHOT",
    :tool "poly",
    :major 0,
    :minor 3,
-   :patch 22,
+   :patch 0,
    :revision "SNAPSHOT",
-   :date "2025-06-02",
+   :date "2025-06-24",
    :snapshot 1},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},

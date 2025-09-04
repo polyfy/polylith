@@ -4,13 +4,12 @@
  :default-profile-name "default",
  :empty-character ".",
  :interface-ns "interface",
- :m2-dir "/Users/joakimtengstrand/.m2",
+ :m2-dir "/Users/tengstrand/.m2",
  :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
  :thousand-separator ",",
  :top-namespace "se.example",
- :user-config-filename
- "/Users/joakimtengstrand/.config/polylith/config.edn",
- :user-home "/Users/joakimtengstrand",
+ :user-config-filename "/Users/tengstrand/.config/polylith/config.edn",
+ :user-home "/Users/tengstrand",
  :vcs
  {:name "git",
   :is-git-repo true,
