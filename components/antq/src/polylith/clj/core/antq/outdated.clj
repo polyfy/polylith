@@ -29,14 +29,30 @@
             (-> deps :aliases :test :extra-deps))
     (:deps deps)))
 
+(defn npm-dependencies [{:keys [package]}]
+  (when package
+    (merge (:dependencies package)
+           (:devDependencies package))))
+
 (defn library->latest-version
   "Returns a map where the key is [lib-name lib-version]
    and the value is the latest version of the library."
   [configs calculate?]
   (if calculate?
-    (into {} (map key-value)
-          (antq/outdated-deps
-            {:deps (into {} (reduce oldest-lib-version {}
-                                    (mapcat dependencies
-                                            (entity-configs configs))))}))
+    (let [maven-deps (into {} (reduce oldest-lib-version {}
+                                      (mapcat dependencies
+                                              (entity-configs configs))))
+          npm-deps (into {} (mapcat npm-dependencies
+                                    (entity-configs configs)))
+          ;; Get maven latest versions using antq
+          maven-latest-versions (into {} (map key-value)
+                                      (antq/outdated-deps {:deps maven-deps}))
+          ;; Get npm latest versions using our custom npm namespace (if available)
+          npm-latest-versions (try
+                                (require 'polylith.clj.core.antq.npm)
+                                ((resolve 'polylith.clj.core.antq.npm/npm-dependencies->latest-versions) npm-deps)
+                                (catch Exception e
+                                  (println "Warning: npm dependency checking not available:" (.getMessage e))
+                                  {}))]
+      (merge maven-latest-versions npm-latest-versions))
     {}))

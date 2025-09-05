@@ -4,6 +4,6 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "karma": "6.4.4"
+    "karma": "5.0.0"
   }
 }

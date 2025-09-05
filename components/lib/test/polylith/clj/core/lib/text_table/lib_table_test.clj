@@ -176,7 +176,7 @@
             "                                                                                              u"
             "  library                         version  type      KB   inherit  override  multiple   dev   i"
             "  -----------------------------------------------------   ---------------------------   ---   -"
-            "  karma                           6.4.4    npm        0      x        x         x        x    x"
-            "  org.clojure/clojure             1.12.0   maven  4,127      x        x         x        x    ."
+            "  karma                           5.0.0    npm        0      x        x         x        x    x"
+            "  org.clojure/clojure             1.12.2   maven  4,131      x        x         x        x    ."
             "  polylith-kaocha/kaocha-wrapper  7282409  git       44      -        t         t        t    ."]
            (lib-table/table workspace)))))

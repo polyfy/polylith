@@ -75,7 +75,7 @@ Here's an example output where some libraries were out of date:
 image::images/libraries/libs-outdated.png[]
 
 [#update]
-You can ask `poly` to update all libraries to the `latest` version in all `deps.edn` for all bricks and projects via:
+You can ask `poly` to update all libraries to the `latest` version in all `deps.edn` and `package.json` files, for all bricks and projects via:
 
 [source,shell]
 ----

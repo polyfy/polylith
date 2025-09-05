@@ -1,4 +1,4 @@
 {:paths ["src"]
- :deps {}
+ :deps {polylith/clj-core-antq {:local/root "../antq"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}
