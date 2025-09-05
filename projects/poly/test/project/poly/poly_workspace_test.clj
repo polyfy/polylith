@@ -142,20 +142,24 @@
           "                                                                                                     t  o  p  l  -  e  l  a  o  c  e"
           "  library                          version     type      KB   poly  polyx   dev  default  extended   q  r  s  e  x  n  l  p  r  e  r"
           "  ---------------------------------------------------------   -----------   ----------------------   -------------------------------"
-          "  borkdude/edamame                 1.4.26      maven     25    x      x      x      -        -       .  .  .  x  .  .  .  .  .  .  ."
-          "  clj-commons/fs                   1.6.311     maven     12    x      x      x      -        -       .  .  .  x  .  .  .  .  .  .  ."
-          "  com.github.liquidz/antq          2.9.1217    maven     52    x      x      x      -        -       x  .  .  .  .  .  .  .  .  .  ."
-          "  djblue/portal                    0.57.2      maven  1,879    x      x      x      -        -       .  .  .  .  .  .  .  x  .  .  ."
-          "  metosin/malli                    0.16.3      maven     91    x      x      x      -        -       .  .  .  .  .  .  .  .  x  .  ."
+          "  babashka/fs                      0.5.27      maven     22    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
+          "  borkdude/edamame                 1.4.32      maven     25    x      x      x      -        -       .  .  .  x  .  .  .  .  .  .  ."
+          "  borkdude/rewrite-edn             0.4.9       maven     11    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
+          "  clj-commons/fs                   1.6.312     maven     12    x      x      x      -        -       .  .  .  x  .  .  .  .  .  .  ."
+          "  com.github.liquidz/antq          2.11.1276   maven     54    x      x      x      -        -       x  .  .  .  .  .  .  .  .  .  ."
+          "  djblue/portal                    0.61.0      maven  1,926    x      x      x      -        -       .  .  .  .  .  .  .  x  .  .  ."
+          "  metosin/malli                    0.19.1      maven     93    x      x      x      -        -       .  .  .  .  .  .  .  .  x  .  ."
           "  mvxcvi/puget                     1.3.4       maven     15    x      x      x      -        -       .  .  .  .  .  .  .  .  .  .  x"
-          "  org.apache.maven/maven-artifact  4.0.0-rc-3  maven     61    x      x      x      -        -       .  .  .  .  .  x  .  .  .  .  ."
-          "  org.clojure/clojure              1.11.4      maven  4,010    x      x      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
-          "  org.clojure/tools.deps           0.20.1440   maven     58    x      x      x      -        -       .  .  x  x  .  .  .  .  .  x  ."
-          "  org.jline/jline                  3.26.3      maven  1,394    x      x      x      -        -       .  .  .  .  .  .  x  .  .  .  ."
-          "  org.slf4j/slf4j-nop              2.0.16      maven      4    x      x      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
+          "  org.apache.maven/maven-artifact  4.0.0-rc-4  maven     61    x      x      x      -        -       .  .  .  .  .  x  .  .  .  .  ."
+          "  org.babashka/http-client         0.4.23      maven     15    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
+          "  org.clojure/clojure              1.12.2      maven  4,131    x      x      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
+          "  org.clojure/tools.deps           0.25.1539   maven     58    x      x      x      -        -       .  .  x  x  .  .  .  .  .  x  ."
+          "  org.jline/jline                  3.30.5      maven  1,469    x      x      x      -        -       .  .  .  .  .  .  x  .  .  .  ."
+          "  org.slf4j/slf4j-nop              2.0.17      maven      4    x      x      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
           "  pjstadig/humane-test-output      0.11.0      maven      7    t      -      -      -        -       .  .  .  .  .  .  .  .  .  .  ."
-          "  rewrite-clj/rewrite-clj          1.1.48      maven     74    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
-          "  selmer/selmer                    1.12.61     maven     63    x      x      x      -        -       .  x  .  .  .  .  .  .  .  .  ."]
+          "  rewrite-clj/rewrite-clj          1.2.50      maven     78    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
+          "  selmer/selmer                    1.12.62     maven     63    x      x      x      -        -       .  x  .  .  .  .  .  .  .  .  ."
+          "  version-clj/version-clj          2.0.3       maven     10    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."]
 
          (keep-except "clojure2d"
                       (libs/table (workspace))))))
@@ -204,7 +208,7 @@
           "  image-creator-x           .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
           "  info                      .  .  .  .  x  .  .  .  .  t  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  x  .  .  x  x  .  .  .  ."
           "  interface                 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  lib                       x  .  .  .  x  x  .  .  .  x  .  .  .  .  .  .  x  .  .  .  .  .  .  .  t  .  .  x  x  .  x  .  .  .  .  ."
+          "  lib                       x  .  .  .  x  x  .  .  .  x  .  .  .  .  .  .  x  .  .  .  .  .  .  .  t  .  .  x  x  t  x  .  .  t  .  ."
           "  maven                     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  overview                  .  .  .  .  x  .  .  x  .  .  .  .  x  x  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  ."
           "  path-finder               .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
@@ -276,7 +280,7 @@
             "  image-creator             .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  info                      .  .  .  .  x  .  .  .  .  t  .  .  +  .  .  .  .  .  x  .  .  +  .  .  .  +  .  x  +  .  x  x  +  .  .  ."
             "  interface                 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  lib                       x  -  -  -  x  x  -  -  -  x  -  -  +  -  -  -  x  -  +  -  -  +  -  -  t  +  -  x  x  -  x  +  +  -  -  -"
+            "  lib                       x  -  -  -  x  x  -  -  -  x  -  -  +  -  -  -  x  -  +  -  -  +  -  -  t  +  -  x  x  t  x  +  +  t  -  -"
             "  maven                     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  overview                  +  .  .  .  x  +  .  x  .  +  .  .  x  x  .  x  +  .  +  .  .  +  .  .  .  +  .  +  +  x  x  +  +  .  .  ."
             "  path-finder               .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
@@ -347,7 +351,7 @@
             "  image-creator             .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  info                      .  .  .  .  x  .  .  .  .  t  .  .  +  .  .  .  .  .  x  .  .  +  .  .  .  +  .  x  +  .  x  x  +  .  .  ."
             "  interface                 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  lib                       x  -  -  -  x  x  -  -  -  x  -  -  +  -  -  -  x  -  +  -  -  +  -  -  t  +  -  x  x  -  x  +  +  -  -  -"
+            "  lib                       x  -  -  -  x  x  -  -  -  x  -  -  +  -  -  -  x  -  +  -  -  +  -  -  t  +  -  x  x  t  x  +  +  t  -  -"
             "  maven                     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  overview                  +  .  .  .  x  +  .  x  .  +  .  .  x  x  .  x  +  .  +  .  .  +  .  .  .  +  .  +  +  x  x  +  +  .  .  ."
             "  path-finder               .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
@@ -380,8 +384,8 @@
             "  -------                   -------------"
             "  api                       antq         "
             "  command                   change       "
-            "  shell                     common       "
-            "                            config-reader"
+            "  lib (t)                   common       "
+            "  shell                     config-reader"
             "                            deps         "
             "                            file         "
             "                            git          "
@@ -404,8 +408,8 @@
             "  -------                   -------------"
             "  api                       antq         "
             "  command                   change       "
-            "  shell                     common       "
-            "                            config-reader"
+            "  lib (t)                   common       "
+            "  shell                     config-reader"
             "                            deps         "
             "                            file         "
             "                            git          "
@@ -422,702 +426,677 @@
            (brick-ifc-deps/table ws brick)))))
 
 (deftest polylith-poly-project-deps
-  (is (= {"antq" {:src {:direct ["maven" "util"]}, :test {}},
-          "api" {:src
-                 {:direct
-                  ["check"
-                   "common"
-                   "test-runner-orchestrator"
-                   "user-input"
-                   "version"
-                   "workspace"
-                   "ws-explorer"],
-                  :indirect
-                  ["antq"
-                   "change"
-                   "config-reader"
-                   "deps"
-                   "file"
-                   "git"
-                   "image-creator"
-                   "interface"
-                   "lib"
-                   "maven"
-                   "path-finder"
-                   "sh"
-                   "system"
-                   "test"
-                   "test-runner-contract"
-                   "text-table"
-                   "user-config"
-                   "util"
-                   "validator"
-                   "ws-file"]},
-                 :test {}},
-          "change"
-          {:src
-           {:direct ["common" "git" "path-finder" "util"],
-            :indirect
-            ["file"
-             "image-creator"
-             "sh"
-             "system"
-             "text-table"
-             "user-config"
-             "version"]},
-           :test
-           {:direct ["common" "git" "path-finder" "util"],
-            :indirect
-            ["file"
-             "image-creator"
-             "sh"
-             "system"
-             "text-table"
-             "user-config"
-             "version"]}},
-          "check"
-          {:src
-           {:direct ["util" "validator"],
-            :indirect
-            ["common"
-             "file"
-             "image-creator"
-             "path-finder"
-             "system"
-             "test-runner-contract"
-             "text-table"
-             "user-config"
-             "version"]},
-           :test {}},
-          "clojure-test-test-runner"
-          {:src {:direct ["test-runner-contract" "util"]},
-           :test {:direct ["test-runner-contract" "util"]}},
-          "command"
-          {:src
-           {:direct
-            ["check"
-             "common"
-             "config-reader"
-             "creator"
-             "deps"
-             "doc"
-             "file"
-             "git"
-             "help"
-             "info"
-             "lib"
-             "overview"
-             "shell"
-             "tap"
-             "test-runner-orchestrator"
-             "user-config"
-             "util"
-             "version"
-             "workspace"
-             "ws-explorer"],
-            :indirect
-            ["antq"
-             "change"
-             "image-creator"
-             "interface"
-             "maven"
-             "path-finder"
-             "sh"
-             "system"
-             "test"
-             "test-runner-contract"
-             "text-table"
-             "user-input"
-             "validator"
-             "ws-file"]},
-           :test
-           {:direct
-            ["check"
-             "common"
-             "config-reader"
-             "creator"
-             "deps"
-             "doc"
-             "file"
-             "git"
-             "help"
-             "info"
-             "lib"
-             "overview"
-             "shell"
-             "tap"
-             "test-runner-orchestrator"
-             "user-config"
-             "util"
-             "version"
-             "workspace"
-             "ws-explorer"],
-            :indirect
-            ["antq"
-             "change"
-             "image-creator"
-             "interface"
-             "maven"
-             "path-finder"
-             "sh"
-             "system"
-             "test"
-             "test-runner-contract"
-             "text-table"
-             "user-input"
-             "validator"
-             "ws-file"]}},
-          "common"
-          {:src
-           {:direct
-            ["file"
-             "image-creator"
-             "text-table"
-             "user-config"
-             "util"
-             "version"],
-            :indirect ["system"]},
-           :test
-           {:direct
-            ["file"
-             "image-creator"
-             "text-table"
-             "user-config"
-             "util"
-             "version"],
-            :indirect ["system"]}},
-          "config-reader"
-          {:src
-           {:direct ["common" "file" "util" "validator"],
-            :indirect
-            ["image-creator"
-             "path-finder"
-             "system"
-             "test-runner-contract"
-             "text-table"
-             "user-config"
-             "version"]},
-           :test
-           {:direct ["common" "file" "util" "validator"],
-            :indirect
-            ["image-creator"
-             "path-finder"
-             "system"
-             "test-runner-contract"
-             "text-table"
-             "user-config"
-             "version"]}},
-          "creator"
-          {:src
-           {:direct ["common" "file" "git" "util" "version"],
-            :indirect
-            ["image-creator"
-             "sh"
-             "system"
-             "text-table"
-             "user-config"]},
-           :test
-           {:direct
-            ["common" "file" "git" "test-helper" "util" "version"],
-            :indirect
-            ["antq"
-             "change"
-             "check"
-             "command"
-             "config-reader"
-             "creator"
-             "deps"
-             "doc"
-             "help"
-             "image-creator"
-             "info"
-             "interface"
-             "lib"
-             "maven"
-             "overview"
-             "path-finder"
-             "sh"
-             "shell"
-             "system"
-             "tap"
-             "test"
-             "test-runner-contract"
-             "test-runner-orchestrator"
-             "text-table"
-             "user-config"
-             "user-input"
-             "validator"
-             "workspace"
-             "ws-explorer"
-             "ws-file"]}},
-          "deps"
-          {:src
-           {:direct ["common" "text-table" "user-config" "util"],
-            :indirect ["file" "image-creator" "system" "version"]},
-           :test
-           {:direct ["common" "text-table" "user-config" "util"],
-            :indirect ["file" "image-creator" "system" "version"]}},
-          "doc"
-          {:src {:direct ["version"], :indirect ["system"]},
-           :test {}},
-          "file" {:src {:direct ["util"]}, :test {}},
-          "git"
-          {:src {:direct ["sh" "util"]},
-           :test {:direct ["sh" "util"]}},
-          "help"
-          {:src
-           {:direct ["common" "system" "util" "version"],
-            :indirect
-            ["file" "image-creator" "text-table" "user-config"]},
-           :test {}},
-          "image-creator" {:src {}, :test {}},
-          "info"
-          {:src
-           {:direct
-            ["common" "path-finder" "text-table" "util" "validator"],
-            :indirect
-            ["file"
-             "image-creator"
-             "system"
-             "test-runner-contract"
-             "user-config"
-             "version"]},
-           :test
-           {:direct
-            ["common"
-             "file"
-             "path-finder"
-             "text-table"
-             "util"
-             "validator"],
-            :indirect
-            ["image-creator"
-             "system"
-             "test-runner-contract"
-             "user-config"
-             "version"]}},
-          "interface" {:src {}, :test {}},
-          "lib"
-          {:src
-           {:direct
-            ["antq"
-             "common"
-             "config-reader"
-             "file"
-             "maven"
-             "text-table"
-             "user-config"
-             "util"],
-            :indirect
-            ["image-creator"
-             "path-finder"
-             "system"
-             "test-runner-contract"
-             "validator"
-             "version"]},
-           :test
-           {:direct
-            ["antq"
-             "common"
-             "config-reader"
-             "file"
-             "maven"
-             "test-helper"
-             "text-table"
-             "user-config"
-             "util"],
-            :indirect
-            ["change"
-             "check"
-             "command"
-             "creator"
-             "deps"
-             "doc"
-             "git"
-             "help"
-             "image-creator"
-             "info"
-             "interface"
-             "lib"
-             "overview"
-             "path-finder"
-             "sh"
-             "shell"
-             "system"
-             "tap"
-             "test"
-             "test-runner-contract"
-             "test-runner-orchestrator"
-             "user-input"
-             "validator"
-             "version"
-             "workspace"
-             "ws-explorer"
-             "ws-file"]}},
-          "maven" {:src {}, :test {}},
-          "nav-generator"
-          {:src
-           {:direct ["config-reader" "util"],
-            :indirect
-            ["common"
-             "file"
-             "image-creator"
-             "path-finder"
-             "system"
-             "test-runner-contract"
-             "text-table"
-             "user-config"
-             "validator"
-             "version"]},
-           :test {}},
-          "overview"
-          {:src
-           {:direct
-            ["common"
-             "deps"
-             "image-creator"
-             "info"
-             "lib"
-             "user-input"
-             "util"],
-            :indirect
-            ["antq"
-             "config-reader"
-             "file"
-             "maven"
-             "path-finder"
-             "system"
-             "test-runner-contract"
-             "text-table"
-             "user-config"
-             "validator"
-             "version"]},
-           :test {}},
-          "path-finder"
-          {:src {:direct ["file" "util"]},
-           :test {:direct ["file" "util"]}},
-          "poly-cli"
-          {:src
-           {:direct ["command" "user-input" "util"],
-            :indirect
-            ["antq"
-             "change"
-             "check"
-             "common"
-             "config-reader"
-             "creator"
-             "deps"
-             "doc"
-             "file"
-             "git"
-             "help"
-             "image-creator"
-             "info"
-             "interface"
-             "lib"
-             "maven"
-             "overview"
-             "path-finder"
-             "sh"
-             "shell"
-             "system"
-             "tap"
-             "test"
-             "test-runner-contract"
-             "test-runner-orchestrator"
-             "text-table"
-             "user-config"
-             "validator"
-             "version"
-             "workspace"
-             "ws-explorer"
-             "ws-file"]},
-           :test
-           {:direct
-            ["command"
-             "config-reader"
-             "user-input"
-             "util"
-             "validator"],
-            :indirect
-            ["antq"
-             "change"
-             "check"
-             "common"
-             "creator"
-             "deps"
-             "doc"
-             "file"
-             "git"
-             "help"
-             "image-creator"
-             "info"
-             "interface"
-             "lib"
-             "maven"
-             "overview"
-             "path-finder"
-             "sh"
-             "shell"
-             "system"
-             "tap"
-             "test"
-             "test-runner-contract"
-             "test-runner-orchestrator"
-             "text-table"
-             "user-config"
-             "version"
-             "workspace"
-             "ws-explorer"
-             "ws-file"]}},
-          "sh" {:src {}, :test {}},
-          "shell"
-          {:src
-           {:direct
-            ["antq"
-             "common"
-             "doc"
-             "file"
-             "git"
-             "lib"
-             "sh"
-             "system"
-             "tap"
-             "user-config"
-             "user-input"
-             "util"
-             "workspace"
-             "ws-explorer"],
-            :indirect
-            ["change"
-             "config-reader"
-             "deps"
-             "image-creator"
-             "interface"
-             "maven"
-             "path-finder"
-             "test"
-             "test-runner-contract"
-             "text-table"
-             "validator"
-             "version"
-             "ws-file"]},
-           :test
-           {:direct
-            ["antq"
-             "common"
-             "doc"
-             "file"
-             "git"
-             "lib"
-             "sh"
-             "system"
-             "tap"
-             "user-config"
-             "user-input"
-             "util"
-             "workspace"
-             "ws-explorer"],
-            :indirect
-            ["change"
-             "config-reader"
-             "deps"
-             "image-creator"
-             "interface"
-             "maven"
-             "path-finder"
-             "test"
-             "test-runner-contract"
-             "text-table"
-             "validator"
-             "version"
-             "ws-file"]}},
-          "system" {:src {}, :test {}},
-          "tap" {:src {}, :test {}},
-          "test"
-          {:src
-           {:direct ["common" "git" "path-finder"],
-            :indirect
-            ["file"
-             "image-creator"
-             "sh"
-             "system"
-             "text-table"
-             "user-config"
-             "util"
-             "version"]},
-           :test
-           {:direct ["common" "git" "path-finder"],
-            :indirect
-            ["file"
-             "image-creator"
-             "sh"
-             "system"
-             "text-table"
-             "user-config"
-             "util"
-             "version"]}},
-          "test-helper"
-          {:src {},
-           :test
-           {:direct ["command" "file" "user-config" "user-input"],
-            :indirect
-            ["antq"
-             "change"
-             "check"
-             "common"
-             "config-reader"
-             "creator"
-             "deps"
-             "doc"
-             "git"
-             "help"
-             "image-creator"
-             "info"
-             "interface"
-             "lib"
-             "maven"
-             "overview"
-             "path-finder"
-             "sh"
-             "shell"
-             "system"
-             "tap"
-             "test"
-             "test-runner-contract"
-             "test-runner-orchestrator"
-             "text-table"
-             "util"
-             "validator"
-             "version"
-             "workspace"
-             "ws-explorer"
-             "ws-file"]}},
-          "test-runner-contract"
-          {:src {:direct ["util"]}, :test {:direct ["util"]}},
-          "test-runner-orchestrator"
-          {:src
-           {:direct
-            ["common"
-             "deps"
-             "test-runner-contract"
-             "util"
-             "validator"],
-            :indirect
-            ["file"
-             "image-creator"
-             "path-finder"
-             "system"
-             "text-table"
-             "user-config"
-             "version"]},
-           :test
-           {:direct
-            ["common"
-             "deps"
-             "test-runner-contract"
-             "util"
-             "validator"],
-            :indirect
-            ["file"
-             "image-creator"
-             "path-finder"
-             "system"
-             "text-table"
-             "user-config"
-             "version"]}},
-          "text-table" {:src {:direct ["util"]}, :test {}},
-          "user-config" {:src {:direct ["file" "util"]}, :test {}},
-          "user-input"
-          {:src {:direct ["util"]}, :test {:direct ["util"]}},
-          "util" {:src {}, :test {}},
-          "validator"
-          {:src
-           {:direct
-            ["common" "path-finder" "test-runner-contract" "util"],
-            :indirect
-            ["file"
-             "image-creator"
-             "system"
-             "text-table"
-             "user-config"
-             "version"]},
-           :test
-           {:direct
-            ["common" "path-finder" "test-runner-contract" "util"],
-            :indirect
-            ["file"
-             "image-creator"
-             "system"
-             "text-table"
-             "user-config"
-             "version"]}},
-          "version" {:src {:direct ["system"]}, :test {}},
-          "workspace"
-          {:src
-           {:direct
-            ["antq"
-             "change"
-             "common"
-             "config-reader"
-             "deps"
-             "file"
-             "git"
-             "interface"
-             "lib"
-             "path-finder"
-             "test"
-             "user-config"
-             "user-input"
-             "util"
-             "validator"
-             "version"
-             "ws-file"],
-            :indirect
-            ["image-creator"
-             "maven"
-             "sh"
-             "system"
-             "test-runner-contract"
-             "text-table"]},
-           :test
-           {:direct
-            ["antq"
-             "change"
-             "common"
-             "config-reader"
-             "deps"
-             "file"
-             "git"
-             "interface"
-             "lib"
-             "path-finder"
-             "test"
-             "user-config"
-             "user-input"
-             "util"
-             "validator"
-             "version"
-             "ws-file"],
-            :indirect
-            ["image-creator"
-             "maven"
-             "sh"
-             "system"
-             "test-runner-contract"
-             "text-table"]}},
-          "ws-explorer"
-          {:src {:direct ["util"]}, :test {:direct ["util"]}},
-          "ws-file"
-          {:src
-           {:direct ["common" "file" "git" "util" "version"],
-            :indirect
-            ["image-creator"
-             "sh"
-             "system"
-             "text-table"
-             "user-config"]},
-           :test {}}}
+  (is (= {"antq"                     {:src  {:direct ["maven"
+                                                      "util"]}
+                                      :test {}}
+          "api"                      {:src  {:direct   ["check"
+                                                        "common"
+                                                        "test-runner-orchestrator"
+                                                        "user-input"
+                                                        "version"
+                                                        "workspace"
+                                                        "ws-explorer"]
+                                             :indirect ["antq"
+                                                        "change"
+                                                        "config-reader"
+                                                        "deps"
+                                                        "file"
+                                                        "git"
+                                                        "image-creator"
+                                                        "interface"
+                                                        "lib"
+                                                        "maven"
+                                                        "path-finder"
+                                                        "sh"
+                                                        "system"
+                                                        "test"
+                                                        "test-runner-contract"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "util"
+                                                        "validator"
+                                                        "ws-file"]}
+                                      :test {}}
+          "change"                   {:src  {:direct   ["common"
+                                                        "git"
+                                                        "path-finder"
+                                                        "util"]
+                                             :indirect ["file"
+                                                        "image-creator"
+                                                        "sh"
+                                                        "system"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "version"]}
+                                      :test {:direct   ["common"
+                                                        "git"
+                                                        "path-finder"
+                                                        "util"]
+                                             :indirect ["file"
+                                                        "image-creator"
+                                                        "sh"
+                                                        "system"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "version"]}}
+          "check"                    {:src  {:direct   ["util"
+                                                        "validator"]
+                                             :indirect ["common"
+                                                        "file"
+                                                        "image-creator"
+                                                        "path-finder"
+                                                        "system"
+                                                        "test-runner-contract"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "version"]}
+                                      :test {}}
+          "clojure-test-test-runner" {:src  {:direct ["test-runner-contract"
+                                                      "util"]}
+                                      :test {:direct ["test-runner-contract"
+                                                      "util"]}}
+          "command"                  {:src  {:direct   ["check"
+                                                        "common"
+                                                        "config-reader"
+                                                        "creator"
+                                                        "deps"
+                                                        "doc"
+                                                        "file"
+                                                        "git"
+                                                        "help"
+                                                        "info"
+                                                        "lib"
+                                                        "overview"
+                                                        "shell"
+                                                        "tap"
+                                                        "test-runner-orchestrator"
+                                                        "user-config"
+                                                        "util"
+                                                        "version"
+                                                        "workspace"
+                                                        "ws-explorer"]
+                                             :indirect ["antq"
+                                                        "change"
+                                                        "image-creator"
+                                                        "interface"
+                                                        "maven"
+                                                        "path-finder"
+                                                        "sh"
+                                                        "system"
+                                                        "test"
+                                                        "test-runner-contract"
+                                                        "text-table"
+                                                        "user-input"
+                                                        "validator"
+                                                        "ws-file"]}
+                                      :test {:direct   ["check"
+                                                        "common"
+                                                        "config-reader"
+                                                        "creator"
+                                                        "deps"
+                                                        "doc"
+                                                        "file"
+                                                        "git"
+                                                        "help"
+                                                        "info"
+                                                        "lib"
+                                                        "overview"
+                                                        "shell"
+                                                        "tap"
+                                                        "test-runner-orchestrator"
+                                                        "user-config"
+                                                        "util"
+                                                        "version"
+                                                        "workspace"
+                                                        "ws-explorer"]
+                                             :indirect ["antq"
+                                                        "change"
+                                                        "image-creator"
+                                                        "interface"
+                                                        "maven"
+                                                        "path-finder"
+                                                        "sh"
+                                                        "system"
+                                                        "test"
+                                                        "test-runner-contract"
+                                                        "text-table"
+                                                        "user-input"
+                                                        "validator"
+                                                        "ws-file"]}}
+          "common"                   {:src  {:direct   ["file"
+                                                        "image-creator"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "util"
+                                                        "version"]
+                                             :indirect ["system"]}
+                                      :test {:direct   ["file"
+                                                        "image-creator"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "util"
+                                                        "version"]
+                                             :indirect ["system"]}}
+          "config-reader"            {:src  {:direct   ["common"
+                                                        "file"
+                                                        "util"
+                                                        "validator"]
+                                             :indirect ["image-creator"
+                                                        "path-finder"
+                                                        "system"
+                                                        "test-runner-contract"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "version"]}
+                                      :test {:direct   ["common"
+                                                        "file"
+                                                        "util"
+                                                        "validator"]
+                                             :indirect ["image-creator"
+                                                        "path-finder"
+                                                        "system"
+                                                        "test-runner-contract"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "version"]}}
+          "creator"                  {:src  {:direct   ["common"
+                                                        "file"
+                                                        "git"
+                                                        "util"
+                                                        "version"]
+                                             :indirect ["image-creator"
+                                                        "sh"
+                                                        "system"
+                                                        "text-table"
+                                                        "user-config"]}
+                                      :test {:direct   ["common"
+                                                        "file"
+                                                        "git"
+                                                        "test-helper"
+                                                        "util"
+                                                        "version"]
+                                             :indirect ["antq"
+                                                        "change"
+                                                        "check"
+                                                        "command"
+                                                        "config-reader"
+                                                        "creator"
+                                                        "deps"
+                                                        "doc"
+                                                        "help"
+                                                        "image-creator"
+                                                        "info"
+                                                        "interface"
+                                                        "lib"
+                                                        "maven"
+                                                        "overview"
+                                                        "path-finder"
+                                                        "sh"
+                                                        "shell"
+                                                        "system"
+                                                        "tap"
+                                                        "test"
+                                                        "test-runner-contract"
+                                                        "test-runner-orchestrator"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "user-input"
+                                                        "validator"
+                                                        "workspace"
+                                                        "ws-explorer"
+                                                        "ws-file"]}}
+          "deps"                     {:src  {:direct   ["common"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "util"]
+                                             :indirect ["file"
+                                                        "image-creator"
+                                                        "system"
+                                                        "version"]}
+                                      :test {:direct   ["common"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "util"]
+                                             :indirect ["file"
+                                                        "image-creator"
+                                                        "system"
+                                                        "version"]}}
+          "doc"                      {:src  {:direct   ["version"]
+                                             :indirect ["system"]}
+                                      :test {}}
+          "file"                     {:src  {:direct ["util"]}
+                                      :test {}}
+          "git"                      {:src  {:direct ["sh"
+                                                      "util"]}
+                                      :test {:direct ["sh"
+                                                      "util"]}}
+          "help"                     {:src  {:direct   ["common"
+                                                        "system"
+                                                        "util"
+                                                        "version"]
+                                             :indirect ["file"
+                                                        "image-creator"
+                                                        "text-table"
+                                                        "user-config"]}
+                                      :test {}}
+          "image-creator"            {:src  {}
+                                      :test {}}
+          "info"                     {:src  {:direct   ["common"
+                                                        "path-finder"
+                                                        "text-table"
+                                                        "util"
+                                                        "validator"]
+                                             :indirect ["file"
+                                                        "image-creator"
+                                                        "system"
+                                                        "test-runner-contract"
+                                                        "user-config"
+                                                        "version"]}
+                                      :test {:direct   ["common"
+                                                        "file"
+                                                        "path-finder"
+                                                        "text-table"
+                                                        "util"
+                                                        "validator"]
+                                             :indirect ["image-creator"
+                                                        "system"
+                                                        "test-runner-contract"
+                                                        "user-config"
+                                                        "version"]}}
+          "interface"                {:src  {}
+                                      :test {}}
+          "lib"                      {:src  {:direct   ["antq"
+                                                        "common"
+                                                        "config-reader"
+                                                        "file"
+                                                        "maven"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "util"]
+                                             :indirect ["image-creator"
+                                                        "path-finder"
+                                                        "system"
+                                                        "test-runner-contract"
+                                                        "validator"
+                                                        "version"]}
+                                      :test {:direct   ["antq"
+                                                        "common"
+                                                        "config-reader"
+                                                        "file"
+                                                        "maven"
+                                                        "test-helper"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "user-input"
+                                                        "util"
+                                                        "workspace"]
+                                             :indirect ["change"
+                                                        "check"
+                                                        "command"
+                                                        "creator"
+                                                        "deps"
+                                                        "doc"
+                                                        "git"
+                                                        "help"
+                                                        "image-creator"
+                                                        "info"
+                                                        "interface"
+                                                        "lib"
+                                                        "overview"
+                                                        "path-finder"
+                                                        "sh"
+                                                        "shell"
+                                                        "system"
+                                                        "tap"
+                                                        "test"
+                                                        "test-runner-contract"
+                                                        "test-runner-orchestrator"
+                                                        "validator"
+                                                        "version"
+                                                        "ws-explorer"
+                                                        "ws-file"]}}
+          "maven"                    {:src  {}
+                                      :test {}}
+          "nav-generator"            {:src  {:direct   ["config-reader"
+                                                        "util"]
+                                             :indirect ["common"
+                                                        "file"
+                                                        "image-creator"
+                                                        "path-finder"
+                                                        "system"
+                                                        "test-runner-contract"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "validator"
+                                                        "version"]}
+                                      :test {}}
+          "overview"                 {:src  {:direct   ["common"
+                                                        "deps"
+                                                        "image-creator"
+                                                        "info"
+                                                        "lib"
+                                                        "user-input"
+                                                        "util"]
+                                             :indirect ["antq"
+                                                        "config-reader"
+                                                        "file"
+                                                        "maven"
+                                                        "path-finder"
+                                                        "system"
+                                                        "test-runner-contract"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "validator"
+                                                        "version"]}
+                                      :test {}}
+          "path-finder"              {:src  {:direct ["file"
+                                                      "util"]}
+                                      :test {:direct ["file"
+                                                      "util"]}}
+          "poly-cli"                 {:src  {:direct   ["command"
+                                                        "user-input"
+                                                        "util"]
+                                             :indirect ["antq"
+                                                        "change"
+                                                        "check"
+                                                        "common"
+                                                        "config-reader"
+                                                        "creator"
+                                                        "deps"
+                                                        "doc"
+                                                        "file"
+                                                        "git"
+                                                        "help"
+                                                        "image-creator"
+                                                        "info"
+                                                        "interface"
+                                                        "lib"
+                                                        "maven"
+                                                        "overview"
+                                                        "path-finder"
+                                                        "sh"
+                                                        "shell"
+                                                        "system"
+                                                        "tap"
+                                                        "test"
+                                                        "test-runner-contract"
+                                                        "test-runner-orchestrator"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "validator"
+                                                        "version"
+                                                        "workspace"
+                                                        "ws-explorer"
+                                                        "ws-file"]}
+                                      :test {:direct   ["command"
+                                                        "config-reader"
+                                                        "user-input"
+                                                        "util"
+                                                        "validator"]
+                                             :indirect ["antq"
+                                                        "change"
+                                                        "check"
+                                                        "common"
+                                                        "creator"
+                                                        "deps"
+                                                        "doc"
+                                                        "file"
+                                                        "git"
+                                                        "help"
+                                                        "image-creator"
+                                                        "info"
+                                                        "interface"
+                                                        "lib"
+                                                        "maven"
+                                                        "overview"
+                                                        "path-finder"
+                                                        "sh"
+                                                        "shell"
+                                                        "system"
+                                                        "tap"
+                                                        "test"
+                                                        "test-runner-contract"
+                                                        "test-runner-orchestrator"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "version"
+                                                        "workspace"
+                                                        "ws-explorer"
+                                                        "ws-file"]}}
+          "sh"                       {:src  {}
+                                      :test {}}
+          "shell"                    {:src  {:direct   ["antq"
+                                                        "common"
+                                                        "doc"
+                                                        "file"
+                                                        "git"
+                                                        "lib"
+                                                        "sh"
+                                                        "system"
+                                                        "tap"
+                                                        "user-config"
+                                                        "user-input"
+                                                        "util"
+                                                        "workspace"
+                                                        "ws-explorer"]
+                                             :indirect ["change"
+                                                        "config-reader"
+                                                        "deps"
+                                                        "image-creator"
+                                                        "interface"
+                                                        "maven"
+                                                        "path-finder"
+                                                        "test"
+                                                        "test-runner-contract"
+                                                        "text-table"
+                                                        "validator"
+                                                        "version"
+                                                        "ws-file"]}
+                                      :test {:direct   ["antq"
+                                                        "common"
+                                                        "doc"
+                                                        "file"
+                                                        "git"
+                                                        "lib"
+                                                        "sh"
+                                                        "system"
+                                                        "tap"
+                                                        "user-config"
+                                                        "user-input"
+                                                        "util"
+                                                        "workspace"
+                                                        "ws-explorer"]
+                                             :indirect ["change"
+                                                        "config-reader"
+                                                        "deps"
+                                                        "image-creator"
+                                                        "interface"
+                                                        "maven"
+                                                        "path-finder"
+                                                        "test"
+                                                        "test-runner-contract"
+                                                        "text-table"
+                                                        "validator"
+                                                        "version"
+                                                        "ws-file"]}}
+          "system"                   {:src  {}
+                                      :test {}}
+          "tap"                      {:src  {}
+                                      :test {}}
+          "test"                     {:src  {:direct   ["common"
+                                                        "git"
+                                                        "path-finder"]
+                                             :indirect ["file"
+                                                        "image-creator"
+                                                        "sh"
+                                                        "system"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "util"
+                                                        "version"]}
+                                      :test {:direct   ["common"
+                                                        "git"
+                                                        "path-finder"]
+                                             :indirect ["file"
+                                                        "image-creator"
+                                                        "sh"
+                                                        "system"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "util"
+                                                        "version"]}}
+          "test-helper"              {:src  {}
+                                      :test {:direct   ["command"
+                                                        "file"
+                                                        "user-config"
+                                                        "user-input"]
+                                             :indirect ["antq"
+                                                        "change"
+                                                        "check"
+                                                        "common"
+                                                        "config-reader"
+                                                        "creator"
+                                                        "deps"
+                                                        "doc"
+                                                        "git"
+                                                        "help"
+                                                        "image-creator"
+                                                        "info"
+                                                        "interface"
+                                                        "lib"
+                                                        "maven"
+                                                        "overview"
+                                                        "path-finder"
+                                                        "sh"
+                                                        "shell"
+                                                        "system"
+                                                        "tap"
+                                                        "test"
+                                                        "test-runner-contract"
+                                                        "test-runner-orchestrator"
+                                                        "text-table"
+                                                        "util"
+                                                        "validator"
+                                                        "version"
+                                                        "workspace"
+                                                        "ws-explorer"
+                                                        "ws-file"]}}
+          "test-runner-contract"     {:src  {:direct ["util"]}
+                                      :test {:direct ["util"]}}
+          "test-runner-orchestrator" {:src  {:direct   ["common"
+                                                        "deps"
+                                                        "test-runner-contract"
+                                                        "util"
+                                                        "validator"]
+                                             :indirect ["file"
+                                                        "image-creator"
+                                                        "path-finder"
+                                                        "system"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "version"]}
+                                      :test {:direct   ["common"
+                                                        "deps"
+                                                        "test-runner-contract"
+                                                        "util"
+                                                        "validator"]
+                                             :indirect ["file"
+                                                        "image-creator"
+                                                        "path-finder"
+                                                        "system"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "version"]}}
+          "text-table"               {:src  {:direct ["util"]}
+                                      :test {}}
+          "user-config"              {:src  {:direct ["file"
+                                                      "util"]}
+                                      :test {}}
+          "user-input"               {:src  {:direct ["util"]}
+                                      :test {:direct ["util"]}}
+          "util"                     {:src  {}
+                                      :test {}}
+          "validator"                {:src  {:direct   ["common"
+                                                        "path-finder"
+                                                        "test-runner-contract"
+                                                        "util"]
+                                             :indirect ["file"
+                                                        "image-creator"
+                                                        "system"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "version"]}
+                                      :test {:direct   ["common"
+                                                        "path-finder"
+                                                        "test-runner-contract"
+                                                        "util"]
+                                             :indirect ["file"
+                                                        "image-creator"
+                                                        "system"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "version"]}}
+          "version"                  {:src  {:direct ["system"]}
+                                      :test {}}
+          "workspace"                {:src  {:direct   ["antq"
+                                                        "change"
+                                                        "common"
+                                                        "config-reader"
+                                                        "deps"
+                                                        "file"
+                                                        "git"
+                                                        "interface"
+                                                        "lib"
+                                                        "path-finder"
+                                                        "test"
+                                                        "user-config"
+                                                        "user-input"
+                                                        "util"
+                                                        "validator"
+                                                        "version"
+                                                        "ws-file"]
+                                             :indirect ["image-creator"
+                                                        "maven"
+                                                        "sh"
+                                                        "system"
+                                                        "test-runner-contract"
+                                                        "text-table"]}
+                                      :test {:direct   ["antq"
+                                                        "change"
+                                                        "common"
+                                                        "config-reader"
+                                                        "deps"
+                                                        "file"
+                                                        "git"
+                                                        "interface"
+                                                        "lib"
+                                                        "path-finder"
+                                                        "test"
+                                                        "user-config"
+                                                        "user-input"
+                                                        "util"
+                                                        "validator"
+                                                        "version"
+                                                        "ws-file"]
+                                             :indirect ["image-creator"
+                                                        "maven"
+                                                        "sh"
+                                                        "system"
+                                                        "test-runner-contract"
+                                                        "text-table"]}}
+          "ws-explorer"              {:src  {:direct ["util"]}
+                                      :test {:direct ["util"]}}
+          "ws-file"                  {:src  {:direct   ["common"
+                                                        "file"
+                                                        "git"
+                                                        "util"
+                                                        "version"]
+                                             :indirect ["image-creator"
+                                                        "sh"
+                                                        "system"
+                                                        "text-table"
+                                                        "user-config"]}
+                                      :test {}}}
          (ws-explorer/extract (workspace) ["projects" "poly" "deps"]))))
 
 (deftest polylith-poly-project-src-paths
@@ -1230,9 +1209,9 @@
          (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"]))))
 
 (deftest polylith-shell-component-lib-deps
-  (is (= {:src {"org.jline/jline" {:size    1427553
+  (is (= {:src {"org.jline/jline" {:size    1505174
                                    :type    "maven"
-                                   :version "3.26.3"}}}
+                                   :version "3.30.5"}}}
          (ws-explorer/extract (workspace) ["components" "shell" "lib-deps"]))))
 
 (deftest profile-info
