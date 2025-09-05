@@ -1,0 +1,29 @@
+                 a                                          
+                 r                             s            
+                 t           d                 h            
+              a  i  a  c  c  a     h     p     a            
+              r  c  u  o  o  t     o     r  s  r           w
+              t  l  t  m  r  a     m     o  h  e           e
+              i  e  h  m  e  b     e     f  a  d  s     u  b
+              c  -  -  e  -  a  e  -  l  i  r  -  p  t  s  -
+              l  u  u  n  u  s  n  u  o  l  e  u  e  a  e  u
+  brick       e  i  i  t  i  e  v  i  g  e  d  i  c  g  r  i
+  ----------------------------------------------------------
+  article     .  .  .  .  .  x  .  .  .  x  x  .  x  .  .  .
+  article-ui  .  .  .  .  x  .  .  .  .  .  x  x  .  .  .  .
+  auth-ui     .  .  .  .  x  .  .  .  .  .  .  x  .  .  .  .
+  comment     x  .  .  .  .  x  .  .  .  x  .  .  x  .  .  .
+  core-ui     .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .
+  database    .  .  .  .  .  .  x  .  x  .  .  .  .  .  .  .
+  env         .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+  home-ui     .  .  .  .  x  .  .  .  .  .  .  x  .  .  .  .
+  log         .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .
+  profile     .  .  .  .  .  x  .  .  .  .  .  .  x  .  x  .
+  shared      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+  shared-ui   .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .
+  spec        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+  tag         .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .
+  user        .  .  .  .  .  x  x  .  .  .  .  .  x  .  .  .
+  web-ui      .  x  x  .  x  .  .  x  .  .  .  x  .  .  .  .
+  rest-api    x  .  .  x  .  x  x  .  x  x  .  .  x  x  x  .
+  web-app     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x

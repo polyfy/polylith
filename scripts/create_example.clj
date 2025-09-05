@@ -347,7 +347,18 @@
                             str)]
         (spit deps-fname new-content)
         (polys opts "libs" (out-txt out-fname) (out-png "libraries" out-fname))
-        (shell "git restore" deps-fname)))))
+        (shell "git restore" deps-fname))
+
+      ;; Run poly commands against the cljs-frontend branch
+      (shell "git checkout cljs-frontend")
+      (shell "clojure -P -M:dev:test")
+      (let [poly (fn-default-opts sh/poly {:dir ws-dir})]
+        (poly {:out (fs/file (:output-dir opts) (out-txt "info-frontend"))}
+              "info color-mode:none")
+        (poly {:out (fs/file (:output-dir opts) (out-txt "deps-frontend"))}
+              "deps color-mode:none")
+        (poly {:out (fs/file (:output-dir opts) (out-txt "libs-frontend"))}
+              "libs color-mode:none")))))
 
 (defn read-old-ws [{:keys [ws-parent-dir output-dir]}]
   (let [ws-dir (fs/file ws-parent-dir "polylith")
