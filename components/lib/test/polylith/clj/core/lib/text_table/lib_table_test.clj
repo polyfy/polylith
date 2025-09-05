@@ -1,7 +1,9 @@
 (ns polylith.clj.core.lib.text-table.lib-table-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.test-helper.interfaces.data :as data]
-            [polylith.clj.core.lib.text-table.lib-table :as lib-table]))
+            [polylith.clj.core.lib.text-table.lib-table :as lib-table]
+            [polylith.clj.core.user-input.interface :as user-input]
+            [polylith.clj.core.workspace.interface :as workspace]))
 
 (def dev-lib-deps {"antlr" {:local/root "/Users/tengstrand/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar"
                             :type "local"
@@ -162,3 +164,19 @@
           "  org.clojure/clojure     1.10.1     maven  3,816   x    x      -       -     ."
           "  org.clojure/tools.deps  0.16.1264  maven     46   x    x      -       -     ."]
          (lib-table/table data/workspace-01))))
+
+(deftest table--test-runners-workspace--returns-correct-table
+  (let [input (user-input/extract-arguments ["libs" "ws-dir:examples/test-runners" "color-mode:none"])
+        workspace (workspace/workspace input)]
+    (is (= ["                                                                                              a"
+            "                                                                                              u"
+            "                                                                                              t"
+            "                                                                                              h"
+            "                                                                                              -"
+            "                                                                                              u"
+            "  library                         version  type      KB   inherit  override  multiple   dev   i"
+            "  -----------------------------------------------------   ---------------------------   ---   -"
+            "  karma                           6.4.4    npm        0      x        x         x        x    x"
+            "  org.clojure/clojure             1.12.0   maven  4,127      x        x         x        x    ."
+            "  polylith-kaocha/kaocha-wrapper  7282409  git       44      -        t         t        t    ."]
+           (lib-table/table workspace)))))
