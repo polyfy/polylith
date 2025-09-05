@@ -389,7 +389,7 @@
     (shell {:dir ws-parent-dir} "git clone https://github.com/seancorfield/usermanager-example.git")
     (shell "git checkout polylith")
     (shell "clojure -P -M:dev:test")
-    (poly {:out (out "info.txt")} "info :no-chanes color-mode:none")
+    (poly {:out (out "info.txt")} "info :no-changes color-mode:none")
     (poly {:out (out "libs.txt")} "libs color-mode:none")
     (poly {:out (out "deps.txt")} "deps color-mode:none")))
 
