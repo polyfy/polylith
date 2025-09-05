@@ -2,5 +2,8 @@
   "name": "@poly/auth-ui",
   "description": "A cljs component",
   "version": "0.0.1",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "karma": "6.4.4"
+  }
 }
