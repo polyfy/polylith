@@ -22,7 +22,7 @@
             [polylith.clj.core.user-input.interface :as user-input])
   (:refer-clojure :exclude [base]))
 
-; clojure -A:dev:test -P
+; clojure -P -M:dev:test
 
 ;; Execute commands
 ;(dev-common/execute "info" ".")
