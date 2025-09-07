@@ -1,6 +1,8 @@
 (ns ^:no-doc polylith.clj.core.antq.outdated
   (:require [antq.api :as antq]
+            [polylith.clj.core.antq.npm :as npm]
             [polylith.clj.core.maven.interface :as maven]))
+
 
 (defn truncate [version type]
   (if (= :git-sha type)
@@ -47,12 +49,7 @@
           ;; Get maven latest versions using antq
           maven-latest-versions (into {} (map key-value)
                                       (antq/outdated-deps {:deps maven-deps}))
-          ;; Get npm latest versions using our custom npm namespace (if available)
-          npm-latest-versions (try
-                                (require 'polylith.clj.core.antq.npm)
-                                ((resolve 'polylith.clj.core.antq.npm/npm-dependencies->latest-versions) npm-deps)
-                                (catch Exception e
-                                  (println "Warning: npm dependency checking not available:" (.getMessage e))
-                                  {}))]
+          ;; Get npm latest versions using our custom npm namespace
+          npm-latest-versions (npm/outdated-npm-dependencies npm-deps)]
       (merge maven-latest-versions npm-latest-versions))
     {}))
