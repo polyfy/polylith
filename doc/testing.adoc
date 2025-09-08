@@ -73,9 +73,14 @@ image::images/testing/failing-test.png[]
 
 [TIP]
 ====
+[[cursive-users]]
 *Cursive users*:
 
 If you haven't already, you need to instruct Cursive to run tests from the root module, see instructions https://cursive-ide.com/userguide/polylith.html[here].
+
+Also change how to run the tests, e.g.:
+
+image::images/testing/cursive-test-config.png[]
 
 ====
 
