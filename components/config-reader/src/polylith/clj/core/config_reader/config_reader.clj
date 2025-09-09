@@ -6,13 +6,14 @@
 
 (defn read-deps-edn-config-file [ws-type entity-dir entity-path validator]
   (let [config-path (str entity-path "/deps.edn")
-        short-config-path (str entity-dir "/deps.edn")
-        {:keys [config error]} (deps-reader/read-deps-file config-path short-config-path)
-        message (validator ws-type config short-config-path)
-        error (or error message)]
-    (cond-> {}
-            error (assoc :error error)
-            config (assoc :deps config))))
+        short-config-path (str entity-dir "/deps.edn")]
+    (when (file/exists config-path)
+      (let [{:keys [config error]} (deps-reader/read-deps-file config-path short-config-path)
+            message (validator ws-type config short-config-path)
+            error (or error message)]
+        (cond-> {}
+                error (assoc :error error)
+                config (assoc :deps config))))))
 
 (defn read-package-json-config-file [path entity-dir validator]
   (let [config-path (str path "/package.json")
@@ -30,8 +31,7 @@
   "Read the deps.edn and package.json files (if exist)
    and keep them in the keys :deps and :package, or :error if any errors"
   [ws-type entity-name entity-type entity-dir entity-path deps-validator package-validator]
-  (let [{:keys [deps error]} (when (file/exists entity-path)
-                               (read-deps-edn-config-file ws-type entity-dir entity-path deps-validator))
+  (let [{:keys [deps error]} (read-deps-edn-config-file ws-type entity-dir entity-path deps-validator)
         {:keys [npm-config npm-error]} (read-package-json-config-file entity-path entity-dir package-validator)
         error (or error npm-error)]
     (cond-> {:name entity-name
