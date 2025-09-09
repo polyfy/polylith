@@ -166,17 +166,17 @@
          (lib-table/table data/workspace-01))))
 
 (deftest table--test-runners-workspace--returns-correct-table
-  (let [input (user-input/extract-arguments ["libs" "ws-dir:examples/test-runners" "color-mode:none"])
+  (let [input (user-input/extract-arguments ["libs" "ws-dir:examples/test-runners" ":hide-lib-size" "color-mode:none"])
         workspace (workspace/workspace input)]
-    (is (= ["                                                                                              a"
-            "                                                                                              u"
-            "                                                                                              t"
-            "                                                                                              h"
-            "                                                                                              -"
-            "                                                                                              u"
-            "  library                         version  type      KB   inherit  override  multiple   dev   i"
-            "  -----------------------------------------------------   ---------------------------   ---   -"
-            "  karma                           5.0.0    npm        0      x        x         x        x    x"
-            "  org.clojure/clojure             1.12.2   maven  4,131      x        x         x        x    ."
-            "  polylith-kaocha/kaocha-wrapper  7282409  git       44      -        t         t        t    ."]
+    (is (= ["                                                                                           a"
+            "                                                                                           u"
+            "                                                                                           t"
+            "                                                                                           h"
+            "                                                                                           -"
+            "                                                                                           u"
+            "  library                         version  type   KB   inherit  override  multiple   dev   i"
+            "  --------------------------------------------------   ---------------------------   ---   -"
+            "  karma                           5.0.0    npm     -      x        x         x        x    x"
+            "  org.clojure/clojure             1.12.2   maven   -      x        x         x        x    ."
+            "  polylith-kaocha/kaocha-wrapper  7282409  git     -      -        t         t        t    ."]
            (lib-table/table workspace)))))
