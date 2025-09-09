@@ -3,8 +3,13 @@
 
 The biggest change in 0.3.0 is support for ClojureScript :
 - The poly tool now handles ClojureScript (.cljs) source files as well as _package.json_ configuration files.
-- The `libs` command now shows npm dependencies, and the `:outdated` flag includes outdated npm libraries.
-- The _package.json_ configuration can be retrieved by e.g. `ws get:configs:components:web-ui:package` or `ws get:configs:projects:development:package` (example taken from the [realworld example app](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend)).
+- Changes to the `libs` command:
+  - npm dependencies are now included in the list of library dependencies
+  - the `:outdated` parameter also checks for outdated npm dependencies
+  - the `:update` parameter also updates npm dependencies in _package.json_ files
+    - `:keep-lib-versions` also works for npm dependencies 
+    - the `libraries:LIBS` filtering works as expected (outdated npm libraries are suggested when run from a shell) 
+- Configuration from _package.json_ files are stored in the workspace structure, and can be retrieved by e.g. `ws get:configs:components:web-ui:package` or `ws get:configs:projects:development:package` (example taken from the [realworld example app](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend)).
 
 Be sure to update to the latest versions of the [External](https://github.com/seancorfield/polylith-external-test-runner) and [Kaocha](https://github.com/imrekoszo/polylith-kaocha) test runners if you use any of these.
 
