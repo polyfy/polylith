@@ -29,7 +29,7 @@ If you use `clj` instead of `clojure`, things will still work, but you will some
 
 [source,shell]
 ----
-clj -M:poly
+clojure -M:poly
 ----
 
 image::images/toolsdeps/clj-poly-shell.png[width=600]
