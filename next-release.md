@@ -3,6 +3,8 @@
 
 The biggest change in 0.3.0 is support for ClojureScript :
 - The poly tool now handles ClojureScript (.cljs) source files as well as _package.json_ configuration files.
+- Changes to the `create` command:
+  - Suggest the `dialect` argument in the shell, if "cljs" is one of the :dialects in workspace.edn.
 - Changes to the `libs` command:
   - npm dependencies are now included in the list of library dependencies
   - the `:outdated` parameter also checks for outdated npm dependencies

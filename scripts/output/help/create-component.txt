@@ -5,6 +5,7 @@
     NAME = The name of the component to create.
 
     DIALECT = The value is sent to Selmer when the component is created.
+              Valid values are: clj, cljs
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
                then we can pass in this flag instead, to explicitly add the

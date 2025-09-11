@@ -8,6 +8,7 @@
        "    " (s/key "NAME" cm) " = The name of the project to create.\n"
        "\n"
        "    " (s/key "DIALECT" cm) " = The value is sent to Selmer when the project is created.\n"
+       "              Valid values are: clj, cljs\n"
        "\n"
        "    " (s/key ":git-add" cm) " = If " (s/key ":vcs" cm) " > " (s/key ":auto-add" cm) " in workspace.edn is set to false,\n"
        "               then we can pass in this flag instead, to explicitly add the\n"

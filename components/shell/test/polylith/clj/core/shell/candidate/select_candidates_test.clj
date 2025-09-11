@@ -36,7 +36,7 @@
          (candidates "create" :next "b"))))
 
 (deftest create-base
-  (is (= ["dialect" "name"]
+  (is (= ["name"]
          (candidates "create" :next "base"))))
 
 (deftest create-base-n
@@ -52,7 +52,7 @@
          (candidates "create" :next "base" :next "name"))))
 
 (deftest create-component
-  (is (= ["dialect" "interface" "name"]
+  (is (= ["interface" "name"]
          (candidates "create" :next "component"))))
 
 (deftest create-component-
@@ -68,7 +68,7 @@
          (candidates "create" :next "component" :next "name" "c1"))))
 
 (deftest create-component-name-c1-
-  (is (= ["dialect" "interface"]
+  (is (= ["interface"]
          (candidates "create" :next "component" :next "name" "c1" :next ""))))
 
 (deftest create-component-name-c1-interface

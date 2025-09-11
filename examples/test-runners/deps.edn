@@ -1,15 +1,14 @@
 {:aliases  {:dev {:extra-paths ["development/src"]
 
                   :extra-deps {poly/auth-ui {:local/root "components/auth-ui"}
-                  	            poly/invoicer {:local/root "components/invoicer"}
+                               poly/invoicer {:local/root "components/invoicer"}
                                poly/test-setup {:local/root "components/test-setup"}
 
                                org.clojure/clojure {:mvn/version "1.12.2"}}}
 
             :test {:extra-paths ["components/auth-ui/test"
-            	                    "components/invoicer/test"]
+                                 "components/invoicer/test"]
                    :extra-deps {polylith-kaocha/kaocha-wrapper
-                                ;{:local/root "../../../sandbox/polylith-kaocha/projects/kaocha-wrapper"}
                                 {:git/url "https://github.com/imrekoszo/polylith-kaocha"
                                  :git/tag "v0.8.6"
                                  :git/sha "7282409"
@@ -17,7 +16,6 @@
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polylith-kaocha/test-runner
-                                ;{:local/root "../../../sandbox/polylith-kaocha/projects/test-runner"}
                                 {:git/url "https://github.com/imrekoszo/polylith-kaocha"
                                  :git/tag "v0.8.6"
                                  :git/sha "7282409"
