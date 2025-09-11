@@ -45,19 +45,12 @@ Please https://github.com/sponsors/polyfy[sponsor] the important work of Polylit
 
 Iron, Bronze, Silver, Gold, and Platinum sponsors are also listed on the https://polylith.gitbook.io/polylith[front page] of the Polylith docs.
 
-=== Bronze Sponsors
-
-image::doc/images/sponsors/scrintal.png[link=https://www.scrintal.com,alt="scrintal.com",width=200]
-
 === Iron Sponsors
 
 image:doc/images/sponsors/adgoji.png[link=https://www.adgoji.com,alt="adgoji.com",width=200]
 
-image:doc/images/sponsors/taehee-sp.png[link=https://github.com/taehee-sp,width=150]
-
 === Polylith Fans
 
-image:https://avatars.githubusercontent.com/u/18068051[link=https://github.com/yyna,alt="Jungin Kwon",width=32,role="left"]
 image:https://avatars.githubusercontent.com/u/59614667[link=https://github.com/fluent-development,alt="Multiply",width=32,role="left"]
 image:https://avatars.githubusercontent.com/u/47784846?v=4[link=https://github.com/tlonist-sang,alt="Sanghyun Kim",width=32,role="left"]
 
