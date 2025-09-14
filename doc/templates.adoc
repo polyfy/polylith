@@ -76,7 +76,7 @@ This command uses the following template files to generate parts of the new work
 
 * `templates/.gitignore` -> the top-level `.gitignore` file
 * `templates/deps.edn` -> the top-level `deps.edn` file
-* `templates/package.json` -> the top-level `package.json` file
+* `templates/package.json` -> the top-level `package.json` file (created only if `dialects` includes `cljs`)
 * `templates/readme.md` -> the top-level `readme.md` file
 * `templates/workspace.edn` -> the top-level `workspace.edn` file
 
@@ -88,8 +88,6 @@ For all these templates, the following variables are provided:
 * `{{:shadow-cljs-ver}}` - the version of shadow-cljs to use; e.g. `"^3.2.0"`
 * `{{top-ns}}` -- the top namespace name (from the xref:commands.adoc#create-workspace[create workspace] command)
 * `{{ws-name}}` -- the name of the workspace (from the xref:commands.adoc#create-workspace[create workspace] command)
-
-NOTE: a `package.json` file is created only if `dialects´ includes `cljs` (e.g., ´dialects:cljs´ or ´dialects:clj:cljs´).
 
 == create component
 
@@ -105,7 +103,7 @@ This command uses the following template files to generate the new component:
 ** `{{dialect}}` -- the dialect, e.g. "cljs" (from the xref:commands.adoc#create-component[create component] command)
 ** `{{interface-ns}}` -- the interface namespace (from the xref:commands.adoc#create-component[create component] command)
 ** `{{impl-ns}}` -- the `impl.clj` namespace name (derived from the interface name)
-* `templates/components/package.json` -> the new component's `package.json` file
+* `templates/components/package.json` -> the new component's `package.json` file (created only if `dialect` is set to `clj`)
 ** `{{dialect}}` -- the dialect, e.g. "cljs" (from the xref:commands.adoc#create-component[create component] command)
 ** `{{brick-name}}` -- the name of the component (from the xref:commands.adoc#create-component[create component] command)
 ** `{{shadow-cljs-ver}}` -- the version of shadow-cljs to use; e.g. `"^3.2.0"`
@@ -114,8 +112,6 @@ This command uses the following template files to generate the new component:
 ** `{{test-ns}}` -- the namespace of the new test file
 ** `{{src-ns}}` -- the namespace of the new source file -- the interface namespace
 ** `{{alias}}` -- an alias that can be used for the source file in `:require`
-
-NOTE: The `package.json` file is created only when `dialect:cljs` is passed to the command.
 
 == create base
 
@@ -126,7 +122,7 @@ This command uses the following template files to generate the new base:
 * `templates/bases/main.clj` -> the new base's `core.clj` source file
 ** `{{dialect}}` -- the dialect, e.g. "cljs" (from the xref:commands.adoc#create-base[create base] command)
 ** `{{main-ns}}` -- the core namespace
-* `templates/bases/package.json` -> the new base's `package.json` file
+* `templates/bases/package.json` -> the new base's `package.json` file (created only if `dialect` is set to `clj`)
 ** `{{dialect}}` -- the dialect, e.g. "cljs" (from the xref:commands.adoc#create-base[create base] command)
 ** `{{brick-name}}` -- the name of the base (from the xref:commands.adoc#create-base[create base] command)
 ** `{{shadow-cljs-ver}}` -- the version of shadow-cljs to use; e.g. `"^3.2.0"`
@@ -136,20 +132,16 @@ This command uses the following template files to generate the new base:
 ** `{{src-ns}}` -- the namespace of the new source file -- the `core` namespace
 ** `{{alias}}` -- an alias that can be used for the source file in `:require`
 
-NOTE: The `package.json` file is created only when `dialect:cljs` is passed to the command.
-
 == create project
 
 This command uses the following template files to generate the new project:
 
 * `templates/projects/deps.edn` -> the project's `deps.edn` file
-* `templates/projects/package.json` -> the project's `package.json` file
+* `templates/projects/package.json` -> the project's `package.json` file (created only if `dialect` is set to `clj`)
 
 For these templates, the following variables are provided:
 
 * `{{dialect}}` -- the dialect, e.g. "cljs" (from the xref:commands.adoc#create-project[create project] command)
-* `{{clojure-ver}}` -- the default version of Clojure to use; currently `"1.12.0"`
+* `{{clojure-ver}}` -- the default version of Clojure to use; e.g. `"1.12.0"`
 * `{{project-name}}` -- the name of the project (from the xref:commands.adoc#create-project[create project] command)
 * `{{shadow-cljs-ver}}` -- the version of shadow-cljs to use; e.g. `"^3.2.0"`
-
-NOTE: The `package.json` file is created only when `dialect:cljs` is passed to the command.
