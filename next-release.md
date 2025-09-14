@@ -22,6 +22,7 @@ The poly tool now handles ClojureScript (.cljs) source files as well as _package
     - the `libraries:LIBS` filtering works as expected (outdated npm libraries are suggested when run from a shell) 
 - Configuration from _package.json_ files are stored in the workspace structure and can be retrieved by `ws get:configs:ENTITY:NAME:package` where `ENTITY` is `workspace`, `projects`, `components`, or `bases`, and `TYPE` is the name of the workspace/project/component/base.
 
+
 > 📌 **Note:** 
 > - Make sure to update to the latest versions of the [External](https://github.com/seancorfield/polylith-external-test-runner) and [Kaocha](https://github.com/imrekoszo/polylith-kaocha) test runners if you use any of these. 
 > - For existing workspaces:
@@ -33,9 +34,6 @@ The poly tool now handles ClojureScript (.cljs) source files as well as _package
 ### Issues and PRs:
 - Add support for ClojureScript, issue [482](https://github.com/polyfy/polylith/issues/481)
 - Fix typo in the documentation, PR [560](https://github.com/polyfy/polylith/pull/560)
-
-### Other changes
-- 
 
 ### Doc updates
 - Changed the sha for Sean's External test runner to `c97747aa2b1fdf03c46c7e435cca7c2608740a2a` in [this](https://cljdoc.org/d/polylith/clj-poly/0.3.0/doc/test-runners#_use_a_custom_test_runner) section.
