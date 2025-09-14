@@ -19,11 +19,11 @@ Main changes:
   - If `DIALECT` in `dialect:DIALECT` is set to `cljs`, a `package.json` file will be created.
   - Suggest the `dialect` argument in the shell, if `cljs` is one of the `:dialects` in workspace.edn.
 - The `libs` command:
-  - npm dependencies are now included in the list of library dependencies
-  - the `:outdated` parameter also checks for outdated npm dependencies
-  - the `:update` parameter also updates npm dependencies in _package.json_ files
-    - `:keep-lib-versions` also works for npm dependencies 
-    - the `libraries:LIBS` filtering works as expected (outdated npm libraries are suggested when run from a shell) 
+  - npm dependencies are now included in the list of library dependencies (read from `package.json` files).
+  - the `:outdated` parameter also checks for outdated npm dependencies.
+  - the `:update` parameter also updates npm dependencies in _package.json_ files.
+    - `:keep-lib-versions` also works for npm dependencies.
+    - the `libraries:LIBS` filtering works as expected (outdated npm libraries are suggested when run from a shell).
 - Configuration from _package.json_ files are stored in the workspace structure and can be retrieved by `ws get:configs:ENTITY:NAME:package` where `ENTITY` is `workspace`, `projects`, `components`, or `bases`, and `TYPE` is the name of the workspace/project/component/base.
 
 > For existing workspaces:
