@@ -83,7 +83,7 @@ This command uses the following template files to generate parts of the new work
 For all these templates, the following variables are provided:
 
 * `{{clojure-ver}}` -- the version of Clojure to use; e.g. `"1.12.2"`
-* `{{:ws-dialects}}` -- the dialects, e.g. `["clj" "cljs"]` (from the xref:commands.adoc#create-workspace[create workspace] command). Set to `["clj"]` if not provided.
+* `{{:ws-dialects}}` -- the dialects, e.g. `["clj" "cljs"]` (`dialects` from the xref:commands.adoc#create-workspace[create workspace] command, or `["clj"]` if not provided).
 * `{{maven-ver}}` -- the default version of Polylith to use
 * `{{:shadow-cljs-ver}}` - the version of shadow-cljs to use; e.g. `"^3.2.0"`
 * `{{top-ns}}` -- the top namespace name (from the xref:commands.adoc#create-workspace[create workspace] command)
