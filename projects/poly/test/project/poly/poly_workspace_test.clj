@@ -145,9 +145,9 @@
           "  babashka/fs                      0.5.27      maven     22    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
           "  borkdude/edamame                 1.4.32      maven     25    x      x      x      -        -       .  .  .  x  .  .  .  .  .  .  ."
           "  borkdude/rewrite-edn             0.4.9       maven     11    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
-          "  cheshire/cheshire                5.12.0      maven     24    x      x      x      -        -       x  .  .  .  .  .  .  .  .  .  ."
+          "  cheshire/cheshire                6.1.0       maven     25    x      x      x      -        -       x  .  .  .  .  .  .  .  .  .  ."
           "  clj-commons/fs                   1.6.312     maven     12    x      x      x      -        -       .  .  .  x  .  .  .  .  .  .  ."
-          "  clj-http/clj-http                3.12.3      maven     58    x      x      x      -        -       x  .  .  .  .  .  .  .  .  .  ."
+          "  clj-http/clj-http                3.13.1      maven     59    x      x      x      -        -       x  .  .  .  .  .  .  .  .  .  ."
           "  com.github.liquidz/antq          2.11.1276   maven     54    x      x      x      -        -       x  .  .  .  .  .  .  .  .  .  ."
           "  djblue/portal                    0.61.0      maven  1,926    x      x      x      -        -       .  .  .  .  .  .  .  x  .  .  ."
           "  metosin/malli                    0.19.1      maven     93    x      x      x      -        -       .  .  .  .  .  .  .  .  x  .  ."
@@ -156,7 +156,7 @@
           "  org.babashka/http-client         0.4.23      maven     15    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
           "  org.clojure/clojure              1.12.2      maven  4,131    x      x      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
           "  org.clojure/tools.deps           0.25.1539   maven     58    x      x      x      -        -       .  .  x  x  .  .  .  .  .  x  ."
-          "  org.jline/jline                  3.30.5      maven  1,469    x      x      x      -        -       .  .  .  .  .  .  x  .  .  .  ."
+          "  org.jline/jline                  3.30.6      maven  1,469    x      x      x      -        -       .  .  .  .  .  .  x  .  .  .  ."
           "  org.slf4j/slf4j-nop              2.0.17      maven      4    x      x      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
           "  pjstadig/humane-test-output      0.11.0      maven      7    t      -      -      -        -       .  .  .  .  .  .  .  .  .  .  ."
           "  rewrite-clj/rewrite-clj          1.2.50      maven     78    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
@@ -1212,9 +1212,9 @@
          (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"]))))
 
 (deftest polylith-shell-component-lib-deps
-  (is (= {:src {"org.jline/jline" {:size    1505174
+  (is (= {:src {"org.jline/jline" {:size    1505052
                                    :type    "maven"
-                                   :version "3.30.5"}}}
+                                   :version "3.30.6"}}}
          (ws-explorer/extract (workspace) ["components" "shell" "lib-deps"]))))
 
 (deftest profile-info

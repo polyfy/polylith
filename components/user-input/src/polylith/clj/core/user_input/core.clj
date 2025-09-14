@@ -68,6 +68,7 @@
                 compact!
                 dev!
                 dialect
+                dialects
                 dir
                 fail-if-nothing-to-test!
                 fake-poly!
@@ -118,6 +119,7 @@
                       :color-mode (as-value color-mode)
                       :changed-files (as-vector changed-files)
                       :dialect (as-value dialect)
+                      :dialects (as-vector dialects)
                       :dir dir
                       :fake-sha fake-sha
                       :fake-tag fake-tag

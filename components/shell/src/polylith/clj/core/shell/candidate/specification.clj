@@ -8,7 +8,8 @@
             [polylith.clj.core.shell.candidate.selector.file-explorer :as file-explorer]
             [polylith.clj.core.shell.candidate.selector.remote-branches :as remote-branches]
             [polylith.clj.core.shell.candidate.selector.outdated-libs :as outdated-libs]
-            [polylith.clj.core.shell.candidate.selector.dialects :as children]
+            [polylith.clj.core.shell.candidate.selector.dialect :as dialect]
+            [polylith.clj.core.shell.candidate.selector.dialects :as dialects]
             [polylith.clj.core.shell.candidate.selector.with-test-configs :as with-test-configs]
             [polylith.clj.core.shell.candidate.selector.ws-bricks :as ws-bricks]
             [polylith.clj.core.shell.candidate.selector.ws-explore :as ws-explore]
@@ -25,7 +26,8 @@
 (def check (c/single-txt "check"))
 
 ;; create
-(def create-dialect (c/fn-explorer "dialect" :create-project #'children/select (c/optional)))
+(def create-dialect (c/fn-explorer "dialect" :create-project #'dialect/select (c/optional)))
+(def create-dialects (c/fn-explorer "dialects" :create-project #'dialects/select))
 (def create-base-name-value (c/multi-arg :create-base "name"))
 (def create-base-name (c/multi-param "name" 1 (c/group :create-base) [create-base-name-value]))
 (def create-base (c/single-txt "base" :create-base [create-base-name]))
@@ -42,17 +44,15 @@
 (def create-project-dialect (c/single-txt "project" :create-project [create-project-name create-dialect]))
 (def create-workspace-commit (c/flag "commit" :create-workspace))
 (def create-workspace-branch (c/multi-param "branch"))
-(def create-workspace-dialect (c/multi-param "dialect"))
 (def create-workspace-top-ns-value (c/group-arg "" :create-workspace "top-ns" false))
 (def create-workspace-top-ns (c/multi-param "top-ns" (c/group :create-workspace) [create-workspace-top-ns-value]))
 (def create-workspace-name-value (c/group-arg "" :create-workspace "name" false))
 (def create-workspace-name (c/multi-param "name" 1 (c/group :create-workspace) [create-workspace-name-value]))
-(def create-workspace (c/single-txt "workspace" :create-workspace [create-workspace-name create-workspace-top-ns create-workspace-branch create-workspace-commit create-workspace-dialect]))
-
-(defn create [current-ws? all? ws-dialects]
+(def create-workspace (c/single-txt "workspace" :create-workspace [create-workspace-name create-workspace-top-ns create-workspace-branch create-workspace-commit create-dialects]))
+(defn create [current-ws? all? cljs?]
   (when current-ws?
     (c/single-txt "create" :create
-      (concat (if (contains? ws-dialects "cljs")
+      (concat (if cljs?
                 [create-base-dialect create-component-dialect create-project-dialect]
                 [create-base create-component create-project])
               (when all? [create-workspace])))))
@@ -245,6 +245,7 @@
         test-profiles (->profiles :test profiles is-all)
         ws-profiles (->profiles :ws profiles is-all)
         has-test-configs? (seq (-> configs :workspace :test-configs))
+        cljs? (contains? ws-dialects "cljs")
         current-ws? (or (nil? ws-file)
                         (or (nil? ws-dir)
                             (= "." ws-dir)))]
@@ -252,7 +253,7 @@
                   diff
                   version
                   (switch-ws ws-shortcuts)
-                  (create current-ws? is-all ws-dialects)
+                  (create current-ws? is-all cljs?)
                   (deps is-all system/extended?)
                   (doc is-all is-local)
                   (help is-all)

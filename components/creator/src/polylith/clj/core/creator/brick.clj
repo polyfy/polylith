@@ -1,5 +1,6 @@
 (ns ^:no-doc polylith.clj.core.creator.brick
   (:require [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.creator.shared :as shared]
             [polylith.clj.core.creator.template :as template]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.git.interface :as git]
@@ -8,10 +9,18 @@
 (def create-brick-message
   (str "  Remember to add :local/root dependencies to dev and project 'deps.edn' files."))
 
-(defn create-config-file [ws-dir bricks-dir brick-name dialect is-git-add]
-  (let [deps-filename (str ws-dir "/" bricks-dir "/" brick-name "/deps.edn")]
-    (file/create-file deps-filename [(template/render ws-dir (str bricks-dir "/deps.edn") {:dialect dialect})])
-    (git/add ws-dir deps-filename is-git-add)))
+(defn create-deps-config-file [ws-dir bricks-dir brick-name dialect is-git-add]
+  (let [filename (str ws-dir "/" bricks-dir "/" brick-name "/deps.edn")]
+    (file/create-file filename [(template/render ws-dir (str bricks-dir "/deps.edn") {:dialect dialect})])
+    (git/add ws-dir filename is-git-add)))
+
+(defn create-npm-config-file [ws-dir template-data bricks-dir brick-name dialect is-git-add]
+  (let [filename (str ws-dir "/" bricks-dir "/" brick-name "/package.json")]
+    (file/create-file filename [(template/render ws-dir (str bricks-dir "/package.json") (merge {:dialect dialect
+                                                                                                 :brick-name brick-name
+                                                                                                 :shadow-cljs-ver shared/shadow-cljs-ver}
+                                                                                                template-data))])
+    (git/add ws-dir filename is-git-add)))
 
 (defn validate [brick-name workspace]
   (cond

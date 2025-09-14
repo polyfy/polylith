@@ -843,6 +843,8 @@ We also have a number of arguments that are only populated if they are passed in
 {:branch "master"
  :changed-files ["images/doc.png" "workspace.edn"]
  :color-mode "none"
+ :dialect "cljs"
+ :dialects ["clj" "cljs"]
  :help "info"
  :dir "../clojure-polylith-realworld-example-app"
  :fake-sha "c91fdad"
@@ -876,6 +878,12 @@ We also have a number of arguments that are only populated if they are passed in
 * `:cmd` The first argument to the `poly` tool.
 
 * `:color-mode` Overrides the xref:color-mode[color-mode].
+
+* `:dialect` Used in the xref:commands.adoc#create[create] component, base, and project commands.
+If `cljs` is set as value, a `./package.json` file will also be created.
+
+* `:dialects` Used in the xref:commands.adoc#create-workspace[create workspace] command to set the `:dialects` value in `workspace.edn`.
+If `cljs` is included as value, a `./package.json` file will also be created.
 
 * `:dir` Used by the xref:commands.adoc#switch-ws[switch-ws] command.
 

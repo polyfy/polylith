@@ -18,13 +18,13 @@
                 "  The brick 'my-base' already exists.\n")
            output))))
 
-(deftest create-base--performs-expected-actions
+(deftest create-base--with-cljs-dialect
   (let [src-api-dir "ws1/bases/my-base/src/se/example/my_base"
         test-api-dir "ws1/bases/my-base/test/se/example/my_base"
         output (str-util/normalize-newline
                  (with-out-str
                    (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example" ":commit")
-                   (helper/execute-command "ws1" "create" "base" "name:my-base")))]
+                   (helper/execute-command "ws1" "create" "base" "name:my-base" "dialect:cljs")))]
     (is (= (str brick/create-brick-message "\n")
            output))
 
@@ -36,6 +36,7 @@
              "bases/.keep"
              "bases/my-base"
              "bases/my-base/deps.edn"
+             "bases/my-base/package.json"
              "bases/my-base/resources"
              "bases/my-base/resources/my-base"
              "bases/my-base/resources/my-base/.keep"
@@ -43,12 +44,12 @@
              "bases/my-base/src/se"
              "bases/my-base/src/se/example"
              "bases/my-base/src/se/example/my_base"
-             "bases/my-base/src/se/example/my_base/core.clj"
+             "bases/my-base/src/se/example/my_base/core.cljs"
              "bases/my-base/test"
              "bases/my-base/test/se"
              "bases/my-base/test/se/example"
              "bases/my-base/test/se/example/my_base"
-             "bases/my-base/test/se/example/my_base/core_test.clj"
+             "bases/my-base/test/se/example/my_base/core_test.cljs"
              "components"
              "components/.keep"
              "deps.edn"
@@ -63,7 +64,7 @@
            (helper/paths "ws1")))
 
     (is (= ["(ns se.example.my-base.core)"]
-           (helper/content src-api-dir "core.clj")))
+           (helper/content src-api-dir "core.cljs")))
 
     (is (= ["(ns se.example.my-base.core-test"
             "  (:require [clojure.test :as test :refer :all]"
@@ -71,4 +72,4 @@
             ""
             "(deftest dummy-test"
             "  (is (= 1 1)))"]
-           (helper/content test-api-dir "core_test.clj")))))
+           (helper/content test-api-dir "core_test.cljs")))))

@@ -13,9 +13,11 @@
           body (json/parse-string (:body response) true)
           latest-version (get-in body [:dist-tags :latest])]
       latest-version)
-    (catch Exception e
-      (println (str "Error fetching npm package " package-name ": " (.getMessage e)))
-      nil)))
+    (catch Exception _)))
+
+(defn npm-dep? [[k value]]
+  (and (not= "@poly" (namespace k))
+       (not= "*" value)))
 
 (defn npm-dependencies->latest-versions [npm-deps]
   "Convert npm dependencies to latest version information"
@@ -24,10 +26,9 @@
                                    (keyword? name) (clojure.core/name name)
                                    (string? name) name
                                    :else (str name))]
-                    (if-let [latest-version (get-latest-version name)]
-                      [pkg-name latest-version]
-                      [pkg-name nil])))
-                npm-deps)))
+                    (when-let [latest-version (get-latest-version name)]
+                      [pkg-name latest-version])))
+                (filter npm-dep? npm-deps))))
 
 (defn outdated-npm-dependencies [npm-deps]
   "Find npm dependencies that are outdated (current version != latest version)"

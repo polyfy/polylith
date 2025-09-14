@@ -22,11 +22,15 @@
        "\n"
        "  Example:\n"
        "    poly create component name:user\n"
-       "    poly create component name:admin interface:user\n"
        "    poly create component name:user dialect:cljs\n"
+       "    poly create component name:admin interface:user\n"
        "    poly create base name:mybase\n"
+       "    poly create base name:mybase dialect:cljs\n"
        "    poly create project name:myproject\n"
+       "    poly create project name:myproject dialect:cljs\n"
        "    poly create workspace name:myws top-ns:com.my.company\n"
+       "    poly create workspace name:myws top-ns:com.my.company dialects:clj\n"
+       "    poly create workspace name:myws top-ns:com.my.company dialects:clj:cljs\n"
        "    poly create workspace name:myws top-ns:com.my.company branch:master"))
 
 (defn print-help [entity color-mode]

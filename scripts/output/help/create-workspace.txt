@@ -10,19 +10,23 @@
 
   2. Initiate the workspace manually by executing commands similar to the ones above.
 
-  poly create workspace [name:NAME] top-ns:TOP-NAMESPACE [dialect:DIALECT] [:commit] [branch:BRANCH]
+  poly create workspace [name:NAME] top-ns:TOP-NAMESPACE [dialects:DIALECTS] [:commit] [branch:BRANCH]
 
     NAME = The name of the workspace to create, which must be given
            if created outside a git repository. Otherwise it's optional.
 
     TOP-NAMESPACE = The top namespace name.
 
-    DIALECT = The value is sent to Selmer when the project is created.
+    DIALECTS = The value is sent to Selmer when the project is created.
+               The value is used to set ':dialects' in 'workspace.edn'.
+               If 'cljs' is provided, a 'package.json' file is also created.
+               Valid values are: clj, cljs
 
     BRANCH = The name of the branch, or the default git main branch if not given.
 
   Example:
     poly create workspace name:myws top-ns:com.my.company
-    poly create workspace name:myws top-ns:com.my.company dialect:cljs
+    poly create workspace name:myws top-ns:com.my.company dialects:clj
+    poly create workspace name:myws top-ns:com.my.company dialects:clj:cljs
     poly create workspace name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company branch:master :commit

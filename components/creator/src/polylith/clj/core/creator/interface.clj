@@ -4,8 +4,8 @@
             [polylith.clj.core.creator.workspace :as workspace]
             [polylith.clj.core.creator.project :as project]))
 
-(defn create-workspace [root-dir ws-name top-ns dialect branch commit?]
-  (workspace/create root-dir ws-name top-ns dialect branch commit?))
+(defn create-workspace [workspace root-dir ws-name top-ns ws-dialects branch commit?]
+  (workspace/create workspace root-dir ws-name top-ns ws-dialects branch commit?))
 
 (defn create-project [workspace project-name dialect is-git-add]
   (project/create workspace project-name dialect is-git-add))

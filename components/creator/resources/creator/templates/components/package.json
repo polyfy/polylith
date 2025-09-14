@@ -1,0 +1,10 @@
+{
+  "name": "@poly/{{brick-name}}",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+  },
+  "devDependencies": {
+    "shadow-cljs": "{{shadow-cljs-ver}}"
+  }
+}

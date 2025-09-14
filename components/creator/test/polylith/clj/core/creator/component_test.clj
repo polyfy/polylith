@@ -132,7 +132,6 @@
             "  (is (= 1 1)))"]
            (helper/content test-ifc-dir "interface_test.clj")))))
 
-
 (deftest create-component--with-dialect-cljs
   (let [src-ifc-dir "ws1/components/my-component/src/se/example/my_component"
         test-ifc-dir "ws1/components/my-component/test/se/example/my_component"
@@ -152,6 +151,7 @@
              "components/.keep"
              "components/my-component"
              "components/my-component/deps.edn"
+             "components/my-component/package.json"
              "components/my-component/resources"
              "components/my-component/resources/my-component"
              "components/my-component/resources/my-component/.keep"

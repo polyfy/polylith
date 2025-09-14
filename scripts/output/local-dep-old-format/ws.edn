@@ -335,6 +335,7 @@
    {:root-dir "USER-HOME/source/polylith",
     :paths
     [{:dir "examples/doc-example"}
+     {:dir "examples/test-runners"}
      {:dir "../clojure-polylith-realworld-example-app",
       :name "realworld"}]}},
   :workspace

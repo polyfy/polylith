@@ -1,10 +1,12 @@
 {:top-namespace "{{top-ns}}"
  :interface-ns "interface"
  :default-profile-name "default"
- :dialects #{"clj"}
+ :dialects {{ws-dialects|safe}}
  :compact-views #{}
  :vcs {:name "git"
        :auto-add false}
  :tag-patterns {:stable "^stable-.*"
                 :release "^v[0-9].*"}
+ :template-data {:clojure-ver "1.12.2"
+                 :shadow-cljs-ver "^3.2.0"}
  :projects {"development" {:alias "dev"}}}

@@ -25,7 +25,7 @@
   :changed-projects [],
   :changed-bases [],
   :since-sha "SHA",
-  :changed-files [],
+  :changed-files ["deps.edn"],
   :git-diff-command "git diff SHA --name-only",
   :changed-components [],
   :since-tag "stable-master",
@@ -311,9 +311,9 @@
       {:main-opts ["-m" "polylith.clj.core.poly-cli.core"],
        :extra-deps
        {polylith/clj-poly {:local/root "../../projects/poly"}}},
-      :poly219
+      :poly222
       {:main-opts ["-m" "polylith.clj.core.poly-cli.core"],
-       :extra-deps {polylith/clj-poly {:mvn/version "0.2.19"}}}}}}
+       :extra-deps {polylith/clj-poly {:mvn/version "0.2.22"}}}}}}
    {:name "invoicing",
     :type "project",
     :deps
@@ -341,6 +341,7 @@
    {:root-dir "USER-HOME/source/polylith",
     :paths
     [{:dir "examples/doc-example"}
+     {:dir "examples/test-runners"}
      {:dir "../clojure-polylith-realworld-example-app",
       :name "realworld"}]}},
   :workspace
