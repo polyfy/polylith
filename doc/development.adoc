@@ -27,6 +27,8 @@ If you are using a different IDE, here's the generic goals:
 . Evaluate `dev.lisa` in your IDE REPL to test.
 . Celebrate a successful IDE setup!
 
+There is also an example https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend[here] that uses https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva[Calva] for setting up a Clojure + ClojureScript workspace.
+
 [[idea-cursive]]
 == IntelliJ IDEA with Cursive Setup
 
