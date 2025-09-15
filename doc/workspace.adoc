@@ -16,7 +16,7 @@ By default, this command also creates a git repository, so execute it outside an
 
 [source,shell]
 ----
-poly create workspace name:example top-ns:se.example dialect:clj branch:main :commit
+poly create workspace name:example top-ns:se.example dialects:clj branch:main :commit
 ----
 
 The `poly` tool has created an `example` workspace in the `main` branch of a new git repository and committed all files.
@@ -38,7 +38,7 @@ git var GIT_DEFAULT_BRANCH
 
 [NOTE]
 ====
-Beginning with version 0.3.0, the `poly` tool supports both Clojure and CljureScript.
+Beginning with version 0.3.0, the `poly` tool supports both Clojure and ClojureScript.
 In this example, we’ll use Clojure to demonstrate how the tool works.
 
 An example of a workspace that mixes backend and frontend code, can be found https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend[here].
@@ -59,7 +59,7 @@ example                # Workspace dir
 ├── development/
 │   └── src/           # Development project sources
 ├── logo.png           # Polylith logo
-├── package.json       # <1>
+├── package.json       # NPM config for development project <1>
 ├── projects/          # Dir for deployable projects
 ├── readme.md          # Documentation
 └── workspace.edn      # Workspace config file
@@ -79,7 +79,7 @@ Each top-level directory contains a specific Polylith concept:
 
 * A xref:project.adoc[project] specifies a deployable artifact and what components and bases it contains.
 
-* The xref:development.adoc[development] project (`development/` + `deps.edn`) supports working on all code from one place.
+* The xref:development.adoc[development] project (`development/` + `deps.edn` + `package.json`) supports working on all code from one place.
 
 This structure gives a consistent shape to all Polylith projects.
 The familiar convention ensures that all developers, be they new or veterans, will quickly get started on Polylith systems that are new to them.
@@ -105,6 +105,8 @@ The `workspace.edn` file looks like:
        :auto-add false}
  :tag-patterns {:stable "^stable-.*"
                 :release "^v[0-9].*"}
+ :template-data {:clojure-ver "1.12.2"
+                 :shadow-cljs-ver "^3.2.0"}
  :projects {"development" {:alias "dev"}}}
 ----
 
@@ -124,6 +126,23 @@ The `deps.edn` file:
 <2> The `:test` alias supports your tests
 <3> The `:poly` alias allows you to run `poly` as a local dependency, e.g., `clj -M:poly version`, and isn't used by `poly` stand-alone.
 
+The `package.json` file (not created in this example):
+
+[source,json,subs="+attributes"]
+----
+{
+  "name": "example",
+  "description": "",
+  "version": "0.0.1",
+  "private": true,
+  "workspaces": [
+  ],
+  "devDependencies": {
+    "shadow-cljs": "^3.2.0"
+  }
+}
+----
+
 [[sub-workspaces]]
 == Existing git Repository
 
@@ -134,7 +153,7 @@ Either you create the workspace directly at the root of the git repository (with
 [source,shell]
 ----
 cd my-git-repo-dir
-poly create workspace top-ns:com.mycompany
+poly create workspace top-ns:com.mycompany dialects:clj
 ----
 
 ...which results in:
@@ -156,7 +175,7 @@ my-git-repo-dir
 [source,shell]
 ----
 cd my-git-repo-dir
-poly create workspace name:my-workspace top-ns:com.mycompany
+poly create workspace name:my-workspace top-ns:com.mycompany dialects:clj
 ----
 
 ...which result in:
@@ -196,7 +215,7 @@ All techniques above still apply, but you will instead create a workspace like s
 ----
 clojure -Sdeps '{:deps {polylith/clj-poly {:mvn/version "RELEASE"}}}' \
         -M -m  polylith.clj.core.poly-cli.core \
-        create workspace name:example top-ns:se.example :commit
+        create workspace name:example top-ns:se.example dialects:clj :commit
 ----
 
 And now you can use `poly` as a dependency:
