@@ -67,7 +67,7 @@ Let's continue with our example by executing the xref:commands.adoc#create-compo
 
 [source,shell]
 ----
-poly create component name:user
+poly create component name:user dialect:clj
 ----
 
 Your workspace directory structure will now look like this:
@@ -79,6 +79,7 @@ example
 ├── components
 │   └── user # <1>
 │       ├── deps.edn
+│       ├── package.json # <2>
 │       ├── resources
 │       │   └── user
 │       ├── src
@@ -102,6 +103,8 @@ example
 └── workspace.edn
 ----
 <1> new `user` component
+<2> Not created in this example.
+The `package.json` file will only be created if `cljs` is provided as dialect in the xref:commands.adoc#create-component[create component] command.
 
 You'll notice the command also printed out this message:
 
@@ -162,7 +165,23 @@ The component has its own `deps.edn` file that looks like:
 
 It specifies a `src`, `resources`, and `test` directory.
 
-The xref:commands.adoc#create-component[create component] command created the user component `resources` directory:
+The xref:commands.adoc#create-component[create component] command in this example didn't create a `package.json` file, but if it had, it would have looked like this:
+
+[source,json,subs="+attributes"]
+----
+{
+  "name": "@poly/user",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+  },
+  "devDependencies": {
+    "shadow-cljs": "^3.2.0"
+  }
+}
+----
+
+However, it created the user component `resources` directory:
 
 [source,shell]
 ----
