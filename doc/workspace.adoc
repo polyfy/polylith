@@ -16,7 +16,7 @@ By default, this command also creates a git repository, so execute it outside an
 
 [source,shell]
 ----
-poly create workspace name:example top-ns:se.example branch:main :commit
+poly create workspace name:example top-ns:se.example dialect:clj branch:main :commit
 ----
 
 The `poly` tool has created an `example` workspace in the `main` branch of a new git repository and committed all files.
@@ -27,12 +27,21 @@ Stick with this name when following this example, but choose whatever name makes
 [TIP]
 ====
 
-If the `branch` parameter is not provided, the default branch will be used. You can retrieve the default branch name using the following command:
+If the `branch` parameter is not provided, the default branch will be used.
+You can retrieve the default branch name using the following command:
 
 [source,shell]
 ----
 git var GIT_DEFAULT_BRANCH
 ----
+====
+
+[NOTE]
+====
+Beginning with version 0.3.0, the `poly` tool supports both Clojure and CljureScript.
+In this example, we’ll use Clojure to demonstrate how the tool works.
+
+An example of a workspace that mixes backend and frontend code, can be found https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend[here].
 ====
 
 Your workspace directory structure should look like this:
@@ -50,10 +59,14 @@ example                # Workspace dir
 ├── development/
 │   └── src/           # Development project sources
 ├── logo.png           # Polylith logo
+├── package.json       # <1>
 ├── projects/          # Dir for deployable projects
 ├── readme.md          # Documentation
 └── workspace.edn      # Workspace config file
 ----
+
+<1> Not created in this example.
+The `package.json` file will only be created if `cljs` is provided as dialect in the xref:commands.adoc#create-workspace[create workspace] command.
 
 We designed the directory structure for quick navigation and ease of use.
 Your service-level building blocks are easy to find and understand, which helps you to reason about your system at a higher level.
