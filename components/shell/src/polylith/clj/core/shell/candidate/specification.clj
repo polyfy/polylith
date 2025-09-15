@@ -26,22 +26,24 @@
 (def check (c/single-txt "check"))
 
 ;; create
-(def create-dialect (c/fn-explorer "dialect" :create-project #'dialect/select (c/optional)))
 (def create-dialects (c/fn-explorer "dialects" :create-project #'dialects/select))
 (def create-base-name-value (c/multi-arg :create-base "name"))
 (def create-base-name (c/multi-param "name" 1 (c/group :create-base) [create-base-name-value]))
 (def create-base (c/single-txt "base" :create-base [create-base-name]))
-(def create-base-dialect (c/single-txt "base" :create-base [create-base-name create-dialect]))
+(def create-base-dialect (c/fn-explorer "dialect" :create-base #'dialect/select))
+(def create-base-with-dialect (c/single-txt "base" :create-base [create-base-name create-base-dialect]))
 (def interface-value (c/multi-arg :create-component "interface"))
-(def interface (c/multi-param "interface" 2 (c/group :create-component) (c/optional) [interface-value]))
+(def interface (c/multi-param "interface" 3 (c/group :create-component) (c/optional) [interface-value]))
 (def create-component-name-value (c/multi-arg :create-component "name"))
 (def create-component-name (c/multi-param "name" 1 (c/group :create-component) [create-component-name-value]))
 (def create-component (c/single-txt "component" :create-component [create-component-name interface]))
-(def create-component-dialect (c/single-txt "component" :create-component [create-component-name create-dialect interface]))
+(def create-component-dialect (c/fn-explorer "dialect" :create-component #'dialect/select 2))
+(def create-component-with-dialect (c/single-txt "component" :create-component [create-component-name create-component-dialect interface]))
 (def create-project-name-value (c/multi-arg :create-project "name"))
 (def create-project-name (c/multi-param "name" 1 (c/group :create-project) [create-project-name-value]))
 (def create-project (c/single-txt "project" :create-project [create-project-name]))
-(def create-project-dialect (c/single-txt "project" :create-project [create-project-name create-dialect]))
+(def create-project-dialect (c/fn-explorer "dialect" :create-project #'dialect/select))
+(def create-project-with-dialect (c/single-txt "project" :create-project [create-project-name create-project-dialect]))
 (def create-workspace-commit (c/flag "commit" :create-workspace))
 (def create-workspace-branch (c/multi-param "branch"))
 (def create-workspace-top-ns-value (c/group-arg "" :create-workspace "top-ns" false))
@@ -53,7 +55,7 @@
   (when current-ws?
     (c/single-txt "create" :create
       (concat (if cljs?
-                [create-base-dialect create-component-dialect create-project-dialect]
+                [create-base-with-dialect create-component-with-dialect create-project-with-dialect]
                 [create-base create-component create-project])
               (when all? [create-workspace])))))
 
