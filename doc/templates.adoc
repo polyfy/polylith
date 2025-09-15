@@ -145,3 +145,16 @@ For these templates, the following variables are provided:
 * `{{clojure-ver}}` -- the default version of Clojure to use; e.g. `"1.12.0"`
 * `{{project-name}}` -- the name of the project (from the xref:commands.adoc#create-project[create project] command)
 * `{{shadow-cljs-ver}}` -- the version of shadow-cljs to use; e.g. `"^3.2.0"`
+
+[[custom-template-data]]
+== Custom template data
+
+The `:template-data` key in workspace.edn stores custom template data:
+
+```clojure
+ :template-data {:clojure-ver "1.12.2"
+                 :shadow-cljs-ver "^3.2.0"}
+```
+
+These keys can be referenced in any of the templates used by the create commands.
+You can also add new key/value pairs to share data between templates.
