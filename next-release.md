@@ -11,13 +11,14 @@ Main changes:
 - The `create workspace` command:
   - If `dialects:DIALECTS` is provided, it will be used to set `:dialects` in workspace.edn to `DIALECTS`, e.g. `["clj", "cljs"]` if `create workspace name:NAME top-ns:TOP-NS dialects:clj:cljs`.
     - Only the dialects selected (Clojure/ClojureScript) will be read from disk.
-    - If no dialect is chosen, `["clj"]` will be used.
+    - If no dialect is specified, `["clj"]` will be used.
     - If any of the values are set to `"cljs"` (`["cljs"]` or `["clj" cljs"]`) a `package.json` file will be created. 
    - The new attribute `:template-data` is set to the initial value `{:clojure-ver "1.12.2", :shadow-cljs-ver "^3.2.0"}`.
      You can add your own set of key/value pairs or update the existing, which are then used by Selmer in the `create` command.
 - The `create component`, `create base`, and `create project` commands:
   - If `DIALECT` in `dialect:DIALECT` is set to `cljs`, a `package.json` file will be created.
   - Suggest the `dialect` argument in the shell, if `cljs` is one of the `:dialects` in workspace.edn.
+  - If `dialect` is not specified, `clj` will be used.
 - The `libs` command:
   - npm dependencies are now included in the list of library dependencies (read from `package.json` files).
   - the `:outdated` parameter also checks for outdated npm dependencies.
