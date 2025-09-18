@@ -862,7 +862,7 @@ You can specify custom maven repositories in a brick.
 Everything that depends on the brick will pick up the custom Maven repositories.
 
 For example, the `local-dep` example workspace's `datomic-ions` brick https://github.com/polyfy/polylith/blob/edaef89207c2852010132e863ae87ebba5bedc5b/examples/local-dep/components/datomic-ions/deps.edn#L1[specifies a custom Maven repository for datomic libraries].
-You can verify that the brick picks up the maven repository by executing `poly ws get:components:datomic-ions:maven-repos`:
+You can verify that the brick picks up the maven repository by executing `poly ws get:components:datomic-ions:maven-repos ws-dir:examples/local-dep`:
 
 [source,clojure]
 ----
