@@ -869,7 +869,7 @@ You can verify that the brick picks up the maven repository by executing `poly w
 {"datomic-cloud" {:url "s3://datomic-releases-1fc2183a/maven/releases"}}
 ----
 
-And that the `invoicing` project uses it by executing `poly ws get:projects:invoicing:maven-repos`:
+And that the `invoicing` project uses it by executing `poly ws get:projects:invoicing:maven-repos ws-dir:examples/local-dep`:
 
 [source,clojure]
 ----
