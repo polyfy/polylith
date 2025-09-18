@@ -6,16 +6,18 @@ There are two kinds of `projects` in Polylith: development and deployable.
 
 * Where you work with the code, often from a REPL.
 * Described in `./deps.edn` which:
-** Specifies all bricks and project libraries used by the project.
+** Specifies all clj/cljc/cljs bricks used by the project + tools.deps project libraries.
 ** Optionally defines xref:profile.adoc[profiles].
+* Described in `./package.json` (if exists) which:
+** Specifies all cljs bricks used by the project + NPM project libraries.
 * Source code to support development (not part of any component or base) lives under the `./development` directory.
 
 *A deployable project:*
 
 * Used to build deployable xref:artifacts.adoc[artifacts], e.g., lambda functions, REST APIs, tools, etc.
 * Has its own directory under the `./projects` directory (e.g., `my-project`), which:
-** Has a `deps.edn` specifying the bricks and libraries used by the deployable project.
-*** If the referenced bricks contain any tests, they are run when you execute the xref:commands.adoc#test[test] command.
+** Has a `deps.edn` specifying the clj/cljc/cljs bricks and tools.deps libraries used by the deployable project.
+*** If the referenced bricks contain any clj/cljc tests, they are run when you execute the xref:commands.adoc#test[test] command (cljs tests are not executed).
 ** Can optionally have a `resources` directory.
 ** Can optionally have a `test` directory for project-specific tests.
 ** Doesn't have a `src` directory.
@@ -29,7 +31,7 @@ Run the following xref:commands#create-project[create project] command:
 
 [source,shell]
 ----
-poly create project name:command-line
+poly create project name:command-line dialect:clj
 ----
 
 Your workspace should now look like this:
@@ -76,11 +78,28 @@ example
 ├── logo.png
 ├── projects
 │   └── command-line # <1>
-│       └── deps.edn
+│       ├── deps.edn
+│       └── package.json # <2>
 ├── readme.md
 └── workspace.edn
 ----
 <1> new `command-line` project
+<2> The xref:commands.adoc#create-component[create component] command didn't create a `package.json file`.
+If the `dialect` had been set to `cljs`, the file would have looked like this (the content can be customized in xref:templates.adoc[Templates]):
+
+[source,json,subs="+attributes"]
+----
+{
+  "name": "@poly/command-line",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+  },
+  "devDependencies": {
+    "shadow-cljs": "^3.2.0"
+  }
+}
+----
 
 [[project-alias]]
 The `poly` tool helpfully reminds us:
