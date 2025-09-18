@@ -441,8 +441,8 @@ usermanager
 | https://github.com/polyfy/polylith[polylith]
 | The Polylith workspace, from which this `poly` tool itself is built, mainly maintained by https://github.com/tengstrand[Joakim Tengstrand].
 
-| https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/master[realworld]
-| A full-fledged RealWorld server, built with Clojure, Polylith, and Ring, including CRUD operations, authentication, routing, pagination, and more.
+| https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend[realworld]
+| A full-fledged https://github.com/gothinkster/realworld[RealWorld] full-stack application (CRUD, auth, advanced patterns, etc) built with Clojure, Polylith, Ring for the backend API, and ClojureScript, Polylith, Re-frame for the frontend, including CRUD operations, authentication, routing, pagination, and more.
 Created and maintained by link:https://github.com/furkan3ayraktar[Furkan Bayraktar].
 
 | https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager]

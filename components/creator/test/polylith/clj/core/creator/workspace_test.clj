@@ -105,7 +105,7 @@
             ""
             "- The [high-level documentation](https://polylith.gitbook.io/polylith)"
             "- The [poly tool documentation](https://cljdoc.org/d/polylith/clj-poly/CURRENT)"
-            "- The [RealWorld example app documentation](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app)"
+            "- The [RealWorld example app documentation](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend)"
             ""
             "You can also get in touch with the Polylith Team on [Slack](https://clojurians.slack.com/archives/C013B7MQHJQ)."
             ""

@@ -39,7 +39,7 @@
                           :game-of-life {:url "https://github.com/tengstrand/game-of-life"}
                           :integrant-system {:url "https://github.com/polyfy/polylith/tree/master/examples/integrant-system"}
                           :polylith {:url "https://github.com/polyfy/polylith"}
-                          :realworld {:url "https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/e6f7f200bc46e4e2595e123947eec442ad91c9ab"}
+                          :realworld {:url "https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend"}
                           :usermanager {:url "https://github.com/seancorfield/usermanager-example/tree/polylith"}}
              :videos {:url "https://polylith.gitbook.io/polylith/conclusion/videos"
                       :polylith-in-a-nutshell {:url "https://youtu.be/Xz8slbpGvnk"}
