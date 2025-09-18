@@ -10,6 +10,8 @@ This convention verifies that the bricks tests pass using the classpath formulat
 
 The `development` project offers a way to run tests from your REPL and a temporary home (and test vehicle) for new bricks that aren't yet part of any deployable project.
 
+IMPORTANT: The built-in and external xref:test-runners.adoc[test runners] currently support only Clojure, not ClojureScript.
+
 Let's continue with our xref:introduction.adoc[tutorial], we last left off exploring xref:tagging.adoc[tagging].
 
 The xref:commands.adoc#info[info] command provides a great way to see what tests `poly` will run.
@@ -503,7 +505,7 @@ image::images/testing/info-all-bricks-dev-annotated.png[width=400]
 
 TIP: This is for demonstration purposes only.
 The `poly` tool has already marked all of your bricks for testing under the `command-line` (alias `cl`) project.
-Retesting your bricks the `development` (alias `dev`) project is questionable.
+Retesting your bricks in the `development` (alias `dev`) project is questionable.
 
 To include all brick and project tests (except `development`) you can type:
 
@@ -859,7 +861,7 @@ Sometimes, you'll depend on libraries not hosted in the default Maven repositori
 You can specify custom maven repositories in a brick.
 Everything that depends on the brick will pick up the custom Maven repositories.
 
-For example, the `poly` tool's `datomic-ions` brick https://github.com/polyfy/polylith/blob/edaef89207c2852010132e863ae87ebba5bedc5b/examples/local-dep/components/datomic-ions/deps.edn#L1[specifies a custom Maven repository for datomic libraries].
+For example, the `local-dep` example workspace's `datomic-ions` brick https://github.com/polyfy/polylith/blob/edaef89207c2852010132e863ae87ebba5bedc5b/examples/local-dep/components/datomic-ions/deps.edn#L1[specifies a custom Maven repository for datomic libraries].
 You can verify that the brick picks up the maven repository by executing `poly ws get:components:datomic-ions:maven-repos`:
 
 [source,clojure]
