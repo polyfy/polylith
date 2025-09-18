@@ -41,7 +41,8 @@ git var GIT_DEFAULT_BRANCH
 Beginning with version 0.3.0, the `poly` tool supports both Clojure and ClojureScript.
 In this example, we’ll use Clojure to demonstrate how the tool works.
 
-An example of a workspace that mixes backend and frontend code, can be found https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend[here].
+For guidance on mixing Clojure and ClojureScript, see the RealWorld https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend[example app].
+
 ====
 
 Your workspace directory structure should look like this:
