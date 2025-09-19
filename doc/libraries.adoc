@@ -142,14 +142,14 @@ clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git",
 The `poly` tool will calculate the `KB` column for a Git dependency, only if the key path matches the path for the libary under `~/.gitlibs/libs` (the Git owner and repo from the `:git/url`).
 |===
 
-https://en.wikipedia.org/wiki/Npm[NPM] dependencies are read from `package.json` files:
+https://en.wikipedia.org/wiki/Npm[NPM] dependencies are specified in `package.json` files:
 
 [%autowidth]
 |===
 | Type | Description
 
 | NPM
-a| A dependency is specified like this, e.g.:
+a| An NPM dependency, e.g.:
 [source,json]
 ----
 "karma": "6.4.4"
@@ -158,7 +158,7 @@ a| A dependency is specified like this, e.g.:
 
 == Configuration
 
-3rd-party library dependencies are specified in `deps.edn` for each component, base, and project:
+3rd-party tools.deps library dependencies are specified in `deps.edn` for each component, base, and project:
 
 [%autowidth]
 |===
@@ -193,6 +193,9 @@ a| A dependency is specified like this, e.g.:
 | [nowrap]`:aliases > :test > :extra-deps`
 
 |===
+
+Third-party NPM dependencies are specified in the package.json file of each component, base, and project, located alongside the corresponding `deps.edn` file.
+Source dependencies go under the `"dependencies"` key, while test dependencies go under the `"devDependencies"` key (see https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/cljs-frontend/projects/realworld-frontend/package.json[this] file as an example).
 
 [[local-deps]]
 === Local Dependencies
