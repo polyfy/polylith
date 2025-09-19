@@ -5,7 +5,7 @@ In production, your deployable xref:project.adoc[projects], by their nature, run
 In development, you are running from a single REPL process, which can lead to classpath issues you will never encounter in production.
 Profiles allow you to work on all your projects from the `development` project without classpath issues.
 
-TIP: You likely don't need profiles if your xref:workspace.adoc[workspace] does not xref:interface.adoc#one-interface-in-multiple-components[re-specify one interface].
+TIP: You likely don't need profiles if your xref:workspace.adoc[workspace] does not xref:interface.adoc#one-interface-in-multiple-components[re-specify any interfaces].
 
 == An Example Scenario
 
@@ -91,7 +91,7 @@ Run:
 
 [source,clojure]
 ----
-poly create base name:user-api
+poly create base name:user-api dialect:clj
 ----
 
 [[add-slacker-library-to-user-api]]
@@ -190,7 +190,7 @@ Run:
 
 [source,shell]
 ----
-poly create component name:user-remote interface:user
+poly create component name:user-remote dialect:clj interface:user
 ----
 
 [[add-slacker-library-to-user-remote]]
@@ -389,7 +389,7 @@ Run:
 
 [source,shell]
 ----
-poly create project name:user-service
+poly create project name:user-service dialect:clj
 ----
 
 [[configure-user-service]]

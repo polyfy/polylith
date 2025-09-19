@@ -247,13 +247,13 @@
         poly (fn-default-opts sh/poly {:dir ws-dir})
         opts (assoc opts :fake-sha fake-sha2)]
     (copy [(fs/file sections-dir "profile/workspace.edn") ws-dir])
-    (poly "create project name:user-service")
-    (poly "create base name:user-api")
+    (poly "create project name:user-service dialect:clj")
+    (poly "create base name:user-api dialect:clj")
     (copy [(fs/file sections-dir "profile/user-api-deps.edn")     (fs/file ws-dir "bases/user-api/deps.edn")]
           [(fs/file sections-dir "profile/user-api-core.clj")     (fs/file ws-dir "bases/user-api/src/se/example/user_api/core.clj")]
           [(fs/file sections-dir "profile/user-api-api.clj")      (fs/file ws-dir "bases/user-api/src/se/example/user_api/api.clj")]
           [(fs/file sections-dir "profile/user-service-deps.edn") (fs/file ws-dir "projects/user-service/deps.edn")])
-    (poly "create component name:user-remote interface:user")
+    (poly "create component name:user-remote dialect:clj interface:user")
     (copy [(fs/file sections-dir "profile/user-remote-deps.edn")      (fs/file ws-dir "components/user-remote/deps.edn")]
           [(fs/file sections-dir "profile/user-remote-core.clj")      (fs/file ws-dir "components/user-remote/src/se/example/user/core.clj")]
           [(fs/file sections-dir "profile/user-remote-interface.clj") (fs/file ws-dir "components/user-remote/src/se/example/user/interface.clj")]
