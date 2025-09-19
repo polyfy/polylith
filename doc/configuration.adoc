@@ -1,7 +1,7 @@
 = Configuration
 :toc:
 
-We have three categories of configuration:
+We have four categories of configuration:
 
 [%autowidth]
 |===
@@ -13,6 +13,10 @@ a| `:workspace`
 
 a| xref:tools-deps.adoc[tools.deps]
 a| `deps.edn` files in projects and bricks
+a| `:projects` `:bases` `:components`
+
+a| https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file[xref:tools-deps.adoc][NPM]
+a| `package.json` files in projects and bricks
 a| `:projects` `:bases` `:components`
 
 a|`poly` user
@@ -77,7 +81,7 @@ a| The name of the profile that `poly` automatically merges into the xref:develo
 a| [nowrap]`:dialects`
 a| The Clojure dialects the `poly` tool will read ("clj" and/or "cljs") where
 "cljc" is always read. +
-*Default:* `#{"cljs"}`
+*Default:* `#{"clj"}`
 
 a| `:interface-ns`
 a| Tells `poly` when to consider a namespace an interface and what naming convention the xref:commands.adoc#create-component[create component] command should use.
@@ -91,10 +95,10 @@ a| See xref:#ws-projects[projects] below. +
 a| `:tag-patterns`
 a| Specifies the https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html[regex] patterns used when searching for the most recent tag in git.
 As explained in xref:tagging.adoc[Tagging], `poly` uses this pattern to calculate the latest committed sha that is considered the _latest stable point in time_. +
-*Default:* `+{:stable "stable-.*" :release "v[0-9].*"}+`
+*Default:* `+{:stable "^stable-.*" :release "^v[0-9].*"}+`
 
 a| `:template-data`
-a| Settings used by Selmer, see xref:test-runners.adoc[Templating]]
+a| See xref:test-runners.adoc[Templating]
 
 a| `:test`
 a| See xref:test-runners.adoc#test-configuration[Test configuration].
@@ -140,7 +144,7 @@ poly ws get:configs:workspace:projects
 
 The keys are the full project names.
 
-The default alias for the `development` project is created for you when your xref:workspace.adoc[create your workspace].
+The default alias for the `development` project is created for you when you xref:workspace.adoc[create your workspace].
 Deployable projects get no automatically generated config under `:projects`.
 
 Project map keys are:
@@ -209,10 +213,10 @@ Each xref:project.adoc[project] has its own `deps.edn` and, optionally, `package
 
 You'll find:
 
-* The xref:development.adoc[development] project config in `./deps.edn` and `./package.json`.
-The xref:commands.adoc#create-workspace[create workspace] command creates the initial file.
-* Deployable xref:project.adoc[projects] are configured in `projects/_PROJECT-DIR_/deps.edn` and `projects/_PROJECT-DIR_/package.json` where `_PROJECT-DIR_` is the deployable project's directory (and name).
-The xref:commands.adoc#create-project[create project] command creates the initial file.
+* The xref:development.adoc[development] project config in `./deps.edn` and, optionally, `./package.json`.
+The xref:commands.adoc#create-workspace[create workspace] command creates the initial file(s).
+* Deployable xref:project.adoc[projects] are configured in `projects/_PROJECT-DIR_/deps.edn` and, optionally, `projects/_PROJECT-DIR_/package.json` where `_PROJECT-DIR_` is the deployable project's directory (and name).
+The xref:commands.adoc#create-project[create project] command creates the initial file(s).
 
 You can retrieve a project's configurations via, e.g.:
 
@@ -319,13 +323,13 @@ poly ws get:configs:components:user
 | Key | Description
 
 a| `:deps`
-a| The content of `deps.edn`.
+a| The content of component `deps.edn`.
 
 a| `:name`
 a| (derived) The component name.
 
 a| `:package`
-a| Content of project `package.json`
+a| Content of component `package.json`.
 
 a| `:type`
 a| (derived) Always `"component"` for components.
