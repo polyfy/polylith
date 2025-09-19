@@ -21,7 +21,7 @@
                                  :git/sha "7282409"
                                  :deps/root "projects/test-runner"}
                                 io.github.seancorfield/polylith-external-test-runner
-                                {:git/tag "v0.4.0" :git/sha "eb954fe"
+                                {:git/tag "v0.6.1" :git/sha "d0f51c2"
                                  :deps/root "projects/runner"}
                                 polylith/clj-poly
                                 {:local/root "../../projects/poly"}}}}}
