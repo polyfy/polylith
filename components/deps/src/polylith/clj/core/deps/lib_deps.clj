@@ -2,9 +2,6 @@
   (:require [clojure.tools.deps :as tools-deps]
             [polylith.clj.core.user-config.interface :as user-config]))
 
-(defn name-version [[k {:keys [mvn/version]}]]
-  [(str k) version])
-
 (defn adjust-key
   "git deps can have sha or git/sha, tag or git/tag, and deps/root
   These days, git/url can be omitted and deduced from the lib name.
@@ -36,7 +33,13 @@
   [[library version]]
   [(symbol library) (adjust-key version)])
 
-(defn ->config
+(defn- non-npm-library? [[_ {:keys [type]}]]
+  (not= "npm" type))
+
+(defn- non-npm-libraries [source deps]
+  (into {} (filterv non-npm-library? (source deps))))
+
+(defn- ->config
   "Converts back to the tools.deps format.
    Tools.deps only resolves src depenencies (:deps) but not test
    dependencies (:aliases > :test > :extra-deps) which is the reason
@@ -44,8 +47,8 @@
   [{:keys [lib-deps maven-repos maven-local-repo]}
    {:keys [m2-dir]}]
   (cond-> {:mvn/repos maven-repos
-           :deps (into {} (map convert-dep-to-symbol (merge (:src lib-deps)
-                                                            (:test lib-deps))))}
+           :deps (into {} (map convert-dep-to-symbol (merge (non-npm-libraries :src lib-deps)
+                                                            (non-npm-libraries :test lib-deps))))}
           maven-local-repo (assoc :mvn/local-repo maven-local-repo)
           (-> m2-dir user-config/m2-home-dir? not) (assoc :mvn/local-repo (str m2-dir "/repository"))))
 
