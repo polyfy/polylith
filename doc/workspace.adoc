@@ -36,15 +36,6 @@ git var GIT_DEFAULT_BRANCH
 ----
 ====
 
-[NOTE]
-====
-Beginning with version 0.3.0, the `poly` tool supports both Clojure and ClojureScript.
-In this example, we’ll use Clojure to demonstrate how the tool works.
-
-For guidance on mixing Clojure and ClojureScript, see the RealWorld https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend[example app].
-
-====
-
 Your workspace directory structure should look like this:
 
 [source,shell]
@@ -113,6 +104,16 @@ The `workspace.edn` file looks like:
 
 <1> We selected `clj` as the dialect, which tells the poly tool to consider only `.clj` and `.cljc` source files.
 To support ClojureScript, we also have to include `cljs` as dialect to the xref:create-workspace[create workspace] command, e.g. `dialects:clj:cljs`.
+
+[NOTE]
+====
+Beginning with version 0.3.0, the `poly` tool supports both Clojure and ClojureScript.
+In this example, we’ll use Clojure to demonstrate how the tool works.
+
+For guidance on mixing Clojure and ClojureScript, see the RealWorld https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend[example app].
+
+====
+
 
 The `deps.edn` file:
 
