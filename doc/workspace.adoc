@@ -100,7 +100,7 @@ The `workspace.edn` file looks like:
 {:top-namespace "se.example"
  :interface-ns "interface"
  :default-profile-name "default"
- :dialects #{"clj"}
+ :dialects ["clj"] ;; <1>
  :compact-views #{}
  :vcs {:name "git"
        :auto-add false}
@@ -110,6 +110,9 @@ The `workspace.edn` file looks like:
                  :shadow-cljs-ver "^3.2.0"}
  :projects {"development" {:alias "dev"}}}
 ----
+
+<1> We selected `clj` as the dialect, which tells the poly tool to consider only `.clj` and `.cljc` source files.
+To support ClojureScript, we also have to include `cljs` as dialect to the xref:create-workspace[create workspace] command, e.g. `dialects:clj:cljs`.
 
 The `deps.edn` file:
 
@@ -127,7 +130,7 @@ The `deps.edn` file:
 <2> The `:test` alias supports your tests
 <3> The `:poly` alias allows you to run `poly` as a local dependency, e.g., `clj -M:poly version`, and isn't used by `poly` stand-alone.
 
-The `package.json` file (not created in this example):
+The `package.json` file (not created in this example; it's only generated if one of the dialects are `cljs`):
 
 [source,json,subs="+attributes"]
 ----
