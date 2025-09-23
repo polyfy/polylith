@@ -1110,7 +1110,6 @@ poly ws get:ws-dialects
 
 The set of Clojure dialects that is read by this workspace. Calculated from `:dialects` in `workspace.edn`, and if not set, `#{"clj"}` is used as default.
 
-
 [#ws-dir]
 == ws-dir
 
