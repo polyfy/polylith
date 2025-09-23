@@ -17,7 +17,7 @@ Main changes:
      You can add your own set of key/value pairs or update the existing, which are then used by Selmer in the `create` command.
 - The `create component`, `create base`, and `create project` commands:
   - If `DIALECT` in `dialect:DIALECT` is set to `cljs`, a `package.json` file will be created.
-  - Suggest the `dialect` argument in the shell, if `cljs` is one of the `:dialects` in workspace.edn.
+  - Suggests the `dialect` argument in the shell, if `cljs` is listed among the `:dialects` in workspace.edn.
   - If `dialect` is not specified, `clj` will be used.
 - The `libs` command:
   - npm dependencies are now included in the list of library dependencies (read from `package.json` files).
@@ -25,12 +25,12 @@ Main changes:
   - the `:update` parameter also updates npm dependencies in _package.json_ files.
     - `:keep-lib-versions` also works for npm dependencies.
     - the `libraries:LIBS` filtering works as expected (outdated npm libraries are suggested when run from a shell).
-- Configuration from _package.json_ files are stored in the workspace structure and can be retrieved by `ws get:configs:ENTITY:NAME:package` where `ENTITY` is `workspace`, `projects`, `components`, or `bases`, and `TYPE` is the name of the workspace/project/component/base.
+- Configuration from _package.json_ files are stored in the workspace structure and can be retrieved by `ws get:configs:ENTITY:NAME:package` where `ENTITY` is `workspace`, `projects`, `components`, or `bases`, and `NAME` is the name of the workspace/project/component/base.
 
 > For existing workspaces:
-> - Set `:dialects` in `workspace.edn` to `["clj"]`, `["cljs"]`, or `["clj" "cljs"]` to instruct the `poly` tool which type of source files to read (Clojure and/or ClojureScript). 
+> - Set `:dialects` in `workspace.edn` to `["clj"]` or `["clj" "cljs"]` to instruct the `poly` tool which type of source files to read (Clojure or Clojure/ClojureScript). 
 > - Set `:template-data` in `workspace.edn` to e.g. `{:clojure-ver "1.12.2", :shadow-cljs-ver "^3.2.0"}`.
-  More key/value pairs can be added, to be used by the Selmer templates in the `create` command.
+  More key/value pairs can be added, to be used in custom Selmer templates by the `create` command.
 > - To support ClojureScript, create a `package.json` file to your workspace root as well as to projects, components, and bases, see the [RealWorld](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend) app as an example.
 
 ### Issues and PRs:
