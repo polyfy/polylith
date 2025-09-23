@@ -9,7 +9,7 @@ The poly tool now handles ClojureScript (.cljs) source files as well as _package
 Main changes:
 
 - The `create workspace` command:
-  - If `dialects:DIALECTS` is provided, it will be used to set `:dialects` in workspace.edn to `DIALECTS`, e.g. `["clj", "cljs"]` if `create workspace name:NAME top-ns:TOP-NS dialects:clj:cljs`.
+  - If `dialects:DIALECTS` is provided, it will be used to set `:dialects` in workspace.edn to `DIALECTS`, e.g. `["clj", "cljs"]` if the workspace has been created with `create workspace name:NAME top-ns:TOP-NS dialects:clj:cljs`.
     - Only the dialects selected (Clojure/ClojureScript) will be read from disk.
     - If no dialect is specified, `["clj"]` will be used.
     - If any of the values are set to `"cljs"` (`["cljs"]` or `["clj" cljs"]`) a `package.json` file will be created. 
