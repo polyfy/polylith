@@ -7,7 +7,7 @@ endif::[]
 
 This documentation is a practical guide to the `poly` tool.
 
-We include many code examples written in Clojure (clj), but the tool also supports ClojureScript (cljs).
+We include many code examples.
 They act as an ongoing tutorial as you read sequentially through the documentation.
 We encourage you to follow the tutorial examples and try them out yourself.
 For your convenience, we provide the end result link:/examples/doc-example[here].
