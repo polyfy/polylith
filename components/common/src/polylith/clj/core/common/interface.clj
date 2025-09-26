@@ -5,6 +5,7 @@
             [polylith.clj.core.common.file-output :as file-output]
             [polylith.clj.core.common.ns-extractor :as ns-extractor]
             [polylith.clj.core.common.profile :as profile]
+            [polylith.clj.core.common.source_type :as source-type]
             [polylith.clj.core.common.validate-args :as validate-args]
             [polylith.clj.core.version.interface :as version]))
 
@@ -25,6 +26,9 @@
 
 (defn compact? [workspace view]
   (core/compact? workspace view))
+
+(defn source-types [namespaces]
+  (source-type/source-types namespaces))
 
 (defn create-class-loader [paths color-mode]
   (class-loader/create-class-loader paths color-mode))

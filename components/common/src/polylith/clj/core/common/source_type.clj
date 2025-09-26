@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.workspace.fromdisk.source
+(ns ^:no-doc polylith.clj.core.common.source_type
   (:require [clojure.string :as str]))
 
 (defn suffix [{:keys [file-path]}]

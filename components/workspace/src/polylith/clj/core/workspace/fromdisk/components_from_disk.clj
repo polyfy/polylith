@@ -6,7 +6,6 @@
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.workspace.fromdisk.brick-dirs :as brick-dirs]
             [polylith.clj.core.workspace.fromdisk.brick-paths :as brick-paths]
-            [polylith.clj.core.workspace.fromdisk.source :as source]
             [polylith.clj.core.workspace.fromdisk.non-top-namespace :as non-top-ns]
             [polylith.clj.core.workspace.fromdisk.namespaces-from-disk :as ns-from-disk]
             [polylith.clj.core.workspace.fromdisk.interface-defs-from-disk :as defs-from-disk]))
@@ -22,7 +21,7 @@
         interface-name (common/path-to-ns interface-path-name)
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         namespaces (ns-from-disk/namespaces-from-disk ws-dir ws-dialects component-top-src-dirs component-top-test-dirs suffixed-top-ns interface-ns)
-        source-types (source/source-types namespaces)
+        source-types (common/source-types namespaces)
         definitions (defs-from-disk/defs-from-disk ws-dir ws-dialects top-namespace interface-name (:src namespaces) interface-ns)
         entity-root-path (str "components/" component-name)
         lib-deps (lib/brick-lib-deps ws-dir ws-type deps-config package-config top-namespace ns-to-lib namespaces entity-root-path user-home)
