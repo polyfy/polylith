@@ -128,7 +128,7 @@ The `deps.edn` file:
 ----
 <1> The `:dev` alias supports your Polylith development environment
 <2> The `:test` alias supports your tests
-<3> The `:poly` alias allows you to run `poly` as a local dependency, e.g., `clj -M:poly version`, and isn't used by `poly` stand-alone.
+<3> The `:poly` alias allows you to run `poly` as a local dependency, e.g., `clojure -M:poly version`, and isn't used by `poly` stand-alone.
 
 The `package.json` file (not created in this example):
 
