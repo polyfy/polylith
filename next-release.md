@@ -39,6 +39,9 @@ Main changes:
     More custom key/value pairs can be added, to be used in Selmer templates by the `create` command.
 > - To support ClojureScript, create a `package.json` file to your workspace root as well as to projects, components, and bases, see the [RealWorld](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend) app as an example.
 
+### Other changes:
+- Ensure exported workspaces with symbols (e.g. a test runner namespace) are readable when used.
+
 ### Issues and PRs:
 - Add support for ClojureScript, issue [482](https://github.com/polyfy/polylith/issues/481)
 - Fix typo in the documentation, PR [560](https://github.com/polyfy/polylith/pull/560)

@@ -159,6 +159,7 @@
                                   :quote true
                                   :regex true
                                   :deref true
+                                  :symbol true
                                   :read-eval true
                                   :features features
                                   :readers source-reader
