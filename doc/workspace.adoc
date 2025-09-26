@@ -58,7 +58,7 @@ example                # Workspace dir
 ----
 
 <1> Not created in this example.
-The `package.json` file will only be created if `cljs` is provided as dialect in the xref:commands.adoc#create-workspace[create workspace] command.
+The `package.json` file will only be created if `cljs` is provided as dialect in the xref:commands.adoc#create-workspace[create workspace] command, e.g. `dialects:clj:cljs`.
 
 We designed the directory structure for quick navigation and ease of use.
 Your service-level building blocks are easy to find and understand, which helps you to reason about your system at a higher level.
@@ -103,7 +103,6 @@ The `workspace.edn` file looks like:
 ----
 
 <1> We selected `clj` as the dialect, which tells the poly tool to consider only `.clj` and `.cljc` source files.
-To support ClojureScript, we also have to include `cljs` as dialect to the xref:create-workspace[create workspace] command, e.g. `dialects:clj:cljs`.
 
 [NOTE]
 ====
