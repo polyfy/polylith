@@ -1,4 +1,4 @@
-(ns polylith.clj.core.config-reader.json-reader
+(ns ^:no-doc polylith.clj.core.config-reader.json-reader
   (:require [clojure.data.json :as json]))
 
 (defn slurp-file [filepath]

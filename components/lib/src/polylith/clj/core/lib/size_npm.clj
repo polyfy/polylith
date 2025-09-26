@@ -1,4 +1,4 @@
-(ns polylith.clj.core.lib.size-npm
+(ns ^:no-doc polylith.clj.core.lib.size-npm
   (:require [polylith.clj.core.file.interface :as file]))
 
 (defn with-size [[lib version] node-modules-path]

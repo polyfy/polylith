@@ -1,4 +1,4 @@
-(ns polylith.clj.core.info.table.brick.dialect-column
+(ns^:no-doc  polylith.clj.core.info.table.brick.dialect-column
   (:require [polylith.clj.core.text-table.interface :as text-table]))
 
 (defn source-flags [source-types]
