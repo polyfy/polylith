@@ -67,6 +67,7 @@
                                  "components/creator/test"
                                  "components/deps/test"
                                  "components/git/test"
+                                 "components/info/test"
                                  "components/lib/test"
                                  "components/path-finder/test"
                                  "components/shell/test"
