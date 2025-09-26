@@ -5,6 +5,7 @@
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.workspace.fromdisk.brick-name-extractor :as brick-name-extractor]
+            [polylith.clj.core.workspace.fromdisk.source :as source]
             [polylith.clj.core.workspace.fromdisk.namespaces-from-disk :as ns-from-disk]
             [polylith.clj.core.workspace.fromdisk.project-paths :as project-paths]))
 
@@ -148,7 +149,8 @@
                                   (seq src-project-lib-deps) (assoc :src src-project-lib-deps)
                                   (seq test-project-lib-deps) (assoc :test test-project-lib-deps))
          {:keys [src-dirs test-dirs]} (project-paths/project-source-dirs ws-dir project-name is-dev project-src-paths project-test-paths)
-         namespaces (ns-from-disk/namespaces-from-disk ws-dir ws-dialects src-dirs test-dirs suffixed-top-ns interface-ns)]
+         namespaces (ns-from-disk/namespaces-from-disk ws-dir ws-dialects src-dirs test-dirs suffixed-top-ns interface-ns)
+         source-types (source/source-types namespaces)]
      (util/ordered-map :alias (get-in project->settings [project-name :alias])
                        :name project-name
                        :is-dev is-dev
@@ -161,6 +163,7 @@
                        :maven-repos maven-repos
                        :maven-local-repo local-repo
                        :namespaces namespaces
+                       :source-types source-types
                        :test test
                        :necessary (get-in project->settings [project-name :necessary])
                        :keep-lib-versions (get-in project->settings [project-name :keep-lib-versions])))))

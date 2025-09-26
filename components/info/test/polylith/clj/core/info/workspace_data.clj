@@ -1,7 +1,5 @@
-(ns polylith.clj.core.info.workspace-test
-  (:require [clojure.test :refer :all]
-            [polylith.clj.core.file.interface :as file]
-            [polylith.clj.core.info.table.brick :as ws]))
+(ns polylith.clj.core.info.workspace-data
+  (:require [clojure.test :refer :all]))
 
 (def interfaces [{:name "workspace-clj",
                   :type "interface",
@@ -865,6 +863,7 @@
 (def components [{:name "change",
                   :type "component",
                   :lines-of-code {:src 134, :test 343}
+                  :source-types #{"clj"}
                   :interface {:name "change",
                               :definitions [{:name "with-changes",
                                              :type "function",
@@ -928,6 +927,7 @@
                   :lib-deps ["clojure"]}
                  {:name "command",
                   :type "component",
+                  :source-types #{"clj"}
                   :lines-of-code {:src  151, :test 0}
                   :interface {:name "command",
                               :definitions [{:name "execute-command",
@@ -984,6 +984,7 @@
                   :lib-deps ["clojure"]}
                  {:name "common",
                   :type "component",
+                  :source-types #{"clj"}
                   :lines-of-code {:src 336, :test 53}
                   :interface {:name "common",
                               :definitions [{:name "create-class-loader",
@@ -1098,6 +1099,7 @@
                   :lib-deps ["clojure"]}
                  {:name "creator",
                   :type "component",
+                  :source-types #{"clj" "cljc"}
                   :lines-of-code {:src 181, :test 282}
                   :interface {:name "creator",
                               :definitions [{:name "create-base",
@@ -1173,6 +1175,7 @@
                   :lib-deps []}
                  {:name "deps",
                   :type "component",
+                  :source-types #{"clj" "cljc" "cljs"}
                   :lines-of-code {:src 242, :test 328}
                   :interface {:name "deps",
                               :definitions [{:name "interface-deps",
@@ -1278,6 +1281,7 @@
                   :lib-deps ["clojure"]}
                  {:name "path-finder",
                   :type "component",
+                  :source-types #{"clj"}
                   :lines-of-code {:src 591, :test 343}
                   :interface {:name "path-finder",
                               :definitions [{:name "all-src-deps", :type "function", :arglist [{:name "dep-entries"}]}
@@ -1399,6 +1403,7 @@
                   :lib-deps ["clojure"]}
                  {:name "file",
                   :type "component",
+                  :source-types #{"clj"}
                   :lines-of-code {:src 165, :test 2}
                   :interface {:name "file",
                               :definitions [{:name "absolute-path", :type "function", :arglist [{:name "path"}]}
@@ -1449,6 +1454,7 @@
                   :lib-deps ["clojure"]}
                  {:name "git",
                   :type "component",
+                  :source-types #{"clj"}
                   :lines-of-code {:src 55, :test 18}
                   :interface {:name "git",
                               :definitions [{:name "add",
@@ -1479,6 +1485,7 @@
                   :lib-deps ["clojure"]}
                  {:name "help",
                   :type "component",
+                  :source-types #{"clj"}
                   :lines-of-code {:src 204, :test 0}
                   :interface {:name "help",
                               :definitions [{:name "print-help",
@@ -1525,6 +1532,7 @@
                   :lib-deps ["clojure"]}
                  {:name "shell",
                   :type "component",
+                  :source-types #{"clj"}
                   :lines-of-code {:src 19, :test 0}
                   :interface {:name "shell",
                               :definitions [{:name "sh", :type "function", :arglist [{:name "&"} {:name "args"}]}]},
@@ -1541,6 +1549,7 @@
                   :lib-deps ["clojure"]}
                  {:name "test-helper",
                   :type "component",
+                  :source-types #{"clj"}
                   :lines-of-code {:src 73, :test 0}
                   :interface {:name "test-helper",
                               :definitions [{:name "content",
@@ -1580,6 +1589,7 @@
                   :lib-deps ["clojure"]}
                  {:name "test-runner",
                   :type "component",
+                  :source-types #{"clj"}
                   :lines-of-code {:src 108, :test 0}
                   :interface {:name "test-runner",
                               :definitions [{:name "run", :type "function", :arglist [{:name "workspace"}]}]},
@@ -1601,6 +1611,7 @@
                   :lib-deps ["clojure" "clojure.tools.deps"]}
                  {:name "text-table",
                   :type "component",
+                  :source-types #{"clj"}
                   :lines-of-code {:src 145, :test 117}
                   :interface {:name "text-table",
                               :definitions [{:name "line", :type "function", :arglist [{:name "rows"}]}
@@ -1664,9 +1675,9 @@
                   :lib-imports {:src ["clojure.core.matrix" "clojure.string"]}
                   :interface-deps {:src ["util"],}
                   :lib-deps ["clojure" "clojure.core.matrix"]}
-
                  {:name "user-config",
                   :type "component",
+                  :source-types #{"clj"}
                   :lines-of-code {:src 18, :test 0}
                   :interface {:name "user-config",
                               :definitions [{:name "color-mode", :type "function", :arglist []}
@@ -1682,6 +1693,7 @@
                   :lib-deps []}
                  {:name "util",
                   :type "component",
+                  :source-types #{"clj"}
                   :lines-of-code {:src 290, :test 64}
                   :interface {:name "util",
                               :definitions [{:name "find-first",
@@ -1900,6 +1912,7 @@
                   :lib-deps ["clojure"]}
                  {:name "validator",
                   :type "component",
+                  :source-types #{"clj"}
                   :lines-of-code {:src 420, :test 810}
                   :interface {:name "validator",
                               :definitions [{:name "messages",
@@ -2055,6 +2068,7 @@
                   :lib-deps ["clojure"]}
                  {:name "workspace",
                   :type "component",
+                  :source-types #{"clj"}
                   :lines-of-code {:src 844, :test 1008}
                   :interface {:name "workspace",
                               :definitions [{:name "enrich-workspace",
@@ -2073,6 +2087,7 @@
                   :lib-deps ["clojure"]}
                  {:name "workspace-clj",
                   :type "component",
+                  :source-types #{"clj"}
                   :lines-of-code {:src 324, :test 150}
                   :interface {:name "workspace-clj",
                               :definitions [{:name "workspace-from-disk", :type "function", :arglist [{:name "ws-dir"}]}
@@ -2183,6 +2198,7 @@
 (def the-bases [{:name       "poly-cli",
                  :type           "base",
                  :lines-of-code  {:src 22, :test 0}
+                 :source-types #{"clj"}
                  :namespaces     {:src [{:name "poly",
                                          :namespace "polylith.clj.core.poly-cli.core",
                                          :file-path "./bases/poly-cli/src/polylith/clj/core/poly_cli/poly.clj",
@@ -2210,53 +2226,3 @@
                 :changes    changes,
                 :bases      the-bases})
 
-(deftest ws-table--without-loc-info--return-table-without-loc-info
-  (with-redefs [file/exists (fn [_] true)]
-    (is (= ["  interface      brick           poly  core   dev"
-            "  ----------------------------   ----------   ---"
-            "  change         change          st-   s--    st-"
-            "  command        command         stx   ---    st-"
-            "  common         common          st-   s--    st-"
-            "  creator        creator         st-   ---    ---"
-            "  deps           deps            st-   s--    st-"
-            "  file           file            st-   s--    ---"
-            "  git            git             st-   s--    st-"
-            "  help           help            st-   s--    st-"
-            "  path-finder    path-finder *   stx   s--    st-"
-            "  shell          shell           st-   s--    st-"
-            "  test-helper    test-helper     st-   ---    st-"
-            "  test-runner    test-runner     st-   ---    st-"
-            "  text-table     text-table      st-   s--    st-"
-            "  user-config    user-config     st-   s--    st-"
-            "  util           util            st-   s--    st-"
-            "  validator      validator       st-   s--    st-"
-            "  workspace      workspace *     stx   s--    st-"
-            "  workspace-clj  workspace-clj   st-   ---    st-"
-            "  -              poly-cli        st-   ---    st-"]
-           (ws/table workspace false false)))))
-
-(deftest ws-table--with-loc-info--return-table-with-loc-info
-  (with-redefs [file/exists (fn [_] true)]
-    (is (= ["  interface      brick           poly   core     dev      loc   (t)"
-            "  ----------------------------   ------------   -----   -----------"
-            "  change         change          s-t-   s---    s-t-      134   343"
-            "  command        command         s-tx   ----    s-t-      151     0"
-            "  common         common          s-t-   s---    s-t-      336    53"
-            "  creator        creator         srt-   ----    ----      181   282"
-            "  deps           deps            s-t-   s---    s-t-      242   328"
-            "  file           file            s-t-   s---    ----      165     2"
-            "  git            git             s-t-   s---    s-t-       55    18"
-            "  help           help            s-t-   s---    s-t-      204     0"
-            "  path-finder    path-finder *   s-tx   s---    s-t-      591   343"
-            "  shell          shell           s-t-   s---    s-t-       19     0"
-            "  test-helper    test-helper     s-t-   ----    s-t-       73     0"
-            "  test-runner    test-runner     s-t-   ----    s-t-      108     0"
-            "  text-table     text-table      s-t-   s---    s-t-      145   117"
-            "  user-config    user-config     s-t-   s---    s-t-       18     0"
-            "  util           util            s-t-   s---    s-t-      290    64"
-            "  validator      validator       s-t-   s---    s-t-      420   810"
-            "  workspace      workspace *     s-tx   s---    s-t-      844 1,008"
-            "  workspace-clj  workspace-clj   s-t-   ----    s-t-      324   150"
-            "  -              poly-cli        s-t-   ----    s-t-       22     0"
-            "                                 4,322  3,463   3,976   4,322 3,518"]
-           (ws/table workspace true true)))))

@@ -1,8 +1,5 @@
-(ns ^:no-doc polylith.clj.core.info.table.column.ifc-column
+(ns ^:no-doc polylith.clj.core.info.table.brick.ifc-column
   (:require [polylith.clj.core.text-table.interface :as text-table]))
-
-(defn ifc-name [component]
-  (-> component :interface :name))
 
 (defn ifc-cell [index component]
   (let [name (or (-> component :interface :name) "-")

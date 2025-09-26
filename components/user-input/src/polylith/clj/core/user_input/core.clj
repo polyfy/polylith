@@ -68,6 +68,7 @@
                 compact!
                 dev!
                 dialect
+                dialect!
                 dialects
                 dir
                 fail-if-nothing-to-test!
@@ -149,6 +150,7 @@
                                                 (= "true" project!))
                       :is-search-for-ws-dir (contains? (set arguments) "::")
                       :is-show-brick (= "true" brick!)
+                      :is-show-dialect (= "true" dialect!)
                       :is-show-loc (= "true" loc!)
                       :is-show-project (= "true" project!)
                       :is-show-resources (or (= "true" r!)

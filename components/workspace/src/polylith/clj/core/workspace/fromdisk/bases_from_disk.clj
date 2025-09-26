@@ -5,6 +5,7 @@
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.workspace.fromdisk.brick-dirs :as brick-dirs]
             [polylith.clj.core.workspace.fromdisk.brick-paths :as brick-paths]
+            [polylith.clj.core.workspace.fromdisk.source :as source]
             [polylith.clj.core.workspace.fromdisk.namespaces-from-disk :as ns-from-disk]
             [polylith.clj.core.workspace.fromdisk.non-top-namespace :as non-top-ns]))
 
@@ -17,6 +18,7 @@
         base-test-dirs (brick-dirs/top-test-dirs base-dir top-src-dir deps-config)
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         namespaces (ns-from-disk/namespaces-from-disk ws-dir ws-dialects base-src-dirs base-test-dirs suffixed-top-ns interface-ns)
+        source-types (source/source-types namespaces)
         entity-root-path (str "bases/" base-name)
         lib-deps (lib/brick-lib-deps ws-dir ws-type deps-config package-config top-namespace ns-to-lib namespaces entity-root-path user-home)
         source-paths (config/source-paths deps-config)
@@ -26,6 +28,7 @@
                       :maven-repos (:mvn/repos deps-config)
                       :maven-local-repo (:mvn/local-repo deps-config)
                       :paths (brick-paths/source-paths base-dir deps-config)
+                      :source-types source-types
                       :namespaces namespaces
                       :non-top-namespaces non-top-namespaces
                       :test (get-in brick->settings [base-name :test])

@@ -129,6 +129,7 @@
 (def info-resources (c/flag "resources" :info))
 (def info-out (c/fn-explorer "out" :info (file-explorer/select-fn)))
 (def info-project-flag (c/flag-explicit "project" :info))
+(def info-dialect (c/flag "dialect" :info))
 (def info-dev (c/flag "dev" :info))
 (def info-loc (c/flag "loc" :info))
 (def info-all-bricks (c/flag "all-bricks" :info))
@@ -139,7 +140,7 @@
 (defn info [profiles all? extended?]
   (c/single-txt "info" :info
     (concat profiles
-            [info-all info-all-bricks info-brick info-loc info-dev info-resources
+            [info-all info-all-bricks info-brick info-dialect info-loc info-dev info-resources
              info-project info-project-flag info-since info-color-mode]
             (when all? [info-fake-sha info-fake-tag info-changed-files info-skip info-no-changes])
             (when extended? [info-transparent])

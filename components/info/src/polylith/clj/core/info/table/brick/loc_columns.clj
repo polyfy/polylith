@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.info.table.column.loc-columns
+(ns ^:no-doc polylith.clj.core.info.table.brick.loc-columns
   (:require [polylith.clj.core.text-table.interface :as text-table]))
 
 (defn loc-column [header loc-key bricks column thousand-separator]
@@ -9,6 +9,6 @@
                    (map #(-> % :lines-of-code loc-key) bricks))
       [(text-table/number-cell column (+ (count bricks) 3) total-loc :right thousand-separator)])))
 
-(defn columns [is-show-loc bricks start-column thousand-separator]
-  (when is-show-loc (concat (loc-column "loc" :src bricks start-column thousand-separator)
-                            (loc-column "(t)" :test bricks (+ 2 start-column) thousand-separator))))
+(defn columns [is-show-loc bricks thousand-separator]
+  (when is-show-loc (concat (loc-column "loc" :src bricks 901 thousand-separator)
+                            (loc-column "(t)" :test bricks 903 thousand-separator))))

@@ -67,12 +67,12 @@
                   "changed-files:components/util/"))))
 
 (deftest polylith-project-table
-  (is (= ["  project        alias  status   dev  extended   "
-          "  ----------------------------   -------------   "
-          "  poly *         poly    -t-     -t-     --      "
-          "  polyx *        polyx   ---     ---     --      "
-          "  development *  dev     s--     s--     --      "]
-         (info/project-table (workspace) false false))))
+  (is (= ["  project        alias  status   dev  extended"
+          "  ----------------------------   -------------"
+          "  poly *         poly    -t-     -t-     --   "
+          "  polyx *        polyx   ---     ---     --   "
+          "  development *  dev     s--     s--     --   "]
+         (info/project-table (workspace) false false false))))
 
 (deftest polylith-info
   (is (= ["  interface                 brick                        poly  polyx   dev  extended"
@@ -119,7 +119,7 @@
           "  ws-file                   ws-file *                    s--    s--    s--     --   "
           "  -                         nav-generator *              s--    ---    s--     --   "
           "  -                         poly-cli *                   stx    s--    st-     --   "]
-         (info/brick-table (workspace) false false))))
+         (info/brick-table (workspace) false false false))))
 
 (defn keep-except [exclude rows]
   (filterv #(nil? (str/index-of % exclude))
