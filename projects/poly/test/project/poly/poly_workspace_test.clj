@@ -116,7 +116,7 @@
           "  version                   version *                    s--    s--    s--     --   "
           "  workspace                 workspace *                  stx    s--    st-     --   "
           "  ws-explorer               ws-explorer *                stx    s--    st-     --   "
-          "  ws-file                   ws-file *                    s--    s--    s--     --   "
+          "  ws-file-reader            ws-file-reader *             s--    s--    s--     --   "
           "  -                         nav-generator *              s--    ---    s--     --   "
           "  -                         poly-cli *                   stx    s--    st-     --   "]
          (info/brick-table (workspace) false false false))))
@@ -176,20 +176,20 @@
           "                                                                                                       t  n                           "
           "                                                                                                       -  n                           "
           "                                                                                                       r  e                           "
-          "                                                                                                       u  r                           "
-          "                                           c                    i                                      n  -                           "
-          "                                           o                    m                                      n  o                           "
-          "                                           n                    a                 p                 t  e  r     u                 w   "
-          "                                           f                    g                 a                 e  r  c  t  s  u              s   "
-          "                                           i                    e     i           t                 s  -  h  e  e  s     v     w  -   "
-          "                                           g                    -     n        o  h                 t  c  e  x  r  e     a     o  e   "
-          "                                     c     -  c                 c     t        v  -                 -  o  s  t  -  r     l  v  r  x  w"
-          "                               c     o  c  r  r                 r     e        e  f        s        h  n  t  -  c  -     i  e  k  p  s"
-          "                               h  c  m  o  e  e                 e     r     m  r  i     s  y        e  t  r  t  o  i     d  r  s  l  -"
-          "                            a  a  h  m  m  a  a  d     f     h  a  i  f     a  v  n     h  s     t  l  r  a  a  n  n  u  a  s  p  o  f"
-          "                            n  n  e  a  m  d  t  e  d  i  g  e  t  n  a  l  v  i  d     e  t  t  e  p  a  t  b  f  p  t  t  i  a  r  i"
-          "                            t  g  c  n  o  e  o  p  o  l  i  l  o  f  c  i  e  e  e  s  l  e  a  s  e  c  o  l  i  u  i  o  o  c  e  l"
-          "  brick                     q  e  k  d  n  r  r  s  c  e  t  p  r  o  e  b  n  w  r  h  l  m  p  t  r  t  r  e  g  t  l  r  n  e  r  e"
+          "                                                                                                       u  r                          w"
+          "                                           c                    i                                      n  -                          s"
+          "                                           o                    m                                      n  o                          -"
+          "                                           n                    a                 p                 t  e  r     u                 w  f"
+          "                                           f                    g                 a                 e  r  c  t  s  u              s  i"
+          "                                           i                    e     i           t                 s  -  h  e  e  s     v     w  -  l"
+          "                                           g                    -     n        o  h                 t  c  e  x  r  e     a     o  e  e"
+          "                                     c     -  c                 c     t        v  -                 -  o  s  t  -  r     l  v  r  x  -"
+          "                               c     o  c  r  r                 r     e        e  f        s        h  n  t  -  c  -     i  e  k  p  r"
+          "                               h  c  m  o  e  e                 e     r     m  r  i     s  y        e  t  r  t  o  i     d  r  s  l  e"
+          "                            a  a  h  m  m  a  a  d     f     h  a  i  f     a  v  n     h  s     t  l  r  a  a  n  n  u  a  s  p  o  a"
+          "                            n  n  e  a  m  d  t  e  d  i  g  e  t  n  a  l  v  i  d     e  t  t  e  p  a  t  b  f  p  t  t  i  a  r  d"
+          "                            t  g  c  n  o  e  o  p  o  l  i  l  o  f  c  i  e  e  e  s  l  e  a  s  e  c  o  l  i  u  i  o  o  c  e  e"
+          "  brick                     q  e  k  d  n  r  r  s  c  e  t  p  r  o  e  b  n  w  r  h  l  m  p  t  r  t  r  e  g  t  l  r  n  e  r  r"
           "  ------------------------------------------------------------------------------------------------------------------------------------"
           "  antq                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
           "  api                       .  .  x  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  x  .  .  x  x  x  ."
@@ -230,7 +230,7 @@
           "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  workspace                 x  x  .  .  x  x  .  x  .  x  x  .  .  .  x  x  .  .  x  .  .  .  .  x  .  .  .  .  x  x  x  x  x  .  .  x"
           "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-          "  ws-file                   .  .  .  .  x  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  ."
+          "  ws-file-reader            .  .  .  .  x  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  ."
           "  nav-generator             .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
           "  poly-cli                  .  .  .  x  .  t  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  t  .  .  .  ."]
          (ws-ifc-deps-table/table (workspace)))))
@@ -249,20 +249,20 @@
             "                                                                                                       t  n                           "
             "                                                                                                       -  n                           "
             "                                                                                                       r  e                           "
-            "                                                                                                       u  r                           "
-            "                                           c                    i                                      n  -                           "
-            "                                           o                    m                                      n  o                           "
-            "                                           n                    a                 p                 t  e  r     u                 w   "
-            "                                           f                    g                 a                 e  r  c  t  s  u              s   "
-            "                                           i                    e     i           t                 s  -  h  e  e  s     v     w  -   "
-            "                                           g                    -     n        o  h                 t  c  e  x  r  e     a     o  e   "
-            "                                     c     -  c                 c     t        v  -                 -  o  s  t  -  r     l  v  r  x  w"
-            "                               c     o  c  r  r                 r     e        e  f        s        h  n  t  -  c  -     i  e  k  p  s"
-            "                               h  c  m  o  e  e                 e     r     m  r  i     s  y        e  t  r  t  o  i     d  r  s  l  -"
-            "                            a  a  h  m  m  a  a  d     f     h  a  i  f     a  v  n     h  s     t  l  r  a  a  n  n  u  a  s  p  o  f"
-            "                            n  n  e  a  m  d  t  e  d  i  g  e  t  n  a  l  v  i  d     e  t  t  e  p  a  t  b  f  p  t  t  i  a  r  i"
-            "                            t  g  c  n  o  e  o  p  o  l  i  l  o  f  c  i  e  e  e  s  l  e  a  s  e  c  o  l  i  u  i  o  o  c  e  l"
-            "  brick                     q  e  k  d  n  r  r  s  c  e  t  p  r  o  e  b  n  w  r  h  l  m  p  t  r  t  r  e  g  t  l  r  n  e  r  e"
+            "                                                                                                       u  r                          w"
+            "                                           c                    i                                      n  -                          s"
+            "                                           o                    m                                      n  o                          -"
+            "                                           n                    a                 p                 t  e  r     u                 w  f"
+            "                                           f                    g                 a                 e  r  c  t  s  u              s  i"
+            "                                           i                    e     i           t                 s  -  h  e  e  s     v     w  -  l"
+            "                                           g                    -     n        o  h                 t  c  e  x  r  e     a     o  e  e"
+            "                                     c     -  c                 c     t        v  -                 -  o  s  t  -  r     l  v  r  x  -"
+            "                               c     o  c  r  r                 r     e        e  f        s        h  n  t  -  c  -     i  e  k  p  r"
+            "                               h  c  m  o  e  e                 e     r     m  r  i     s  y        e  t  r  t  o  i     d  r  s  l  e"
+            "                            a  a  h  m  m  a  a  d     f     h  a  i  f     a  v  n     h  s     t  l  r  a  a  n  n  u  a  s  p  o  a"
+            "                            n  n  e  a  m  d  t  e  d  i  g  e  t  n  a  l  v  i  d     e  t  t  e  p  a  t  b  f  p  t  t  i  a  r  d"
+            "                            t  g  c  n  o  e  o  p  o  l  i  l  o  f  c  i  e  e  e  s  l  e  a  s  e  c  o  l  i  u  i  o  o  c  e  e"
+            "  brick                     q  e  k  d  n  r  r  s  c  e  t  p  r  o  e  b  n  w  r  h  l  m  p  t  r  t  r  e  g  t  l  r  n  e  r  r"
             "  ------------------------------------------------------------------------------------------------------------------------------------"
             "  antq                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  api                       +  +  x  .  x  +  .  +  .  +  +  .  +  .  +  +  +  .  +  +  .  +  .  +  .  +  x  +  +  x  +  +  x  x  x  +"
@@ -301,7 +301,7 @@
             "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  workspace                 x  x  .  .  x  x  .  x  .  x  x  .  +  .  x  x  +  .  x  +  .  +  .  x  .  +  .  +  x  x  x  x  x  .  .  x"
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-            "  ws-file                   .  .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  .  .  +  .  +  .  .  .  .  .  +  +  .  x  .  x  .  .  ."
+            "  ws-file-reader            .  .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  .  .  +  .  +  .  .  .  .  .  +  +  .  x  .  x  .  .  ."
             "  nav-generator             .  .  .  .  +  x  .  .  .  +  .  .  +  .  .  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  +  +  .  .  ."
             "  poly-cli                  +  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  +  +"]
            (ws-project-deps-table/table ws project)))))
@@ -320,20 +320,20 @@
             "                                                                                                       t  n                           "
             "                                                                                                       -  n                           "
             "                                                                                                       r  e                           "
-            "                                                                                                       u  r                           "
-            "                                           c                    i                                      n  -                           "
-            "                                           o                    m                                      n  o                           "
-            "                                           n                    a                 p                 t  e  r     u                 w   "
-            "                                           f                    g                 a                 e  r  c  t  s  u              s   "
-            "                                           i                    e     i           t                 s  -  h  e  e  s     v     w  -   "
-            "                                           g                    -     n        o  h                 t  c  e  x  r  e     a     o  e   "
-            "                                     c     -  c                 c     t        v  -                 -  o  s  t  -  r     l  v  r  x  w"
-            "                               c     o  c  r  r                 r     e        e  f        s        h  n  t  -  c  -     i  e  k  p  s"
-            "                               h  c  m  o  e  e                 e     r     m  r  i     s  y        e  t  r  t  o  i     d  r  s  l  -"
-            "                            a  a  h  m  m  a  a  d     f     h  a  i  f     a  v  n     h  s     t  l  r  a  a  n  n  u  a  s  p  o  f"
-            "                            n  n  e  a  m  d  t  e  d  i  g  e  t  n  a  l  v  i  d     e  t  t  e  p  a  t  b  f  p  t  t  i  a  r  i"
-            "                            t  g  c  n  o  e  o  p  o  l  i  l  o  f  c  i  e  e  e  s  l  e  a  s  e  c  o  l  i  u  i  o  o  c  e  l"
-            "  brick                     q  e  k  d  n  r  r  s  c  e  t  p  r  o  e  b  n  w  r  h  l  m  p  t  r  t  r  e  g  t  l  r  n  e  r  e"
+            "                                                                                                       u  r                          w"
+            "                                           c                    i                                      n  -                          s"
+            "                                           o                    m                                      n  o                          -"
+            "                                           n                    a                 p                 t  e  r     u                 w  f"
+            "                                           f                    g                 a                 e  r  c  t  s  u              s  i"
+            "                                           i                    e     i           t                 s  -  h  e  e  s     v     w  -  l"
+            "                                           g                    -     n        o  h                 t  c  e  x  r  e     a     o  e  e"
+            "                                     c     -  c                 c     t        v  -                 -  o  s  t  -  r     l  v  r  x  -"
+            "                               c     o  c  r  r                 r     e        e  f        s        h  n  t  -  c  -     i  e  k  p  r"
+            "                               h  c  m  o  e  e                 e     r     m  r  i     s  y        e  t  r  t  o  i     d  r  s  l  e"
+            "                            a  a  h  m  m  a  a  d     f     h  a  i  f     a  v  n     h  s     t  l  r  a  a  n  n  u  a  s  p  o  a"
+            "                            n  n  e  a  m  d  t  e  d  i  g  e  t  n  a  l  v  i  d     e  t  t  e  p  a  t  b  f  p  t  t  i  a  r  d"
+            "                            t  g  c  n  o  e  o  p  o  l  i  l  o  f  c  i  e  e  e  s  l  e  a  s  e  c  o  l  i  u  i  o  o  c  e  e"
+            "  brick                     q  e  k  d  n  r  r  s  c  e  t  p  r  o  e  b  n  w  r  h  l  m  p  t  r  t  r  e  g  t  l  r  n  e  r  r"
             "  ------------------------------------------------------------------------------------------------------------------------------------"
             "  antq                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  api                       +  +  x  .  x  +  .  +  .  +  +  .  +  .  +  +  +  .  +  +  .  +  .  +  .  +  x  +  +  x  +  +  x  x  x  +"
@@ -372,7 +372,7 @@
             "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  workspace                 x  x  .  .  x  x  .  x  .  x  x  .  +  .  x  x  +  .  x  +  .  +  .  x  .  +  .  +  x  x  x  x  x  .  .  x"
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-            "  ws-file                   .  .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  .  .  +  .  +  .  .  .  .  .  +  +  .  x  .  x  .  .  ."
+            "  ws-file-reader            .  .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  .  .  +  .  +  .  .  .  .  .  +  +  .  x  .  x  .  .  ."
             "  nav-generator             .  .  .  .  +  x  .  .  .  +  .  .  +  .  .  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  +  +  .  .  ."
             "  poly-cli                  +  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  +  +"]
            (ws-project-deps-table/table ws project)))))
@@ -381,49 +381,49 @@
   (let [{:keys [components projects] :as ws} (workspace)
         project (common/find-project "poly" projects)
         brick (common/find-component "workspace" components)]
-    (is (= ["  used by  <  workspace  >  uses         "
-            "  -------                   -------------"
-            "  api                       antq         "
-            "  command                   change       "
-            "  lib (t)                   common       "
-            "  shell                     config-reader"
-            "                            deps         "
-            "                            file         "
-            "                            git          "
-            "                            interface    "
-            "                            lib          "
-            "                            path-finder  "
-            "                            test         "
-            "                            user-config  "
-            "                            user-input   "
-            "                            util         "
-            "                            validator    "
-            "                            version      "
-            "                            ws-file      "]
+    (is (= ["  used by  <  workspace  >  uses          "
+            "  -------                   --------------"
+            "  api                       antq          "
+            "  command                   change        "
+            "  lib (t)                   common        "
+            "  shell                     config-reader "
+            "                            deps          "
+            "                            file          "
+            "                            git           "
+            "                            interface     "
+            "                            lib           "
+            "                            path-finder   "
+            "                            test          "
+            "                            user-config   "
+            "                            user-input    "
+            "                            util          "
+            "                            validator     "
+            "                            version       "
+            "                            ws-file-reader"]
            (brick-deps-table/table ws project brick "none")))))
 
 (deftest polylith-project-brick-deps
   (let [{:keys [components] :as ws} (workspace)
         brick (common/find-component "workspace" components)]
-    (is (= ["  used by  <  workspace  >  uses         "
-            "  -------                   -------------"
-            "  api                       antq         "
-            "  command                   change       "
-            "  lib (t)                   common       "
-            "  shell                     config-reader"
-            "                            deps         "
-            "                            file         "
-            "                            git          "
-            "                            interface    "
-            "                            lib          "
-            "                            path-finder  "
-            "                            test         "
-            "                            user-config  "
-            "                            user-input   "
-            "                            util         "
-            "                            validator    "
-            "                            version      "
-            "                            ws-file      "]
+    (is (= ["  used by  <  workspace  >  uses          "
+            "  -------                   --------------"
+            "  api                       antq          "
+            "  command                   change        "
+            "  lib (t)                   common        "
+            "  shell                     config-reader "
+            "                            deps          "
+            "                            file          "
+            "                            git           "
+            "                            interface     "
+            "                            lib           "
+            "                            path-finder   "
+            "                            test          "
+            "                            user-config   "
+            "                            user-input    "
+            "                            util          "
+            "                            validator     "
+            "                            version       "
+            "                            ws-file-reader"]
            (brick-ifc-deps/table ws brick)))))
 
 (deftest polylith-poly-project-deps
@@ -456,7 +456,7 @@
                                                         "user-config"
                                                         "util"
                                                         "validator"
-                                                        "ws-file"]}
+                                                        "ws-file-reader"]}
                                       :test {}}
           "change"                   {:src  {:direct   ["common"
                                                         "git"
@@ -529,7 +529,7 @@
                                                         "text-table"
                                                         "user-input"
                                                         "validator"
-                                                        "ws-file"]}
+                                                        "ws-file-reader"]}
                                       :test {:direct   ["check"
                                                         "common"
                                                         "config-reader"
@@ -563,7 +563,7 @@
                                                         "text-table"
                                                         "user-input"
                                                         "validator"
-                                                        "ws-file"]}}
+                                                        "ws-file-reader"]}}
           "common"                   {:src  {:direct   ["file"
                                                         "image-creator"
                                                         "text-table"
@@ -645,7 +645,7 @@
                                                         "validator"
                                                         "workspace"
                                                         "ws-explorer"
-                                                        "ws-file"]}}
+                                                        "ws-file-reader"]}}
           "deps"                     {:src  {:direct   ["common"
                                                         "text-table"
                                                         "user-config"
@@ -755,7 +755,7 @@
                                                         "validator"
                                                         "version"
                                                         "ws-explorer"
-                                                        "ws-file"]}}
+                                                        "ws-file-reader"]}}
           "maven"                    {:src  {}
                                       :test {}}
           "nav-generator"            {:src  {:direct   ["config-reader"
@@ -828,7 +828,7 @@
                                                         "version"
                                                         "workspace"
                                                         "ws-explorer"
-                                                        "ws-file"]}
+                                                        "ws-file-reader"]}
                                       :test {:direct   ["command"
                                                         "config-reader"
                                                         "user-input"
@@ -863,7 +863,7 @@
                                                         "version"
                                                         "workspace"
                                                         "ws-explorer"
-                                                        "ws-file"]}}
+                                                        "ws-file-reader"]}}
           "sh"                       {:src  {}
                                       :test {}}
           "shell"                    {:src  {:direct   ["antq"
@@ -892,7 +892,7 @@
                                                         "text-table"
                                                         "validator"
                                                         "version"
-                                                        "ws-file"]}
+                                                        "ws-file-reader"]}
                                       :test {:direct   ["antq"
                                                         "common"
                                                         "doc"
@@ -919,7 +919,7 @@
                                                         "text-table"
                                                         "validator"
                                                         "version"
-                                                        "ws-file"]}}
+                                                        "ws-file-reader"]}}
           "system"                   {:src  {}
                                       :test {}}
           "tap"                      {:src  {}
@@ -981,7 +981,7 @@
                                                         "version"
                                                         "workspace"
                                                         "ws-explorer"
-                                                        "ws-file"]}}
+                                                        "ws-file-reader"]}}
           "test-runner-contract"     {:src  {:direct ["util"]}
                                       :test {:direct ["util"]}}
           "test-runner-orchestrator" {:src  {:direct   ["common"
@@ -1055,7 +1055,7 @@
                                                         "util"
                                                         "validator"
                                                         "version"
-                                                        "ws-file"]
+                                                        "ws-file-reader"]
                                              :indirect ["image-creator"
                                                         "maven"
                                                         "sh"
@@ -1078,7 +1078,7 @@
                                                         "util"
                                                         "validator"
                                                         "version"
-                                                        "ws-file"]
+                                                        "ws-file-reader"]
                                              :indirect ["image-creator"
                                                         "maven"
                                                         "sh"
@@ -1087,17 +1087,17 @@
                                                         "text-table"]}}
           "ws-explorer"              {:src  {:direct ["util"]}
                                       :test {:direct ["util"]}}
-          "ws-file"                  {:src  {:direct   ["common"
-                                                        "file"
-                                                        "git"
-                                                        "util"
-                                                        "version"]
-                                             :indirect ["image-creator"
-                                                        "sh"
-                                                        "system"
-                                                        "text-table"
-                                                        "user-config"]}
-                                      :test {}}}
+          "ws-file-reader"                  {:src  {:direct   ["common"
+                                                               "file"
+                                                               "git"
+                                                               "util"
+                                                               "version"]
+                                                    :indirect ["image-creator"
+                                                               "sh"
+                                                               "system"
+                                                               "text-table"
+                                                               "user-config"]}
+                                             :test {}}}
          (ws-explorer/extract (workspace) ["projects" "poly" "deps"]))))
 
 (deftest polylith-poly-project-src-paths
@@ -1140,7 +1140,7 @@
           "components/version/src"
           "components/workspace/src"
           "components/ws-explorer/src"
-          "components/ws-file/src"]
+          "components/ws-file-reader/src"]
          (ws-explorer/extract (workspace) ["projects" "poly" "paths" "src"]))))
 
 (deftest polylith-poly-project-test-paths

@@ -37,7 +37,7 @@
                                poly/version                  {:local/root "components/version"}
                                poly/workspace                {:local/root "components/workspace"}
                                poly/ws-explorer              {:local/root "components/ws-explorer"}
-                               poly/ws-file                  {:local/root "components/ws-file"}
+                               poly/ws-file-reader           {:local/root "components/ws-file-reader"}
                                poly/nav-generator            {:local/root "bases/nav-generator"}
                                poly/poly-cli                 {:local/root "bases/poly-cli"}
 

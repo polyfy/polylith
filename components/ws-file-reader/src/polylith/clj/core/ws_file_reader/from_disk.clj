@@ -1,10 +1,10 @@
-(ns ^:no-doc polylith.clj.core.ws-file.from-disk
-  (:require [polylith.clj.core.ws-file.from-0-to-1 :as from-0-to-1]
-            [polylith.clj.core.ws-file.from-1-to-2.converter :as from-1-to-2]
-            [polylith.clj.core.ws-file.from-2-to-3.converter :as from-2-to-3]
-            [polylith.clj.core.ws-file.from-3-to-4.converter :as from-3-to-4]
-            [polylith.clj.core.ws-file.from-4-to-5.converter :as from-4-to-5]
-            [polylith.clj.core.ws-file.version-converter :as version-converter]
+(ns ^:no-doc polylith.clj.core.ws-file-reader.from-disk
+  (:require [polylith.clj.core.ws-file-reader.from-0-to-1 :as from-0-to-1]
+            [polylith.clj.core.ws-file-reader.from-1-to-2.converter :as from-1-to-2]
+            [polylith.clj.core.ws-file-reader.from-2-to-3.converter :as from-2-to-3]
+            [polylith.clj.core.ws-file-reader.from-3-to-4.converter :as from-3-to-4]
+            [polylith.clj.core.ws-file-reader.from-4-to-5.converter :as from-4-to-5]
+            [polylith.clj.core.ws-file-reader.version-converter :as version-converter]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.common.interface :as common]))
 

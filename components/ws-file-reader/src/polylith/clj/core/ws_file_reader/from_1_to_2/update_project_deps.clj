@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.ws-file.from-1-to-2.update-project-deps)
+(ns ^:no-doc polylith.clj.core.ws-file-reader.from-1-to-2.update-project-deps)
 
 (defn source-dep [{:keys [direct indirect circular direct-ifc missing-ifc]}]
   (let [missing-ifc-and-bases (or direct-ifc missing-ifc)]

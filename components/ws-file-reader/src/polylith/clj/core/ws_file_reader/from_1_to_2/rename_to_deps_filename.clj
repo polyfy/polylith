@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.ws-file.from-1-to-2.rename-to-deps-filename)
+(ns ^:no-doc polylith.clj.core.ws-file-reader.from-1-to-2.rename-to-deps-filename)
 
 (defn rename-config-filename [project]
   (clojure.set/rename-keys project {:config-filename :deps-filename}))

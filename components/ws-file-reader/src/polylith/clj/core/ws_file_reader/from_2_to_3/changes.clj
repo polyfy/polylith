@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.ws-file.from-2-to-3.changes)
+(ns ^:no-doc polylith.clj.core.ws-file-reader.from-2-to-3.changes)
 
 (defn with-settings [{:keys [name] :as project} changes]
   (let [{:keys [project-to-indirect-changes

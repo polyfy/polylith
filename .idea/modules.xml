@@ -42,7 +42,7 @@
       <module fileurl="file://$PROJECT_DIR$/components/version/version.iml" filepath="$PROJECT_DIR$/components/version/version.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/workspace/workspace.iml" filepath="$PROJECT_DIR$/components/workspace/workspace.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/ws-explorer/ws-explorer.iml" filepath="$PROJECT_DIR$/components/ws-explorer/ws-explorer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/components/ws-file/ws-file.iml" filepath="$PROJECT_DIR$/components/ws-file/ws-file.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/ws-file-reader/ws-file-reader.iml" filepath="$PROJECT_DIR$/components/ws-file-reader/ws-file-reader.iml" />
     </modules>
   </component>
 </project>

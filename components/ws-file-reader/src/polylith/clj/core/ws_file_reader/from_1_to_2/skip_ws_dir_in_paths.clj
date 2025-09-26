@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.ws-file.from-1-to-2.skip-ws-dir-in-paths
+(ns ^:no-doc polylith.clj.core.ws-file-reader.from-1-to-2.skip-ws-dir-in-paths
   (:require [polylith.clj.core.util.interface.str :as str-util]))
 
 (defn skip-ws-dir-in-file-path [{:keys [file-path] :as source-ns} ws-dir]

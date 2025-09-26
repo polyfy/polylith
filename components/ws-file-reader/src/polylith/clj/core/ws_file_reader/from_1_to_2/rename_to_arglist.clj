@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.ws-file.from-1-to-2.rename-to-arglist)
+(ns ^:no-doc polylith.clj.core.ws-file-reader.from-1-to-2.rename-to-arglist)
 
 (defn rename [definition]
   (clojure.set/rename-keys definition {:parameters :arglist}))

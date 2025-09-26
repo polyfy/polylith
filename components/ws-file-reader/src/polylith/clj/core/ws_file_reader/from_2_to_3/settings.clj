@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.ws-file.from-2-to-3.settings
+(ns ^:no-doc polylith.clj.core.ws-file-reader.from-2-to-3.settings
   (:require [polylith.clj.core.common.interface :as common]))
 
 (defn move-settings-key-to-entity [entities key name->settings]
