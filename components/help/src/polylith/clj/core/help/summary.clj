@@ -137,6 +137,7 @@
     "    poly info\n"
     "    poly info +\n"
     "    poly info :loc\n"
+    "    poly info :dialect\n"
     (if extended?
       "    poly info out:info.png\n" "")
     "    poly info since:65a7918\n"
