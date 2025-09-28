@@ -5,7 +5,7 @@ The biggest change in 0.3.0 is support for ClojureScript.
 The poly tool now handles ClojureScript (.cljs) source files as well as _package.json_ configuration files!
 
 > For existing workspaces:
-> - Set `:dialects` in `workspace.edn` (see example [here](https://github.com/polyfy/polylith/blob/b400ab9c648ecedfbe2ba387e7874978783cd9f8/workspace.edn#L7)) to `["clj"]` or `["clj" "cljs"]` to instruct the `poly` tool which type of source files to read (Clojure or Clojure/ClojureScript).
+> - Set `:dialects` in _workspace.edn_ (see example [here](https://github.com/polyfy/polylith/blob/b400ab9c648ecedfbe2ba387e7874978783cd9f8/workspace.edn#L7)) to `["clj"]` or `["clj" "cljs"]` to instruct the `poly` tool which type of source files to read (Clojure or Clojure/ClojureScript).
 > - Set `:template-data` in `workspace.edn` to e.g. `{:clojure-ver "1.12.2", :shadow-cljs-ver "^3.2.0"}`.
     More custom key/value pairs can be added, to be used in Selmer templates by the `create` command.
 > - Ensure to use the latest versions of the [External](https://github.com/seancorfield/polylith-external-test-runner) and [Kaocha](https://github.com/imrekoszo/polylith-kaocha) test runners (if you use any of these). 
