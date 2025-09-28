@@ -34,6 +34,7 @@ Main changes:
   - If the `:dialect` argument is provided, a _dialect_ column is added to the table, showing which source types are used by the bricks and projects (and their bricks),
     where `j--"` = clj (Clojure), `-c-` = cljc (Clojure Common), `--s` = cljs (ClojureScript).
     The pattern here is that the last letter of the file extension is used, for example `j` for `clj`.
+  
     <img src="doc/images/source-code/info-realworld-dialect.png" alt="RealWorld example" width="300"/>
 - Changes to the workspace structure:
   - Configuration from _package.json_ files are stored in the workspace structure and can be retrieved by `ws get:configs:ENTITY:NAME:package` where `ENTITY` is `workspace`, `projects`, `components`, or `bases`, and `NAME` is the name of the workspace/project/component/base.
