@@ -25,11 +25,11 @@ Main changes:
   - Suggests the `dialect` argument in the shell, if `cljs` is listed among the `:dialects` in workspace.edn.
   - If `dialect` is not specified, `clj` will be used.
 - The `libs` command:
-  - npm dependencies are now included in the list of library dependencies (read from `package.json` files).
-  - the `:outdated` parameter also checks for outdated npm dependencies.
-  - the `:update` parameter also updates npm dependencies in _package.json_ files.
+  - NPM dependencies are now included in the list of library dependencies (read from `package.json` files).
+  - The `:outdated` parameter also checks for outdated npm dependencies.
+  - The `:update` parameter also updates npm dependencies in _package.json_ files.
     - `:keep-lib-versions` also works for npm dependencies.
-    - the `libraries:LIBS` filtering works as expected (outdated npm libraries are suggested when run from a shell).
+    - The `libraries:LIBS` filtering works as expected (outdated npm libraries are suggested when run from a shell).
 - The `info` command:
   - If the `:dialect` argument is provided, a _dialect_ column is added to the table, showing which source types are used by the bricks and projects (and their bricks),
     where `j--"` = clj (Clojure), `-c-` = cljc (Clojure Common), `--s` = cljs (ClojureScript).
