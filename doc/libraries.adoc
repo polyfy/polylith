@@ -99,7 +99,7 @@ To skip updating specific libraries, specify `:keep-lib-versions` in your xref:w
 {...
  :bricks {"article" {:keep-lib-versions [djblue/portal]}}}
  :projects {"realworld-backend" {:alias "rb"
-                                 :keep-lib-versions [clj-jwt/clj-jwt clj-time/clj-time]}
+                                 :keep-lib-versions [clj-jwt/clj-jwt clj-time/clj-time]}}
 ----
 
 [[lib-dep-types]]
