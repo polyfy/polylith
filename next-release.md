@@ -41,6 +41,7 @@ Main changes:
 
 ### Other changes:
 - Ensure exported workspaces with symbols (e.g. a test runner namespace) are readable when used.
+- Removed warning "WARNING: A restricted method in java.lang.System has been called" when starting a shell.
 
 ### Issues and PRs:
 - Add support for ClojureScript, issue [482](https://github.com/polyfy/polylith/issues/481)
