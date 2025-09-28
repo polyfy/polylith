@@ -104,7 +104,7 @@ example
 ----
 <1> New `user` component
 <2> The xref:commands.adoc#create-component[create component] command in this example didn't create a `package.json` file.
-But if we had provided `dialect:cljs` instead of `dialect:clj`, it would have created one with this content:
+But if we had provided `dialect:cljs` or `dialect:clj:cljs` instead of `dialect:clj`, it would have created one with this content:
 
 [source,json,subs="+attributes"]
 ----
