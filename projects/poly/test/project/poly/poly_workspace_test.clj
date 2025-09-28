@@ -150,6 +150,7 @@
           "  clj-http/clj-http                3.13.1      maven     59    x      x      x      -        -       x  .  .  .  .  .  .  .  .  .  ."
           "  com.github.liquidz/antq          2.11.1276   maven     54    x      x      x      -        -       x  .  .  .  .  .  .  .  .  .  ."
           "  djblue/portal                    0.61.0      maven  1,926    x      x      x      -        -       .  .  .  .  .  .  .  x  .  .  ."
+          "  lread/status-line                cf44c15     git       64    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
           "  metosin/malli                    0.19.1      maven     93    x      x      x      -        -       .  .  .  .  .  .  .  .  x  .  ."
           "  mvxcvi/puget                     1.3.4       maven     15    x      x      x      -        -       .  .  .  .  .  .  .  .  .  .  x"
           "  org.apache.maven/maven-artifact  4.0.0-rc-4  maven     61    x      x      x      -        -       .  .  .  .  .  x  .  .  .  .  ."
