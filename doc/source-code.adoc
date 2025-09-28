@@ -73,8 +73,10 @@ For xref:component.adoc[components], the sub-directory name is the component's x
 If you have resource files that are only used in the test context, then they can be put in a `test-resources` directory.
 
 == ClojureScript
+[[clojure-script]]
 
-In the `:dialects` key in `workspace.edn` you specify which dialects (Clojure/ClojureScript) to support.
+Starting with version 0.3.0, the poly tool also supports ClojureScript.
+To have the tool read `.cljs` files, add "cljs" to the `:dialects` vector in workspace.edn:
 
 [%autowidth]
 |===
@@ -90,4 +92,13 @@ a| `#{"clj" "cljs"}`
 a| The tool reads files ending with `.clj`, `.cljc`, and `.cljs`.
 |===
 
-An example workspace that uses both Clojure and ClojureScript can be found https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend[here].
+To list the dialects used in bricks and projects (including their bricks), provide the `:dialect` argument to the xref:commands.adoc#info[info] command:
+
+[source,shell]
+----
+poly info :dialect
+----
+
+image::images/source-code/info-realworld-dialect.png[width=500]
+
+This example was taken from the RealWorld https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend[example app], `cljs-frontend` branch, that mixes Clojure and ClojureScript.
