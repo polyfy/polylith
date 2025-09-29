@@ -118,6 +118,7 @@
     poly info
     poly info +
     poly info :loc
+    poly info :dialect
     poly info since:65a7918
     poly info since:head
     poly info since:head~1

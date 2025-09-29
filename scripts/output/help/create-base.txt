@@ -5,6 +5,7 @@
     NAME    = The name of the base to create.
 
     DIALECT = The value is sent to Selmer when the base is created.
+              If 'cljs' is provided, a 'package.json' file is also created.
               Valid values are: clj, cljs
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,

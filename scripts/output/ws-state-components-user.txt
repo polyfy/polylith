@@ -24,4 +24,5 @@
     "components/user/test/se/example/user/interface_test.clj",
     :imports ["clojure.test" "se.example.user.interface"]}]},
  :paths {:src ["src" "resources"], :test ["test"]},
+ :source-types #{"clj"},
  :type "component"}

@@ -15,6 +15,7 @@
       :imports ["clojure.test" "com.localdep.invoicer-cli.core"]}]},
    :lib-imports {:test ["clojure.test"]},
    :name "invoicer-cli",
+   :source-types #{"clj"},
    :paths {:src ["src"], :test ["test"]},
    :type "base",
    :interface-deps {:src ["invoicer"], :test []},
@@ -53,6 +54,7 @@
       :imports ["clojure.test" "com.localdep.database.interface"]}]},
    :lib-imports {:test ["clojure.test"]},
    :name "database",
+   :source-types #{"clj"},
    :paths {:src ["src" "resources"], :test ["test"]},
    :type "component",
    :interface-deps {:src ["util"], :test []},
@@ -68,6 +70,7 @@
       :imports []}]},
    :lib-imports {},
    :name "datomic-ions",
+   :source-types #{"clj"},
    :paths {:src ["src"], :test []},
    :type "component",
    :interface-deps {:src [], :test []},
@@ -101,6 +104,7 @@
    :lib-imports
    {:test ["clojure.test" "com.localdep.migrate-me.core"]},
    :name "invoicer",
+   :source-types #{"clj"},
    :paths {:src ["src" "resources"], :test ["test"]},
    :type "component",
    :interface-deps {:src ["util"], :test ["test-helper"]},
@@ -128,6 +132,7 @@
       ["clojure.test" "com.localdep.test-helper.interface"]}]},
    :lib-imports {:test ["clojure.test"]},
    :name "test-helper",
+   :source-types #{"clj"},
    :paths {:src ["src"], :test ["test"]},
    :type "component",
    :interface-deps {:src ["test-helper-db"], :test []},
@@ -148,6 +153,7 @@
       :imports ["com.localdep.database.interface"]}]},
    :lib-imports {},
    :name "test-helper-db",
+   :source-types #{"clj"},
    :paths {:src ["src"], :test []},
    :type "component",
    :interface-deps {:src ["database"], :test []},
@@ -174,6 +180,7 @@
       :imports ["clojure.test" "com.localdep.util.interface"]}]},
    :lib-imports {:src ["clj-time.core"], :test ["clojure.test"]},
    :name "util",
+   :source-types #{"clj"},
    :paths {:src ["src"], :test ["test"]},
    :type "component",
    :interface-deps {:src [], :test []},
@@ -196,6 +203,7 @@
       :imports ["clojure.test"]}]},
    :lib-imports {:test ["clojure.test"]},
    :name "without-src",
+   :source-types #{"clj"},
    :paths {:src [], :test ["test"]},
    :type "component",
    :interface-deps {:src [], :test []},
@@ -553,6 +561,7 @@
       :type "local",
       :path "migrate-me",
       :size 310}}},
+   :source-types #{"clj"},
    :paths
    {:src
     ["bases/invoicer-cli/src"
@@ -669,6 +678,7 @@
       :type "local",
       :path "migrate-me",
       :size 310}}},
+   :source-types #{"clj"},
    :paths
    {:src
     ["bases/invoicer-cli/src"
@@ -834,6 +844,7 @@
    {:from "USER-HOME", :to "USER-HOME"}
    {:from "SHA", :to "SHA"}],
   :is-run-all-brick-tests false,
+  :is-show-dialect false,
   :is-fake-poly false,
   :is-verbose false,
   :is-latest-sha false,
