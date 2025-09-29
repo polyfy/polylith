@@ -121,6 +121,7 @@
             "            :test {:extra-paths []}"
             ""
             "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]"
+            "                   :jvm-opts [\"--enable-native-access=ALL-UNNAMED\"]"
             "                   :extra-deps {polylith/clj-poly {:mvn/version \"0.2.18\"}}}}}"]
            (helper/content "ws1" "deps.edn")))
 

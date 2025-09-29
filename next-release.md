@@ -5,11 +5,13 @@ The biggest change in 0.3.0 is support for ClojureScript.
 The poly tool now handles ClojureScript (.cljs) source files as well as _package.json_ configuration files!
 
 > For existing workspaces:
-> - Set `:dialects` in _workspace.edn_ (see example [here](https://github.com/polyfy/polylith/blob/b400ab9c648ecedfbe2ba387e7874978783cd9f8/workspace.edn#L7)) to `["clj"]` or `["clj" "cljs"]` to instruct the `poly` tool which type of source files to read (Clojure or Clojure/ClojureScript).
+> - Set `:dialects` in _workspace.edn_ (see example [here](https://github.com/polyfy/polylith/blob/b400ab9c648ecedfbe2ba387e7874978783cd9f8/workspace.edn#L7)) to `["clj"]` or `["clj" "cljs"]` to instruct the `poly` tool which type of source files to read (Clojure and/or Clojure/ClojureScript).
 > - Set `:template-data` in `workspace.edn` to e.g. `{:clojure-ver "1.12.2", :shadow-cljs-ver "^3.2.0"}`.
-    More custom key/value pairs can be added, to be used in Selmer templates by the `create` command.
-> - Ensure to use the latest versions of the [External](https://github.com/seancorfield/polylith-external-test-runner) and [Kaocha](https://github.com/imrekoszo/polylith-kaocha) test runners (if you use any of these). 
-> - To support ClojureScript, create a `package.json` file to your workspace root as well as to projects, components, and bases, see the RealWorld [example app](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend) as an example.
+    More custom key/value pairs can be added, to be used in Selmer templates by the `create` command. 
+> - Add `:jvm-opts ["--enable-native-access=ALL-UNNAMED"]` to your `:poly` alias in `./deps.edn` to remove warnings when starting a shell with `clojure -M:poly`.
+> - To support ClojureScript:
+>   - Create a `package.json` file to your workspace root as well as to projects, components, and bases, see the RealWorld [example app](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend) as an example.
+>   - Ensure to use the latest versions of the [External](https://github.com/seancorfield/polylith-external-test-runner) and [Kaocha](https://github.com/imrekoszo/polylith-kaocha) test runners (if you use any of these).
 
 Main changes:
 
@@ -18,12 +20,12 @@ Main changes:
     - Only the dialects selected (Clojure/ClojureScript) will be read from disk.
     - If no dialect is specified, `["clj"]` will be used.
     - If any of the values are set to `"cljs"` (`["cljs"]` or `["clj" cljs"]`) a `package.json` file will be created. 
-   - The new attribute `:template-data` is set to the initial value `{:clojure-ver "1.12.2", :shadow-cljs-ver "^3.2.0"}`.
-     You can add your own set of custom key/value pairs or update the existing, which are then used by Selmer in the `create` command.
 - The `create component`, `create base`, and `create project` commands:
   - If `DIALECT` in `dialect:DIALECT` is set to `cljs`, a `package.json` file will be created.
   - Suggests the `dialect` argument in the shell, if `cljs` is listed among the `:dialects` in workspace.edn.
   - If `dialect` is not specified, `clj` will be used.
+  - The new attribute `:template-data` is set to the initial value `{:clojure-ver "1.12.2", :shadow-cljs-ver "^3.2.0"}`.
+    You can add your own set of custom key/value pairs or update the existing, which are then used by Selmer when creating files.
 - The `libs` command:
   - NPM dependencies are now included in the list of library dependencies (read from `package.json` files).
   - The `:outdated` parameter also checks for outdated npm dependencies.
