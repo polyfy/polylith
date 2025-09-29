@@ -16,7 +16,7 @@ Polylith is made by developers for developers.
 Our main goals are to decrease complexity, maximize productivity, and make coding a more joyful experience.
 Although Polylith is not a build tool, it integrates into your build pipeline.
 
-We recommend reading on, but if you're impatient, you can jump straight to the {cljdoc-doc-url}/introduction[introduction] of the _poly_ tool.
+We recommend reading on, but if you're impatient, jump straight to the {cljdoc-doc-url}/introduction[introduction] of the _poly_ tool.
 
 The documentation you are reading now describes the _poly_ command line tool, built for https://clojure.org/[Clojure] and https://clojurescript.org[ClojureScript].
 Clojure is a powerful and simple functional language for the https://en.wikipedia.org/wiki/Java_virtual_machine[JVM], and ClojureScript is its JavaScript-targeting dialect.
