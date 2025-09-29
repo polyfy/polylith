@@ -16,14 +16,10 @@ Polylith is made by developers for developers.
 Our goal is to maximize productivity and increase the quality of the systems we create.
 Although Polylith is not a build tool, it integrates into your build pipeline.
 
-ifndef::env-cljdoc[]
-We recommend exploring the documentation further {cljdoc-doc-url}[here], where you’ll find a convenient menu on the left for easier navigation.
-endif::[]
+We recommend reading this entire page, but jump straight {cljdoc-doc-url}/introduction[here] if you're just looking to test out this poly tool.
 
-Polylith, as a concept, is documented https://polylith.gitbook.io/polylith[here].
-
-The documentation you are reading now describes the Polylith tool built for https://clojure.org/[Clojure], a powerful and simple functional language for the https://en.wikipedia.org/wiki/Java_virtual_machine[JVM].
-The tool also supports https://clojurescript.org[ClojureScript].
+The documentation you are reading now describes the Polylith tool built for https://clojure.org/[Clojure] and https://clojurescript.org[ClojureScript].
+Clojure is a powerful and simple functional language for the https://en.wikipedia.org/wiki/Java_virtual_machine[JVM], and ClojureScript is its JavaScript-targeting dialect.
 
 Polylith introduces the architectural concept of “service level building blocks” which can be combined like LEGO® bricks to build our services and systems.
 Polylith’s LEGO-like bricks are easy to reason about, test, refactor, and reuse.
