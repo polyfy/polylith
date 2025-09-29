@@ -1,8 +1,8 @@
 {:top-namespace "com.example"
  :interface-ns "ifc"
  :default-profile-name "default"
- :dialects #{"clj" "cljs"}
  :compact-views #{}
+ :dialects #{"clj" "cljs"}
  :vcs {:name "git"
        :auto-add false}
  :tag-patterns {:stable "stable-*"
