@@ -65,7 +65,7 @@ In that case, you can suppress the warning by specifying that it is `:necessary`
 [#error111]
 == Workspace Structure Reflects Error 111
 
-If `poly` finds that a `.clj` or `.cljc` source file is unreadable or its namespace is missing, you will see `Error 111: Unreadable namespace`.
+If `poly` finds that a `.clj`, `.cljc`, or `.cljs` source file is unreadable, you will see `Error 111: Unreadable namespace`.
 
 Let's explore this error with our `example` xref:introduction.adoc[tutorial] workspace.
 The `example` workspace source is link:/examples/doc-example[here] if you have not been following along.
