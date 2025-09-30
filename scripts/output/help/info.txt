@@ -1,8 +1,13 @@
   Shows workspace information.
 
-  poly info [:loc] [out:FILENAME]
+  poly info [:loc] [:dialect] [out:FILENAME]
 
     :loc     = Shows the number of lines of code for each brick and project.
+
+    :dialect = Shows the dialect (type of source code), where:
+               j-- = clj (Clojure)
+               -c- = cljc (Clojure common)
+               --s = cljs (ClojureScript)
 
     FILENAME = The name of the text file to create, containing the output from
                this command.
@@ -176,6 +181,7 @@
   Example:
     poly info
     poly info :loc
+    poly info :dialect
     poly info since:release
     poly info since:previous-release
     poly info project:myproject

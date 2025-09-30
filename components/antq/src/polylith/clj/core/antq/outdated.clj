@@ -1,6 +1,8 @@
 (ns ^:no-doc polylith.clj.core.antq.outdated
   (:require [antq.api :as antq]
+            [polylith.clj.core.antq.npm :as npm]
             [polylith.clj.core.maven.interface :as maven]))
+
 
 (defn truncate [version type]
   (if (= :git-sha type)
@@ -29,14 +31,25 @@
             (-> deps :aliases :test :extra-deps))
     (:deps deps)))
 
+(defn npm-dependencies [{:keys [package]}]
+  (when package
+    (merge (:dependencies package)
+           (:devDependencies package))))
+
 (defn library->latest-version
   "Returns a map where the key is [lib-name lib-version]
    and the value is the latest version of the library."
   [configs calculate?]
   (if calculate?
-    (into {} (map key-value)
-          (antq/outdated-deps
-            {:deps (into {} (reduce oldest-lib-version {}
-                                    (mapcat dependencies
-                                            (entity-configs configs))))}))
+    (let [maven-deps (into {} (reduce oldest-lib-version {}
+                                      (mapcat dependencies
+                                              (entity-configs configs))))
+          npm-deps (into {} (mapcat npm-dependencies
+                                    (entity-configs configs)))
+          ;; Get maven latest versions using antq
+          maven-latest-versions (into {} (map key-value)
+                                      (antq/outdated-deps {:deps maven-deps}))
+          ;; Get npm latest versions using our custom npm namespace
+          npm-latest-versions (npm/outdated-npm-dependencies npm-deps)]
+      (merge maven-latest-versions npm-latest-versions))
     {}))

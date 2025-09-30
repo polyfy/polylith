@@ -11,7 +11,7 @@
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.workspace.interface :as workspace])
   (:import [org.jline.reader EndOfFileException]
-           [org.jline.reader UserInterruptException])
+           [org.jline.reader LineReader UserInterruptException])
   (:refer-clojure :exclude [next]))
 
 (def ws-dir (atom nil))
@@ -78,7 +78,7 @@
 (defn start [command-executor {:keys [ws-dir ws-file via is-local is-github branch is-tap is-fake-poly] :as user-input}
              workspace
              color-mode]
-  (let [reader (jline/reader)
+  (let [^LineReader reader (jline/reader)
         shell-branch branch
         local? is-local
         github? is-github]
@@ -91,7 +91,7 @@
     (try
       (loop []
         (flush)
-        (when-let [line (.readLine reader (prompt))]
+        (when-let [line (.readLine reader ^String (prompt))]
           (let [{:keys [branch cmd unnamed-args is-local is-github file dir via color-mode] :as input} (user-input/extract-arguments (str-util/split-text line))
                 color-mode (or color-mode (common/color-mode input))
                 is-local (or is-local local?)

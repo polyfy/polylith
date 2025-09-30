@@ -21,6 +21,9 @@
 (defn deps-content [ws-dir data]
   [(template/render ws-dir "deps.edn" data)])
 
+(defn npm-content [ws-dir data]
+  [(template/render ws-dir "package.json" data)])
+
 (defn calva-settings-content [ws-name]
   [(str "{")
    (str "    \"calva.replConnectSequences\": [")
@@ -35,11 +38,14 @@
    (str "    ]")
    (str "}")])
 
-(defn create-ws [ws-dir ws-name top-ns create-ws-dir? git-repo? branch commit?]
-  (let [data {:clojure-ver shared/clojure-ver
-              :maven-ver   (mvn-version)
-              :top-ns      top-ns
-              :ws-name     ws-name}]
+(defn create-ws [ws-dir ws-name top-ns template-data ws-dialects create-ws-dir? git-repo? branch commit?]
+  (let [data (merge {:clojure-ver shared/clojure-ver
+                     :maven-ver (mvn-version)
+                     :shadow-cljs-ver shared/shadow-cljs-ver
+                     :top-ns top-ns
+                     :ws-name ws-name
+                     :ws-dialects ws-dialects}
+                    template-data)]
     (when create-ws-dir?
       (file/create-dir ws-dir))
     (file/create-dir (str ws-dir "/bases"))
@@ -51,6 +57,8 @@
     (file/create-file-if-not-exists (str ws-dir "/.gitignore") (gitignore-content ws-dir data))
     (file/create-file (str ws-dir "/workspace.edn") (workspace-content ws-dir data))
     (file/create-file (str ws-dir "/deps.edn") (deps-content ws-dir data))
+    (when (contains? (set ws-dialects) "cljs")
+      (file/create-file (str ws-dir "/package.json") (npm-content ws-dir data)))
     (file/create-file (str ws-dir "/readme.md") (readme-content ws-dir data))
     (file/create-file-if-not-exists (str ws-dir "/.vscode/settings.json") (calva-settings-content ws-name))
     (file/create-file (str ws-dir "/development/src/.keep") [""])
@@ -63,14 +71,15 @@
   (when git-repo?
     (println "  Workspace created in existing git repo.")))
 
-(defn create [root-dir ws-name top-ns branch commit?]
+(defn create [workspace root-dir ws-name top-ns ws-dialects branch commit?]
   (let [create-ws-dir? (not (str/blank? ws-name))
         ws-dir (if create-ws-dir? (str root-dir "/" ws-name) root-dir)
-        git-repo? (git/is-git-repo? root-dir)]
+        git-repo? (git/is-git-repo? root-dir)
+        template-data (-> workspace :configs :workspace :template-data)]
     (cond
       (and create-ws-dir?
            (file/exists ws-dir)) (println (str "  Workspace '" ws-name "' already exists."))
       (and (not create-ws-dir?)
            (not git-repo?)) (println "  Current directory must be a git repo. Leave out :commit and try again.")
       (and commit? git-repo?) (println "  Can't commit a workspace inside an existing git repo.")
-      :else (create-ws ws-dir ws-name top-ns create-ws-dir? git-repo? branch commit?))))
+      :else (create-ws ws-dir ws-name top-ns template-data ws-dialects create-ws-dir? git-repo? branch commit?))))

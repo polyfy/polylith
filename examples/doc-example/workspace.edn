@@ -2,10 +2,11 @@
  :interface-ns "interface"
  :default-profile-name "default"
  :compact-views #{}
+ :dialects ["clj"]
  :vcs {:name "git"
        :auto-add true}
- :tag-patterns {:stable "^stable-.*"
-                :release "^v[0-9].*"}
+ :tag-patterns {:stable "stable-*"
+                :release "v[0-9]*"}
  :projects {"development" {:alias "dev"}
             "command-line" {:alias "cl"}
             "user-service" {:alias "user-s"}}}

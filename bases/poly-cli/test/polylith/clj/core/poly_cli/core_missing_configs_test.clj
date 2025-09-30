@@ -23,7 +23,7 @@
 
 (deftest check-a-workspace-with-missing-workspace-config-file
   (let [check-fn (fn [] (with-redefs [config-reader/file-exists? (fn [_ type] (not= :workspace type))
-                                      config-reader/read-development-deps-config-file (fn [_ _] {})]
+                                      config-reader/read-development-config-files (fn [_ _] {})]
                           (cli/-main "check" "ws-dir:examples/local-dep" "color-mode:none" ":no-exit")))
         output (str-util/normalize-newline
                  (with-out-str
@@ -46,7 +46,7 @@
            (check-fn)))))
 
 (deftest check-a-workspace-with-missing-project-config-file
-  (let [check-fn (fn [] (with-redefs [validator/validate-project-deployable-deps-config (fn [_ _ _] "Invalid file")]
+  (let [check-fn (fn [] (with-redefs [validator/validate-deployable-project-deps-config (fn [_ _ _] "Invalid file")]
                           (cli/-main "check" "ws-dir:examples/local-dep" "color-mode:none" ":no-exit")))
         output (str-util/normalize-newline
                  (with-out-str
@@ -57,8 +57,8 @@
            (check-fn)))))
 
 (deftest check-a-workspace-with-illegal-component-config-file
-  (let [check-fn (fn [] (with-redefs [validator/validate-brick-config (fn [_ _ _]
-                                                                        "Invalid file")]
+  (let [check-fn (fn [] (with-redefs [validator/validate-brick-deps-config (fn [_ _ _]
+                                                                             "Invalid file")]
                           (cli/-main "check" "ws-dir:examples/local-dep" "color-mode:none" ":no-exit")))
         output (str-util/normalize-newline
                  (with-out-str

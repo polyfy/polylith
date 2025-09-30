@@ -1,8 +1,8 @@
 {:top-namespace "local.maven"
  :interface-ns "interface"
  :default-profile-name "default"
- :dialects #{"clj"}
  :compact-views #{}
+ :dialects #{"clj"}
  :vcs {:name "git"
        :auto-add false}
  :tag-patterns {:stable "^stable-.*"

@@ -2,7 +2,6 @@
   (:require [clojure.java.io :as io]
             [clojure.pprint :as pp]
             [clojure.string :as str]
-            [clojure.tools.deps :as tda]
             [clojure.tools.reader :refer [resolve-symbol]]
             [edamame.core :as edamame]
             [me.raynes.fs :as fs]
@@ -40,8 +39,8 @@
               "Could not delete file" path))
 
 (defn delete-dir [path]
-  (doseq [f (reverse (file-seq (io/file path)))]
-    (if (or (Files/isSymbolicLink (.toPath f)) (.exists f))
+  (doseq [^File f (reverse (file-seq (io/file path)))]
+    (when (or (Files/isSymbolicLink (.toPath f)) (.exists f))
       (delete-file f))))
 
 (defn exists [^String path]
@@ -60,8 +59,8 @@
          "Could not create file" path)))))
 
 (defn create-temp-dir [dir]
-  (let [temp-file (execute-fn #(File/createTempFile dir "")
-                              "Could not create directory in temp directory" dir)
+  (let [^File temp-file (execute-fn #(File/createTempFile dir "")
+                                    "Could not create directory in temp directory" dir)
         _         (.delete temp-file)
         _         (.mkdirs temp-file)
         path (.getPath temp-file)]
@@ -75,12 +74,11 @@
   "The call to normalized will also clean up . and .. in the path."
   [path]
   (when path
-    (-> path
-        io/file
-        .toPath
-        fs/normalized
-        .toString
-        str-util/ensure-slash)))
+    (let [normalized-file (-> path
+                              io/file
+                              .toPath
+                              fs/normalized)]
+      (str-util/ensure-slash (.toString ^File normalized-file)))))
 
 (defn current-dir []
   (absolute-path ""))
@@ -136,35 +134,78 @@
             {:unknown-tag tag
              :value data})))
 
-(defn read-file [path]
+(defn- match-statements [statement splicing? features]
+  (let [feature-statement-tuples (partition 2 2 [nil] statement)]
+    (reduce (fn [acc [feature statement]]
+              (if (and (contains? features feature) (some? statement))
+                (if splicing?
+                  (apply conj acc statement)
+                  (conj acc statement))
+                acc))
+      []
+      feature-statement-tuples)))
+
+(defn- handle-reader-conditional [features parsed-statement]
+  (let [splicing? (-> parsed-statement meta :edamame/read-cond-splicing)
+        matched-statements (match-statements parsed-statement splicing? features)]
+    (vary-meta matched-statements
+               #(assoc % :edamame.impl.parser/cond-splice true))))
+
+(defn- parse-code-str* [code-str features read-cond]
+  (try (edamame/parse-string-all code-str
+                                 {:fn true
+                                  :var true
+                                  :quote true
+                                  :regex true
+                                  :deref true
+                                  :symbol true
+                                  :read-eval true
+                                  :features features
+                                  :readers source-reader
+                                  :read-cond read-cond
+                                  :auto-resolve name
+                                  :auto-resolve-ns true
+                                  :syntax-quote {:resolve-symbol resolve-symbol}})))
+
+(defn ns-with-name? [content]
+  (and (sequential? content)
+       (= (symbol "ns")
+          (first content))
+       (-> content second boolean)))
+
+(defn- clear-ns-statements [code features]
+  (reduce (fn [acc statement]
+            (if (ns-with-name? statement)
+              (let [code (parse-code-str* (str statement) features
+                           (partial handle-reader-conditional features))]
+                (conj acc (first code)))
+              (conj acc statement)))
+    []
+    code))
+
+(defn parse-code-str [code-str dialects]
+  (let [features (->> dialects (map keyword) (into #{}))
+        multi-dialect? (< 1 (count features))]
+    (if multi-dialect?
+      (let [code (parse-code-str* code-str features :preserve)]
+        (clear-ns-statements code features))
+      (parse-code-str* code-str features :allow))))
+
+(defn read-file [path dialects]
   (try
     (let [content (slurp path)]
       (if (str/blank? content)
         ;; Return a special marker for empty files
         :polylith.clj.core.file.interface/empty-file
-        (edamame/parse-string-all content
-                                  {:fn true
-                                   :var true
-                                   :quote true
-                                   :regex true
-                                   :deref true
-                                   :read-eval true
-                                   :features #{:clj}
-                                   :readers source-reader
-                                   :read-cond :allow
-                                   :auto-resolve name
-                                   :auto-resolve-ns true
-                                   :syntax-quote {:resolve-symbol resolve-symbol}})))
+        (parse-code-str content dialects)))
     (catch ExceptionInfo e
       (let [{:keys [row col]} (ex-data e)]
-        (println (str "  Couldn't read file '" path "', row: " row ", column: " col ". Message: " (.getMessage e)))
         {:error true
          :file-path path
          :message (.getMessage e)
          :row row
          :col col}))
     (catch Exception e
-      (println (str "  Error reading file '" path "': " (.getMessage e)))
       {:error true
        :file-path path
        :message (.getMessage e)})))
@@ -203,3 +244,10 @@
 (defn pretty-spit [filename collection]
   (spit (io/file filename)
         (with-out-str (pp/write collection :dispatch pp/code-dispatch))))
+
+(defn directory-size [^File path]
+  (cond
+    (nil? path) 0
+    (not (.exists path)) 0
+    (.isFile path) (.length path)
+    :else (reduce + (map directory-size (.listFiles path)))))

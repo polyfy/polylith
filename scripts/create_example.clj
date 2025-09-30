@@ -50,7 +50,7 @@
 
 (defn download-deps []
   (status/line :head "Downloading deps")
-  (sh/shell "clojure -A:dev:test -P"))
+  (sh/shell "clojure -P -M:dev:test"))
 
 (defn output-dir-tree [from-dir dir out-file]
   (sh/shell {:dir from-dir :out out-file}
@@ -247,13 +247,13 @@
         poly (fn-default-opts sh/poly {:dir ws-dir})
         opts (assoc opts :fake-sha fake-sha2)]
     (copy [(fs/file sections-dir "profile/workspace.edn") ws-dir])
-    (poly "create project name:user-service")
-    (poly "create base name:user-api")
+    (poly "create project name:user-service dialect:clj")
+    (poly "create base name:user-api dialect:clj")
     (copy [(fs/file sections-dir "profile/user-api-deps.edn")     (fs/file ws-dir "bases/user-api/deps.edn")]
           [(fs/file sections-dir "profile/user-api-core.clj")     (fs/file ws-dir "bases/user-api/src/se/example/user_api/core.clj")]
           [(fs/file sections-dir "profile/user-api-api.clj")      (fs/file ws-dir "bases/user-api/src/se/example/user_api/api.clj")]
           [(fs/file sections-dir "profile/user-service-deps.edn") (fs/file ws-dir "projects/user-service/deps.edn")])
-    (poly "create component name:user-remote interface:user")
+    (poly "create component name:user-remote dialect:clj interface:user")
     (copy [(fs/file sections-dir "profile/user-remote-deps.edn")      (fs/file ws-dir "components/user-remote/deps.edn")]
           [(fs/file sections-dir "profile/user-remote-core.clj")      (fs/file ws-dir "components/user-remote/src/se/example/user/core.clj")]
           [(fs/file sections-dir "profile/user-remote-interface.clj") (fs/file ws-dir "components/user-remote/src/se/example/user/interface.clj")]
@@ -317,7 +317,7 @@
         opts (assoc opts :ws-dir ws-dir)]
     (fs/create-dir ws-parent-dir)
     (shell {:dir ws-parent-dir} "git clone https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app.git")
-    (shell "clojure -A:dev:test -P")
+    (shell "clojure -P -M:dev:test")
     (shell "git tag stable-lisa")
 
     (let [out-txt #(format "realworld/realworld-%s.txt" %)
@@ -347,7 +347,18 @@
                             str)]
         (spit deps-fname new-content)
         (polys opts "libs" (out-txt out-fname) (out-png "libraries" out-fname))
-        (shell "git restore" deps-fname)))))
+        (shell "git restore" deps-fname))
+
+      ;; Run poly commands against the cljs-frontend branch
+      (shell "git checkout cljs-frontend")
+      (shell "clojure -P -M:dev:test")
+      (let [poly (fn-default-opts sh/poly {:dir ws-dir})]
+        (poly {:out (fs/file (:output-dir opts) (out-txt "info-frontend"))}
+              "info color-mode:none")
+        (poly {:out (fs/file (:output-dir opts) (out-txt "deps-frontend"))}
+              "deps color-mode:none")
+        (poly {:out (fs/file (:output-dir opts) (out-txt "libs-frontend"))}
+              "libs color-mode:none")))))
 
 (defn read-old-ws [{:keys [ws-parent-dir output-dir]}]
   (let [ws-dir (fs/file ws-parent-dir "polylith")
@@ -358,7 +369,7 @@
     (shell {:dir ws-parent-dir} "git clone https://github.com/polyfy/polylith.git")
     ;; 1. Checkout latest workspace structure 0.x
     (shell "git checkout v0.1.0-alpha9")
-    (shell "clojure -A:dev:test -P")
+    (shell "clojure -P -M:dev:test")
     (status/line :head "Read workspace 0.0")
     (poly {:out (out "info-0.txt")} "info fake-sha:40d2f62 :no-changs color-mode:none")
     (poly {:out (out "libs-0.txt")} "libs color-mode:none")
@@ -388,8 +399,8 @@
     (fs/create-dir ws-parent-dir)
     (shell {:dir ws-parent-dir} "git clone https://github.com/seancorfield/usermanager-example.git")
     (shell "git checkout polylith")
-    (shell "clojure -A:dev:test -P")
-    (poly {:out (out "info.txt")} "info :no-chanes color-mode:none")
+    (shell "clojure -P -M:dev:test")
+    (poly {:out (out "info.txt")} "info :no-changes color-mode:none")
     (poly {:out (out "libs.txt")} "libs color-mode:none")
     (poly {:out (out "deps.txt")} "deps color-mode:none")))
 
@@ -403,6 +414,7 @@
                    :out str/trim)
         out #(fs/file output-dir "local-dep" %)]
     (fs/create-dir ws-parent-dir)
+    (shell "clojure -P -M:dev:test")
     (poly {:out (out "info.txt")}                 "info color-mode:none fake-sha:aaaaa :no-changes")
     (poly {:out (out "libs.txt")}                 "libs color-mode:none")
     (poly {:out (out "libs-compact.txt")}         "libs :compact color-mode:none")

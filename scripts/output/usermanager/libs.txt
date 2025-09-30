@@ -13,13 +13,15 @@
                                                                           t  s  n  m  r  e  e  e
   library                            version   type       KB   um   dev   e  e  t  a  e  r  r  b
   ----------------------------------------------------------   --   ---   ----------------------
-  com.github.seancorfield/next.jdbc  1.3.925   maven      52   x     x    .  x  x  x  x  x  .  .
-  com.h2database/h2                  2.2.224   maven   2,553   t     t    .  .  .  .  t  .  .  .
+  com.github.seancorfield/next.jdbc  1.3.1070  maven      54   x     x    .  x  x  x  x  x  .  .
+  com.h2database/h2                  2.3.232   maven   2,589   t     t    .  .  .  .  t  .  .  .
   com.stuartsierra/component         1.1.0     maven      18   x     x    x  x  .  .  x  .  x  x
   compojure/compojure                1.7.1     maven      14   x     x    .  .  .  .  .  .  .  x
-  org.clojure/clojure                1.11.2    maven   4,009   x     x    .  .  .  .  .  .  .  .
+  org.clojure/clojure                1.11.2    maven   4,009   x     -    .  .  .  .  .  .  .  .
+  org.clojure/clojure                1.12.2    maven   4,131   -     x    .  .  .  .  .  .  .  .
   org.clojure/test.check             1.1.1     maven      39   t     t    .  .  .  .  .  .  .  .
-  org.xerial/sqlite-jdbc             3.45.2.0  maven  13,194   x     x    .  .  .  .  .  .  .  .
-  ring/ring                          1.12.0    maven       4   x     x    .  .  .  .  .  .  x  x
-  ring/ring-defaults                 0.4.0     maven       7   x     x    .  .  .  .  .  .  .  x
-  selmer/selmer                      1.12.59   maven      63   x     x    .  .  .  .  .  .  .  x
+  org.xerial/sqlite-jdbc             3.45.2.0  maven  13,194   x     -    .  .  .  .  .  .  .  .
+  org.xerial/sqlite-jdbc             3.50.3.0  maven  14,010   -     x    .  .  .  .  .  .  .  .
+  ring/ring                          1.14.2    maven       4   x     x    .  .  .  .  .  .  x  x
+  ring/ring-defaults                 0.6.0     maven       7   x     x    .  .  .  .  .  .  .  x
+  selmer/selmer                      1.12.62   maven      63   x     x    .  .  .  .  .  .  .  x

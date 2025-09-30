@@ -7,7 +7,6 @@ In all our examples thus far, we've shown source code stored in two directories:
 xref:tools-deps.adoc[Tools.deps] supports splitting source and test code into several directories, as does `poly`.
 
 We've only shown `.clj` files in our examples, but `poly` also recognizes `.cljc` files, which you can use to share code between Clojure and ClojureScript.
-(See <<frontend>> below.)
 
 We'll contrive an example of splitting source code over multiple directories by exploring two ways of storing `.clj` and `.cljc` files.
 Imagine a `company` component that contains both `.clj` and `.cljc` files.
@@ -73,69 +72,33 @@ For xref:component.adoc[components], the sub-directory name is the component's x
 
 If you have resource files that are only used in the test context, then they can be put in a `test-resources` directory.
 
-[[frontend]]
-== Frontend Code Options
+== ClojureScript
+[[clojure-script]]
 
-The `poly` tool doesn't understand https://clojurescript.org/[ClojureScript] `.cljs` files, but it recognizes `.cljc` files, which you can use to share code between your backend and frontend.
+Starting with version 0.3.0, the poly tool also supports ClojureScript.
+To have the tool read `.cljs` files, add "cljs" to the `:dialects` vector in workspace.edn:
 
-Three frontend code organization alternatives are:
+[%autowidth]
+|===
+| Dialects | Description
 
-=== 1. Frontend in Base or Components
+a| `#{"clj"}`
+a| The tool reads files ending with `.clj` + `.cljc`.
 
-This option puts all your frontend code in a xref:base.adoc[base].
+a| `#{"cljs"}`
+a| The tool reads files ending with `.cljs` and `.cljc`.
 
-The `poly` tool recognizes `.cljc` files in the base, resulting in a ClojureScript view of the component when used from the frontend.
+a| `#{"clj" "cljs"}`
+a| The tool reads files ending with `.clj`, `.cljc`, and `.cljs`.
+|===
 
-If you want to share the `.cljc` code with the backend, you would put that code in one or more xref:component.adoc[components].
-
-=== 2. Frontend in a Non-`poly` Directory
-
-Another option is to put the frontend code in a separate directory.
-Two alternatives are:
-
-==== a) Under the Workspace
-
-[source,shell]
-----
-myworkspace
-├── bases
-├── components
-├── development
-├── myfrontend ;; <1>
-└── projects
-----
-<1> Not a base, not a component, just your frontend code referenced as `:local/root`
-
-You would include `.cljc` files from your backend code by treating it as a library and referencing it via `:local/root`.
-A drawback is that changes to the frontend code files will not be detected by `poly` because they sit outside the `poly` directory structure and are, therefore, unknown to `poly`.
-
-NOTE: We are working on supporting ClojureScript, see https://github.com/polyfy/polylith/issues/481[this] issue.
-
-==== b) Outside the Workspace
-
-Under this strategy, the frontend code sits within your git repository but physically outside of the workspace.
+To list the dialects used in bricks and projects (including their bricks), provide the `:dialect` argument to the xref:commands.adoc#info[info] command:
 
 [source,shell]
 ----
-myrepository
-├── mybackend ;; <1>
-│   ├── bases
-│   ├── components
-│   ├── development
-│   └── projects
-└── myfrontend ;; <2>
+poly info :dialect
 ----
-<1> mybackend `poly` workspace
-<2> myfrontend plain old Clojure `:local/root` library
 
-You would reference frontend `.cljc` files as a `:local/root` library in the same way as in alternative 2a.
-The `poly` tool can handle both layouts; it's more a matter of preference what you choose.
+image::images/source-code/info-realworld-dialect.png[width=500]
 
-=== 3. Frontend in Separate Repository
-
-The last alternative is to put your frontend code in a separate git repository.
-
-Some downsides to this strategy are:
-
-* You are no longer working with a monorepo and might even have separate frontend and backend releases
-* You have a greater risk of the frontend and backend code becoming out of synch
+This example was taken from the RealWorld https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend[example app], `cljs-frontend` branch, that mixes Clojure and ClojureScript.

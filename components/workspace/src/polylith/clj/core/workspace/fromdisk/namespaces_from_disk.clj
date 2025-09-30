@@ -52,7 +52,7 @@
 (defn import? [statement]
   (and
     (sequential? statement)
-    (contains? #{:import :require} (first statement))))
+    (contains? #{:import :require :require-macros} (first statement))))
 
 (defn interface-ns? [ns-name interface-ns]
   (let [interface-nss (common/interface-nss interface-ns)]
@@ -72,8 +72,8 @@
                 (interface-ns? depends-on-ns interface-ns))))))
 
 (defn import [[statement-type & statement-body] suffixed-top-ns interface-ns]
-  (cond
-    (= :require statement-type)
+  (case statement-type
+    (:require :require-macros)
     (flatten
       (concat (map (comp str libspec->lib)
                    (filterv #(required-as? % suffixed-top-ns interface-ns)
@@ -82,9 +82,12 @@
                    (filter sequential?
                            (remove libspec?
                                    statement-body)))))
-    (= :import statement-type)
+
+    :import
     (map import-list->package-str
-         statement-body)))
+         statement-body)
+
+    nil))
 
 (defn imports [ns-statements suffixed-top-ns interface-ns]
   (if (sequential? ns-statements)
@@ -96,9 +99,7 @@
   (or (str-util/skip-until path "/")
       path))
 
-(def skipped-suffixes (if common/cljs?
-                        [".clj" ".cljs" ".cljc"]
-                        [".clj" ".cljc"]))
+(def skipped-suffixes [".clj" ".cljs" ".cljc"])
 
 (defn namespace-name [root-dir path]
   (when path
@@ -120,8 +121,11 @@
           (first content))
        (-> content second boolean)))
 
-(defn ->namespace [ws-dir source-dir suffixed-top-ns interface-ns file-path]
-  (let [all-content (file/read-file file-path)
+(defn file-content->ns-statements [file-content]
+  (first (drop-while #(-> % ns-with-name? not) file-content)))
+
+(defn ->namespace [ws-dir ws-dialects source-dir suffixed-top-ns interface-ns file-path]
+  (let [all-content (file/read-file file-path ws-dialects)
         ns-name (namespace-name source-dir file-path)
         relative-path (str-util/skip-prefix file-path (str ws-dir "/"))]
     (cond
@@ -152,8 +156,7 @@
 
       ;; Normal case - process the namespace
       :else
-      (let [content (first (drop-while #(-> % ns-with-name? not)
-                                       all-content))
+      (let [content (file-content->ns-statements all-content)
             imports (imports content suffixed-top-ns interface-ns)
             invalid? (not (or (str/ends-with? relative-path "/data_readers.clj")
                               (-> content ns-with-name?)))]
@@ -172,20 +175,20 @@
   (def file-path "components/file/src/polylith/clj/core/file/testing.clj")
   (def source-dir "bases/poly-cli/src/polylith/clj/core/")
   (def file-path "bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj")
-  (file/read-file file-path)
-  (->namespace "." source-dir "polylith.clj.core." "interface" file-path)
+  (file/read-file file-path #{"clj"})
+  (->namespace "." #{"clj"} source-dir "polylith.clj.core." "interface" file-path)
   #__)
 
-(defn source-namespaces-from-disk [ws-dir source-dir suffixed-top-ns interface-ns]
-  (mapv #(->namespace ws-dir source-dir suffixed-top-ns interface-ns %)
-        (-> source-dir
-            file/paths-recursively
-            common/filter-clojure-paths)))
+(defn source-namespaces-from-disk [ws-dir ws-dialects source-dir suffixed-top-ns interface-ns]
+  (mapv #(->namespace ws-dir ws-dialects source-dir suffixed-top-ns interface-ns %)
+        (->> source-dir
+          file/paths-recursively
+          (common/filter-clojure-paths ws-dialects))))
 
-(defn namespaces-from-disk [ws-dir src-dirs test-dirs suffixed-top-ns interface-ns]
-  (let [src (vec (mapcat #(source-namespaces-from-disk ws-dir % suffixed-top-ns interface-ns)
+(defn namespaces-from-disk [ws-dir ws-dialects src-dirs test-dirs suffixed-top-ns interface-ns]
+  (let [src (vec (mapcat #(source-namespaces-from-disk ws-dir ws-dialects % suffixed-top-ns interface-ns)
                          src-dirs))
-        test (vec (mapcat #(source-namespaces-from-disk ws-dir % suffixed-top-ns interface-ns)
+        test (vec (mapcat #(source-namespaces-from-disk ws-dir ws-dialects % suffixed-top-ns interface-ns)
                           test-dirs))]
     (cond-> {}
             (seq src) (assoc :src src)

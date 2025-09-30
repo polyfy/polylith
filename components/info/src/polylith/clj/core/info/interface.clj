@@ -6,11 +6,11 @@
 (defn print-info [workspace]
   (workspace/print-info workspace))
 
-(defn brick-table [workspace is-show-loc is-show-resources]
-  (brick/table workspace is-show-loc is-show-resources))
+(defn brick-table [workspace is-show-dialect is-show-loc is-show-resources]
+  (brick/table workspace is-show-dialect is-show-loc is-show-resources))
 
-(defn project-table [workspace is-show-loc is-show-resources]
-  (project/table workspace is-show-loc is-show-resources))
+(defn project-table [workspace is-show-dialect is-show-loc is-show-resources]
+  (project/table workspace is-show-dialect is-show-loc is-show-resources))
 
 (defn workspace-table [workspace]
   (workspace/table workspace))

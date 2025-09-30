@@ -13,6 +13,7 @@
       :imports ["clojure.test" "se.example.cli.core"]}]},
    :lib-imports {:test ["clojure.test"]},
    :name "cli",
+   :source-types #{"clj"},
    :paths {:src ["src" "resources"], :test ["test"]},
    :type "base",
    :interface-deps {:src ["user"], :test []},
@@ -37,6 +38,7 @@
       :imports ["clojure.test" "se.example.user-api.core"]}]},
    :lib-imports {:src ["slacker.server"], :test ["clojure.test"]},
    :name "user-api",
+   :source-types #{"clj"},
    :paths {:src ["src" "resources"], :test ["test"]},
    :type "base",
    :interface-deps {:src ["user"], :test []},
@@ -47,7 +49,7 @@
    :base-deps {:src [], :test []}}],
  :changes
  {:since "stable",
-  :since-sha "e7814a32632b5f947b379cd8d70be2390466755b",
+  :since-sha "64143499ffae047b196c6c8b90413000a411ce45",
   :since-tag "stable-lisa",
   :changed-files
   ["bases/user-api/deps.edn"
@@ -63,7 +65,7 @@
    "projects/user-service/deps.edn"
    "workspace.edn"],
   :git-diff-command
-  "git diff e7814a32632b5f947b379cd8d70be2390466755b --name-only",
+  "git diff 64143499ffae047b196c6c8b90413000a411ce45 --name-only",
   :changed-components ["user-remote"],
   :changed-bases ["user-api"],
   :changed-projects ["command-line" "user-service"],
@@ -93,11 +95,12 @@
       :imports ["clojure.test" "se.example.user.interface"]}]},
    :lib-imports {:test ["clojure.test"]},
    :name "user",
+   :source-types #{"clj"},
    :paths {:src ["src" "resources"], :test ["test"]},
    :type "component",
    :interface-deps {:src [], :test []},
    :lib-deps {}}
-  {:lines-of-code {:src 14, :test 7},
+  {:lines-of-code {:src 14, :test 6},
    :interface
    {:name "user",
     :definitions
@@ -121,6 +124,7 @@
       :imports ["clojure.test" "se.example.user.interface"]}]},
    :lib-imports {:src ["slacker.client"], :test ["clojure.test"]},
    :name "user-remote",
+   :source-types #{"clj"},
    :paths {:src ["src" "resources"], :test ["test"]},
    :type "component",
    :interface-deps {:src [], :test []},
@@ -135,37 +139,39 @@
      {:version "0.17.0", :type "maven", :size 28408}}}}],
  :configs
  {:components
-  [{:deps
+  [{:name "user",
+    :type "component",
+    :deps
     {:paths ["src" "resources"],
      :deps {},
-     :aliases {:test {:extra-paths ["test"], :extra-deps {}}}},
-    :name "user",
-    :type "component"}
-   {:deps
+     :aliases {:test {:extra-paths ["test"], :extra-deps {}}}}}
+   {:name "user-remote",
+    :type "component",
+    :deps
     {:paths ["src" "resources"],
      :deps
      {compojure/compojure {:mvn/version "1.6.2"},
       http-kit/http-kit {:mvn/version "2.4.0"},
       ring/ring {:mvn/version "1.8.1"},
       slacker/slacker {:mvn/version "0.17.0"}},
-     :aliases {:test {:extra-paths ["test"], :extra-deps {}}}},
-    :name "user-remote",
-    :type "component"}],
+     :aliases {:test {:extra-paths ["test"], :extra-deps {}}}}}],
   :bases
-  [{:deps
+  [{:name "cli",
+    :type "base",
+    :deps
     {:paths ["src" "resources"],
      :deps {},
-     :aliases {:test {:extra-paths ["test"], :extra-deps {}}}},
-    :name "cli",
-    :type "base"}
-   {:deps
+     :aliases {:test {:extra-paths ["test"], :extra-deps {}}}}}
+   {:name "user-api",
+    :type "base",
+    :deps
     {:paths ["src" "resources"],
      :deps {slacker/slacker {:mvn/version "0.17.0"}},
-     :aliases {:test {:extra-paths ["test"], :extra-deps {}}}},
-    :name "user-api",
-    :type "base"}],
+     :aliases {:test {:extra-paths ["test"], :extra-deps {}}}}}],
   :projects
-  [{:deps
+  [{:name "command-line",
+    :type "project",
+    :deps
     {:deps
      {poly/user-remote {:local/root "../../components/user-remote"},
       poly/cli {:local/root "../../bases/cli"},
@@ -175,10 +181,10 @@
       {:mvn/version "2.13.3"}},
      :aliases
      {:test {:extra-paths ["test"], :extra-deps {}},
-      :uberjar {:main se.example.cli.core}}},
-    :name "command-line",
-    :type "project"}
-   {:deps
+      :uberjar {:main se.example.cli.core}}}}
+   {:name "development",
+    :type "project",
+    :deps
     {:aliases
      {:dev
       {:extra-paths ["development/src"],
@@ -211,10 +217,10 @@
        :ns-default build},
       :poly
       {:main-opts ["-m" "polylith.clj.core.poly-cli.core"],
-       :extra-deps {polylith/clj-poly {:mvn/version "0.2.18"}}}}},
-    :name "development",
-    :type "project"}
-   {:deps
+       :extra-deps {polylith/clj-poly {:mvn/version "0.2.18"}}}}}}
+   {:name "user-service",
+    :type "project",
+    :deps
     {:deps
      {poly/user {:local/root "../../components/user"},
       poly/user-api {:local/root "../../bases/user-api"},
@@ -224,33 +230,18 @@
       {:mvn/version "2.13.3"}},
      :aliases
      {:test {:extra-paths [], :extra-deps {}},
-      :uberjar {:main se.example.user-api.core}}},
-    :name "user-service",
-    :type "project"}],
+      :uberjar {:main se.example.user-api.core}}}}],
   :user
   {:color-mode "dark",
    :empty-character ".",
    :thousand-separator ",",
    :ws-shortcuts
-   {:root-dir "/Users/joakimtengstrand/source/polylith",
+   {:root-dir "/Users/tengstrand/source/polylith",
     :paths
     [{:dir "examples/doc-example"}
-     {:dir "examples/for-test"}
-     {:dir "examples/local-dep"}
-     {:dir "examples/local-dep-old-format"}
-     {:dir "examples/missing-component"}
-     {:dir "examples/integrant-system"}
-     {:dir "examples/local-maven-repo"}
-     {:dir "examples/mix-example"}
-     {:dir "examples/profiles"}
-     {:dir "examples/poly-rcf"}
-     {:dir "examples/poly-rcf/monolith", :name "monolith-poly-rcf"}
      {:dir "examples/test-runners"}
-     {:dir "../sandbox/polylith-bug"}
      {:dir "../clojure-polylith-realworld-example-app",
-      :name "realworld"}
-     {:file "patrix.edn"}
-     {:file "../sandbox/oliver.edn"}]}},
+      :name "realworld"}]}},
   :workspace
   {:top-namespace "se.example",
    :interface-ns "interface",
@@ -331,9 +322,9 @@
    :base-names [],
    :project-names []}],
  :projects
- [{:lines-of-code {:src 0, :test 13, :total {:src 42, :test 28}},
+ [{:lines-of-code {:src 0, :test 13, :total {:src 42, :test 26}},
    :deps-filename
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2025-06-02-095921/ws/example/projects/command-line/deps.edn",
+   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2025-09-30-125501/ws/example/projects/command-line/deps.edn",
    :namespaces
    {:test
     [{:name "project.command-line.test-setup",
@@ -360,6 +351,7 @@
      "org.apache.logging.log4j/log4j-slf4j-impl"
      {:version "2.13.3", :type "maven", :size 23590}},
     :test {}},
+   :source-types #{"clj"},
    :paths
    {:src
     ["bases/cli/resources"
@@ -377,7 +369,7 @@
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "cl",
    :project-dir
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2025-06-02-095921/ws/example/projects/command-line",
+   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2025-09-30-125501/ws/example/projects/command-line",
    :lib-deps
    {:src
     {"org.clojure/clojure"
@@ -405,7 +397,7 @@
     "user-remote" {:src {}, :test {}}}}
   {:lines-of-code {:src 0, :test 0, :total {:src 44, :test 28}},
    :deps-filename
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2025-06-02-095921/ws/example/projects/user-service/deps.edn",
+   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2025-09-30-125501/ws/example/projects/user-service/deps.edn",
    :namespaces {},
    :base-names {:src ["user-api"], :test ["user-api"]},
    :lib-imports {:src ["slacker.server"], :test ["clojure.test"]},
@@ -421,6 +413,7 @@
      "org.apache.logging.log4j/log4j-slf4j-impl"
      {:version "2.13.3", :type "maven", :size 23590}},
     :test {}},
+   :source-types #{},
    :paths
    {:src
     ["bases/user-api/resources"
@@ -435,7 +428,7 @@
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "user-s",
    :project-dir
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2025-06-02-095921/ws/example/projects/user-service",
+   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2025-09-30-125501/ws/example/projects/user-service",
    :lib-deps
    {:src
     {"org.clojure/clojure"
@@ -457,7 +450,7 @@
     "user" {:src {}, :test {}}}}
   {:lines-of-code {:src 4, :test 0, :total {:src 58, :test 42}},
    :deps-filename
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2025-06-02-095921/ws/example/deps.edn",
+   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2025-09-30-125501/ws/example/deps.edn",
    :namespaces
    {:src
     [{:name "dev.lisa",
@@ -478,6 +471,7 @@
      "org.apache.logging.log4j/log4j-slf4j-impl"
      {:version "2.13.3", :type "maven", :size 23590}},
     :test {}},
+   :source-types #{"clj"},
    :paths
    {:src
     ["bases/cli/resources"
@@ -499,7 +493,7 @@
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "dev",
    :project-dir
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2025-06-02-095921/ws/example/development",
+   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2025-09-30-125501/ws/example/development",
    :unmerged
    {:paths
     {:src
@@ -548,11 +542,11 @@
    :is-git-repo true,
    :branch "master",
    :git-root
-   "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2025-06-02-095921/ws/example",
+   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2025-09-30-125501/ws/example",
    :auto-add true,
    :stable-since
    {:tag "stable-lisa",
-    :sha "e7814a32632b5f947b379cd8d70be2390466755b"},
+    :sha "64143499ffae047b196c6c8b90413000a411ce45"},
    :polylith
    {:repo "https://github.com/polyfy/polylith.git", :branch "master"}},
   :top-namespace "se.example",
@@ -563,11 +557,11 @@
   :color-mode "dark",
   :compact-views #{},
   :user-config-filename
-  "/Users/joakimtengstrand/.config/polylith/config.edn",
+  "/Users/tengstrand/.config/polylith/config.edn",
   :empty-character ".",
   :thousand-separator ",",
-  :user-home "/Users/joakimtengstrand",
-  :m2-dir "/Users/joakimtengstrand/.m2"},
+  :user-home "/Users/tengstrand",
+  :m2-dir "/Users/tengstrand/.m2"},
  :user-input
  {:args ["ws" "out:ws.edn"],
   :cmd "ws",
@@ -591,6 +585,7 @@
   :is-run-project-tests false,
   :is-search-for-ws-dir false,
   :is-show-brick false,
+  :is-show-dialect false,
   :is-show-loc false,
   :is-show-project false,
   :is-show-resources false,
@@ -603,23 +598,24 @@
   :unnamed-args []},
  :version
  {:release
-  {:name "0.2.22-SNAPSHOT",
+  {:name "0.3.0-SNAPSHOT",
    :tool "poly",
    :major 0,
-   :minor 2,
-   :patch 22,
+   :minor 3,
+   :patch 0,
    :revision "SNAPSHOT",
-   :date "2025-06-02",
-   :snapshot 11},
+   :date "2025-09-30",
+   :snapshot 1},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
-  :ws {:breaking 3, :non-breaking 0}},
+  :ws {:breaking 5, :non-breaking 0}},
+ :ws-dialects #{"clj"},
  :ws-dir
- "/private/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2025-06-02-095921/ws/example",
+ "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2025-09-30-125501/ws/example",
  :ws-reader
  {:name "polylith-clj",
   :project-url "https://github.com/polyfy/polylith",
   :language "Clojure",
   :type-position "postfix",
-  :file-extensions ["clj" "cljc"]},
+  :file-extensions ["clj" "cljs" "cljc"]},
  :ws-type "toolsdeps2"}

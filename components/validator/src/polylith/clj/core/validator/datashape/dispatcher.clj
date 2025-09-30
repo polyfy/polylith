@@ -11,7 +11,7 @@
     :toolsdeps2 (toolsdeps2/validate-project-dev-deps-config config filename)
     (throw-unknown-type ws-type)))
 
-(defn validate-project-deployable-deps-config [ws-type config filename]
+(defn validate-deployable-project-deps-config [ws-type config filename]
   (case ws-type
     :toolsdeps1 (toolsdeps1/validate-project-deployable-config config filename)
     :toolsdeps2 (toolsdeps2/validate-project-deployable-config config filename)

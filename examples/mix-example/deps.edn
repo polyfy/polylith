@@ -1,0 +1,41 @@
+{:aliases  {:dev {:extra-paths ["development/src"]
+
+                  :extra-deps {poly/comp-clj-cljc {:local/root "components/comp-clj-cljc"}
+                               poly/comp-clj-cljc-cljs {:local/root "components/comp-clj-cljc-cljs"}
+                               poly/comp-clj-only {:local/root "components/comp-clj-only"}
+                               poly/comp-cljc {:local/root "components/comp-cljc"}
+                               poly/comp-cljs-cljc {:local/root "components/comp-cljs-cljc"}
+                               poly/comp-cljs-only {:local/root "components/comp-cljs-only"}
+                               poly/comp-cljs-with-macros {:local/root "components/comp-cljs-with-macros"}
+
+                               poly/clj-base {:local/root "bases/clj-base"}
+                               poly/cljs-base {:local/root "bases/cljs-base"}
+                               
+                               org.clojure/clojure {:mvn/version "1.12.0"}
+                               thheller/shadow-cljs {:mvn/version "2.28.20"}
+                               binaryage/devtools {:mvn/version "1.0.7"}}}
+
+            :test {:extra-paths ["components/comp-clj-cljc/test"
+                                 "components/comp-clj-cljc-cljs/test"
+                                 "components/comp-clj-only/test"
+                                 "components/comp-cljc/test"
+                                 "components/comp-cljs-cljc/test"
+                                 "components/comp-cljs-only/test"
+                                 "components/comp-cljs-with-macros/test"
+                                 
+                                 "bases/clj-base/test"
+                                 "bases/cljs-base/test"]
+                   :extra-deps {polylith-kaocha/kaocha-wrapper
+                                {:git/url "https://github.com/imrekoszo/polylith-kaocha"
+                                 :git/tag "v0.8.6"
+                                 :git/sha "7282409"
+                                 :deps/root "projects/kaocha-wrapper"}}}
+
+            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                   :extra-deps {polylith-kaocha/test-runner
+                                {:git/url "https://github.com/imrekoszo/polylith-kaocha"
+                                 :git/tag "v0.8.6"
+                                 :git/sha "7282409"
+                                 :deps/root "projects/test-runner"}
+                                polylith/clj-poly
+                                {:local/root "../../projects/poly"}}}}}

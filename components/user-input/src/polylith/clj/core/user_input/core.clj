@@ -67,6 +67,9 @@
                 commit!
                 compact!
                 dev!
+                dialect
+                dialect!
+                dialects
                 dir
                 fail-if-nothing-to-test!
                 fake-poly!
@@ -116,6 +119,8 @@
                       :branch branch
                       :color-mode (as-value color-mode)
                       :changed-files (as-vector changed-files)
+                      :dialect (as-value dialect)
+                      :dialects (as-vector dialects)
                       :dir dir
                       :fake-sha fake-sha
                       :fake-tag fake-tag
@@ -145,6 +150,7 @@
                                                 (= "true" project!))
                       :is-search-for-ws-dir (contains? (set arguments) "::")
                       :is-show-brick (= "true" brick!)
+                      :is-show-dialect (= "true" dialect!)
                       :is-show-loc (= "true" loc!)
                       :is-show-project (= "true" project!)
                       :is-show-resources (or (= "true" r!)

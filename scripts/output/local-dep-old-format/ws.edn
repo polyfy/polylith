@@ -15,6 +15,7 @@
       :imports ["clojure.test" "com.localdep.invoicer-cli.core"]}]},
    :lib-imports {:test ["clojure.test"]},
    :name "invoicer-cli",
+   :source-types #{"clj"},
    :paths {:src ["src"], :test ["test"]},
    :type "base",
    :interface-deps {:src ["invoicer"], :test []},
@@ -53,6 +54,7 @@
       :imports ["clojure.test" "com.localdep.database.interface"]}]},
    :lib-imports {:test ["clojure.test"]},
    :name "database",
+   :source-types #{"clj"},
    :paths {:src ["src" "resources"], :test ["test"]},
    :type "component",
    :interface-deps {:src ["util"], :test []},
@@ -68,6 +70,7 @@
       :imports []}]},
    :lib-imports {},
    :name "datomic-ions",
+   :source-types #{"clj"},
    :paths {:src ["src"], :test []},
    :type "component",
    :interface-deps {:src [], :test []},
@@ -101,6 +104,7 @@
    :lib-imports
    {:test ["clojure.test" "com.localdep.migrate-me.core"]},
    :name "invoicer",
+   :source-types #{"clj"},
    :paths {:src ["src" "resources"], :test ["test"]},
    :type "component",
    :interface-deps {:src ["util"], :test ["test-helper"]},
@@ -128,6 +132,7 @@
       ["clojure.test" "com.localdep.test-helper.interface"]}]},
    :lib-imports {:test ["clojure.test"]},
    :name "test-helper",
+   :source-types #{"clj"},
    :paths {:src ["src"], :test ["test"]},
    :type "component",
    :interface-deps {:src ["test-helper-db"], :test []},
@@ -148,6 +153,7 @@
       :imports ["com.localdep.database.interface"]}]},
    :lib-imports {},
    :name "test-helper-db",
+   :source-types #{"clj"},
    :paths {:src ["src"], :test []},
    :type "component",
    :interface-deps {:src ["database"], :test []},
@@ -174,6 +180,7 @@
       :imports ["clojure.test" "com.localdep.util.interface"]}]},
    :lib-imports {:src ["clj-time.core"], :test ["clojure.test"]},
    :name "util",
+   :source-types #{"clj"},
    :paths {:src ["src"], :test ["test"]},
    :type "component",
    :interface-deps {:src [], :test []},
@@ -184,7 +191,7 @@
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
       :version "d9ed4e4",
-      :size 136433}}}}
+      :size 136427}}}}
   {:lines-of-code {:src 0, :test 5},
    :interface {:definitions []},
    :namespaces
@@ -196,6 +203,7 @@
       :imports ["clojure.test"]}]},
    :lib-imports {:test ["clojure.test"]},
    :name "without-src",
+   :source-types #{"clj"},
    :paths {:src [], :test ["test"]},
    :type "component",
    :interface-deps {:src [], :test []},
@@ -244,7 +252,9 @@
     :name "invoicer-cli",
     :type "base"}],
   :projects
-  [{:deps
+  [{:name "development",
+    :type "project",
+    :deps
     {:polylith
      {:release-tag-pattern "v[0-9]*",
       :top-namespace "com.localdep",
@@ -291,10 +301,10 @@
       :poly
       {:main-opts ["-m" "polylith.clj.core.poly-cli.core"],
        :extra-deps
-       {polylith/clj-poly {:local/root "../../projects/poly"}}}}},
-    :name "development",
-    :type "project"}
-   {:deps
+       {polylith/clj-poly {:local/root "../../projects/poly"}}}}}}
+   {:name "invoicing",
+    :type "project",
+    :deps
     {:mvn/repos
      {"datomic-cloud"
       {:url "s3://datomic-releases-1fc2183a/maven/releases"}},
@@ -324,9 +334,7 @@
         "../../components/without-src/test"
         "../../bases/invoicer-cli/test"],
        :extra-deps
-       {migrate-me/migrate-me {:local/root "../../migrate-me"}}}}},
-    :name "invoicing",
-    :type "project"}],
+       {migrate-me/migrate-me {:local/root "../../migrate-me"}}}}}}],
   :user
   {:color-mode "dark",
    :empty-character ".",
@@ -335,22 +343,9 @@
    {:root-dir "USER-HOME/source/polylith",
     :paths
     [{:dir "examples/doc-example"}
-     {:dir "examples/for-test"}
-     {:dir "examples/local-dep"}
-     {:dir "examples/local-dep-old-format"}
-     {:dir "examples/missing-component"}
-     {:dir "examples/integrant-system"}
-     {:dir "examples/local-maven-repo"}
-     {:dir "examples/mix-example"}
-     {:dir "examples/profiles"}
-     {:dir "examples/poly-rcf"}
-     {:dir "examples/poly-rcf/monolith", :name "monolith-poly-rcf"}
      {:dir "examples/test-runners"}
-     {:dir "../sandbox/polylith-bug"}
      {:dir "../clojure-polylith-realworld-example-app",
-      :name "realworld"}
-     {:file "patrix.edn"}
-     {:file "../sandbox/oliver.edn"}]}},
+      :name "realworld"}]}},
   :workspace
   {:projects
    {"development" {:alias "dev"}, "invoicing" {:alias "inv"}},
@@ -559,13 +554,14 @@
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
       :version "d9ed4e4",
-      :size 136433}},
+      :size 136427}},
     :test
     {"migrate-me/migrate-me"
      {:local/root "../../migrate-me",
       :type "local",
       :path "migrate-me",
       :size 310}}},
+   :source-types #{"clj"},
    :paths
    {:src
     ["bases/invoicer-cli/src"
@@ -605,7 +601,7 @@
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
       :version "d9ed4e4",
-      :size 136433}},
+      :size 136427}},
     :test
     {"migrate-me/migrate-me"
      {:local/root "../../migrate-me",
@@ -671,18 +667,18 @@
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
       :version "d9ed4e4",
-      :size 136433},
+      :size 136427},
      "uncomplicate/neanderthal"
      {:version "0.41.0",
       :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
-      :type "maven",
-      :size 224783}},
+      :type "maven"}},
     :test
     {"migrate-me/migrate-me"
      {:local/root "migrate-me",
       :type "local",
       :path "migrate-me",
       :size 310}}},
+   :source-types #{"clj"},
    :paths
    {:src
     ["bases/invoicer-cli/src"
@@ -741,12 +737,11 @@
        :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
        :type "git",
        :version "d9ed4e4",
-       :size 136433},
+       :size 136427},
       "uncomplicate/neanderthal"
       {:version "0.41.0",
        :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
-       :type "maven",
-       :size 224783}},
+       :type "maven"}},
      :test
      [["migrate-me/migrate-me"
        {:local/root "migrate-me",
@@ -764,12 +759,11 @@
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
       :version "d9ed4e4",
-      :size 136433},
+      :size 136427},
      "uncomplicate/neanderthal"
      {:version "0.41.0",
       :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
-      :type "maven",
-      :size 224783}},
+      :type "maven"}},
     :test
     {"migrate-me/migrate-me"
      {:local/root "migrate-me",
@@ -850,6 +844,7 @@
    {:from "USER-HOME", :to "USER-HOME"}
    {:from "SHA", :to "SHA"}],
   :is-run-all-brick-tests false,
+  :is-show-dialect false,
   :is-fake-poly false,
   :is-verbose false,
   :is-latest-sha false,
@@ -877,23 +872,24 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.22-SNAPSHOT",
+  {:name "0.3.0-SNAPSHOT",
    :tool "poly",
    :major 0,
-   :minor 2,
-   :patch 22,
+   :minor 3,
+   :patch 0,
    :revision "SNAPSHOT",
-   :date "2025-06-02",
-   :snapshot 11},
+   :date "2025-09-30",
+   :snapshot 1},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
-  :ws {:breaking 3, :non-breaking 0},
+  :ws {:breaking 5, :non-breaking 0},
   :from {:ws {:breaking 0, :non-breaking 0}}},
+ :ws-dialects #{"clj"},
  :ws-dir "/privateWS-HOME/local-dep-old-format",
  :ws-reader
  {:name "polylith-clj",
   :project-url "https://github.com/polyfy/polylith",
   :language "Clojure",
   :type-position "postfix",
-  :file-extensions ["clj" "cljc"]},
+  :file-extensions ["clj" "cljs" "cljc"]},
  :ws-type "toolsdeps1"}

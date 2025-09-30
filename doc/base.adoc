@@ -16,7 +16,7 @@ Run the following xref:commands.adoc#create-base[create base] command to create 
 
 [source,shell]
 ----
-poly create base name:cli
+poly create base name:cli dialect:clj
 ----
 
 Your workspace should now look like this:
@@ -27,6 +27,7 @@ example
 ├── bases
 │   └── cli # <1>
 │       ├── deps.edn
+│       ├── package.json # <2>
 │       ├── resources
 │       │   └── cli
 │       ├── src
@@ -65,7 +66,8 @@ example
 ├── readme.md
 └── workspace.edn
 ----
-<1> new `cli` base
+<1> New `cli` base
+<2> The `dialect` was set to `clj` and not `cljs` in the xref:commands.adoc#create-base[create base] command, resulting in the `package.json` file not being created.
 
 [[add-to-deps-edn]]
 Edit your `./deps.edn` to add your newly created base:
@@ -112,7 +114,8 @@ The `poly` tool generated a `deps.edn` file for the `cli` base:
                   :extra-deps {}}}}
 ----
 
-This is identical to the xref:component#generated-deps-edn[deps.edn poly generated when you created the user component]. It will soon be needed when we create a xref:project.adoc[project].
+This is identical to the xref:component#generated-deps-edn[deps.edn] poly generated when you created the user component.
+It will soon be needed when we create a xref:project.adoc[project].
 
 IMPORTANT: You never add a dependency from a base `deps.edn` to a component.
 The `poly` tool will automatically wire the `cli` base to the `user` component via its xref:interface.adoc[interface] after you've added them to your xref:project.adoc[project].

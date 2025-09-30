@@ -67,12 +67,12 @@
                   "changed-files:components/util/"))))
 
 (deftest polylith-project-table
-  (is (= ["  project        alias  status   dev  extended   "
-          "  ----------------------------   -------------   "
-          "  poly *         poly    -t-     -t-     --      "
-          "  polyx *        polyx   ---     ---     --      "
-          "  development *  dev     s--     s--     --      "]
-         (info/project-table (workspace) false false))))
+  (is (= ["  project        alias  status   dev  extended"
+          "  ----------------------------   -------------"
+          "  poly *         poly    -t-     -t-     --   "
+          "  polyx *        polyx   ---     ---     --   "
+          "  development *  dev     s--     s--     --   "]
+         (info/project-table (workspace) false false false))))
 
 (deftest polylith-info
   (is (= ["  interface                 brick                        poly  polyx   dev  extended"
@@ -116,10 +116,10 @@
           "  version                   version *                    s--    s--    s--     --   "
           "  workspace                 workspace *                  stx    s--    st-     --   "
           "  ws-explorer               ws-explorer *                stx    s--    st-     --   "
-          "  ws-file                   ws-file *                    s--    s--    s--     --   "
+          "  ws-file-reader            ws-file-reader *             s--    s--    s--     --   "
           "  -                         nav-generator *              s--    ---    s--     --   "
           "  -                         poly-cli *                   stx    s--    st-     --   "]
-         (info/brick-table (workspace) false false))))
+         (info/brick-table (workspace) false false false))))
 
 (defn keep-except [exclude rows]
   (filterv #(nil? (str/index-of % exclude))
@@ -142,21 +142,27 @@
           "                                                                                                     t  o  p  l  -  e  l  a  o  c  e"
           "  library                          version     type      KB   poly  polyx   dev  default  extended   q  r  s  e  x  n  l  p  r  e  r"
           "  ---------------------------------------------------------   -----------   ----------------------   -------------------------------"
-          "  borkdude/edamame                 1.4.26      maven     25    x      x      x      -        -       .  .  .  x  .  .  .  .  .  .  ."
-          "  clj-commons/fs                   1.6.311     maven     12    x      x      x      -        -       .  .  .  x  .  .  .  .  .  .  ."
-          "  com.github.liquidz/antq          2.9.1217    maven     52    x      x      x      -        -       x  .  .  .  .  .  .  .  .  .  ."
-          "  djblue/portal                    0.57.2      maven  1,879    x      x      x      -        -       .  .  .  .  .  .  .  x  .  .  ."
-          "  metosin/malli                    0.16.3      maven     91    x      x      x      -        -       .  .  .  .  .  .  .  .  x  .  ."
+          "  babashka/fs                      0.5.27      maven     22    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
+          "  borkdude/edamame                 1.4.32      maven     25    x      x      x      -        -       .  .  .  x  .  .  .  .  .  .  ."
+          "  borkdude/rewrite-edn             0.4.9       maven     11    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
+          "  cheshire/cheshire                6.1.0       maven     25    x      x      x      -        -       x  .  .  .  .  .  .  .  .  .  ."
+          "  clj-commons/fs                   1.6.312     maven     12    x      x      x      -        -       .  .  .  x  .  .  .  .  .  .  ."
+          "  clj-http/clj-http                3.13.1      maven     59    x      x      x      -        -       x  .  .  .  .  .  .  .  .  .  ."
+          "  com.github.liquidz/antq          2.11.1276   maven     54    x      x      x      -        -       x  .  .  .  .  .  .  .  .  .  ."
+          "  djblue/portal                    0.61.0      maven  1,926    x      x      x      -        -       .  .  .  .  .  .  .  x  .  .  ."
+          "  lread/status-line                cf44c15     git       64    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
+          "  metosin/malli                    0.19.1      maven     93    x      x      x      -        -       .  .  .  .  .  .  .  .  x  .  ."
           "  mvxcvi/puget                     1.3.4       maven     15    x      x      x      -        -       .  .  .  .  .  .  .  .  .  .  x"
-          "  org.apache.maven/maven-artifact  4.0.0-rc-3  maven     61    x      x      x      -        -       .  .  .  .  .  x  .  .  .  .  ."
-          "  org.clojure/clojure              1.11.4      maven  4,010    x      x      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
-          "  org.clojure/tools.deps           0.20.1440   maven     58    x      x      x      -        -       .  .  x  x  .  .  .  .  .  x  ."
-          "  org.jline/jline                  3.26.3      maven  1,394    x      x      x      -        -       .  .  .  .  .  .  x  .  .  .  ."
-          "  org.slf4j/slf4j-nop              2.0.16      maven      4    x      x      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
+          "  org.apache.maven/maven-artifact  4.0.0-rc-4  maven     61    x      x      x      -        -       .  .  .  .  .  x  .  .  .  .  ."
+          "  org.babashka/http-client         0.4.23      maven     15    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
+          "  org.clojure/clojure              1.12.2      maven  4,131    x      x      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
+          "  org.clojure/tools.deps           0.25.1539   maven     58    x      x      x      -        -       .  .  x  x  .  .  .  .  .  x  ."
+          "  org.jline/jline                  3.30.6      maven  1,469    x      x      x      -        -       .  .  .  .  .  .  x  .  .  .  ."
+          "  org.slf4j/slf4j-nop              2.0.17      maven      4    x      x      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
           "  pjstadig/humane-test-output      0.11.0      maven      7    t      -      -      -        -       .  .  .  .  .  .  .  .  .  .  ."
-          "  rewrite-clj/rewrite-clj          1.1.48      maven     74    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
-          "  selmer/selmer                    1.12.61     maven     63    x      x      x      -        -       .  x  .  .  .  .  .  .  .  .  ."]
-
+          "  rewrite-clj/rewrite-clj          1.2.50      maven     78    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
+          "  selmer/selmer                    1.12.62     maven     63    x      x      x      -        -       .  x  .  .  .  .  .  .  .  .  ."
+          "  version-clj/version-clj          2.0.3       maven     10    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."]
          (keep-except "clojure2d"
                       (libs/table (workspace))))))
 
@@ -171,20 +177,20 @@
           "                                                                                                       t  n                           "
           "                                                                                                       -  n                           "
           "                                                                                                       r  e                           "
-          "                                                                                                       u  r                           "
-          "                                           c                    i                                      n  -                           "
-          "                                           o                    m                                      n  o                           "
-          "                                           n                    a                 p                 t  e  r     u                 w   "
-          "                                           f                    g                 a                 e  r  c  t  s  u              s   "
-          "                                           i                    e     i           t                 s  -  h  e  e  s     v     w  -   "
-          "                                           g                    -     n        o  h                 t  c  e  x  r  e     a     o  e   "
-          "                                     c     -  c                 c     t        v  -                 -  o  s  t  -  r     l  v  r  x  w"
-          "                               c     o  c  r  r                 r     e        e  f        s        h  n  t  -  c  -     i  e  k  p  s"
-          "                               h  c  m  o  e  e                 e     r     m  r  i     s  y        e  t  r  t  o  i     d  r  s  l  -"
-          "                            a  a  h  m  m  a  a  d     f     h  a  i  f     a  v  n     h  s     t  l  r  a  a  n  n  u  a  s  p  o  f"
-          "                            n  n  e  a  m  d  t  e  d  i  g  e  t  n  a  l  v  i  d     e  t  t  e  p  a  t  b  f  p  t  t  i  a  r  i"
-          "                            t  g  c  n  o  e  o  p  o  l  i  l  o  f  c  i  e  e  e  s  l  e  a  s  e  c  o  l  i  u  i  o  o  c  e  l"
-          "  brick                     q  e  k  d  n  r  r  s  c  e  t  p  r  o  e  b  n  w  r  h  l  m  p  t  r  t  r  e  g  t  l  r  n  e  r  e"
+          "                                                                                                       u  r                          w"
+          "                                           c                    i                                      n  -                          s"
+          "                                           o                    m                                      n  o                          -"
+          "                                           n                    a                 p                 t  e  r     u                 w  f"
+          "                                           f                    g                 a                 e  r  c  t  s  u              s  i"
+          "                                           i                    e     i           t                 s  -  h  e  e  s     v     w  -  l"
+          "                                           g                    -     n        o  h                 t  c  e  x  r  e     a     o  e  e"
+          "                                     c     -  c                 c     t        v  -                 -  o  s  t  -  r     l  v  r  x  -"
+          "                               c     o  c  r  r                 r     e        e  f        s        h  n  t  -  c  -     i  e  k  p  r"
+          "                               h  c  m  o  e  e                 e     r     m  r  i     s  y        e  t  r  t  o  i     d  r  s  l  e"
+          "                            a  a  h  m  m  a  a  d     f     h  a  i  f     a  v  n     h  s     t  l  r  a  a  n  n  u  a  s  p  o  a"
+          "                            n  n  e  a  m  d  t  e  d  i  g  e  t  n  a  l  v  i  d     e  t  t  e  p  a  t  b  f  p  t  t  i  a  r  d"
+          "                            t  g  c  n  o  e  o  p  o  l  i  l  o  f  c  i  e  e  e  s  l  e  a  s  e  c  o  l  i  u  i  o  o  c  e  e"
+          "  brick                     q  e  k  d  n  r  r  s  c  e  t  p  r  o  e  b  n  w  r  h  l  m  p  t  r  t  r  e  g  t  l  r  n  e  r  r"
           "  ------------------------------------------------------------------------------------------------------------------------------------"
           "  antq                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
           "  api                       .  .  x  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  x  .  .  x  x  x  ."
@@ -204,7 +210,7 @@
           "  image-creator-x           .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
           "  info                      .  .  .  .  x  .  .  .  .  t  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  x  .  .  x  x  .  .  .  ."
           "  interface                 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  lib                       x  .  .  .  x  x  .  .  .  x  .  .  .  .  .  .  x  .  .  .  .  .  .  .  t  .  .  x  x  .  x  .  .  .  .  ."
+          "  lib                       x  .  .  .  x  x  .  .  .  x  .  .  .  .  .  .  x  .  .  .  .  .  .  .  t  .  .  x  x  t  x  .  .  t  .  ."
           "  maven                     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  overview                  .  .  .  .  x  .  .  x  .  .  .  .  x  x  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  ."
           "  path-finder               .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
@@ -225,7 +231,7 @@
           "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  workspace                 x  x  .  .  x  x  .  x  .  x  x  .  .  .  x  x  .  .  x  .  .  .  .  x  .  .  .  .  x  x  x  x  x  .  .  x"
           "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-          "  ws-file                   .  .  .  .  x  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  ."
+          "  ws-file-reader            .  .  .  .  x  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  ."
           "  nav-generator             .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
           "  poly-cli                  .  .  .  x  .  t  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  t  .  .  .  ."]
          (ws-ifc-deps-table/table (workspace)))))
@@ -244,20 +250,20 @@
             "                                                                                                       t  n                           "
             "                                                                                                       -  n                           "
             "                                                                                                       r  e                           "
-            "                                                                                                       u  r                           "
-            "                                           c                    i                                      n  -                           "
-            "                                           o                    m                                      n  o                           "
-            "                                           n                    a                 p                 t  e  r     u                 w   "
-            "                                           f                    g                 a                 e  r  c  t  s  u              s   "
-            "                                           i                    e     i           t                 s  -  h  e  e  s     v     w  -   "
-            "                                           g                    -     n        o  h                 t  c  e  x  r  e     a     o  e   "
-            "                                     c     -  c                 c     t        v  -                 -  o  s  t  -  r     l  v  r  x  w"
-            "                               c     o  c  r  r                 r     e        e  f        s        h  n  t  -  c  -     i  e  k  p  s"
-            "                               h  c  m  o  e  e                 e     r     m  r  i     s  y        e  t  r  t  o  i     d  r  s  l  -"
-            "                            a  a  h  m  m  a  a  d     f     h  a  i  f     a  v  n     h  s     t  l  r  a  a  n  n  u  a  s  p  o  f"
-            "                            n  n  e  a  m  d  t  e  d  i  g  e  t  n  a  l  v  i  d     e  t  t  e  p  a  t  b  f  p  t  t  i  a  r  i"
-            "                            t  g  c  n  o  e  o  p  o  l  i  l  o  f  c  i  e  e  e  s  l  e  a  s  e  c  o  l  i  u  i  o  o  c  e  l"
-            "  brick                     q  e  k  d  n  r  r  s  c  e  t  p  r  o  e  b  n  w  r  h  l  m  p  t  r  t  r  e  g  t  l  r  n  e  r  e"
+            "                                                                                                       u  r                          w"
+            "                                           c                    i                                      n  -                          s"
+            "                                           o                    m                                      n  o                          -"
+            "                                           n                    a                 p                 t  e  r     u                 w  f"
+            "                                           f                    g                 a                 e  r  c  t  s  u              s  i"
+            "                                           i                    e     i           t                 s  -  h  e  e  s     v     w  -  l"
+            "                                           g                    -     n        o  h                 t  c  e  x  r  e     a     o  e  e"
+            "                                     c     -  c                 c     t        v  -                 -  o  s  t  -  r     l  v  r  x  -"
+            "                               c     o  c  r  r                 r     e        e  f        s        h  n  t  -  c  -     i  e  k  p  r"
+            "                               h  c  m  o  e  e                 e     r     m  r  i     s  y        e  t  r  t  o  i     d  r  s  l  e"
+            "                            a  a  h  m  m  a  a  d     f     h  a  i  f     a  v  n     h  s     t  l  r  a  a  n  n  u  a  s  p  o  a"
+            "                            n  n  e  a  m  d  t  e  d  i  g  e  t  n  a  l  v  i  d     e  t  t  e  p  a  t  b  f  p  t  t  i  a  r  d"
+            "                            t  g  c  n  o  e  o  p  o  l  i  l  o  f  c  i  e  e  e  s  l  e  a  s  e  c  o  l  i  u  i  o  o  c  e  e"
+            "  brick                     q  e  k  d  n  r  r  s  c  e  t  p  r  o  e  b  n  w  r  h  l  m  p  t  r  t  r  e  g  t  l  r  n  e  r  r"
             "  ------------------------------------------------------------------------------------------------------------------------------------"
             "  antq                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  api                       +  +  x  .  x  +  .  +  .  +  +  .  +  .  +  +  +  .  +  +  .  +  .  +  .  +  x  +  +  x  +  +  x  x  x  +"
@@ -276,7 +282,7 @@
             "  image-creator             .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  info                      .  .  .  .  x  .  .  .  .  t  .  .  +  .  .  .  .  .  x  .  .  +  .  .  .  +  .  x  +  .  x  x  +  .  .  ."
             "  interface                 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  lib                       x  -  -  -  x  x  -  -  -  x  -  -  +  -  -  -  x  -  +  -  -  +  -  -  t  +  -  x  x  -  x  +  +  -  -  -"
+            "  lib                       x  -  -  -  x  x  -  -  -  x  -  -  +  -  -  -  x  -  +  -  -  +  -  -  t  +  -  x  x  t  x  +  +  t  -  -"
             "  maven                     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  overview                  +  .  .  .  x  +  .  x  .  +  .  .  x  x  .  x  +  .  +  .  .  +  .  .  .  +  .  +  +  x  x  +  +  .  .  ."
             "  path-finder               .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
@@ -296,7 +302,7 @@
             "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  workspace                 x  x  .  .  x  x  .  x  .  x  x  .  +  .  x  x  +  .  x  +  .  +  .  x  .  +  .  +  x  x  x  x  x  .  .  x"
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-            "  ws-file                   .  .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  .  .  +  .  +  .  .  .  .  .  +  +  .  x  .  x  .  .  ."
+            "  ws-file-reader            .  .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  .  .  +  .  +  .  .  .  .  .  +  +  .  x  .  x  .  .  ."
             "  nav-generator             .  .  .  .  +  x  .  .  .  +  .  .  +  .  .  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  +  +  .  .  ."
             "  poly-cli                  +  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  +  +"]
            (ws-project-deps-table/table ws project)))))
@@ -315,20 +321,20 @@
             "                                                                                                       t  n                           "
             "                                                                                                       -  n                           "
             "                                                                                                       r  e                           "
-            "                                                                                                       u  r                           "
-            "                                           c                    i                                      n  -                           "
-            "                                           o                    m                                      n  o                           "
-            "                                           n                    a                 p                 t  e  r     u                 w   "
-            "                                           f                    g                 a                 e  r  c  t  s  u              s   "
-            "                                           i                    e     i           t                 s  -  h  e  e  s     v     w  -   "
-            "                                           g                    -     n        o  h                 t  c  e  x  r  e     a     o  e   "
-            "                                     c     -  c                 c     t        v  -                 -  o  s  t  -  r     l  v  r  x  w"
-            "                               c     o  c  r  r                 r     e        e  f        s        h  n  t  -  c  -     i  e  k  p  s"
-            "                               h  c  m  o  e  e                 e     r     m  r  i     s  y        e  t  r  t  o  i     d  r  s  l  -"
-            "                            a  a  h  m  m  a  a  d     f     h  a  i  f     a  v  n     h  s     t  l  r  a  a  n  n  u  a  s  p  o  f"
-            "                            n  n  e  a  m  d  t  e  d  i  g  e  t  n  a  l  v  i  d     e  t  t  e  p  a  t  b  f  p  t  t  i  a  r  i"
-            "                            t  g  c  n  o  e  o  p  o  l  i  l  o  f  c  i  e  e  e  s  l  e  a  s  e  c  o  l  i  u  i  o  o  c  e  l"
-            "  brick                     q  e  k  d  n  r  r  s  c  e  t  p  r  o  e  b  n  w  r  h  l  m  p  t  r  t  r  e  g  t  l  r  n  e  r  e"
+            "                                                                                                       u  r                          w"
+            "                                           c                    i                                      n  -                          s"
+            "                                           o                    m                                      n  o                          -"
+            "                                           n                    a                 p                 t  e  r     u                 w  f"
+            "                                           f                    g                 a                 e  r  c  t  s  u              s  i"
+            "                                           i                    e     i           t                 s  -  h  e  e  s     v     w  -  l"
+            "                                           g                    -     n        o  h                 t  c  e  x  r  e     a     o  e  e"
+            "                                     c     -  c                 c     t        v  -                 -  o  s  t  -  r     l  v  r  x  -"
+            "                               c     o  c  r  r                 r     e        e  f        s        h  n  t  -  c  -     i  e  k  p  r"
+            "                               h  c  m  o  e  e                 e     r     m  r  i     s  y        e  t  r  t  o  i     d  r  s  l  e"
+            "                            a  a  h  m  m  a  a  d     f     h  a  i  f     a  v  n     h  s     t  l  r  a  a  n  n  u  a  s  p  o  a"
+            "                            n  n  e  a  m  d  t  e  d  i  g  e  t  n  a  l  v  i  d     e  t  t  e  p  a  t  b  f  p  t  t  i  a  r  d"
+            "                            t  g  c  n  o  e  o  p  o  l  i  l  o  f  c  i  e  e  e  s  l  e  a  s  e  c  o  l  i  u  i  o  o  c  e  e"
+            "  brick                     q  e  k  d  n  r  r  s  c  e  t  p  r  o  e  b  n  w  r  h  l  m  p  t  r  t  r  e  g  t  l  r  n  e  r  r"
             "  ------------------------------------------------------------------------------------------------------------------------------------"
             "  antq                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  api                       +  +  x  .  x  +  .  +  .  +  +  .  +  .  +  +  +  .  +  +  .  +  .  +  .  +  x  +  +  x  +  +  x  x  x  +"
@@ -347,7 +353,7 @@
             "  image-creator             .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  info                      .  .  .  .  x  .  .  .  .  t  .  .  +  .  .  .  .  .  x  .  .  +  .  .  .  +  .  x  +  .  x  x  +  .  .  ."
             "  interface                 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  lib                       x  -  -  -  x  x  -  -  -  x  -  -  +  -  -  -  x  -  +  -  -  +  -  -  t  +  -  x  x  -  x  +  +  -  -  -"
+            "  lib                       x  -  -  -  x  x  -  -  -  x  -  -  +  -  -  -  x  -  +  -  -  +  -  -  t  +  -  x  x  t  x  +  +  t  -  -"
             "  maven                     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  overview                  +  .  .  .  x  +  .  x  .  +  .  .  x  x  .  x  +  .  +  .  .  +  .  .  .  +  .  +  +  x  x  +  +  .  .  ."
             "  path-finder               .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
@@ -367,7 +373,7 @@
             "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  workspace                 x  x  .  .  x  x  .  x  .  x  x  .  +  .  x  x  +  .  x  +  .  +  .  x  .  +  .  +  x  x  x  x  x  .  .  x"
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-            "  ws-file                   .  .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  .  .  +  .  +  .  .  .  .  .  +  +  .  x  .  x  .  .  ."
+            "  ws-file-reader            .  .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  .  .  +  .  +  .  .  .  .  .  +  +  .  x  .  x  .  .  ."
             "  nav-generator             .  .  .  .  +  x  .  .  .  +  .  .  +  .  .  .  .  .  +  .  .  +  .  .  .  +  .  +  +  .  x  +  +  .  .  ."
             "  poly-cli                  +  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  +  +"]
            (ws-project-deps-table/table ws project)))))
@@ -376,49 +382,49 @@
   (let [{:keys [components projects] :as ws} (workspace)
         project (common/find-project "poly" projects)
         brick (common/find-component "workspace" components)]
-    (is (= ["  used by  <  workspace  >  uses         "
-            "  -------                   -------------"
-            "  api                       antq         "
-            "  command                   change       "
-            "  shell                     common       "
-            "                            config-reader"
-            "                            deps         "
-            "                            file         "
-            "                            git          "
-            "                            interface    "
-            "                            lib          "
-            "                            path-finder  "
-            "                            test         "
-            "                            user-config  "
-            "                            user-input   "
-            "                            util         "
-            "                            validator    "
-            "                            version      "
-            "                            ws-file      "]
+    (is (= ["  used by  <  workspace  >  uses          "
+            "  -------                   --------------"
+            "  api                       antq          "
+            "  command                   change        "
+            "  lib (t)                   common        "
+            "  shell                     config-reader "
+            "                            deps          "
+            "                            file          "
+            "                            git           "
+            "                            interface     "
+            "                            lib           "
+            "                            path-finder   "
+            "                            test          "
+            "                            user-config   "
+            "                            user-input    "
+            "                            util          "
+            "                            validator     "
+            "                            version       "
+            "                            ws-file-reader"]
            (brick-deps-table/table ws project brick "none")))))
 
 (deftest polylith-project-brick-deps
   (let [{:keys [components] :as ws} (workspace)
         brick (common/find-component "workspace" components)]
-    (is (= ["  used by  <  workspace  >  uses         "
-            "  -------                   -------------"
-            "  api                       antq         "
-            "  command                   change       "
-            "  shell                     common       "
-            "                            config-reader"
-            "                            deps         "
-            "                            file         "
-            "                            git          "
-            "                            interface    "
-            "                            lib          "
-            "                            path-finder  "
-            "                            test         "
-            "                            user-config  "
-            "                            user-input   "
-            "                            util         "
-            "                            validator    "
-            "                            version      "
-            "                            ws-file      "]
+    (is (= ["  used by  <  workspace  >  uses          "
+            "  -------                   --------------"
+            "  api                       antq          "
+            "  command                   change        "
+            "  lib (t)                   common        "
+            "  shell                     config-reader "
+            "                            deps          "
+            "                            file          "
+            "                            git           "
+            "                            interface     "
+            "                            lib           "
+            "                            path-finder   "
+            "                            test          "
+            "                            user-config   "
+            "                            user-input    "
+            "                            util          "
+            "                            validator     "
+            "                            version       "
+            "                            ws-file-reader"]
            (brick-ifc-deps/table ws brick)))))
 
 (deftest polylith-poly-project-deps
@@ -451,7 +457,7 @@
                                                         "user-config"
                                                         "util"
                                                         "validator"
-                                                        "ws-file"]}
+                                                        "ws-file-reader"]}
                                       :test {}}
           "change"                   {:src  {:direct   ["common"
                                                         "git"
@@ -524,7 +530,7 @@
                                                         "text-table"
                                                         "user-input"
                                                         "validator"
-                                                        "ws-file"]}
+                                                        "ws-file-reader"]}
                                       :test {:direct   ["check"
                                                         "common"
                                                         "config-reader"
@@ -558,7 +564,7 @@
                                                         "text-table"
                                                         "user-input"
                                                         "validator"
-                                                        "ws-file"]}}
+                                                        "ws-file-reader"]}}
           "common"                   {:src  {:direct   ["file"
                                                         "image-creator"
                                                         "text-table"
@@ -640,7 +646,7 @@
                                                         "validator"
                                                         "workspace"
                                                         "ws-explorer"
-                                                        "ws-file"]}}
+                                                        "ws-file-reader"]}}
           "deps"                     {:src  {:direct   ["common"
                                                         "text-table"
                                                         "user-config"
@@ -723,7 +729,9 @@
                                                         "test-helper"
                                                         "text-table"
                                                         "user-config"
-                                                        "util"]
+                                                        "user-input"
+                                                        "util"
+                                                        "workspace"]
                                              :indirect ["change"
                                                         "check"
                                                         "command"
@@ -745,12 +753,10 @@
                                                         "test"
                                                         "test-runner-contract"
                                                         "test-runner-orchestrator"
-                                                        "user-input"
                                                         "validator"
                                                         "version"
-                                                        "workspace"
                                                         "ws-explorer"
-                                                        "ws-file"]}}
+                                                        "ws-file-reader"]}}
           "maven"                    {:src  {}
                                       :test {}}
           "nav-generator"            {:src  {:direct   ["config-reader"
@@ -823,7 +829,7 @@
                                                         "version"
                                                         "workspace"
                                                         "ws-explorer"
-                                                        "ws-file"]}
+                                                        "ws-file-reader"]}
                                       :test {:direct   ["command"
                                                         "config-reader"
                                                         "user-input"
@@ -858,7 +864,7 @@
                                                         "version"
                                                         "workspace"
                                                         "ws-explorer"
-                                                        "ws-file"]}}
+                                                        "ws-file-reader"]}}
           "sh"                       {:src  {}
                                       :test {}}
           "shell"                    {:src  {:direct   ["antq"
@@ -887,7 +893,7 @@
                                                         "text-table"
                                                         "validator"
                                                         "version"
-                                                        "ws-file"]}
+                                                        "ws-file-reader"]}
                                       :test {:direct   ["antq"
                                                         "common"
                                                         "doc"
@@ -914,7 +920,7 @@
                                                         "text-table"
                                                         "validator"
                                                         "version"
-                                                        "ws-file"]}}
+                                                        "ws-file-reader"]}}
           "system"                   {:src  {}
                                       :test {}}
           "tap"                      {:src  {}
@@ -976,7 +982,7 @@
                                                         "version"
                                                         "workspace"
                                                         "ws-explorer"
-                                                        "ws-file"]}}
+                                                        "ws-file-reader"]}}
           "test-runner-contract"     {:src  {:direct ["util"]}
                                       :test {:direct ["util"]}}
           "test-runner-orchestrator" {:src  {:direct   ["common"
@@ -1050,7 +1056,7 @@
                                                         "util"
                                                         "validator"
                                                         "version"
-                                                        "ws-file"]
+                                                        "ws-file-reader"]
                                              :indirect ["image-creator"
                                                         "maven"
                                                         "sh"
@@ -1073,7 +1079,7 @@
                                                         "util"
                                                         "validator"
                                                         "version"
-                                                        "ws-file"]
+                                                        "ws-file-reader"]
                                              :indirect ["image-creator"
                                                         "maven"
                                                         "sh"
@@ -1082,17 +1088,17 @@
                                                         "text-table"]}}
           "ws-explorer"              {:src  {:direct ["util"]}
                                       :test {:direct ["util"]}}
-          "ws-file"                  {:src  {:direct   ["common"
-                                                        "file"
-                                                        "git"
-                                                        "util"
-                                                        "version"]
-                                             :indirect ["image-creator"
-                                                        "sh"
-                                                        "system"
-                                                        "text-table"
-                                                        "user-config"]}
-                                      :test {}}}
+          "ws-file-reader"                  {:src  {:direct   ["common"
+                                                               "file"
+                                                               "git"
+                                                               "util"
+                                                               "version"]
+                                                    :indirect ["image-creator"
+                                                               "sh"
+                                                               "system"
+                                                               "text-table"
+                                                               "user-config"]}
+                                             :test {}}}
          (ws-explorer/extract (workspace) ["projects" "poly" "deps"]))))
 
 (deftest polylith-poly-project-src-paths
@@ -1135,7 +1141,7 @@
           "components/version/src"
           "components/workspace/src"
           "components/ws-explorer/src"
-          "components/ws-file/src"]
+          "components/ws-file-reader/src"]
          (ws-explorer/extract (workspace) ["projects" "poly" "paths" "src"]))))
 
 (deftest polylith-poly-project-test-paths
@@ -1167,6 +1173,9 @@
 
 (deftest polylith-poly-project-lib-imports
   (is (= {:src  ["antq.api"
+                 "cheshire.core"
+                 "clj-http.client"
+                 "clojure.data.json"
                  "clojure.edn"
                  "clojure.java.browse"
                  "clojure.java.io"
@@ -1196,8 +1205,7 @@
                  "portal.api"
                  "puget.printer"
                  "selmer.parser"]
-          :test ["clojure.java.io"
-                 "clojure.lang"
+          :test ["clojure.lang"
                  "clojure.string"
                  "clojure.test"
                  "malli.core"
@@ -1205,9 +1213,9 @@
          (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"]))))
 
 (deftest polylith-shell-component-lib-deps
-  (is (= {:src {"org.jline/jline" {:size    1427553
+  (is (= {:src {"org.jline/jline" {:size    1505052
                                    :type    "maven"
-                                   :version "3.26.3"}}}
+                                   :version "3.30.6"}}}
          (ws-explorer/extract (workspace) ["components" "shell" "lib-deps"]))))
 
 (deftest profile-info
@@ -1455,6 +1463,42 @@
           "  org.clojure/clojure  1.12.0   maven   -   x   ."]
          (run-cmd "examples/profiles"
                   "libs" "skip:dev" ":hide-lib-size"))))
+
+(deftest mix-example
+  (is (= ["                                           c"
+          "                                           o"
+          "                                           m"
+          "                            c              p"
+          "                            o              -"
+          "                            m              c"
+          "                            p              l"
+          "                            -        c  c  j"
+          "                         c  c  c     o  o  s"
+          "                         o  l  o     m  m  -"
+          "                         m  j  m     p  p  w"
+          "                         p  -  p     -  -  i"
+          "                         -  c  -  c  c  c  t"
+          "                         c  l  c  o  l  l  h"
+          "                         l  j  l  m  j  j  -"
+          "                         j  c  j  p  s  s  m"
+          "                         -  -  -  -  -  -  a"
+          "                         c  c  o  c  c  o  c"
+          "                         l  l  n  l  l  n  r"
+          "                         j  j  l  j  j  l  o"
+          "  brick                  c  s  y  c  c  y  s"
+          "  ------------------------------------------"
+          "  comp-clj-cljc          .  .  .  .  .  .  ."
+          "  comp-clj-cljc-cljs     .  .  .  .  .  .  ."
+          "  comp-clj-only          .  .  .  x  .  .  ."
+          "  comp-cljc              .  x  .  .  .  .  ."
+          "  comp-cljs-cljc         .  .  .  .  .  .  ."
+          "  comp-cljs-only         .  .  .  x  .  .  x"
+          "  comp-cljs-with-macros  .  .  .  .  .  .  ."
+          "  clj-base               x  .  x  .  .  .  ."
+          "  cljs-base              .  .  .  .  x  x  ."]
+         (run-cmd "examples/mix-example"
+                  "deps"))))
+
 
 (deftest test-runner-inherit-test-runner-from-global
   (is (= ["{:create-test-runner"

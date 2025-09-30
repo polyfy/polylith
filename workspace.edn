@@ -4,10 +4,15 @@
  :interface-ns "interface"
  :default-profile-name "default"
  :compact-views #{}
+ :dialects ["clj"]
  :tag-patterns {:stable "^stable-.*"
                 :release "^v[0-9].*"}
+ :template-data {:clojure-ver "1.12.2"
+                 :shadow-cljs-ver "^3.2.0"}
  :projects {"poly" {:alias "poly"
                     :necessary ["api" "clojure-test-test-runner"]
                     :test {:setup-fn project.poly.hto/activate!}}
-            "polyx" {:alias "polyx" :test [] :necessary ["clojure-test-test-runner"]}
+            "polyx" {:alias "polyx"
+                     :necessary ["clojure-test-test-runner"]
+                     :test []}
             "development" {:alias "dev"}}}

@@ -1,0 +1,11 @@
+{
+  "name": "{{ws-name}}",
+  "description": "",
+  "version": "0.0.1",
+  "private": true,
+  "workspaces": [
+  ],
+  "devDependencies": {
+    "shadow-cljs": "{{shadow-cljs-ver}}"
+  }
+}

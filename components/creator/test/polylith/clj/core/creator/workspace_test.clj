@@ -14,10 +14,10 @@
     (is (= "  Workspace 'ws1' already exists.\n"
            output))))
 
-(deftest create-workspace--trying-to-create-a-workspace-within-another-workspace--prints-out-error-messagex
+(deftest create-workspace--within-another-workspace-as-cljs
   (let [output (str-util/normalize-newline
                  (with-out-str
-                   (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example" ":commit")
+                   (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example" "dialects:cljs" ":commit")
                    (helper/execute-command "ws1" "create" "workspace" "name:ws2" "top-ns:com.example")))]
     (is (= "  Workspace created in existing git repo.\n"
            output))
@@ -35,6 +35,7 @@
              "development/src"
              "development/src/.keep"
              "logo.png"
+             "package.json"
              "projects"
              "projects/.keep"
              "readme.md"
@@ -104,7 +105,7 @@
             ""
             "- The [high-level documentation](https://polylith.gitbook.io/polylith)"
             "- The [poly tool documentation](https://cljdoc.org/d/polylith/clj-poly/CURRENT)"
-            "- The [RealWorld example app documentation](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app)"
+            "- The [RealWorld example app documentation](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend)"
             ""
             "You can also get in touch with the Polylith Team on [Slack](https://clojurians.slack.com/archives/C013B7MQHJQ)."
             ""
@@ -115,11 +116,12 @@
 
     (is (= ["{:aliases  {:dev {:extra-paths [\"development/src\"]"
             ""
-            "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.12.0\"}}}"
+            "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.12.2\"}}}"
             ""
             "            :test {:extra-paths []}"
             ""
             "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]"
+            "                   :jvm-opts [\"--enable-native-access=ALL-UNNAMED\"]"
             "                   :extra-deps {polylith/clj-poly {:mvn/version \"0.2.18\"}}}}}"]
            (helper/content "ws1" "deps.edn")))
 
@@ -140,11 +142,14 @@
     (is (= ["{:top-namespace \"se.example\""
             " :interface-ns \"interface\""
             " :default-profile-name \"default\""
+            " :dialects [\"clj\"]"
             " :compact-views #{}"
             " :vcs {:name \"git\""
             "       :auto-add false}"
             " :tag-patterns {:stable \"^stable-.*\""
             "                :release \"^v[0-9].*\"}"
+            " :template-data {:clojure-ver \"1.12.2\""
+            "                 :shadow-cljs-ver \"^3.2.0\"}"
             " :projects {\"development\" {:alias \"dev\"}}}"]
            (helper/content "ws1" "workspace.edn")))
 

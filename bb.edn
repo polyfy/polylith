@@ -19,6 +19,9 @@
              (status/line :detail "\nTASK %s done." name)))
 
   ;; commands
+  check {:doc "Ensure that the source code is valid"
+         :task (shell "clojure -M:dev:test:+default:check")}
+
   clean {:doc "Delete build work and artifacts"
          :task clean/-main}
 
@@ -56,5 +59,6 @@
                   :requires [create-example]
                   :task create-example/-main}
 
+  ;; Make sure you have 'bb' and 'tree' installed, and that you use the latest version of clojure (e.g. "brew upgrade clojure").
   gen-all {:doc "Run update-commands-docs then create-example"
            :depends [update-commands-doc create-example]}}}

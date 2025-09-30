@@ -29,6 +29,7 @@ poly ws get:keys
  :settings
  :user-input
  :version
+ :ws-dialects
  :ws-dir
  :ws-local-dir
  :ws-reader
@@ -71,6 +72,7 @@ poly ws get:bases:user-api
                       :name "core-test",
                       :namespace "se.example.user-api.core-test"}]},
  :paths {:src ["src" "resources"], :test ["test"]},
+ :source-types #{"clj"}
  :type "base"}
 ----
 
@@ -121,6 +123,7 @@ No interfaces are imported from the test context in this example.
 ** `{:non-top-ns "com.wrong", :file "bases/cli/src/com/wrong/cli/interface.clj"}`
 * `:paths` The paths that are specified in its `deps.edn` file
 (paths for `src` and `resources` paths + `aliases > :test > :extra-paths` for test paths).
+* `:source-types` A set of source types (file suffixes) covering all used source files ("clj", "cljc", "cljs").
 * `:type` Set to "base".
 
 [#changes]
@@ -224,6 +227,7 @@ poly ws get:components:user
                       :name "interface-test",
                       :namespace "se.example.user.interface-test"}]},
  :paths {:src ["src" "resources"], :test ["test"]},
+ :source-types #{"clj"}
  :type "component"}
 ----
 
@@ -277,6 +281,7 @@ No interfaces are imported from the test context in this example.
 * `:non-top-namespace` If the base contains any non-top namespaces, they will be stored in a vector with elements like this:
 ** {`:non-top-ns` "com.wrong", `:file` "bases/cli/src/com/wrong/cli/interface.clj"}
 * `:paths` The paths that are specified in its `deps.edn` file (paths for `src` and `resources` paths + `aliases > :test > :extra-paths` for test paths).
+* `:source-types` A set of source types (file suffixes) covering all used source files ("clj", "cljc", "cljs").
 * `:type` Set to "base".
 
 [#configs]
@@ -357,6 +362,7 @@ poly ws get:configs
  :user {:color-mode "dark", :empty-character ".", :thousand-separator ","},
  :workspace {:compact-views #{},
              :default-profile-name "default",
+             :dialects #{"clj"},
              :interface-ns "interface",
              :tag-patterns {:release "^v[0-9].*", :stable "^stable-.*"},
              :top-namespace "se.example",
@@ -609,6 +615,7 @@ poly ws get:projects:user-service
                     :test {}},
  :projects-to-test [],
  :test {:create-test-runner [polylith.clj.core.clojure-test-test-runner.interface/create]},
+ :source-types #{"clj"}
  :type "project"}
 ----
 
@@ -681,7 +688,7 @@ If `:mvn/repos` is specified by a brick that is included in this project, then i
 *** `namespace` The full name of the namespace.
 ** `:test` Lists all the namespaces that live under the `test` directory (same keys as for the `:src`).
 
-* `:necessary` If we get xref:validations.adoc#error111[Error 111 - Unreadable namespace in brick/project] and know that the brick(s) has to be included in the project, then we can add the necessary bricks(s) to a vector in the project's config.edn for this key.
+* `:necessary` If we get xref:validations.adoc#warning207[Warning 207 - Unnecessary components were found in project] and know that the brick(s) has to be included in the project, then we can add the necessary bricks(s) to a vector in the project's config.edn for this key.
 
 * `:paths`
 ** `:src` Lists the paths that are either explicitly defined as paths or implicitly defined as `:local/root` bricks, for the `src` context.
@@ -706,7 +713,7 @@ If `:mvn/repos` is specified by a brick that is included in this project, then i
 ** `:include` Specifies which bricks should be included when running the test command.
 Empty if no bricks, missing if all bricks.
 ** `:create-test-runner` A vector with one or more test runners, see xref:test-runners.adoc#create-test-runner[create test runner].
-
+* `:source-types` A set of source types (file suffixes) covering all used source files ("clj", "cljc", "cljs").
 * `:type` Set to "project".
 
 [#settings]
@@ -723,6 +730,7 @@ poly ws get:settings
  :color-mode "dark",
  :compact-views #{},
  :default-profile-name "default",
+ :dialects #{"clj"},
  :empty-character ".",
  :interface-ns "interface",
  :m2-dir "/Users/joakimtengstrand/.m2",
@@ -750,6 +758,8 @@ poly ws get:settings
 * `:compact-views` The set of views that should be shown in a more compact way, specified in `workspace.edn`.
 
 * `:default-profile-name` The name of the default profile name, specified in `workspace.edn`.
+
+* `:dialects` The set of dialects the tool will support, specified in `workspace.edn`. Valid values are: `"clj"`, `"cljs"`.
 
 * `:empty-character` The character used to represent empty space in output from e.g. the libs command, specified in `workspace.edn`.
 
@@ -818,6 +828,7 @@ poly ws get:user-input
  :is-search-for-ws-dir false
  :is-shell false
  :is-show-brick false
+ :is-show-dialect false
  :is-show-loc false
  :is-show-project false
  :is-show-resources false
@@ -838,6 +849,8 @@ We also have a number of arguments that are only populated if they are passed in
 {:branch "master"
  :changed-files ["images/doc.png" "workspace.edn"]
  :color-mode "none"
+ :dialect "cljs"
+ :dialects ["clj" "cljs"]
  :help "info"
  :dir "../clojure-polylith-realworld-example-app"
  :fake-sha "c91fdad"
@@ -872,6 +885,12 @@ We also have a number of arguments that are only populated if they are passed in
 
 * `:color-mode` Overrides the xref:color-mode[color-mode].
 
+* `:dialect` Used in the xref:commands.adoc#create[create] component, base, and project commands.
+If `cljs` is set as value, a `./package.json` file will also be created.
+
+* `:dialects` Used in the xref:commands.adoc#create-workspace[create workspace] command to set the `:dialects` value in `workspace.edn`.
+If `cljs` is included as value, a `./package.json` file will also be created.
+
 * `:dir` Used by the xref:commands.adoc#switch-ws[switch-ws] command.
 
 * `:fake-sha` Overrides the "stable since" `sha` in the output from the xref:commands.adoc#info[info] command.
@@ -888,44 +907,44 @@ Sometimes used when taking screenshots for this documentation.
 
 * `:interface` Used by the xref:commands.adoc#create-component[create component] command.
 
-* `:is-all` Set to `true` if `:all` is given.
+* `:is-all` Set to `true` if `:all` is provided.
 
-* `:is-commit` Set to `true` if `:commit` is given.
+* `:is-commit` Set to `true` if `:commit` is provided.
 
-* `:is-compact` Set to `true` if `:compact` is given.
+* `:is-compact` Set to `true` if `:compact` is provided.
 Used in combination with the `libs` and `deps` commands.
 
-* `:is-dev` Set to `true` if `:dev` is given.
+* `:is-dev` Set to `true` if `:dev` is provided.
 
-* `:is-fail-if-nothing-to-test` Set to `true` if `:fail-if-nothing-to-test` is given.
+* `:is-fail-if-nothing-to-test` Set to `true` if `:fail-if-nothing-to-test` is provided.
 Instructs the xref:commands.adoc#test[test] command to return a non-zero exit code (1) if there are no tests to run.
 Only suggested by the xref:commands.adoc#shell[shell] if started with e.g. `poly :all`.
 
-* `:is-fake-poly` Set to `true` if `:fake-poly` is given.
+* `:is-fake-poly` Set to `true` if `:fake-poly` is provided.
 Used when using the `polyx` tool with the `help` command,
 and when starting a `shell` with `poly shell :fake-poly` where the latter will show e.g. "poly {poly-version}" as version, instead of e.g. "polyx {poly-version}-SNAPSHOT".
 
 * `:is-git-add` Used by the xref:commands.adoc#create-component[create component], xref:commands.adoc#create-base[create base] and xref:commands.adoc#create-project[create project] commands to add created files to git.
 Has the same effect for current command as if `:vcs > :auto-add` was set to `true` in `workspace.edn`.
 
-* `:is-github` Set to `true` if `:github` is given.
+* `:is-github` Set to `true` if `:github` is provided.
 Used by the xref:commands.adoc#doc[doc] command to open the corresponding page on GitHub.
 
-* `:is-hide-lib-size` Set to `true` if `:is-hide-lib-size` is given. Used by the tests to show `-` instead the of size of the libraries in the `libs` command, to protect tests from failing if a library hasn't been downloaded yet.
+* `:is-hide-lib-size` Set to `true` if `:is-hide-lib-size` is provided. Used by the tests to show `-` instead the of size of the libraries in the `libs` command, to protect tests from failing if a library hasn't been downloaded yet.
 
-* `:is-latest-sha` Set to `true` if `:latest-sha` is given.
+* `:is-latest-sha` Set to `true` if `:latest-sha` is provided.
 
-* `:is-local` Set to `true` if `:local` is given.
+* `:is-local` Set to `true` if `:local` is provided.
 If set, the xref:commands.adoc#doc[doc] command will use `localhost` instead of `cljdoc.org`, when opening cljdoc pages.
 The `:local` argument can also be passed in when starting a xref:commands.adoc#shell[shell].
 
-* `:is-no-changes` Set to `true` if `:no-changes` is given.
+* `:is-no-changes` Set to `true` if `:no-changes` is provided.
 Used to fake that no changes have been made since the last stable point in time.
 
-* `:is-no-exit` Set to `true` if `:no-exit` is given.
+* `:is-no-exit` Set to `true` if `:no-exit` is provided.
 This will prevent the `poly` tool from exiting with `System/exit`.
 
-* `:is-outdated` Set to `true` if `:outdated` is given.
+* `:is-outdated` Set to `true` if `:outdated` is provided.
 
 * `:is-run-all-brick-tests` Set to `true` if `:all` or `:all-bricks are given`.
 
@@ -933,29 +952,33 @@ This will prevent the `poly` tool from exiting with `System/exit`.
 
 * `:is-shell` Set to `true` if a shell has been started with the shell command.
 
-* `:is-search-for-ws-dir` Set to `true` if `::` is given.
+* `:is-search-for-ws-dir` Set to `true` if `::` is provided.
 
-* `:is-show-brick` Set to `true` if `:brick` is given.
-Used by poly help deps `:brick` to show help for the deps command when `brick:BRICK` is given.
+* `:is-show-brick` Set to `true` if `:brick` is provided.
+Used by poly help deps `:brick` to show help for the deps command when `brick:BRICK` is provided.
 
-* `:is-show-loc` Set to `true` if `:loc` is given.
+* `:is-show-dialect` Set to `true` if `:dialect` is provided.
+Used by the xref:info[info] command to include the `dialect` column.
+Also used by xref:create-component[create component], xref:create-base[create base], xref:create-project[create project] to instruct these commands to create a `package.json`.
+
+* `:is-show-loc` Set to `true` if `:loc` is provided.
 If given, then the `info` command will show the number of lines of code.
 
-* `:is-show-project` Set to `true` if `:project` is given.
-Used by poly help deps `:project` to show help for the deps command when `project:PROJECT` is given.
+* `:is-show-project` Set to `true` if `:project` is provided.
+Used by poly help deps `:project` to show help for the deps command when `project:PROJECT` is provided.
 
-* `:is-show-resources` Set to `true` if `:r` or `:resources` is given.
+* `:is-show-resources` Set to `true` if `:r` or `:resources` is provided.
 This will tell the `info` command to show the `r` status flag.
 
-* `:is-show-workspace` Set to `true` if `:workspace` is given.
-Used by `poly help deps :workspace` to show help for the deps command when `workspace:WORKSPACE` is given.
+* `:is-show-workspace` Set to `true` if `:workspace` is provided.
+Used by `poly help deps :workspace` to show help for the deps command when `workspace:WORKSPACE` is provided.
 
-* `:is-swap-axes` Set to `true` if `:swap-axes` is given.
+* `:is-swap-axes` Set to `true` if `:swap-axes` is provided.
 Used by `poly deps :swap-axes` to swap the x and y axes.
 
-* `:is-tap` Set to `true` if `:tap` is given.
+* `:is-tap` Set to `true` if `:tap` is provided.
 
-* `:is-update` Set to `true` if `:update` is given. Used by the xref:commands.adoc#libs[libs] command.
+* `:is-update` Set to `true` if `:update` is provided. Used by the xref:commands.adoc#libs[libs] command.
 
 * `:is-verbose` Used in combination with the `test` command to show extra information.
 
@@ -965,11 +988,11 @@ This is also available in the xref:commands.adoc#overview[overview] command if u
 * `:libraries` Used by the xref:commands.adoc#libs[libs] command.
 
 * `:replace` Used in tests when maintaining the `poly` tool itself, to make the output more stable.
-Set to e.g. `[{:from "this", :to "that"}]` if `replace:this:that` is given.
+Set to e.g. `[{:from "this", :to "that"}]` if `replace:this:that` is provided.
 More than one pair of values can be passed in, separated with :.
 
 * `:selected-bricks` A vector of bricks.
-The key is only populated if `bricks:` is given.
+The key is only populated if `bricks:` is provided.
 Used by the xref:commands.adoc#info[info] and xref:commands.adoc#test[test] commands.
 
 * `:selected-profiles` A vector of profiles, e.g. `["default" "extra"]`, if `poly info +default +extra` is executed.
@@ -1080,6 +1103,22 @@ Each subsequent snapshot release will increase this value by one.
 *** `:non-breaking` The non-breaking version of the original `ws` format.
 
 Changes to the xref:workspace-structure.adoc[workspace structure] is documented in the xref:versions.adoc[versions] page.
+
+
+[#ws-dialects]
+== ws-dialects
+
+[source,shell]
+----
+poly ws get:ws-dialects
+----
+
+[source,clojure]
+----
+#{"clj"}
+----
+
+The set of Clojure dialects that is read by this workspace. Calculated from `:dialects` in `workspace.edn`, and if not set, `#{"clj"}` is used as default.
 
 [#ws-dir]
 == ws-dir

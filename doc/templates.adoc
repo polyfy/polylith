@@ -41,15 +41,19 @@ templates
 ├── bases
 │   ├── deps.edn
 │   ├── main.clj
+│   ├── package.json
 │   └── test.clj
 ├── components
 │   ├── deps.edn
 │   ├── impl.clj
 │   ├── interface.clj
+│   ├── package.json
 │   └── test.clj
 ├── deps.edn
 ├── projects
-│   └── deps.edn
+│   ├── deps.edn
+│   └── package.json
+├── package.json
 ├── readme.md
 └── workspace.edn
 ----
@@ -59,7 +63,7 @@ templates
 The per-project templates should be added to the `.polylith` folder
 within the project, e.g., `<project>/.polylith/templates/components/interface.clj`
 
-The per-user templates to should be added to the `.config/polylith` folder
+The per-user templates should be added to the `.config/polylith` folder
 in your home directory, e.g., `$HOME/.config/polylith/templates/workspace.edn`
 
 For each template needed by the `poly create` command, the per-project one
@@ -68,54 +72,89 @@ internal default version.
 
 == create workspace
 
-This command uses the following template files to generate parts of the
-new workspace:
+This command uses the following template files to generate parts of the new workspace:
 
 * `templates/.gitignore` -> the top-level `.gitignore` file
 * `templates/deps.edn` -> the top-level `deps.edn` file
+* `templates/package.json` -> the top-level `package.json` file (created only if `dialects` includes `cljs`)
 * `templates/readme.md` -> the top-level `readme.md` file
 * `templates/workspace.edn` -> the top-level `workspace.edn` file
 
 For all these templates, the following variables are provided:
 
-* `{{clojure-ver}}` -- the default version of Clojure to use; currently `"1.12.0"`
+* `{{clojure-ver}}` -- the version of Clojure to use; e.g. `"1.12.2"`
+* `{{:ws-dialects}}` -- the dialects, from the xref:commands.adoc#create-workspace[create workspace] command, or `["clj"]` if not provided.
 * `{{maven-ver}}` -- the default version of Polylith to use
-* `{{top-ns}}` -- the top namespace name (from the `create workspace` command)
-* `{{ws-name}}` -- the name of the workspace (from the `create workspace` command)
+* `{{:shadow-cljs-ver}}` - the version of shadow-cljs to use; e.g. `"^3.2.0"`
+* `{{top-ns}}` -- the top namespace name (from the xref:commands.adoc#create-workspace[create workspace] command)
+* `{{ws-name}}` -- the name of the workspace (from the xref:commands.adoc#create-workspace[create workspace] command)
 
 == create component
 
 This command uses the following template files to generate the new component:
 
 * `templates/components/deps.edn` -> the new component's `deps.edn` file
-  * no variable substitutions are provided
+** `{{dialect}}` -- the dialect (from the xref:commands.adoc#create-component[create component] command)
 * `templates/components/interface.clj` -> the new component's interface source file (based on the `:interface-ns` setting in `workspace.edn` etc)
-  * `{{interface-ns}}` -- the interface namespace (from the `create component` command)
-  * `{{impl-ns}}` -- the `impl.clj` namespace name (derived from the interface name)
+** `{{dialect}}` -- the dialect (from the xref:commands.adoc#create-component[create component] command)
+** `{{interface-ns}}` -- the interface namespace (from the `create component` command)
+** `{{impl-ns}}` -- the `impl.clj` namespace name (derived from the interface name)
 * if present, `templates/components/impl.clj` -> the new component's `impl.clj` source file
-  * `{{interface-ns}}` -- the interface namespace (from the `create component` command)
-  * `{{impl-ns}}` -- the `impl.clj` namespace name (derived from the interface name)
+** `{{dialect}}` -- the dialect (from the xref:commands.adoc#create-component[create component] command)
+** `{{interface-ns}}` -- the interface namespace (from the xref:commands.adoc#create-component[create component] command)
+** `{{impl-ns}}` -- the `impl.clj` namespace name (derived from the interface name)
+* `templates/components/package.json` -> the new component's `package.json` file (created only if `dialect` is set to `clj`)
+** `{{dialect}}` -- the dialect (from the xref:commands.adoc#create-component[create component] command)
+** `{{brick-name}}` -- the name of the component (from the xref:commands.adoc#create-component[create component] command)
+** `{{shadow-cljs-ver}}` -- the version of shadow-cljs to use; e.g. `"^3.2.0"`
 * `templates/components/test.clj` -> the new component's interface test file
-  * `{{test-ns}}` -- the namespace of the new test file
-  * `{{src-ns}}` -- the namespace of the new source file -- the interface namespace
-  * `{{alias}}` -- an alias that can be used for the source file in `:require`
+** `{{dialect}}` -- the dialect (from the xref:commands.adoc#create-component[create component] command)
+** `{{test-ns}}` -- the namespace of the new test file
+** `{{src-ns}}` -- the namespace of the new source file -- the interface namespace
+** `{{alias}}` -- an alias that can be used for the source file in `:require`
 
 == create base
 
 This command uses the following template files to generate the new base:
 
 * `templates/bases/deps.edn` -> the new base's `deps.edn` file
-  * no variable substitutions are provided
+** `{{dialect}}` -- the dialect (from the xref:commands.adoc#create-base[create base] command)
 * `templates/bases/main.clj` -> the new base's `core.clj` source file
-  * `{{main-ns}}` -- the core namespace
+** `{{dialect}}` -- the dialect (from the xref:commands.adoc#create-base[create base] command)
+** `{{main-ns}}` -- the core namespace
+* `templates/bases/package.json` -> the new base's `package.json` file (created only if `dialect` is set to `clj`)
+** `{{dialect}}` -- the dialect (from the xref:commands.adoc#create-base[create base] command)
+** `{{brick-name}}` -- the name of the base (from the xref:commands.adoc#create-base[create base] command)
+** `{{shadow-cljs-ver}}` -- the version of shadow-cljs to use; e.g. `"^3.2.0"`
 * `templates/bases/test.clj` -> the new base's interface test file
-  * `{{test-ns}}` -- the namespace of the new test file
-  * `{{src-ns}}` -- the namespace of the new source file -- the `core` namespace
-  * `{{alias}}` -- an alias that can be used for the source file in `:require`
+** `{{dialect}}` -- the dialect (from the xref:commands.adoc#create-base[create base] command)
+** `{{test-ns}}` -- the namespace of the new test file
+** `{{src-ns}}` -- the namespace of the new source file -- the `core` namespace
+** `{{alias}}` -- an alias that can be used for the source file in `:require`
 
 == create project
 
 This command uses the following template files to generate the new project:
 
-* `templates/projects/deps.edn` -> the new project's `deps.edn` file
-  * `{{clojure-ver}}` -- the default version of Clojure to use; currently `"1.12.0"`
+* `templates/projects/deps.edn` -> the project's `deps.edn` file
+* `templates/projects/package.json` -> the project's `package.json` file (created only if `dialect` is set to `clj`)
+
+For these templates, the following variables are provided:
+
+* `{{dialect}}` -- the dialect (from the xref:commands.adoc#create-project[create project] command)
+* `{{clojure-ver}}` -- the default version of Clojure to use; e.g. `"1.12.0"`
+* `{{project-name}}` -- the name of the project (from the xref:commands.adoc#create-project[create project] command)
+* `{{shadow-cljs-ver}}` -- the version of shadow-cljs to use; e.g. `"^3.2.0"`
+
+[[custom-template-data]]
+== Custom template data
+
+The `:template-data` key in workspace.edn stores custom template data:
+
+```clojure
+ :template-data {:clojure-ver "1.12.2"
+                 :shadow-cljs-ver "^3.2.0"}
+```
+
+The keys override the default values, and can be referenced in any of the templates used by the create commands.
+You can also define custom key–value pairs to share data across templates.

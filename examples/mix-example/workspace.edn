@@ -1,0 +1,14 @@
+{:top-namespace "com.example"
+ :interface-ns "ifc"
+ :default-profile-name "default"
+ :compact-views #{}
+ :dialects #{"clj" "cljs"}
+ :vcs {:name "git"
+       :auto-add false}
+ :tag-patterns {:stable "stable-*"
+                :release "v[0-9]*"}
+ :projects {"development" {:alias "dev"}
+            "clj-project" {:alias "clj"}
+            "cljs-project" {:alias "cljs"
+                            :test {:polylith-kaocha/config-resource "cljs_project/tests.edn"}}}
+ :test-configs {:kaocha-test-runner {:create-test-runner [polylith-kaocha.test-runner/create]}}}

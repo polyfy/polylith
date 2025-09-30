@@ -1,0 +1,31 @@
+  stable since: 492e5ee | stable-master    
+                                           
+  projects: 3   interfaces: 16             
+  bases:    2   components: 16             
+                                           
+  project               alias  status   dev
+  -----------------------------------   ---
+  realworld-backend *   be      ---     ---
+  realworld-frontend *  fe      ---     ---
+  development *         dev     s--     s--
+                                           
+  interface   brick          be   fe    dev
+  ------------------------   --------   ---
+  article     article *      stx  ---   st-
+  article-ui  article-ui *   ---  s--   s--
+  auth-ui     auth-ui *      ---  s--   s--
+  comment     comment *      stx  ---   st-
+  core-ui     core-ui *      ---  s--   s--
+  database    database *     s--  ---   s--
+  env         env *          s--  ---   s--
+  home-ui     home-ui *      ---  s--   s--
+  log         log *          s--  ---   s--
+  profile     profile *      stx  ---   st-
+  shared      shared *       s--  s--   s--
+  shared-ui   shared-ui *    ---  s--   s--
+  spec        spec *         s--  s--   s--
+  tag         tag *          stx  ---   st-
+  user        user *         stx  ---   st-
+  web-ui      web-ui *       ---  stx   st-
+  -           rest-api *     stx  ---   st-
+  -           web-app *      ---  stx   st-

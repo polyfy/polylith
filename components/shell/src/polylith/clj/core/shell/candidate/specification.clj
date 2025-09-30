@@ -8,6 +8,8 @@
             [polylith.clj.core.shell.candidate.selector.file-explorer :as file-explorer]
             [polylith.clj.core.shell.candidate.selector.remote-branches :as remote-branches]
             [polylith.clj.core.shell.candidate.selector.outdated-libs :as outdated-libs]
+            [polylith.clj.core.shell.candidate.selector.dialect :as dialect]
+            [polylith.clj.core.shell.candidate.selector.dialects :as dialects]
             [polylith.clj.core.shell.candidate.selector.with-test-configs :as with-test-configs]
             [polylith.clj.core.shell.candidate.selector.ws-bricks :as ws-bricks]
             [polylith.clj.core.shell.candidate.selector.ws-explore :as ws-explore]
@@ -24,27 +26,37 @@
 (def check (c/single-txt "check"))
 
 ;; create
-(def create-base-name (c/multi-param "name"))
-(def create-base (c/single-txt "base" [create-base-name]))
+(def create-dialects (c/fn-explorer "dialects" :create-project #'dialects/select))
+(def create-base-name-value (c/multi-arg :create-base "name"))
+(def create-base-name (c/multi-param "name" 1 (c/group :create-base) [create-base-name-value]))
+(def create-base (c/single-txt "base" :create-base [create-base-name]))
+(def create-base-dialect (c/fn-explorer "dialect" :create-base #'dialect/select))
+(def create-base-with-dialect (c/single-txt "base" :create-base [create-base-name create-base-dialect]))
 (def interface-value (c/multi-arg :create-component "interface"))
-(def interface (c/multi-param "interface" 2 (c/group :create-component) (c/optional) [interface-value]))
+(def interface (c/multi-param "interface" 3 (c/group :create-component) (c/optional) [interface-value]))
 (def create-component-name-value (c/multi-arg :create-component "name"))
 (def create-component-name (c/multi-param "name" 1 (c/group :create-component) [create-component-name-value]))
 (def create-component (c/single-txt "component" :create-component [create-component-name interface]))
-(def create-project-name (c/multi-param "name"))
-(def create-project (c/single-txt "project" [create-project-name]))
+(def create-component-dialect (c/fn-explorer "dialect" :create-component #'dialect/select 2))
+(def create-component-with-dialect (c/single-txt "component" :create-component [create-component-name create-component-dialect interface]))
+(def create-project-name-value (c/multi-arg :create-project "name"))
+(def create-project-name (c/multi-param "name" 1 (c/group :create-project) [create-project-name-value]))
+(def create-project (c/single-txt "project" :create-project [create-project-name]))
+(def create-project-dialect (c/fn-explorer "dialect" :create-project #'dialect/select))
+(def create-project-with-dialect (c/single-txt "project" :create-project [create-project-name create-project-dialect]))
 (def create-workspace-commit (c/flag "commit" :create-workspace))
 (def create-workspace-branch (c/multi-param "branch"))
 (def create-workspace-top-ns-value (c/group-arg "" :create-workspace "top-ns" false))
 (def create-workspace-top-ns (c/multi-param "top-ns" (c/group :create-workspace) [create-workspace-top-ns-value]))
 (def create-workspace-name-value (c/group-arg "" :create-workspace "name" false))
 (def create-workspace-name (c/multi-param "name" 1 (c/group :create-workspace) [create-workspace-name-value]))
-(def create-workspace (c/single-txt "workspace" :create-workspace [create-workspace-name create-workspace-top-ns create-workspace-branch create-workspace-commit]))
-
-(defn create [current-ws? all?]
+(def create-workspace (c/single-txt "workspace" :create-workspace [create-workspace-name create-workspace-top-ns create-workspace-branch create-workspace-commit create-dialects]))
+(defn create [current-ws? all? cljs?]
   (when current-ws?
     (c/single-txt "create" :create
-      (concat [create-base create-component create-project]
+      (concat (if cljs?
+                [create-base-with-dialect create-component-with-dialect create-project-with-dialect]
+                [create-base create-component create-project])
               (when all? [create-workspace])))))
 
 (def compact (c/flag "compact" :compact))
@@ -117,6 +129,7 @@
 (def info-resources (c/flag "resources" :info))
 (def info-out (c/fn-explorer "out" :info (file-explorer/select-fn)))
 (def info-project-flag (c/flag-explicit "project" :info))
+(def info-dialect (c/flag "dialect" :info))
 (def info-dev (c/flag "dev" :info))
 (def info-loc (c/flag "loc" :info))
 (def info-all-bricks (c/flag "all-bricks" :info))
@@ -127,7 +140,7 @@
 (defn info [profiles all? extended?]
   (c/single-txt "info" :info
     (concat profiles
-            [info-all info-all-bricks info-brick info-loc info-dev info-resources
+            [info-all info-all-bricks info-brick info-dialect info-loc info-dev info-resources
              info-project info-project-flag info-since info-color-mode]
             (when all? [info-fake-sha info-fake-tag info-changed-files info-skip info-no-changes])
             (when extended? [info-transparent])
@@ -228,13 +241,14 @@
               (map #(c/group-arg (str "+" %) group-id (str "+" %))
                    profile-keys)))))
 
-(defn candidates [{:keys [configs profiles user-input]}]
+(defn candidates [{:keys [configs profiles user-input ws-dialects]}]
   (let [{:keys [ws-dir ws-file is-all is-local]} user-input
         ws-shortcuts (user-config/ws-shortcuts-paths)
         info-profiles (->profiles :info profiles is-all)
         test-profiles (->profiles :test profiles is-all)
         ws-profiles (->profiles :ws profiles is-all)
         has-test-configs? (seq (-> configs :workspace :test-configs))
+        cljs? (contains? ws-dialects "cljs")
         current-ws? (or (nil? ws-file)
                         (or (nil? ws-dir)
                             (= "." ws-dir)))]
@@ -242,7 +256,7 @@
                   diff
                   version
                   (switch-ws ws-shortcuts)
-                  (create current-ws? is-all)
+                  (create current-ws? is-all cljs?)
                   (deps is-all system/extended?)
                   (doc is-all is-local)
                   (help is-all)

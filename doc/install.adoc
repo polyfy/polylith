@@ -28,7 +28,6 @@ h| Switch `poly` version via:
 h| Pre-compiled for faster startup? link:#startup-time[^1^]
 | Yes
 | No
-| No
 
 |===
 

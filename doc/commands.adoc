@@ -14,7 +14,7 @@ poly help
 
 [source,text]
 ----
-  poly 0.2.22 (2025-06-02) - https://github.com/polyfy/polylith
+  poly 0.3.0 (2025-09-30) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -88,11 +88,16 @@ poly help
     poly check :dev
     poly create component name:user
     poly create component name:admin interface:user
+    poly create component name:admin interface:user dialect:cljs
     poly create base name:mybase
+    poly create base name:mybase dialect:clj
     poly create project name:myproject
+    poly create project name:myproject dialect:cljs
     poly create workspace name:myws top-ns:com.my.company
-    poly create workspace name:myws top-ns:com.my.company :commit
-    poly create workspace name:myws top-ns:com.my.company branch:master :commit
+    poly create workspace name:myws top-ns:com.my.company dialects:clj
+    poly create workspace name:myws top-ns:com.my.company dialects:clj:cljs
+    poly create workspace name:myws top-ns:com.my.company dialects:clj :commit
+    poly create workspace name:myws top-ns:com.my.company dialects:clj branch:master :commit
     poly deps
     poly deps brick:mybrick
     poly deps project:myproject
@@ -131,6 +136,7 @@ poly help
     poly info
     poly info +
     poly info :loc
+    poly info :dialect
     poly info since:65a7918
     poly info since:head
     poly info since:head~1
@@ -299,10 +305,10 @@ poly help
 
   poly create TYPE [ARGS]
 
-    TYPE = c[omponent] -> Creates a component.
-           b[ase]      -> Creates a base.
-           p[roject]   -> Creates a project.
-           w[orkspace] -> Creates a workspace.
+    TYPE = component -> Creates a component.
+           base      -> Creates a base.
+           project   -> Creates a project.
+           workspace -> Creates a workspace.
 
     ARGS = Varies depending on TYPE.
 
@@ -310,10 +316,15 @@ poly help
 
   Example:
     poly create component name:user
+    poly create component name:user dialect:cljs
     poly create component name:admin interface:user
     poly create base name:mybase
+    poly create base name:mybase dialect:cljs
     poly create project name:myproject
+    poly create project name:myproject dialect:cljs
     poly create workspace name:myws top-ns:com.my.company
+    poly create workspace name:myws top-ns:com.my.company dialects:clj
+    poly create workspace name:myws top-ns:com.my.company dialects:clj:cljs
     poly create workspace name:myws top-ns:com.my.company branch:master
 ----
 
@@ -324,18 +335,23 @@ poly help
 ----
   Creates a component.
 
-  poly create component name:NAME [interface:INTERFACE] [:git-add]
+  poly create component name:NAME [interface:INTERFACE] [dialect:DIALECT] [:git-add]
 
     NAME = The name of the component to create.
+
+    INTERFACE = The name of the interface (namespace) or NAME if not given.
+
+    DIALECT = The value is sent to Selmer when the component is created.
+              If 'cljs' is provided, a 'package.json' file is also created.
+              Valid values are: clj, cljs
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
                then we can pass in this flag instead, to explicitly add the
                created files to git.
 
-    INTERFACE = The name of the interface (namespace) or NAME if not given.
-
   Example:
     poly create component name:user
+    poly create component name:user dialect:cljs
     poly create component name:user :git-add
     poly create component name:admin interface:user
 ----
@@ -347,9 +363,13 @@ poly help
 ----
   Creates a base.
 
-  poly create base name:NAME [:git-add] 
+  poly create base name:NAME [dialect:DIALECT] [:git-add] 
 
-    NAME = The name of the base to create.
+    NAME    = The name of the base to create.
+
+    DIALECT = The value is sent to Selmer when the base is created.
+              If 'cljs' is provided, a 'package.json' file is also created.
+              Valid values are: clj, cljs
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
                then we can pass in this flag instead, to explicitly add the
@@ -357,6 +377,7 @@ poly help
 
   Example:
     poly create base name:mybase
+    poly create base name:mybase dialect:clj
     poly create base name:mybase :git-add
 ----
 
@@ -367,8 +388,12 @@ poly help
 ----
   Creates a project.
 
-  poly create project name:NAME [:git-add]
+  poly create project name:NAME [dialect:DIALECT] [:git-add]
     NAME = The name of the project to create.
+
+    DIALECT = The value is sent to Selmer when the project is created.
+              If 'cljs' is provided, a 'package.json' file is also created.
+              Valid values are: clj, cljs
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
                then we can pass in this flag instead, to explicitly add the
@@ -376,6 +401,7 @@ poly help
 
   Example:
     poly create project name:myproject
+    poly create project name:myproject dialect:cljs
     poly create project name:myproject :git-add
 ----
 
@@ -396,19 +422,26 @@ poly help
 
   2. Initiate the workspace manually by executing commands similar to the ones above.
 
-  poly create workspace [name:NAME] top-ns:TOP-NAMESPACE [:commit] [branch:BRANCH]
+  poly create workspace [name:NAME] top-ns:TOP-NAMESPACE [dialects:DIALECTS] [:commit] [branch:BRANCH]
 
     NAME = The name of the workspace to create, which must be given
            if created outside a git repository. Otherwise it's optional.
 
     TOP-NAMESPACE = The top namespace name.
 
+    DIALECTS = The value is sent to Selmer when the project is created.
+               The value is used to set ':dialects' in 'workspace.edn'.
+               If 'cljs' is provided, a 'package.json' file is also created.
+               Valid values are: clj, cljs
+
     BRANCH = The name of the branch, or the default git main branch if not given.
 
   Example:
     poly create workspace name:myws top-ns:com.my.company
-    poly create workspace name:myws top-ns:com.my.company :commit
-    poly create workspace name:myws top-ns:com.my.company branch:master :commit
+    poly create workspace name:myws top-ns:com.my.company dialects:clj
+    poly create workspace name:myws top-ns:com.my.company dialects:clj:cljs
+    poly create workspace name:myws top-ns:com.my.company dialects:clj :commit
+    poly create workspace name:myws top-ns:com.my.company dialects:clj branch:master :commit
 ----
 
 [#deps]
@@ -672,9 +705,14 @@ poly help
 ----
   Shows workspace information.
 
-  poly info [:loc] [out:FILENAME]
+  poly info [:loc] [:dialect] [out:FILENAME]
 
     :loc     = Shows the number of lines of code for each brick and project.
+
+    :dialect = Shows the dialect (type of source code), where:
+               j-- = clj (Clojure)
+               -c- = cljc (Clojure common)
+               --s = cljs (ClojureScript)
 
     FILENAME = The name of the text file to create, containing the output from
                this command.
@@ -848,6 +886,7 @@ poly help
   Example:
     poly info
     poly info :loc
+    poly info :dialect
     poly info since:release
     poly info since:previous-release
     poly info project:myproject
@@ -878,10 +917,10 @@ poly help
 
     :outdated = Shows the latest version of each library, or blank if up to date.
 
-    :update   = Updates all libraries to the latest version. If LIBS is given,
-                then only update selected libraries.
-                Old library versions can be kept by giving the library as a symbol in
-                :keep-lib-versions for bricks and projects in workspace.edn.
+    :update   = Updates all libraries to the latest version (in 'deps.edn'
+                and 'package.json' files). If LIBS is given, then only update selected
+                libraries. Old library versions can be kept by giving the library as a
+                symbol in :keep-lib-versions for bricks and projects in workspace.edn.
 
     FILENAME  = The name of the text file to create, containing the
                 output from this command.
@@ -915,15 +954,18 @@ poly help
   Use the :override-deps key in the project's 'deps.edn' file to explicitly set
   a version for one or several libraries in a project.
 
-  The 'type' column says in what way the dependency is included, e.g.:
+  The 'type' column says in what way the dependency is included. maven, local, and
+  git are stored in deps.edn files, while npm is stored in package.json files, e.g.:
    - maven: clj-time/clj-time {:mvn/version "0.15.2"}
    - local: clj-time {:local/root "/local-libs/clj-time-0.15.2.jar"}
    - git:   clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git"
                                :sha     "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}
+   - npm:   "karma": "6.4.4"
 
   The KB column shows the size in kilobytes, which is the size of the jar
   file for Maven and Local dependencies, and the size of all files in the
-  ~/.gitlibs/libs/YOUR-LIBRARY directory for Git dependencies.
+  ~/.gitlibs/libs/YOUR-LIBRARY directory for Git dependencies. The size of npm libraries
+  is measured as the size of their corresponding top-level directory in 'node_modules'.
 
   Example:
     poly libs
@@ -1039,7 +1081,7 @@ poly help
            The prompt will be prefixed with 'file:' to show this.
 
     SHORTCUT = Switches to the workspace specified under the :ws-shortcuts key in
-               ~/.config/polylith/config.edn (see ~/.config/polylith/config.edn)
+               ~/.config/polylith/config.edn
 
   Example:
     switch-ws dir:~/myworkspace

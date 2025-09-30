@@ -11,7 +11,7 @@ poly ws get:version:ws
 
 [source,clojure]
 ----
-{:breaking 3, :non-breaking 0}
+{:breaking 5, :non-breaking 0}
 ----
 
 Here are the changes to the workspace structure over time:
@@ -19,6 +19,9 @@ Here are the changes to the workspace structure over time:
 |===
 | ws | release | action | attribute | description
 
+| 5.0 | 0.3.0 | added | ws-dialects | A set of supported dialects. Valid values: "clj" and/or "cljs".
+|  |  | added | configs:ENTITIES:ENTITY:package | Configuration retrieved from the package.json file.
+|  |  | added | ENTITIES:ENTITY:source-types | A set of source types (file suffixes) covering all used source files ("clj", "cljc", "cljs").
 | 4.0 | 0.2.20 | added | configs:workspace | Stores the configuration in workspace.edn.
 |  |  | deleted | configs:workspaces | Replaced by configs:workspace.
 |  |  | added | bases:BASE:illegal-deps | Set if the base has any illegal namespace dependencies.

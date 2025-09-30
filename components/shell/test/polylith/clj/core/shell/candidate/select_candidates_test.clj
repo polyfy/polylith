@@ -48,7 +48,7 @@
          (candidates "create" :next "base" :next "n"))))
 
 (deftest create-base-name
-  (is (= []
+  (is (= [""]
          (candidates "create" :next "base" :next "name"))))
 
 (deftest create-component
@@ -284,12 +284,12 @@
          (candidates "help" :next "ws"))))
 
 (deftest info
-  (is (= [":all" ":all-bricks" ":dev" ":loc" ":project" ":resources" "brick"
+  (is (= [":all" ":all-bricks" ":dev" ":dialect" ":loc" ":project" ":resources" "brick"
           "color-mode" "project" "since"]
          (candidates "info"))))
 
 (deftest info-loc-
-  (is (= [":all" ":all-bricks" ":dev" ":project" ":resources" "brick"
+  (is (= [":all" ":all-bricks" ":dev" ":dialect" ":project" ":resources" "brick"
           "color-mode" "project" "since"]
          (candidates "info" :next "loc" :next ""))))
 
@@ -387,7 +387,7 @@
 
 (deftest doc-example-profile
   (reset! engine/ws (-> "examples/doc-example/ws.edn" slurp read-string))
-  (is (= ["+remote" ":project" ":resources" "brick" "color-mode" "project" "since"]
+  (is (= ["+remote" ":dialect" ":project" ":resources" "brick" "color-mode" "project" "since"]
          (candidates "info" :next
                      "+default" :next
                      "loc" :next

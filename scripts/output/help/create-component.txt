@@ -1,16 +1,21 @@
   Creates a component.
 
-  poly create component name:NAME [interface:INTERFACE] [:git-add]
+  poly create component name:NAME [interface:INTERFACE] [dialect:DIALECT] [:git-add]
 
     NAME = The name of the component to create.
+
+    INTERFACE = The name of the interface (namespace) or NAME if not given.
+
+    DIALECT = The value is sent to Selmer when the component is created.
+              If 'cljs' is provided, a 'package.json' file is also created.
+              Valid values are: clj, cljs
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
                then we can pass in this flag instead, to explicitly add the
                created files to git.
 
-    INTERFACE = The name of the interface (namespace) or NAME if not given.
-
   Example:
     poly create component name:user
+    poly create component name:user dialect:cljs
     poly create component name:user :git-add
     poly create component name:admin interface:user

@@ -75,7 +75,7 @@ Here's an example output where some libraries were out of date:
 image::images/libraries/libs-outdated.png[]
 
 [#update]
-You can ask `poly` to update all libraries to the `latest` version in all `deps.edn` for all bricks and projects via:
+You can ask `poly` to update all libraries to the `latest` version in all `deps.edn` and `package.json` files, for all bricks and projects via:
 
 [source,shell]
 ----
@@ -99,7 +99,7 @@ To skip updating specific libraries, specify `:keep-lib-versions` in your xref:w
 {...
  :bricks {"article" {:keep-lib-versions [djblue/portal]}}}
  :projects {"realworld-backend" {:alias "rb"
-                                 :keep-lib-versions [clj-jwt/clj-jwt clj-time/clj-time]}
+                                 :keep-lib-versions [clj-jwt/clj-jwt clj-time/clj-time]}}
 ----
 
 [[lib-dep-types]]
@@ -137,13 +137,28 @@ a| As a Git dependency, e.g.:
 clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git",
                    :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}
 ----
+
 [[key-path]]
 The `poly` tool will calculate the `KB` column for a Git dependency, only if the key path matches the path for the libary under `~/.gitlibs/libs` (the Git owner and repo from the `:git/url`).
 |===
 
+https://en.wikipedia.org/wiki/Npm[NPM] dependencies are specified in `package.json` files:
+
+[%autowidth]
+|===
+| Type | Description
+
+| NPM
+a| An NPM dependency, e.g.:
+[source,json]
+----
+"karma": "6.4.4"
+----
+|===
+
 == Configuration
 
-3rd-party library dependencies are specified in `deps.edn` for each component, base, and project:
+3rd-party tools.deps library dependencies are specified in `deps.edn` for each component, base, and project:
 
 [%autowidth]
 |===
@@ -178,6 +193,9 @@ The `poly` tool will calculate the `KB` column for a Git dependency, only if the
 | [nowrap]`:aliases > :test > :extra-deps`
 
 |===
+
+Third-party NPM dependencies are specified in the package.json file of each component, base, and project, located alongside the corresponding `deps.edn` file.
+Source dependencies go under the `"dependencies"` key, while test dependencies go under the `"devDependencies"` key (see https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/cljs-frontend/projects/realworld-frontend/package.json[this] file as an example).
 
 [[local-deps]]
 === Local Dependencies

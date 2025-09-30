@@ -1541,7 +1541,7 @@
      "components/workspace-clj/src"
      "components/workspace/src"
      "components/ws-explorer/src"
-     "components/ws-file/src"],
+     "components/ws-file-reader/src"],
     :test
     ["components/change/test"
      "components/command/test"
@@ -2046,7 +2046,7 @@
      "components/workspace-clj/src"
      "components/workspace/src"
      "components/ws-explorer/src"
-     "components/ws-file/src"
+     "components/ws-file-reader/src"
      "development/src"],
     :test
     ["components/api/test"
@@ -2106,7 +2106,7 @@
       "components/workspace-clj/src"
       "components/workspace/src"
       "components/ws-explorer/src"
-      "components/ws-file/src"
+      "components/ws-file-reader/src"
       "development/src"],
      :test
      ["components/api/test"
@@ -2668,7 +2668,7 @@
    "components/workspace/test"
    "components/ws-explorer/src"
    "components/ws-explorer/test"
-   "components/ws-file/src"
+   "components/ws-file-reader/src"
    "development/src"
    "projects/poly/test"],
   :missing [],
@@ -2720,7 +2720,7 @@
    "components/workspace/test"
    "components/ws-explorer/src"
    "components/ws-explorer/test"
-   "components/ws-file/src"
+   "components/ws-file-reader/src"
    "projects/poly/test"]},
  :messages [],
  :components
@@ -6104,19 +6104,19 @@
     [{:name "interface",
       :namespace "polylith.clj.core.ws-file.interface",
       :file-path
-      "/Users/joakimtengstrand/source/polylith/components/ws-file/src/polylith/clj/core/ws_file/interface.clj",
+      "/Users/joakimtengstrand/source/polylith/components/ws-file-reader/src/polylith/clj/core/ws_file/interface.clj",
       :imports ["polylith.clj.core.ws-file.from-disk"]}
      {:name "from-1-to-2",
       :namespace "polylith.clj.core.ws-file.from-1-to-2",
       :file-path
-      "/Users/joakimtengstrand/source/polylith/components/ws-file/src/polylith/clj/core/ws_file/from_1_to_2.clj",
+      "/Users/joakimtengstrand/source/polylith/components/ws-file-reader/src/polylith/clj/core/ws_file/from_1_to_2.clj",
       :imports
       ["polylith.clj.core.git.interface"
        "polylith.clj.core.version.interface"]}
      {:name "from-disk",
       :namespace "polylith.clj.core.ws-file.from-disk",
       :file-path
-      "/Users/joakimtengstrand/source/polylith/components/ws-file/src/polylith/clj/core/ws_file/from_disk.clj",
+      "/Users/joakimtengstrand/source/polylith/components/ws-file-reader/src/polylith/clj/core/ws_file/from_disk.clj",
       :imports
       ["polylith.clj.core.common.interface"
        "polylith.clj.core.file.interface"

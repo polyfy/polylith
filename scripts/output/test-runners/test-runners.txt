@@ -1,7 +1,7 @@
 Projects to run tests from: external-inherit-from-global, kaocha-override-global, multiple-test-runners
 
 Running tests for the external-inherit-from-global project using test runner: Polylith org.corfield.external-test-runner...
-Running tests from the external-inherit-from-global project, including 1 brick: invoicer
+Running tests from the external-inherit-from-global project, including 2 bricks: auth-ui, invoicer
 Running test setup for the external-inherit-from-global project: se.external.test-setup.interface/setup
 ========== external-inherit-from-global ========== 
 
@@ -21,7 +21,7 @@ Running test setup for the multiple-test-runners project: se.external.test-setup
 ========== multiple-test-runners ========== 
 
 Running tests for the multiple-test-runners project using test runner: Polylith built-in clojure.test runner...
-Running tests from the multiple-test-runners project, including 1 brick: invoicer
+Running tests from the multiple-test-runners project, including 2 bricks: auth-ui, invoicer
 
 Testing se.external.invoicer.interface-test
 
@@ -36,7 +36,7 @@ Running tests for the multiple-test-runners project using test runner: polylith-
 [(.)]
 1 tests, 1 assertions, 0 failures.
 Running tests for the multiple-test-runners project using test runner: Polylith org.corfield.external-test-runner...
-Running tests from the multiple-test-runners project, including 1 brick: invoicer
+Running tests from the multiple-test-runners project, including 2 bricks: auth-ui, invoicer
 Running test setup for the multiple-test-runners project: se.external.test-setup.interface/setup
 ========== multiple-test-runners ========== 
 

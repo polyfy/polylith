@@ -1,6 +1,7 @@
 {:top-namespace "se.external"
  :interface-ns "interface"
  :default-profile-name "default"
+ :dialects #{"clj"}
  :compact-views #{}
  :test {:create-test-runner org.corfield.external-test-runner.interface/create}
  :vcs {:name "git"
@@ -10,17 +11,17 @@
  :projects {"development" {:alias "dev"}
 
             "external-inherit-from-global" {:alias "inherit"
-                                            :necessary ["invoicer" "test-setup"]
+                                            :necessary ["auth-ui" "invoicer" "test-setup"]
                                             :test {:setup-fn se.external.test-setup.interface/setup
                                                    :create-test-runner [org.corfield.external-test-runner.interface/create]}}
 
             "kaocha-override-global" {:alias "override"
-                                      :necessary ["invoicer" "test-setup"]
+                                      :necessary ["auth-ui" "invoicer" "test-setup"]
                                       :test {:setup-fn se.external.test-setup.interface/setup
                                              :create-test-runner [polylith-kaocha.test-runner/create]}}
 
             "multiple-test-runners" {:alias "multiple"
-                                     :necessary ["invoicer" "test-setup"]
+                                     :necessary ["auth-ui" "invoicer" "test-setup"]
                                      :test {:setup-fn se.external.test-setup.interface/setup
                                             :create-test-runner [:default
                                                                  polylith-kaocha.test-runner/create

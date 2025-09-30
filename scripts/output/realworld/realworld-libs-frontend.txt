@@ -1,0 +1,40 @@
+                                                                                           d                    r   
+                                                                                  a  c  c  a     p              e  w
+                                                                                  r  o  o  t     r           w  s  e
+                                                                                  t  m  r  a     o           e  t  b
+                                                                                  i  m  e  b     f  s     u  b  -  -
+                                                                                  c  e  -  a  l  i  p  t  s  -  a  a
+                                                                                  l  n  u  s  o  l  e  a  e  u  p  p
+  library                                version   type       KB   be  fe   dev   e  t  i  e  g  e  c  g  r  i  i  p
+  --------------------------------------------------------------   ------   ---   ----------------------------------
+  bidi/bidi                              2.1.6     maven      25   -   x     x    .  .  x  .  .  .  .  .  .  .  .  .
+  binaryage/devtools                     1.0.7     maven      53   -   -     x    .  .  .  .  .  .  .  .  .  .  .  .
+  clj-http/clj-http                      3.13.1    maven      59   -   -     x    .  .  .  .  .  .  .  .  .  .  .  .
+  clj-jwt/clj-jwt                        0.1.1     maven       7   x   -     x    .  .  .  .  .  .  .  .  x  .  .  .
+  clj-time/clj-time                      0.15.2    maven      23   x   -     x    x  x  .  .  .  .  .  .  x  .  .  .
+  cljs-ajax/cljs-ajax                    0.8.4     maven      29   -   x     x    .  .  x  .  .  .  .  .  .  .  .  .
+  com.github.seancorfield/honeysql       2.7.1340  maven      41   x   -     x    x  x  .  x  .  x  .  x  x  .  .  .
+  com.taoensso/timbre                    6.7.1     maven      51   x   -     x    .  .  .  .  x  .  .  .  .  .  .  .
+  compojure/compojure                    1.7.1     maven      14   x   -     x    .  .  .  .  .  .  .  .  .  .  x  .
+  crypto-password/crypto-password        0.3.0     maven       6   x   -     x    .  .  .  .  .  .  .  .  x  .  .  .
+  day8.re-frame/http-fx                  0.2.4     maven       9   -   x     x    .  .  x  .  .  .  .  .  .  .  .  .
+  djblue/portal                          0.60.2    maven   1,915   -   -     x    .  .  .  .  .  .  .  .  .  .  .  .
+  io.github.clojure/tools.build          0.10.10   maven      32   -   -     x    .  .  .  .  .  .  .  .  .  .  .  .
+  kibu/pushy                             0.3.8     maven      11   -   x     x    .  .  x  .  .  .  .  .  .  .  .  .
+  metosin/spec-tools                     0.10.7    maven      41   x   x     x    x  x  .  .  .  x  x  .  .  .  .  .
+  org.clojure/clojure                    1.12.1    maven   4,130   x   x     x    .  .  .  .  .  .  .  .  .  .  .  .
+  org.clojure/data.json                  2.5.1     maven       9   x   -     x    .  .  .  .  .  .  .  .  .  .  x  .
+  org.clojure/java.jdbc                  0.7.12    maven      28   x   -     x    x  x  .  x  .  x  .  x  x  .  .  .
+  org.clojure/test.check                 1.1.1     maven      39   t   t     t    .  .  .  .  .  .  .  .  .  .  .  .
+  org.clojure/tools.namespace            1.5.0     maven      19   -   -     x    .  .  .  .  .  .  .  .  .  .  .  .
+  org.slf4j/slf4j-nop                    2.0.17    maven       4   -   -     x    .  .  .  .  .  .  .  .  .  .  .  .
+  org.xerial/sqlite-jdbc                 3.50.3.0  maven  14,010   x   -     x    .  .  .  x  .  .  .  .  .  .  .  .
+  re-frame/re-frame                      1.4.3     maven      70   -   x     x    .  .  .  .  .  .  .  .  .  .  .  x
+  react                                  16.9.0    npm         0   -   x     x    .  .  .  .  .  .  .  .  .  x  .  x
+  react-dom                              16.9.0    npm         0   -   x     x    .  .  .  .  .  .  .  .  .  x  .  x
+  reagent/reagent                        1.3.0     maven      37   -   x     x    .  .  .  .  .  .  .  .  .  .  .  x
+  ring-logger-timbre/ring-logger-timbre  0.7.6     maven       9   x   -     x    .  .  .  .  .  .  .  .  .  .  x  .
+  ring/ring-jetty-adapter                1.14.2    maven       7   x   -     x    .  .  .  .  .  .  .  .  .  .  x  .
+  ring/ring-json                         0.5.1     maven       5   x   -     x    .  .  .  .  .  .  .  .  .  .  x  .
+  slugger/slugger                        1.0.1     maven     774   x   -     x    x  .  .  .  .  .  .  .  .  .  .  .
+  thheller/shadow-cljs                   3.2.0     maven   2,836   -   -     x    .  .  .  .  .  .  .  .  .  .  .  .

@@ -1,4 +1,6 @@
 {:paths ["src"]
- :deps {com.github.liquidz/antq {:mvn/version "2.9.1217"}}
+ :deps {com.github.liquidz/antq {:mvn/version "2.11.1276"}
+        clj-http/clj-http {:mvn/version "3.13.1"}
+        cheshire/cheshire {:mvn/version "6.1.0"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}

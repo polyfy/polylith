@@ -19,6 +19,6 @@ Here is a list with examples that uses Polylith:
 
 | Mount
 |
+| https://github.com/tolitius[Anatoly Tolitius]
 |
-| An example in Mount will soon be available!
 |===

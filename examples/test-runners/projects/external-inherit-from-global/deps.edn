@@ -1,7 +1,8 @@
-{:deps {poly/invoicer {:local/root "../../components/invoicer"}
+{:deps {poly/auth-ui {:local/root "../../components/auth-ui"}
+        poly/invoicer {:local/root "../../components/invoicer"}
         poly/test-setup {:local/root "../../components/test-setup"}
 
-        org.clojure/clojure {:mvn/version "1.12.0"}}
+        org.clojure/clojure {:mvn/version "1.12.2"}}
 
  :aliases {:test {:extra-paths []
                   :extra-deps {}}}}

@@ -1,0 +1,1 @@
+Ignore this component since it lacks a config file

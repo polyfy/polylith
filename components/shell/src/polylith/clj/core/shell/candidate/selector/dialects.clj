@@ -1,0 +1,10 @@
+(ns ^:no-doc polylith.clj.core.shell.candidate.selector.dialects
+  (:require [clojure.set :as set]
+            [polylith.clj.core.shell.candidate.creators :as c]
+            [polylith.clj.core.shell.candidate.shared :as shared]))
+
+(defn select [{:keys [group]} groups _]
+  (mapv #(c/fn-explorer-child-plain % true group #'select)
+        (sort (set/difference
+                #{"clj" "cljs"}
+                (set (shared/args groups group))))))

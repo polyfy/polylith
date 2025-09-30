@@ -78,7 +78,7 @@
             "  (is (= 1 1)))"]
            (helper/content test-ifc-dir "interface_test.clj")))))
 
-(deftest create-component--without-with-a-different-interface--performs-expected-actions
+(deftest create-component--with-a-different-interface--performs-expected-actions
   (let [src-ifc-dir "ws1/components/my-component/src/se/example/my_interface"
         test-ifc-dir "ws1/components/my-component/test/se/example/my_interface"
         output (str-util/normalize-newline
@@ -131,3 +131,58 @@
             "(deftest dummy-test"
             "  (is (= 1 1)))"]
            (helper/content test-ifc-dir "interface_test.clj")))))
+
+(deftest create-component--with-dialect-cljs
+  (let [src-ifc-dir "ws1/components/my-component/src/se/example/my_component"
+        test-ifc-dir "ws1/components/my-component/test/se/example/my_component"
+        output (str-util/normalize-newline
+                 (with-out-str
+                   (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                   (helper/execute-command "ws1" "create" "component" "name:my-component" "dialect:cljs")))]
+    (is (= (str brick/create-brick-message "\n")
+           output))
+
+    (is (= #{".gitignore"
+             ".vscode"
+             ".vscode/settings.json"
+             "bases"
+             "bases/.keep"
+             "components"
+             "components/.keep"
+             "components/my-component"
+             "components/my-component/deps.edn"
+             "components/my-component/package.json"
+             "components/my-component/resources"
+             "components/my-component/resources/my-component"
+             "components/my-component/resources/my-component/.keep"
+             "components/my-component/src"
+             "components/my-component/src/se"
+             "components/my-component/src/se/example"
+             "components/my-component/src/se/example/my_component"
+             "components/my-component/src/se/example/my_component/interface.cljs"
+             "components/my-component/test"
+             "components/my-component/test/se"
+             "components/my-component/test/se/example"
+             "components/my-component/test/se/example/my_component"
+             "components/my-component/test/se/example/my_component/interface_test.cljs"
+             "deps.edn"
+             "development"
+             "development/src"
+             "development/src/.keep"
+             "logo.png"
+             "projects"
+             "projects/.keep"
+             "readme.md"
+             "workspace.edn"}
+           (helper/paths "ws1")))
+
+    (is (= ["(ns se.example.my-component.interface)"]
+           (helper/content src-ifc-dir "interface.cljs")))
+
+    (is (= ["(ns se.example.my-component.interface-test"
+            "  (:require [clojure.test :as test :refer :all]"
+            "            [se.example.my-component.interface :as my-component]))"
+            ""
+            "(deftest dummy-test"
+            "  (is (= 1 1)))"]
+           (helper/content test-ifc-dir "interface_test.cljs")))))

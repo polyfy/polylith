@@ -69,7 +69,7 @@
   (println (str "  The use of :: is " (color/error color-mode "deprecated") " and support for it will probably be dropped in the future. "
                 "Please contact the Polylith team if you think it's important to keep!")))
 
-(defn execute [{:keys [cmd args alias name top-ns branch help is-local more page ws is-tap is-git-add is-github is-commit is-update is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly is-search-for-ws-dir get out interface selected-bricks selected-projects unnamed-args] :as user-input}]
+(defn execute [{:keys [cmd args alias dialect dialects name top-ns branch help is-local more page ws is-tap is-git-add is-github is-commit is-update is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly is-search-for-ws-dir get out interface selected-bricks selected-projects unnamed-args] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (config-reader/workspace-dir user-input)
         workspace (workspace/workspace user-input)
@@ -84,7 +84,7 @@
       (if ok?
         (case cmd
           "check" (check/print-check workspace color-mode)
-          "create" (create/create ws-dir workspace args name alias top-ns interface branch is-git-add is-commit color-mode)
+          "create" (create/create ws-dir workspace args name alias dialect dialects top-ns interface branch is-git-add is-commit color-mode)
           "deps" (dependencies/deps workspace project-name brick-name unnamed-args)
           "doc" (doc/open-doc branch is-local is-github help more page ws unnamed-args)
           "diff" (diff workspace)

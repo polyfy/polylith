@@ -62,6 +62,9 @@
 (defn directories [dir]
   (core/directory-paths dir))
 
+(defn directory-size [^String path]
+  (core/directory-size (File. path)))
+
 (defn files-and-dirs [dir home-dir]
   (core/dirs-and-files dir home-dir))
 
@@ -71,8 +74,8 @@
 (defn not-hidden? [name]
   (core/not-hidden? name))
 
-(defn read-file [path]
-  (core/read-file path))
+(defn read-file [path dialects]
+  (core/read-file path dialects))
 
 (defn size [path]
   (core/size path))

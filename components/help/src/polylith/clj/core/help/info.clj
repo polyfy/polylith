@@ -6,9 +6,14 @@
 (defn help-text [extended? cm]
   (str "  Shows workspace information.\n"
        "\n"
-       "  poly info [" (s/key ":loc" cm) "] [out:" (s/key "FILENAME" cm) "]\n"
+       "  poly info [" (s/key ":loc" cm) "] [" (s/key ":dialect" cm) "] [out:" (s/key "FILENAME" cm) "]\n"
        "\n"
        "    " (s/key ":loc" cm) "     = Shows the number of lines of code for each brick and project.\n"
+       "\n"
+       "    " (s/key ":dialect" cm) " = Shows the dialect (type of source code), where:\n"
+       "               j-- = clj (Clojure)\n"
+       "               -c- = cljc (Clojure common)\n"
+       "               --s = cljs (ClojureScript)\n"
        "\n"
        (if extended?
          (str "    " (s/key "FILENAME" cm) " = Creates a text or image file based on the output.\n"
@@ -190,6 +195,7 @@
        "  Example:\n"
        "    poly info\n"
        "    poly info :loc\n"
+       "    poly info :dialect\n"
        "    poly info since:release\n"
        "    poly info since:previous-release\n"
        "    poly info project:myproject\n"

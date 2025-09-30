@@ -1,6 +1,5 @@
 (ns polylith.clj.core.workspace.fromdisk.corrupt-file-test
   (:require [clojure.test :refer :all]
-            [clojure.java.io :as io]
             [clojure.string :as str]
             [me.raynes.fs :as fs]
             [polylith.clj.core.file.interface :as file]
@@ -16,7 +15,8 @@
       ;; Attempt to process the file - this should not throw an unhandled exception
       ;; but instead return a properly formatted error
       (let [namespace (from-disk/->namespace
-                        temp-dir 
+                        temp-dir
+                        #{"clj"}
                         temp-dir 
                         "test.core." 
                         "interface" 
@@ -30,7 +30,7 @@
         (is (str/ends-with? empty-file-path (:file-path namespace)) "File path should be preserved")
         
         ;; Test the underlying file/read-file function directly
-        (let [content (file/read-file empty-file-path)]
+        (let [content (file/read-file empty-file-path #{"clj"})]
           (is (= content :polylith.clj.core.file.interface/empty-file) "Empty file should be handled gracefully")))
       
       (finally
@@ -49,6 +49,7 @@
       ;; Try to load namespaces from this directory structure
       (let [namespaces (from-disk/namespaces-from-disk
                          temp-dir
+                         #{"clj"}
                          [(str temp-dir "/src")]
                          []
                          "test."
@@ -80,6 +81,7 @@
       ;; Try to load namespaces from this directory structure
       (let [namespaces (from-disk/namespaces-from-disk
                          temp-dir
+                         #{"clj"}
                          [(str temp-dir "/src")]
                          []
                          "test."

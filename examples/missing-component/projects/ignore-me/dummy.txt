@@ -1,0 +1,1 @@
+Ignore this project since it lacks a config file

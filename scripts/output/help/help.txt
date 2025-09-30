@@ -1,4 +1,4 @@
-  poly 0.2.22 (2025-06-02) - https://github.com/polyfy/polylith
+  poly 0.3.0 (2025-09-30) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -72,11 +72,16 @@
     poly check :dev
     poly create component name:user
     poly create component name:admin interface:user
+    poly create component name:admin interface:user dialect:cljs
     poly create base name:mybase
+    poly create base name:mybase dialect:clj
     poly create project name:myproject
+    poly create project name:myproject dialect:cljs
     poly create workspace name:myws top-ns:com.my.company
-    poly create workspace name:myws top-ns:com.my.company :commit
-    poly create workspace name:myws top-ns:com.my.company branch:master :commit
+    poly create workspace name:myws top-ns:com.my.company dialects:clj
+    poly create workspace name:myws top-ns:com.my.company dialects:clj:cljs
+    poly create workspace name:myws top-ns:com.my.company dialects:clj :commit
+    poly create workspace name:myws top-ns:com.my.company dialects:clj branch:master :commit
     poly deps
     poly deps brick:mybrick
     poly deps project:myproject
@@ -115,6 +120,7 @@
     poly info
     poly info +
     poly info :loc
+    poly info :dialect
     poly info since:65a7918
     poly info since:head
     poly info since:head~1

@@ -5,10 +5,9 @@
             [polylith.clj.core.common.file-output :as file-output]
             [polylith.clj.core.common.ns-extractor :as ns-extractor]
             [polylith.clj.core.common.profile :as profile]
+            [polylith.clj.core.common.source_type :as source-type]
             [polylith.clj.core.common.validate-args :as validate-args]
             [polylith.clj.core.version.interface :as version]))
-
-(def cljs? core/cljs?)
 
 (def entity->short core/entity->short)
 (def entity->long core/entity->long)
@@ -28,6 +27,9 @@
 (defn compact? [workspace view]
   (core/compact? workspace view))
 
+(defn source-types [namespaces]
+  (source-type/source-types namespaces))
+
 (defn create-class-loader [paths color-mode]
   (class-loader/create-class-loader paths color-mode))
 
@@ -43,8 +45,8 @@
 (defn extract-namespace [suffixed-top-ns ns-to-extract]
   (ns-extractor/extract suffixed-top-ns ns-to-extract))
 
-(defn filter-clojure-paths [paths]
-  (core/filter-clojure-paths paths))
+(defn filter-clojure-paths [ws-dialects paths]
+  (core/filter-clojure-paths ws-dialects paths))
 
 (defn find-base [base-name bases]
   (core/find-base base-name bases))

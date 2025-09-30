@@ -2,10 +2,10 @@
 
   poly create TYPE [ARGS]
 
-    TYPE = c[omponent] -> Creates a component.
-           b[ase]      -> Creates a base.
-           p[roject]   -> Creates a project.
-           w[orkspace] -> Creates a workspace.
+    TYPE = component -> Creates a component.
+           base      -> Creates a base.
+           project   -> Creates a project.
+           workspace -> Creates a workspace.
 
     ARGS = Varies depending on TYPE.
 
@@ -13,8 +13,13 @@
 
   Example:
     poly create component name:user
+    poly create component name:user dialect:cljs
     poly create component name:admin interface:user
     poly create base name:mybase
+    poly create base name:mybase dialect:cljs
     poly create project name:myproject
+    poly create project name:myproject dialect:cljs
     poly create workspace name:myws top-ns:com.my.company
+    poly create workspace name:myws top-ns:com.my.company dialects:clj
+    poly create workspace name:myws top-ns:com.my.company dialects:clj:cljs
     poly create workspace name:myws top-ns:com.my.company branch:master

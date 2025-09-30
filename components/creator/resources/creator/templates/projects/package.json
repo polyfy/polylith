@@ -1,0 +1,12 @@
+{
+  "name": "@poly/{{project-name}}",
+  "version": "0.0.1",
+  "private": true,{% if project = "development" %}
+  "workspaces": [
+  ],{% else %}
+  "dependencies": {
+  },{% endif %}
+  "devDependencies": {
+    "shadow-cljs": "{{shadow-cljs-ver}}"
+  }
+}

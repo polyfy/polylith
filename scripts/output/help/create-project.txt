@@ -1,7 +1,11 @@
   Creates a project.
 
-  poly create project name:NAME [:git-add]
+  poly create project name:NAME [dialect:DIALECT] [:git-add]
     NAME = The name of the project to create.
+
+    DIALECT = The value is sent to Selmer when the project is created.
+              If 'cljs' is provided, a 'package.json' file is also created.
+              Valid values are: clj, cljs
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
                then we can pass in this flag instead, to explicitly add the
@@ -9,4 +13,5 @@
 
   Example:
     poly create project name:myproject
+    poly create project name:myproject dialect:cljs
     poly create project name:myproject :git-add
