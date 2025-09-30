@@ -38,10 +38,8 @@ Main changes:
     The pattern here is that the last letter of the file extension is used, for example `j` for `clj`.
   
     <img src="doc/images/source-code/info-realworld-dialect.png" alt="RealWorld example" width="300"/>
-- Changes to the workspace structure:
-  - `:ws-dialects` shows supported dialects, e.g. `#{"clj"}` or `#{"clj" "cljs"}`, and can be retrieved by `ws get:ws-dilects`.
-  - Configuration from _package.json_ files are stored in the workspace structure and can be retrieved by `ws get:configs:ENTITY:NAME:package` where `ENTITY` is `workspace`, `projects`, `components`, or `bases`, and `NAME` is the name of the workspace/project/component/base.
-  - The source types used ("clj", "cljc", and "cljs") by components, bases, and projects, are stored in ENTITIES:ENTITY:source-types.
+- New attributes have been added to the workspace structure, and the version has been bumped to `5.0`.
+  See [versions](https://cljdoc.org/d/polylith/clj-poly/0.3.0-SNAPSHOT/doc/versions) for details.
 
 ### Other changes:
 - Ensure exported workspaces with symbols (e.g. a test runner namespace) are readable when used by `ws-file:FILE` (or `switch-ws` in a shell).
