@@ -14,5 +14,5 @@
 
   Example:
     poly create base name:mybase
-    poly create base name:mybase dialect:cljs
+    poly create base name:mybase dialect:clj
     poly create base name:mybase :git-add

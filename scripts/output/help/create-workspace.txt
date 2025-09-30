@@ -28,5 +28,5 @@
     poly create workspace name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company dialects:clj
     poly create workspace name:myws top-ns:com.my.company dialects:clj:cljs
-    poly create workspace name:myws top-ns:com.my.company :commit
-    poly create workspace name:myws top-ns:com.my.company branch:master :commit
+    poly create workspace name:myws top-ns:com.my.company dialects:clj :commit
+    poly create workspace name:myws top-ns:com.my.company dialects:clj branch:master :commit
