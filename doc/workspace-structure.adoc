@@ -688,7 +688,7 @@ If `:mvn/repos` is specified by a brick that is included in this project, then i
 *** `namespace` The full name of the namespace.
 ** `:test` Lists all the namespaces that live under the `test` directory (same keys as for the `:src`).
 
-* `:necessary` If we get xref:validations.adoc#error111[Error 111 - Unreadable namespace in brick/project] and know that the brick(s) has to be included in the project, then we can add the necessary bricks(s) to a vector in the project's config.edn for this key.
+* `:necessary` If we get xref:validations.adoc#warning207[Warning 207 - Unnecessary components were found in project] and know that the brick(s) has to be included in the project, then we can add the necessary bricks(s) to a vector in the project's config.edn for this key.
 
 * `:paths`
 ** `:src` Lists the paths that are either explicitly defined as paths or implicitly defined as `:local/root` bricks, for the `src` context.
