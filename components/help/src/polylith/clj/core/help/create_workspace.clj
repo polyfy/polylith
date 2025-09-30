@@ -32,8 +32,8 @@
        "    poly create workspace name:myws top-ns:com.my.company\n"
        "    poly create workspace name:myws top-ns:com.my.company dialects:clj\n"
        "    poly create workspace name:myws top-ns:com.my.company dialects:clj:cljs\n"
-       "    poly create workspace name:myws top-ns:com.my.company :commit\n"
-       "    poly create workspace name:myws top-ns:com.my.company branch:master :commit"))
+       "    poly create workspace name:myws top-ns:com.my.company dialects:clj :commit\n"
+       "    poly create workspace name:myws top-ns:com.my.company dialects:clj branch:master :commit"))
 
 (defn print-help [color-mode]
   (println (help-text color-mode)))

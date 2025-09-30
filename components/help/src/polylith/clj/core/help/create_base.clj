@@ -18,7 +18,7 @@
        "\n"
        "  Example:\n"
        "    poly create base name:mybase\n"
-       "    poly create base name:mybase dialect:cljs\n"
+       "    poly create base name:mybase dialect:clj\n"
        "    poly create base name:mybase :git-add"))
 
 (defn print-help [color-mode]

@@ -90,12 +90,14 @@ poly help
     poly create component name:admin interface:user
     poly create component name:admin interface:user dialect:cljs
     poly create base name:mybase
+    poly create base name:mybase dialect:clj
     poly create project name:myproject
     poly create project name:myproject dialect:cljs
     poly create workspace name:myws top-ns:com.my.company
-    poly create workspace name:myws top-ns:com.my.company dialect:cljs
-    poly create workspace name:myws top-ns:com.my.company :commit
-    poly create workspace name:myws top-ns:com.my.company branch:master :commit
+    poly create workspace name:myws top-ns:com.my.company dialects:clj
+    poly create workspace name:myws top-ns:com.my.company dialects:clj:cljs
+    poly create workspace name:myws top-ns:com.my.company dialects:cljs :commit
+    poly create workspace name:myws top-ns:com.my.company dialects:cljs branch:master :commit
     poly deps
     poly deps brick:mybrick
     poly deps project:myproject
