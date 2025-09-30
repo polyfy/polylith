@@ -11,7 +11,7 @@ The poly tool now handles ClojureScript (.cljs) source files as well as _package
 > - Add `:jvm-opts ["--enable-native-access=ALL-UNNAMED"]` to your `:poly` alias in `./deps.edn` to remove warnings when starting a shell with `clojure -M:poly`.
 > - To support ClojureScript:
 >   - Create a `package.json` file to your workspace root as well as to projects, components, and bases, see the RealWorld [example app](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend) as an example.
->   - Ensure to use the latest versions of the [External](https://github.com/seancorfield/polylith-external-test-runner) and [Kaocha](https://github.com/imrekoszo/polylith-kaocha) test runners (if you use any of these).
+>   - Ensure to use the latest versions of the [External](https://github.com/seancorfield/polylith-external-test-runner) and [Kaocha](https://github.com/imrekoszo/polylith-kaocha) test runners (if you use any of these), see example [here](https://cljdoc.org/d/polylith/clj-poly/0.3.0-SNAPSHOT/doc/test-runners#custom-test-runner).
 
 Main changes:
 

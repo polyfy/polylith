@@ -82,7 +82,7 @@ The external test runner must run these functions within the external process it
 | `external-process-namespace`
 
 |===
-
+[[custom-test-runner]]
 == Use a Custom Test Runner
 
 To use a custom test runner, add it to your `poly` tool classpath.
