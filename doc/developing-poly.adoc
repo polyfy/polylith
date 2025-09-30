@@ -487,9 +487,7 @@ Make a `0.2.20-SNAPSHOT #34` release:
 7. Go to the https://github.com/polyfy/polylith[polylith repo] and prepare to merge the `snapshot-022034` branch into `master`, by clicking the "Compare & pull requests" button at the top.
 If the https://app.circleci.com/pipelines/github/polyfy[circlci pipeline] is green, merge it into the `master` branch.
 8. Execute `git switch master` followed by `git pull` to get the latest from `master`.
-9. Execute (depending on what the next release should be):
-   - `git switch -c snapshot-022035` if the next release should be a `0.2.20-SNAPSHOT #35` release.
-   - `git switch -c release-0220` if the next release should be a `0.2.20` release.
+9. If the next release is a snapshot release, execute `git switch -c snapshot-022035`.
 
 [#create-a-stable-release]
 == Create a stable release
