@@ -46,6 +46,7 @@ Main changes:
 ### Other changes:
 - Ensure exported workspaces with symbols (e.g. a test runner namespace) are readable when used by `ws-file:FILE` (or `switch-ws` in a shell).
 - Suppress warning "WARNING: A restricted method in java.lang.System has been called" when starting a shell.
+- When parsing an invalid namespace, display Error 111 without printing the full namespace.
 
 ### Issues and PRs:
 - Add support for ClojureScript, issue [482](https://github.com/polyfy/polylith/issues/481)
