@@ -19,6 +19,9 @@
              (status/line :detail "\nTASK %s done." name)))
 
   ;; commands
+  check {:doc "Ensure that the source code is valid"
+         :task (shell "clojure -M:dev:test:+default:check")}
+
   clean {:doc "Delete build work and artifacts"
          :task clean/-main}
 

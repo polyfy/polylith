@@ -39,7 +39,7 @@
               "Could not delete file" path))
 
 (defn delete-dir [path]
-  (doseq [f (reverse (file-seq (io/file path)))]
+  (doseq [^File f (reverse (file-seq (io/file path)))]
     (when (or (Files/isSymbolicLink (.toPath f)) (.exists f))
       (delete-file f))))
 
@@ -59,8 +59,8 @@
          "Could not create file" path)))))
 
 (defn create-temp-dir [dir]
-  (let [temp-file (execute-fn #(File/createTempFile dir "")
-                              "Could not create directory in temp directory" dir)
+  (let [^File temp-file (execute-fn #(File/createTempFile dir "")
+                                    "Could not create directory in temp directory" dir)
         _         (.delete temp-file)
         _         (.mkdirs temp-file)
         path (.getPath temp-file)]
@@ -74,12 +74,11 @@
   "The call to normalized will also clean up . and .. in the path."
   [path]
   (when path
-    (-> path
-        io/file
-        .toPath
-        fs/normalized
-        .toString
-        str-util/ensure-slash)))
+    (let [normalized-file (-> path
+                              io/file
+                              .toPath
+                              fs/normalized)]
+      (str-util/ensure-slash (.toString ^File normalized-file)))))
 
 (defn current-dir []
   (absolute-path ""))

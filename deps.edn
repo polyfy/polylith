@@ -131,6 +131,43 @@
                     :jvm-opts ["--enable-native-access=ALL-UNNAMED"]
                     :extra-deps {polylith/clj-polyx {:local/root "projects/polyx"}}}
 
+            :check {:extra-deps {io.github.athos/clj-check {:git/tag "0.1.0" :git/sha "0ca84df"}}
+                    :main-opts ["-m" "clj-check.check"
+                                "bases/nav-generator/src"
+                                "bases/poly/cli/src"
+                                "components/antq/src"
+                                "components/api/src"
+                                "components/change/src"
+                                "components/check/src"
+                                "components/clojure-test-test-runner/src"
+                                "components/command/src"
+                                "components/common/src"
+                                "components/config-reader/src"
+                                "components/creator/src"
+                                "components/deps/src"
+                                "components/doc/src"
+                                "components/file/src"
+                                "components/git/src"
+                                "components/help/src"
+                                "components/image-creator/src"
+                                "components/info/src"
+                                "components/interface/src"
+                                "components/lib/src"
+                                "components/maven/src"
+                                "components/overview/src"
+                                "components/path-finder/src"
+                                "components/sh/src"
+                                "components/shell/src"
+                                "components/system-x/src"
+                                "components/system/src"
+                                "components/tap/src"
+                                "components/test-helper/src"
+                                "components/test-runner-contract/src"
+                                "components/test-runner-orchestrator/src"
+                                "components/test/src"
+                                "components/text-table/src"
+                                "components/user-config/src"]}
+
             :outdated {:main-opts ["-m" "antq.core"]
                        :extra-deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}}
 
