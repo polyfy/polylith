@@ -1430,10 +1430,10 @@ shadow-cljs-jar@1.3.4:
   resolved "https://registry.yarnpkg.com/shadow-cljs-jar/-/shadow-cljs-jar-1.3.4.tgz#0939d91c468b4bc5eab5a958f79e7ef5696fdf62"
   integrity sha512-cZB2pzVXBnhpJ6PQdsjO+j/MksR28mv4QD/hP/2y1fsIa9Z9RutYgh3N34FZ8Ktl4puAXaIGlct+gMCJ5BmwmA==
 
-shadow-cljs@^2.28.15:
-  version "2.28.20"
-  resolved "https://registry.yarnpkg.com/shadow-cljs/-/shadow-cljs-2.28.20.tgz#d44a68ac8cd8ee402a35cbc4c3515102319bf437"
-  integrity sha512-Q9N+aw2suSUZ6vmWhZupl0rkyjoYrnpU1WbMrNrbuUiKE6XjvT1vcBkTUrqkMJEPraV7u+H9b5d/RcKnj8nbhg==
+shadow-cljs@^2.28.20:
+  version "2.28.23"
+  resolved "https://registry.yarnpkg.com/shadow-cljs/-/shadow-cljs-2.28.23.tgz#06f2bc1f5345e35f8b0f995b4749ae4575654abe"
+  integrity sha512-SM7LeLctZLLCm6Y3NxWOH4GvHqHDZ6Jz9bUgfpJrk1jMADqIp3rliD6Rrd12gLX2b9/oEh6UyD7X+yw6O1++sw==
   dependencies:
     node-libs-browser "^2.2.1"
     readline-sync "^1.4.7"
@@ -1604,9 +1604,9 @@ timers-browserify@^2.0.4:
     setimmediate "^1.0.4"
 
 tmp@^0.2.1:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.2.3.tgz#eb783cc22bc1e8bebd0671476d46ea4eb32a79ae"
-  integrity sha512-nZD7m9iCPC5g0pYmcaxogYKggSfLsdxl8of3Q/oIbqCqLLIO9IAF0GWjX1z9NZRHPiXv8Wex4yDCaZsgEw0Y8w==
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.2.5.tgz#b06bcd23f0f3c8357b426891726d16015abfd8f8"
+  integrity sha512-voyz6MApa1rQGUxT3E+BK7/ROe8itEx7vD8/HEvt4xwXucvQ5G5oeEiHkmHZJuBO21RpOf+YYm9MOivj709jow==
 
 to-arraybuffer@^1.0.0:
   version "1.0.1"
