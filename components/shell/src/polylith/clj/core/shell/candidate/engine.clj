@@ -169,4 +169,5 @@
   (def step4 (select-candidates step3 ["deployer" true]))
   (def step5 (select-candidates step4 [:next false]))
   (def step6 (select-candidates step5 ["project" true]))
-  (def step7 (select-candidates step6 ["" false])))
+  (def step7 (select-candidates step6 ["" false]))
+  #__)

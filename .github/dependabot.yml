@@ -1,0 +1,8 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/examples/"
+    schedule:
+      interval: "weekly"
+    # turn it off by setting 'open-pull-requests-limit' to 0 or just remove this block
+    open-pull-requests-limit: 0

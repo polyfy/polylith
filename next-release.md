@@ -50,6 +50,7 @@ Main changes:
 - Add support for ClojureScript, issue [481](https://github.com/polyfy/polylith/issues/481) and PR [524](https://github.com/polyfy/polylith/pull/524)
 - Fix typo in the documentation, PR [560](https://github.com/polyfy/polylith/pull/560)
 - Fix reflection warnings, issue [563](https://github.com/polyfy/polylith/issues/563)
+- Remove lag when retrieving outdated libraries in the libs command, issue [568](https://github.com/polyfy/polylith/issues/568)
 
 ### Doc updates
 - Changed the sha for Sean's External test runner to `c97747aa2b1fdf03c46c7e435cca7c2608740a2a` in [this](https://cljdoc.org/d/polylith/clj-poly/0.3.0/doc/test-runners#_use_a_custom_test_runner) section.
