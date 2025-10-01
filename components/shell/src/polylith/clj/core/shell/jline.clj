@@ -1,7 +1,8 @@
 (ns ^:no-doc polylith.clj.core.shell.jline
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface.str :as str-util]
-            [polylith.clj.core.shell.candidate.engine :as engine])
+            [polylith.clj.core.shell.candidate.engine :as engine]
+            [polylith.clj.core.shell.candidate.selector.outdated-libs :as outdated-libs])
   (:import [org.jline.terminal TerminalBuilder]
            [org.jline.reader Completer]
            [org.jline.reader.impl DefaultParser]
@@ -73,13 +74,20 @@
       (Candidate. value display nil description suffix nil false)
       (Candidate. value display nil description nil nil true))))
 
+(defn reset-outdated-libs
+  "This is a hack, but the most straightforward way to solve the problem"
+  [parsed-line]
+  (let [line (.line parsed-line)]
+    (when (= "libs " line)
+      (outdated-libs/reset-outdated-libraries))))
+
 (defn ->completer []
   (proxy [Completer] []
     (complete [^LineReader _
                ^ParsedLine parsed-line
                ^java.util.List candidates]
-      (let [;line (.line parsed-line)
-            words (vec (.words parsed-line))]
+      (reset-outdated-libs parsed-line)
+      (let [words (vec (.words parsed-line))]
         (.addAll candidates (map candidate
                                  (engine/candidates words)))))))
 
