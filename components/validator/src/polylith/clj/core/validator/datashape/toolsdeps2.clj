@@ -26,7 +26,7 @@
   "Validator for package.json file for the development project (at the workspace root)"
   [config filename]
   (-> [:map
-       [:workspaces [:sequential string?]]]
+       [:workspaces {:optional true} [:sequential string?]]]
       (m/explain config)
       (me/humanize)
       (shared/error-message filename)))
