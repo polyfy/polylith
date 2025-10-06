@@ -35,7 +35,7 @@ Table Notes:
 [[startup-time]]
 . If you follow our recommendation of using the `poly` xref:shell.adoc[shell], startup time is not much of a concern.
 
-:prerequisites: First, ensure that you have https://clojure.org/guides/getting_started[Clojure CLI] and https://git-scm.com/book/en/v2/Getting-Started-Installing-Git[git] installed. +
+:prerequisites: First, ensure that you have at least Java 21, https://clojure.org/guides/getting_started[Clojure CLI], and https://git-scm.com/book/en/v2/Getting-Started-Installing-Git[git] installed. +
 If you are installing git for the first time, don't forget to configure your git https://docs.github.com/en/get-started/getting-started-with-git/setting-your-username-in-git[user.name] and https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/setting-your-commit-email-address#setting-your-commit-email-address-in-git[user.email].
 
 :post-install: pass:n[You will soon create your first xref:workspace.adoc[workspace] - for now, only `version`, `help`, `doc`, and `create workspace` commands will work.]
