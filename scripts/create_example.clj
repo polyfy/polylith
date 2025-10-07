@@ -78,7 +78,7 @@
 
 (defn polys
   "Run poly once to generate txt and a second time to generate image.
-  Note that not all poly cmds support output to image."
+   Note that not all poly cmds support output to image."
   [{:keys [ws-dir output-dir images-dir]} poly-cmd-str fname-txt fname-png]
   (sh/poly {:out (fs/file output-dir fname-txt) :dir ws-dir}
            (format "%s color-mode:none" poly-cmd-str))
@@ -325,13 +325,15 @@
 
       (run! (fn [[cmd section fname]]
               (polys opts cmd (out-txt fname) (out-png section fname)))
-            [["info"                          "dependencies" "info"] ;; no faking the sha for this one, user will see real sha of repo, so we should show it
-             ["deps"                          "dependencies" "deps-interfaces"]
-             ["deps brick:article"            "dependencies" "deps-interface"]
-             ["deps project:rb"               "dependencies" "deps-components"]
-             ["deps project:rb :compact"      "dependencies" "deps-components-compact"]
-             ["deps project:rb brick:article" "dependencies" "deps-component"]
-             ["libs"                          "libraries"    "libs"]])
+            [["info"                                 "dependencies" "info"] ;; no faking the sha for this one, user will see real sha of repo, so we should show it
+             ["deps"                                 "dependencies" "deps-interfaces"]
+             ["deps brick:article"                   "dependencies" "deps-interface"]
+             ["deps project:rb"                      "dependencies" "deps-components"]
+             ["deps project:rb :compact"             "dependencies" "deps-components-compact"]
+             ["deps project:rb brick:article"        "dependencies" "deps-component"]
+             ["libs"                                 "libraries"    "libs"]
+             ["libs libs libraries:slugger/slugger"  "libraries"    "libs-libraries-slugger"]
+             ["libs libs libraries:ring:s"           "libraries"    "libs-libraries-ring-s"]])
 
       ;; test out choosing compact format via workspace.edn
       (copy [(fs/file scripts-dir "realworld/workspace-compact.edn") (fs/file ws-dir "workspace.edn")])

@@ -104,7 +104,7 @@
                          :name "cli"
                          :type "base"}]})
 
-(deftest table--show-brick-with-deps--returns-correct-table
+(deftest table--show-brick-with-deps
   (is (= ["                                                                                                                d   "
           "                                                                                                          a     a   "
           "                                                                                                          d     t   "
@@ -125,7 +125,7 @@
           "  zprint                                  0.5.4          maven      -    -     -     -      -       x     .  .  .  ."]
          (lib-table/table workspace))))
 
-(deftest table--show-all-brick-deps--returns-correct-table
+(deftest table--show-all-brick-deps
   (is (= ["                                                                                                                d   "
           "                                                                                                          a     a   "
           "                                                                                                          d     t   "
@@ -165,7 +165,7 @@
           "  org.clojure/tools.deps  0.16.1264  maven     46   x    x      -       -     ."]
          (lib-table/table data/workspace-01))))
 
-(deftest table--test-runners-workspace--returns-correct-table
+(deftest table--test-runners-workspace
   (let [input (user-input/extract-arguments ["libs" "ws-dir:examples/test-runners" ":hide-lib-size" "color-mode:none"])
         workspace (workspace/workspace input)]
     (is (= ["                                                                                           a"
@@ -179,4 +179,20 @@
             "  karma                           5.0.0    npm     -      x        x         x        x    x"
             "  org.clojure/clojure             1.12.2   maven   -      x        x         x        x    ."
             "  polylith-kaocha/kaocha-wrapper  7282409  git     -      -        t         t        t    ."]
+           (lib-table/table workspace)))))
+
+(deftest table--filter-libraries
+  (let [input (user-input/extract-arguments ["libs" "libraries:an:clj" "color-mode:none"])
+        workspace (assoc workspace :user-input input)]
+    (is (= ["                                                                                   d   "
+            "                                                                             a     a   "
+            "                                                                             d     t   "
+            "                                                                             d  a  a   "
+            "                                                                             r  d  b  u"
+            "                                                                             e  m  a  s"
+            "                                                                             s  i  s  e"
+            "  library            version  type    KB   core  inv   dev  default  admin   s  n  e  r"
+            "  --------------------------------------   ---------   -------------------   ----------"
+            "  antlr              2.7.7    local  434    -     -     x      -       -     x  .  .  ."
+            "  clj-time/clj-time  d9ed4e4  git    134    -     -     x      -       -     .  .  .  ."]
            (lib-table/table workspace)))))

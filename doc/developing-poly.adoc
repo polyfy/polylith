@@ -553,5 +553,6 @@ Make a `0.2.20` release:
     - Change the heading to "Included since 0.2.20"
     - Clean everything (remove everything under each header)
 21. Create a `0.2.21-SNAPSHOT #1` release, see xref:#create-a-snapshot-release[make a snapshot release for instructions].
-22. Announce in https://clojurians.slack.com/archives/C015AL9QYH1[#releases] in clojurians in Slack, by summarizing the most important changes + the included issues and PRs + add a link to the #polylith channel.
-23. Announce on social media
+22. Delete old `0.2.20-SNAPSHOT` releases.
+23. Announce in https://clojurians.slack.com/archives/C015AL9QYH1[#releases] if a minor release, or in https://clojurians.slack.com/archives/C06MAR553[#announcements] if a big release (in clojurians in Slack) by summarizing the most important changes + the included issues and PRs + add a link to the #polylith channel.
+24. Announce on social media

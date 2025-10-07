@@ -1,0 +1,10 @@
+                                                          d                 r
+                                                    a  c  a     p           e
+                                                    r  o  t     r           s
+                                                    t  m  a     o           t
+                                                    i  m  b     f  s     u  -
+                                                    c  e  a  l  i  p  t  s  a
+                                                    l  n  s  o  l  e  a  e  p
+  library          version  type    KB   rb   dev   e  t  e  g  e  c  g  r  i
+  ------------------------------------   --   ---   -------------------------
+  slugger/slugger  1.0.1    maven  774   x     x    x  .  .  .  .  .  .  .  .

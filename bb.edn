@@ -53,6 +53,7 @@
                        :depends [help-txt help-doc]}
 
   ;; How to execute a stand-alone command (available commands are listed at the end of create_example/-main):
+  ;;   bb create-example realworld
   ;;   bb create-example test-runners
   create-example {:doc "Creates and exercises examples workspaces (also generates some doc images and doc code blocks)"
                   :depends [poly-uberjar polyx-uberjar]

@@ -12,17 +12,20 @@
        "    " (s/key ":outdated" cm) " = Shows the latest version of each library, or blank if up to date.\n"
        "\n"
        "    " (s/key ":update" cm) "   = Updates all libraries to the latest version (in 'deps.edn'\n"
-       "                and 'package.json' files). If " (s/key "LIBS" cm) " is given, then only update selected\n"
+       "                and 'package.json' files). If " (s/key "LIBS" cm) " is provided, then only update selected\n"
        "                libraries. Old library versions can be kept by giving the library as a\n"
        "                symbol in " (s/key ":keep-lib-versions" cm) " for bricks and projects in workspace.edn.\n"
        "\n"
+       "    " (s/key "LIBS" cm) "      = Shows libraries matching the provided string prefixes, when neither " (s/key ":update" cm) "\n"
+       "                nor " (s/key ":outdated" cm) " is provided.\n"
+       "\n"
        (if extended?
-            (str "    " (s/key "FILENAME" cm) "  = The name of the text or image file to create, containing the\n"
-                 "                output from this command. If " (s/key "FILENAME" cm) " ends with .bmp, .wbmp,\n"
+            (str "    " (s/key "FILENAME" cm) "  = The name of the text or image file to create, containing the output\n"
+                 "                from this command. If " (s/key "FILENAME" cm) " ends with .bmp, .wbmp,\n"
                  "                .gif, .jpeg, .jpg, .png, .tif, or .tiff, then the file will\n"
                  "                be generated as an image, otherwise as text.\n")
-            (str "    " (s/key "FILENAME" cm) "  = The name of the text file to create, containing the\n"
-                 "                output from this command.\n"))
+            (str "    " (s/key "FILENAME" cm) "  = The name of the text file to create, containing the output\n"
+                 "                from this command.\n"))
 
        "                                                                                 " (color/component "u  u\n" cm)
        "                                                                                 " (color/component "s  t\n" cm)
@@ -69,6 +72,9 @@
        "\n"
        "  Example:\n"
        "    poly libs\n"
+       "    poly libs libraries:b\n"
+       "    poly libs libraries:b:org\n"
+       "    poly libs libraries:org.clojure/clojure\n"
        "    poly libs :compact\n"
        "    poly libs :outdated\n"
        "    poly libs :update\n"

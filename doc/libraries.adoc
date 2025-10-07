@@ -60,6 +60,24 @@ poly libs :compact
 
 image::images/libraries/output/libs-compact.png[]
 
+If the list of libraries is long, there is the option to filter out a specific library you are interested in:
+
+[source,shell]
+----
+poly libs libraries:slugger/slugger
+----
+
+image::images/libraries/output/libs-libraries-slugger.png[]
+
+You can filter by more than one library, as well as libraries whose names start with, for example, "ring" or "s":
+
+[source,shell]
+----
+poly libs libraries:ring:s
+----
+
+image::images/libraries/output/libs-libraries-ring-s.png[]
+
 == Updating
 
 You can list outdated libraries:

@@ -36,7 +36,7 @@
         polylith/ws-file-reader           {:local/root "../../components/ws-file-reader"}
         polylith/poly-cli                 {:local/root "../../bases/poly-cli"}
 
-        org.clojure/clojure {:mvn/version "1.12.2"}
+        org.clojure/clojure {:mvn/version "1.12.3"}
         org.slf4j/slf4j-nop {:mvn/version "2.0.17"}}
 
  ;; so poly can be installed as a tool:
