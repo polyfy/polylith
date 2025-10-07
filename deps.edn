@@ -49,7 +49,7 @@
                                lread/status-line             {:git/url "https://github.com/lread/status-line.git"
                                                               :sha "cf44c15f30ea3867227fa61ceb823e5e942c707f"}
 
-                               org.clojure/clojure {:mvn/version "1.12.2"}
+                               org.clojure/clojure {:mvn/version "1.12.3"}
                                org.slf4j/slf4j-nop {:mvn/version "2.0.17"}
                                rewrite-clj/rewrite-clj {:mvn/version "1.2.50"}}}
 
