@@ -1,4 +1,4 @@
-(ns polylith.clj.core.lib.libraries)
+(ns ^:no-doc polylith.clj.core.lib.libraries)
 
 (defn lib [[name {:keys [version size type]}]]
   [(cond-> {:name name
