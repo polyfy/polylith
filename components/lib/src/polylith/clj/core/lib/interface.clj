@@ -2,6 +2,7 @@
   (:require [polylith.clj.core.lib.core :as core]
             [polylith.clj.core.lib.size-deps :as size]
             [polylith.clj.core.lib.resolve-libs :as resolve-libs]
+            [polylith.clj.core.lib.libraries :as libraries]
             [polylith.clj.core.lib.text-table.lib-table :as lib-table]
             [polylith.clj.core.lib.antq.outdated :as outdated]
             [polylith.clj.core.lib.antq.update :as update]))
@@ -23,6 +24,9 @@
 
 (defn print-lib-table [workspace]
   (lib-table/print-table workspace))
+
+(defn used-libraries [workspace]
+  (libraries/used-libraries workspace))
 
 (defn resolve-libs [src-deps override-deps]
   (resolve-libs/resolve-libs src-deps override-deps))

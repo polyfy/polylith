@@ -7,12 +7,15 @@
     :outdated = Shows the latest version of each library, or blank if up to date.
 
     :update   = Updates all libraries to the latest version (in 'deps.edn'
-                and 'package.json' files). If LIBS is given, then only update selected
+                and 'package.json' files). If LIBS is provided, then only update selected
                 libraries. Old library versions can be kept by giving the library as a
                 symbol in :keep-lib-versions for bricks and projects in workspace.edn.
 
-    FILENAME  = The name of the text file to create, containing the
-                output from this command.
+    LIBS      = Shows libraries matching the provided string prefixes, when neither :update
+                nor :outdated is provided.
+
+    FILENAME  = The name of the text file to create, containing the output
+                from this command.
                                                                                  u  u
                                                                                  s  t
                                                                                  e  i
@@ -58,6 +61,9 @@
 
   Example:
     poly libs
+    poly libs libraries:b
+    poly libs libraries:b:org
+    poly libs libraries:org.clojure/clojure
     poly libs :compact
     poly libs :outdated
     poly libs :update

@@ -1,0 +1,13 @@
+                                                                                d                 r
+                                                                          a  c  a     p           e
+                                                                          r  o  t     r           s
+                                                                          t  m  a     o           t
+                                                                          i  m  b     f  s     u  -
+                                                                          c  e  a  l  i  p  t  s  a
+                                                                          l  n  s  o  l  e  a  e  p
+  library                                version  type    KB   rb   dev   e  t  e  g  e  c  g  r  i
+  ----------------------------------------------------------   --   ---   -------------------------
+  ring-logger-timbre/ring-logger-timbre  0.7.6    maven    9   x     x    .  .  .  .  .  .  .  .  x
+  ring/ring-jetty-adapter                1.9.6    maven    5   x     x    .  .  .  .  .  .  .  .  x
+  ring/ring-json                         0.5.1    maven    5   x     x    .  .  .  .  .  .  .  .  x
+  slugger/slugger                        1.0.1    maven  774   x     x    x  .  .  .  .  .  .  .  .

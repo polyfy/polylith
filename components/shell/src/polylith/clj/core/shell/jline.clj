@@ -2,7 +2,7 @@
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface.str :as str-util]
             [polylith.clj.core.shell.candidate.engine :as engine]
-            [polylith.clj.core.shell.candidate.selector.outdated-libs :as outdated-libs])
+            [polylith.clj.core.shell.candidate.selector.libraries :as outdated-libs])
   (:import [org.jline.terminal TerminalBuilder]
            [org.jline.reader Completer]
            [org.jline.reader.impl DefaultParser]

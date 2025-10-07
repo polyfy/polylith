@@ -1,20 +1,16 @@
 (ns ^:no-doc polylith.clj.core.lib.text-table.lib-table
-  (:require [polylith.clj.core.antq.ifc :as antq]
+  (:require [clojure.string :as str]
+            [polylith.clj.core.antq.ifc :as antq]
             [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.lib.libraries :as libraries]
             [polylith.clj.core.text-table.interface :as text-table]
             [polylith.clj.core.util.interface.str :as str-util]))
 
 (def type->color {"component" :green
                   "base" :blue})
 
-(defn lib [[name {:keys [version size type]}]]
-  [(cond-> {:name name
-            :version (or version "-")}
-           size (assoc :size size)
-           type (assoc :type type))])
-
 (defn brick-libs [{:keys [name lib-deps]}]
-  [name (set (mapcat lib
+  [name (set (mapcat libraries/lib
                      (concat (:src lib-deps)
                              (:test lib-deps))))])
 
@@ -65,8 +61,8 @@
 
 (defn project-column [column {:keys [alias lib-deps unmerged]} libraries]
   (let [deps (:lib-deps unmerged lib-deps)
-        src-deps (set (mapcat lib (:src deps)))
-        test-deps (set (mapcat lib (:test deps)))]
+        src-deps (set (mapcat libraries/lib (:src deps)))
+        test-deps (set (mapcat libraries/lib (:test deps)))]
     (concat [(text-table/cell column 1 alias :purple :center :horizontal)]
             (map-indexed #(flag-cell column (+ 3 %1) %2 src-deps test-deps)
                          libraries))))
@@ -80,7 +76,7 @@
     (text-table/cell column row flag :purple :center :horizontal)))
 
 (defn profile-column [column libraries {:keys [name lib-deps]}]
-  (let [deps (set (mapcat lib lib-deps))]
+  (let [deps (set (mapcat libraries/lib lib-deps))]
     (concat [(text-table/cell column 1 name :purple :center :horizontal)]
             (map-indexed #(profile-flag-cell column (+ 3 %1) %2 deps)
                          libraries))))
@@ -111,25 +107,32 @@
   (apply concat (map-indexed #(brick-column (+ column (* 2 %1)) %2 libraries src-libs brick->libs empty-character)
                              bricks)))
 
-(defn entity-lib [[name {:keys [brick] :as entity}]]
-  (if (nil? brick)
-    (lib [name entity])
-    []))
+(defn matches? [filtered-libs {:keys [name]}]
+  (some #(str/starts-with? name %)
+        filtered-libs))
 
-(defn profile-lib [{:keys [lib-deps]}]
-  (mapcat entity-lib lib-deps))
+(defn libs
+  "Different use of the libs command:
+     libs                           - show all libraries
+     libs :outdated libraries:lib   - show all libraries (and the 'latest' column)
+     libs :update                   - only update, don't show table of libraries
+     libs libraries:lib1            - filter out 'lib1' and only show that
+     libs libraries:lib1:lib2       - only show these two libraries"
+  [workspace is-outdated filtered-libs]
+  (let [{:keys [libraries src-libs]} (libraries/libs workspace)
+        libraries (if (and filtered-libs (not is-outdated))
+                    (filterv #(matches? filtered-libs %)
+                             libraries)
+                    libraries)]
+    {:src-libs src-libs
+     :libraries libraries}))
 
 (defn table [{:keys [configs settings user-input profiles components bases projects] :as workspace}]
   (let [{:keys [empty-character thousand-separator color-mode]} settings
-        {:keys [is-outdated is-hide-lib-size]} user-input
+        {:keys [is-outdated is-hide-lib-size] filtered-libs :libraries} user-input
         calculate-latest-version? (common/calculate-latest-version? user-input)
         lib->latest-version (antq/library->latest-version configs calculate-latest-version?)
-        entities (concat components bases projects)
-        src-libs (set (concat (mapcat entity-lib (mapcat #(-> % :lib-deps :src) entities))
-                              (mapcat profile-lib profiles)))
-        test-libs (set (mapcat lib (mapcat #(-> % :lib-deps :test) entities)))
-        libraries (sort-by (juxt :name :version)
-                           (set (concat src-libs test-libs)))
+        {:keys [libraries src-libs]} (libs workspace is-outdated filtered-libs)
         all-bricks (concat components bases)
         brick->libs (into {} (map brick-libs all-bricks))
         bricks (filter #(-> % :name brick->libs empty? not) all-bricks)
@@ -171,6 +174,7 @@
   (require '[dev.jocke :as dev])
   (print-table dev/workspace)
   (print-table (assoc-in dev/workspace [:user-input :is-all] true))
+  (print-table (assoc-in dev/workspace [:user-input :libraries] ["c"]))
   (print-table (assoc-in dev/workspace [:user-input :is-hide-lib-size] true))
   (print-table (assoc-in dev/workspace [:user-input :is-outdated] true))
   #__)

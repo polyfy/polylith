@@ -7,7 +7,7 @@
             [polylith.clj.core.shell.candidate.selector.doc.ws :as doc-ws]
             [polylith.clj.core.shell.candidate.selector.file-explorer :as file-explorer]
             [polylith.clj.core.shell.candidate.selector.remote-branches :as remote-branches]
-            [polylith.clj.core.shell.candidate.selector.outdated-libs :as outdated-libs]
+            [polylith.clj.core.shell.candidate.selector.libraries :as libraries]
             [polylith.clj.core.shell.candidate.selector.dialect :as dialect]
             [polylith.clj.core.shell.candidate.selector.dialects :as dialects]
             [polylith.clj.core.shell.candidate.selector.with-test-configs :as with-test-configs]
@@ -150,7 +150,7 @@
 (def libs-outdated (c/flag "outdated" :libs))
 (def libs-update (c/flag "update" :libs))
 (def libs-hide-lib-size (c/flag "hide-lib-size" :libs))
-(def libs-libraries (c/fn-explorer "libraries" :libs #'outdated-libs/select))
+(def libs-libraries (c/fn-explorer "libraries" :libs #'libraries/select))
 (def libs-out (c/fn-explorer "out" :libs (file-explorer/select-fn)))
 (def libs-skip (c/fn-explorer "skip" :libs #'ws-projects/select))
 (def libs-transparent (c/flag "transparent" :libs))
