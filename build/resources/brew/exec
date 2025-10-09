@@ -19,4 +19,4 @@ if [[ -z "$JAVA_CMD" ]]; then
   fi
 fi
 
-exec "$JAVA_CMD" $JVM_OPTS -jar "${{PROJECT_}}_jar" "$@"
+exec "$JAVA_CMD" $JVM_OPTS --enable-native-access=ALL-UNNAMED -jar "${{PROJECT_}}_jar" "$@"
