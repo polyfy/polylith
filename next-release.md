@@ -6,6 +6,10 @@ Libraries that use different versions are highlighted in yellow (warnings) or re
 
 <img src="doc/images/libraries/output/inconsistent-libs-error.png" alt="RealWorld example" width="400"/>
 
+> For existing workspaces:
+> - Set `:validations` in _workspace.edn_, see example [here](http://localhost:8000/d/polylith/clj-poly/0.3.30-SNAPSHOT/doc/libraries#_validate).
+> - Make sure to use the latest `0.7.0 version of the https://github.com/seancorfield/polylith-external-test-runner (if you use it).
+
 ### Changes:
 - The `:libraries` attributes has been added to the workspace structure, and the version has been bumped to `5.1`.
   See [versions](https://cljdoc.org/d/polylith/clj-poly/0.3.30-SNAPSHOT/doc/versions) for details.
