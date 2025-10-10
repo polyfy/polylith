@@ -67,7 +67,7 @@ If the list of libraries is long, there is the option to filter out a specific l
 poly libs libraries:slugger/slugger
 ----
 
-image::images/libraries/output/libs-libraries-slugger.png[width=700]
+image::images/libraries/output/libs-libraries-slugger.png[width=600]
 
 You can filter by more than one library, as well as libraries whose names start with, for example, "ring" or "s":
 
@@ -90,7 +90,7 @@ You can configure the tool to warn if any library is inconsistent, in _workspace
                                            :exclude []}}}
 ----
 
-Here, we use the `examples/inconsistent-libs` workspace as an example:
+Here, we use the https://github.com/polyfy/polylith/tree/snapshot-030102/examples/inconsistent-libs[inconsistent-libs] workspace as an example:
 
 [source,shell]
 ----
