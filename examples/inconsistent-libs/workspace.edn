@@ -9,6 +9,6 @@
                 :release "^v[0-9].*"}
  :template-data {:clojure-ver "1.12.2"
                  :shadow-cljs-ver "^3.2.0"}
- :validations {:inconsistent-lib-versions {:type :error
+ :validations {:inconsistent-lib-versions {:type :warning
                                            :exclude []}}
  :projects {"development" {:alias "dev"}}}

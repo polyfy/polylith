@@ -3,6 +3,7 @@
  :components
  :configs
  :interfaces
+ :libraries
  :messages
  :name
  :paths

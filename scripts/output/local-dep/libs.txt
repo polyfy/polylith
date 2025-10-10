@@ -9,7 +9,6 @@
   --------------------------------------------------   ---   ---   ----
   clj-time/clj-time         d9ed4e4    git       133    x     x    .  x
   migrate-me/migrate-me     -          local       0    t     t    t  .
-  org.clojure/clojure       1.12.2     maven   4,131    x     -    .  .
-  org.clojure/clojure       1.12.3     maven   4,130    -     x    .  .
+  org.clojure/clojure       1.12.3     maven   4,130    x     x    .  .
   org.clojure/tools.deps    0.26.1553  maven      58    x     x    .  .
   uncomplicate/neanderthal  0.58.0     maven  24,840    -     x    .  .

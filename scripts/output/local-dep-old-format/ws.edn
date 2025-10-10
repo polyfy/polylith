@@ -346,6 +346,7 @@
      {:dir "examples/for-test"}
      {:dir "examples/illegal-brick-deps"}
      {:dir "examples/illegal-configs"}
+     {:dir "examples/inconsistent-libs"}
      {:dir "examples/local-dep"}
      {:dir "examples/local-maven-repo"}
      {:dir "examples/missing-component"}
@@ -400,6 +401,27 @@
    :type "interface",
    :definitions [],
    :implementing-components ["without-src"]}],
+ :libraries
+ [{:name "clj-time/clj-time",
+   :version "d9ed4e4",
+   :size 136427,
+   :type "git"}
+  {:name "migrate-me/migrate-me",
+   :version "-",
+   :size 310,
+   :type "local"}
+  {:name "org.clojure/clojure",
+   :version "1.10.1",
+   :size 3908431,
+   :type "maven"}
+  {:name "org.clojure/tools.deps",
+   :version "0.16.1281",
+   :size 58704,
+   :type "maven"}
+  {:name "uncomplicate/neanderthal",
+   :version "0.41.0",
+   :size 224783,
+   :type "maven"}],
  :messages
  [{:type "warning",
    :code 207,
@@ -890,7 +912,7 @@
    :minor 3,
    :patch 30,
    :revision "SNAPSHOT",
-   :date "2025-10-09",
+   :date "2025-10-10",
    :snapshot 1},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
