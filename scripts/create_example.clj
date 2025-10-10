@@ -454,6 +454,14 @@
                :out (out "test.txt")}
               "test :dev color-mode:none")))))
 
+(defn example-inconsistent-libs [{:keys [ws-parent-dir examples-dir] :as opts}]
+  (let [ws-dir (fs/file examples-dir "inconsistent-libs")
+        opts (assoc opts :ws-dir ws-dir)]
+    (fs/create-dir ws-parent-dir)
+    (polys opts "libs" "inconsistent-libs/libs-inconsistent.txt" "libraries/output/inconsistent-libs.png")
+    (polys opts "libs set:configs:workspace:validations:inconsistent-lib-versions:type value:error type:keyword" "inconsistent-libs/libs-inconsistent.txt" "libraries/output/inconsistent-libs-error.png")
+    (polys opts "libs set:configs:workspace:validations:inconsistent-lib-versions:exclude value:clj-time/clj-time type:strings" "inconsistent-libs/libs-inconsistent.txt" "libraries/output/inconsistent-libs-exclude.png")))
+
 (defn for-test [{:keys [examples-dir output-dir]}]
   (let [ws-dir (fs/file examples-dir "for-test")
         poly (fn-default-opts sh/poly {:dir ws-dir :continue true :alter-out-fn test-result->output})
@@ -521,12 +529,13 @@
                                   ["Copy doc-example" #(copy-doc-example opts)]]]
 
                        ;; Stand-alone tasks (can run independently)
-                       [:realworld    [["Realworld example app" #(real-world-example (merge default-opts {:ws-parent-dir (fs/file work-dir "ws2")}))]]]
-                       [:read-old-ws  [["Read old polylith workspaces" #(read-old-ws (merge default-opts {:ws-parent-dir (fs/file work-dir "ws1")}))]]]
-                       [:usermanager  [["Usermanager" #(usermanager (merge default-opts {:ws-parent-dir (fs/file work-dir "ws3")}))]]]
-                       [:local-dep    [["examples/local-dep" #(example-localdep (merge default-opts {:ws-parent-dir (fs/file work-dir "ws4")}))]]]
-                       [:for-test     [["examples/for-test, issue 208 - Mix clj and cljc source directories" #(for-test default-opts)]]]
-                       [:test-runners [["examples/test-runners" #(test-runners default-opts)]]]]
+                       [:realworld         [["Realworld example app" #(real-world-example (merge default-opts {:ws-parent-dir (fs/file work-dir "ws2")}))]]]
+                       [:read-old-ws       [["Read old polylith workspaces" #(read-old-ws (merge default-opts {:ws-parent-dir (fs/file work-dir "ws1")}))]]]
+                       [:usermanager       [["Usermanager" #(usermanager (merge default-opts {:ws-parent-dir (fs/file work-dir "ws3")}))]]]
+                       [:local-dep         [["examples/local-dep" #(example-localdep (merge default-opts {:ws-parent-dir (fs/file work-dir "ws4")}))]]]
+                       [:inconsistent-libs [["examples/inconsistent-libs" #(example-inconsistent-libs (merge default-opts {:ws-parent-dir (fs/file work-dir "ws5")}))]]]
+                       [:for-test          [["examples/for-test, issue 208 - Mix clj and cljc source directories" #(for-test default-opts)]]]
+                       [:test-runners      [["examples/test-runners" #(test-runners default-opts)]]]]
 
           valid-ids (mapv first task-groups)
 

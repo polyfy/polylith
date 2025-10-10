@@ -1,10 +1,6 @@
 (ns ^:no-doc polylith.clj.core.shell.candidate.shared
   (:require [polylith.clj.core.util.interface.color :as color]))
 
-(defn show-compact? [view settings]
-  (and settings
-       (not (contains? (:compact-views settings) view))))
-
 (defn parent-groups [{:keys [candidates]}]
   (concat (filter :top-group-id candidates)
           (mapcat parent-groups candidates)))

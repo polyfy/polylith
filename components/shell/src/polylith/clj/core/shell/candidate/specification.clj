@@ -195,9 +195,7 @@
 
 ;; version
 (def version (c/single-txt "version"))
-
 (def ws-branch (c/fn-explorer "branch" :ws #'remote-branches/select))
-(def ws-with (c/fn-explorer "project" :ws #'ws-deps-entities/select-projects))
 (def ws-replace (c/multi-param "replace"))
 (def ws-project (c/fn-explorer "project" :ws #'ws-projects-to-test/select))
 (def ws-brick (c/fn-explorer "brick" :ws #'ws-bricks/select))

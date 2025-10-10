@@ -8,6 +8,7 @@
 
 (def color->function
   {:none none
+   :red c/red
    :cyan c/cyan
    :grey c/grey
    :yellow c/yellow

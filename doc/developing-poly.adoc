@@ -238,6 +238,81 @@ The output will vary because git shas are unique, but on Joakim's system once:
 "*e*d*b*cee*fb*e*ff*fafcf"
 ----
 
+[[set]]
+=== `set`
+
+The poly tool reads starts by reading the workspace into a representation in memory.
+Before it continues with the next step, to provide that data structure to a command, we get the chance to set a value.
+
+If we want to change the behaviour of the `libs` command, we can update configuration read from _workspace.edn_:
+
+[source,clojure]
+----
+ ...
+ :validations {:inconsistent-lib-versions {:type :warning
+                                           :exclude []}}
+----
+
+Like this:
+
+[source,shell]
+----
+// Set :type to :error
+poly libs set:configs:workspace:validations:inconsistent-lib-versions:type value:error type:keyword
+
+// Set :exclude to ["clj-time/clj-time"]
+poly libs set:configs:workspace:validations:inconsistent-lib-versions:exclude value:clj-time/clj-time type:strings
+----
+
+If a value already exists in the workspace structure, it will be converted to the type of that value.
+If it's a non-existing value, the type will be a `string` if not explicitly set.
+Use `type` to explicitly give a type.
+
+[cols="4,5,8"]
+|===
+| type | string value | converted to
+
+| `boolean`
+| `true`
+| the boolean value `true`
+
+| `long`
+| `123`
+| the long value `123`
+
+| `keyword`
+| `warning`
+| the keyword `:warning`
+
+| symbol
+| `hi`
+| the symbol `hi`
+
+| `booleans`
+| `true:false`
+| A vector `[true false]`
+
+| `longs`
+| `123`
+| A vector `[123]`
+
+| `strings`
+| `hi:again`
+| A vector `["hi" "again"]`
+
+| `keywords`
+| `hi:again`
+| A vector `[:hi :again]`
+
+| `symbols`
+| `hi:again`
+| A vector `[hi again]`
+
+|===
+
+
+
+
 == Documentation
 
 We strive to write great documentation for our Polylith users.

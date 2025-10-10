@@ -29,7 +29,9 @@
 
 (def dev-profile-lib-deps {"zprint" {:version "0.4.15", :type "maven", :size 128182}})
 
-(def workspace {:settings {:color-mode "none"
+(def workspace {:configs {:workspace {:validations {:inconsistent-lib-versions {:exclude [],
+                                                                                :type :warning}}}}
+                :settings {:color-mode "none"
                            :empty-character "."}
                 :profiles [{:name "default"
                             :type "profile"

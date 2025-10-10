@@ -148,8 +148,10 @@
             "       :auto-add false}"
             " :tag-patterns {:stable \"^stable-.*\""
             "                :release \"^v[0-9].*\"}"
-            " :template-data {:clojure-ver \"1.12.2\""
-            "                 :shadow-cljs-ver \"^3.2.0\"}"
+            " :template-data {:clojure-ver \"1.12.3\""
+            "                 :shadow-cljs-ver \"^3.2.1\"}"
+            " :validations {:inconsistent-lib-versions {:type :warning"
+            "                                           :exclude []}}"
             " :projects {\"development\" {:alias \"dev\"}}}"]
            (helper/content "ws1" "workspace.edn")))
 

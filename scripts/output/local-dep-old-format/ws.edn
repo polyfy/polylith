@@ -343,6 +343,15 @@
    {:root-dir "USER-HOME/source/polylith",
     :paths
     [{:dir "examples/doc-example"}
+     {:dir "examples/for-test"}
+     {:dir "examples/illegal-brick-deps"}
+     {:dir "examples/illegal-configs"}
+     {:dir "examples/local-dep"}
+     {:dir "examples/local-maven-repo"}
+     {:dir "examples/missing-component"}
+     {:dir "examples/mix-example"}
+     {:dir "examples/poly-rcf"}
+     {:dir "examples/profiles"}
      {:dir "examples/test-runners"}
      {:dir "../clojure-polylith-realworld-example-app",
       :name "realworld"}]}},
@@ -671,7 +680,8 @@
      "uncomplicate/neanderthal"
      {:version "0.41.0",
       :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
-      :type "maven"}},
+      :type "maven",
+      :size 224783}},
     :test
     {"migrate-me/migrate-me"
      {:local/root "migrate-me",
@@ -741,7 +751,8 @@
       "uncomplicate/neanderthal"
       {:version "0.41.0",
        :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
-       :type "maven"}},
+       :type "maven",
+       :size 224783}},
      :test
      [["migrate-me/migrate-me"
        {:local/root "migrate-me",
@@ -763,7 +774,8 @@
      "uncomplicate/neanderthal"
      {:version "0.41.0",
       :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
-      :type "maven"}},
+      :type "maven",
+      :size 224783}},
     :test
     {"migrate-me/migrate-me"
      {:local/root "migrate-me",
@@ -872,13 +884,14 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.3.0",
+  {:name "0.3.30-SNAPSHOT",
    :tool "poly",
    :major 0,
    :minor 3,
-   :patch 0,
-   :revision "",
-   :date "2025-10-03"},
+   :patch 30,
+   :revision "SNAPSHOT",
+   :date "2025-10-09",
+   :snapshot 1},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
   :ws {:breaking 5, :non-breaking 0},

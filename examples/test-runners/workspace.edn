@@ -3,11 +3,12 @@
  :default-profile-name "default"
  :dialects #{"clj"}
  :compact-views #{}
- :test {:create-test-runner org.corfield.external-test-runner.interface/create}
  :vcs {:name "git"
        :auto-add false}
  :tag-patterns {:stable "^stable-.*"
                 :release "^v[0-9].*"}
+ :validations {:inconsistent-lib-versions {:type :warning
+                                           :exclude []}}
  :projects {"development" {:alias "dev"}
 
             "external-inherit-from-global" {:alias "inherit"
@@ -26,6 +27,7 @@
                                             :create-test-runner [:default
                                                                  polylith-kaocha.test-runner/create
                                                                  org.corfield.external-test-runner.interface/create]}}}
+ :test {:create-test-runner org.corfield.external-test-runner.interface/create}
  :test-configs {:default-test-runner  {:create-test-runner [:default]}
                 :external-test-runner {:create-test-runner [org.corfield.external-test-runner.interface/create]}
                 :kaocha-test-runner   {:create-test-runner [polylith-kaocha.test-runner/create]}

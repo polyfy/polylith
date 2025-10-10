@@ -52,9 +52,14 @@
   update-commands-doc {:doc "Run help-txt then help-doc"
                        :depends [help-txt help-doc]}
 
-  ;; How to execute a stand-alone command (available commands are listed at the end of create_example/-main):
+  ;; Available commands are listed at the end of create_example/-main:
+  ;;   bb create-example for-test
+  ;;   bb create-example inconsistent-libs
+  ;;   bb create-example local-dep
+  ;;   bb create-example read-old-ws
   ;;   bb create-example realworld
   ;;   bb create-example test-runners
+  ;;   bb create-example usermanager
   create-example {:doc "Creates and exercises examples workspaces (also generates some doc images and doc code blocks)"
                   :depends [poly-uberjar polyx-uberjar]
                   :requires [create-example]

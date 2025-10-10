@@ -58,12 +58,14 @@
           enriched-projects (vec (sort-by project-sorter
                                           (mapv #(project/enrich-project % ws-dir alias-id enriched-components enriched-bases profiles suffixed-top-ns brick->loc brick->lib-imports paths user-input enriched-settings name-type->keep-lib-versions outdated-libs library->latest-version)
                                                 projects)))
-          messages (validator/validate-ws settings configs paths interface-names interfaces profiles enriched-components enriched-bases enriched-projects config-errors interface-ns user-input color-mode)]
+          libraries (lib/used-libraries workspace)
+          messages (validator/validate-ws settings configs libraries paths interface-names interfaces profiles enriched-components enriched-bases enriched-projects config-errors interface-ns user-input color-mode)]
       (cond-> workspace
               true (assoc :interfaces interfaces
                           :components enriched-components
                           :bases enriched-bases
                           :projects enriched-projects
                           :settings enriched-settings
+                          :libraries libraries
                           :messages messages)
               true (dissoc :config-errors)))))

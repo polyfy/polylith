@@ -7,6 +7,8 @@
        :auto-add false}
  :tag-patterns {:stable "^stable-.*"
                 :release "^v[0-9].*"}
+ :validations {:inconsistent-lib-versions {:type :warning
+                                           :exclude []}}
 
  ;; Add this line to use the external test runner.
  ;; :test {:create-test-runner [org.corfield.external-test-runner.interface/create]}

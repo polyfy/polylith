@@ -7,5 +7,7 @@
        :auto-add false}
  :tag-patterns {:stable "^stable-.*"
                 :release "^v[0-9].*"}
+ :validations {:inconsistent-lib-versions {:type :warning
+                                           :exclude []}}
  :projects {"development" {:alias "dev"}
             "system" {:alias "sys"}}}
