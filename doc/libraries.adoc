@@ -101,6 +101,17 @@ image::images/libraries/output/inconsistent-libs.png[width=500]
 
 The `clj-time/clj-time` library appears in both versions `0.15.1` and `0.15.2`, and is highlighted in yellow because the `:type` is set to `:warning`.
 
+If we execute:
+
+[source,shell]
+----
+poly check
+----
+
+We get this warning:
+
+image::images/libraries/inconsistent-libs-warning-message.png[width=800]
+
 If we set type to `:error`, the libraries are highlighted in red to indicate that they are inconsistent:
 [source,clojure]
 ----
@@ -110,6 +121,12 @@ If we set type to `:error`, the libraries are highlighted in red to indicate tha
 ----
 
 image::images/libraries/output/inconsistent-libs-error.png[width=500]
+
+The `check` command now reports an error instead:
+
+
+image::images/libraries/inconsistent-libs-error-message.png[width=800]
+
 
 It’s possible to exclude selected libraries from validation, or to disable validation of inconsistent libraries altogether:
 
