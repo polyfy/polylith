@@ -53,6 +53,8 @@
                        :depends [help-txt help-doc]}
 
   ;; Available commands are listed at the end of create_example/-main:
+  ;;   bb create-example gen-nav
+  ;;   bb create-example example
   ;;   bb create-example for-test
   ;;   bb create-example inconsistent-libs
   ;;   bb create-example local-dep
