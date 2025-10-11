@@ -98,6 +98,7 @@
 
 (defn workspace [{:keys [ws-parent-dir output-dir]}]
   (fs/create-dir ws-parent-dir)
+  ;; This can be tested from source/sandbox with: java -jar ../polylith/projects/poly/target/poly.jar create workspace name:ws02 top-ns:se.example :git-add :commit
   (sh/poly {:dir ws-parent-dir}
            "create workspace name:example top-ns:se.example :git-add :commit")
   (output-dir-tree ws-parent-dir "example" (fs/file output-dir "workspace-tree.txt")))
