@@ -1,8 +1,8 @@
 
 ## Included since 0.3.0
 
-This release introduces two new features; the ability to filter by library name in the `libs` command, and support for detecting inconsistent libraries in the `check` command.
-Libraries that use different versions are highlighted in yellow (warnings) or red (errors), for example:
+This release introduces two new features; the ability to filter by library name in the `libs` command, and support for detecting inconsistent library versions in the `check` command.
+Libraries that use different versions are highlighted in yellow (warnings) or red (errors), see documentation [here](http://localhost:8000/d/polylith/clj-poly/0.3.30-SNAPSHOT/doc/libraries#validate):
 
 <img src="doc/images/libraries/output/inconsistent-libs-error.png" alt="RealWorld example" width="400"/>
 

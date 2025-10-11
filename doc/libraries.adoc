@@ -79,6 +79,7 @@ poly libs libraries:ring:s
 image::images/libraries/output/libs-libraries-ring-s.png[]
 
 == Validate
+[[validate]]
 
 Often you want each library to use the same version.
 You can configure the tool to warn if any library is inconsistent, in _workspace.edn_.
