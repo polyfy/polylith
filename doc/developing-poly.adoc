@@ -556,15 +556,16 @@ Make a `0.2.20-SNAPSHOT 34` release:
    - `:stable-version:` is set to `0.2.19`.
 3. When adding a new doc page, update the _Doc updates_ section in `next-release.md`.
 4. Whenever the workspace structure changes, remember to update the xref:versions.adoc[Versions] table, and also update the code that migrates exported files in the https://github.com/polyfy/polylith/blob/f5da3d2e206182c7231cabf4207a7001f82508b4/components/ws-file-reader/src/polylith/clj/core/ws_file_reader/from_disk.clj#L11[ws-file-reader] component.
-5. Check that `:template-data` in `workspace.edn` uses the latest version for `:clojure-ver` and `:shadow-cljs-ver`.
-6. Run `bb check` to check for reflection warnings and such.
+5. If a new attribute is added to _workspace.edn_, remember to update "The workspace.edn file looks like:" in workspace.adoc.
+6. Check that `:template-data` in `workspace.edn` uses the latest version for `:clojure-ver` and `:shadow-cljs-ver`.
+7. Run `bb check` to check for reflection warnings and such.
    - If new bricks, add the source directory to the `:check` alias in `./deps.edn`.
-7. Verify that we have included everything in https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md].
-8. Commit and push your changes.
-9. Go to the https://github.com/polyfy/polylith[polylith repo] and prepare to merge the `snapshot-022034` branch into `master`, by clicking the "Compare & pull requests" button at the top.
+8. Verify that we have included everything in https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md].
+9. Commit and push your changes.
+10. Go to the https://github.com/polyfy/polylith[polylith repo] and prepare to merge the `snapshot-022034` branch into `master`, by clicking the "Compare & pull requests" button at the top.
 If the https://app.circleci.com/pipelines/github/polyfy[circlci pipeline] is green, merge it into the `master` branch.
-10. Execute `git switch master` followed by `git pull` to get the latest from `master`.
-11. If the next release is a snapshot release, execute `git switch -c snapshot-022035`.
+11. Execute `git switch master` followed by `git pull` to get the latest from `master`.
+12. If the next release is a snapshot release, execute `git switch -c snapshot-022035`.
 
 [#create-a-stable-release]
 == Create a stable release
