@@ -556,7 +556,9 @@ Make a `0.2.20-SNAPSHOT 34` release:
    - `:stable-version:` is set to `0.2.19`.
 3. When adding a new doc page, update the _Doc updates_ section in `next-release.md`.
 4. Whenever the workspace structure changes, remember to update the xref:versions.adoc[Versions] table, and also update the code that migrates exported files in the https://github.com/polyfy/polylith/blob/f5da3d2e206182c7231cabf4207a7001f82508b4/components/ws-file-reader/src/polylith/clj/core/ws_file_reader/from_disk.clj#L11[ws-file-reader] component.
-5. If a new attribute is added to _workspace.edn_, remember to update "The workspace.edn file looks like:" in workspace.adoc.
+5. If a new attribute is added to _workspace.edn_
+   - update all workspace.edn template files under scripts/sections
+   - update the content of workspace.edn after "The workspace.edn file looks like:" in workspace.adoc.
 6. Check that `:template-data` in `workspace.edn` uses the latest version for `:clojure-ver` and `:shadow-cljs-ver`.
 7. Run `bb check` to check for reflection warnings and such.
    - If new bricks, add the source directory to the `:check` alias in `./deps.edn`.
