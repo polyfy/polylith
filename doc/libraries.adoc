@@ -112,7 +112,8 @@ We get this warning:
 
 image::images/libraries/inconsistent-libs-warning-message.png[width=800]
 
-If we set type to `:error`, the libraries are highlighted in red to indicate that they are inconsistent:
+If we set type to `:error`:
+
 [source,clojure]
 ----
 {...
@@ -120,10 +121,9 @@ If we set type to `:error`, the libraries are highlighted in red to indicate tha
                                            :exclude []}}}
 ----
 
+The libraries are instead highlighted in red, and the `check` reports an error:
+
 image::images/libraries/output/inconsistent-libs-error.png[width=500]
-
-The `check` command now reports an error instead:
-
 
 image::images/libraries/inconsistent-libs-error-message.png[width=800]
 
