@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m301-inconsistent-lib-versions
+(ns ^:no-doc polylith.clj.core.validator.m301-inconsistent-lib-versions
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]))

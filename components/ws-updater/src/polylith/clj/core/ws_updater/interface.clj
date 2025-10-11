@@ -1,4 +1,4 @@
-(ns polylith.clj.core.ws-updater.interface
+(ns ^:no-doc polylith.clj.core.ws-updater.interface
   (:import (clojure.lang Keyword Symbol)))
 
 (def type->caster {Keyword keyword
