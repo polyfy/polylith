@@ -8,7 +8,7 @@ Starting with version `0.2.15`, the `poly` tool lets you choose your test runner
 [IMPORTANT]
 ====
 - Starting with version `0.2.19`, you need at least `0.8.4` of the Kaocha test runner.
-- Starting with version `0.3.0`, you need at least `0.6.1` of the External test runner.
+- Starting with version `0.3.0`, you need at least `0.7.0` of the External test runner.
 ====
 
 There are two types of test runners: xref:#in-process[in-process] and xref:#external[external].

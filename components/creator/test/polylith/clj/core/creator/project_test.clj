@@ -56,7 +56,7 @@
              "workspace.edn"}
            (helper/paths "ws1")))
 
-    (is (= ["{:deps {org.clojure/clojure {:mvn/version \"1.12.2\"}}"
+    (is (= ["{:deps {org.clojure/clojure {:mvn/version \"1.12.3\"}}"
             ""
             " :aliases {:test {:extra-paths []"
             "                  :extra-deps  {}}}}"]

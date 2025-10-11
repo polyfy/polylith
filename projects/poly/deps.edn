@@ -35,6 +35,7 @@
         polylith/workspace                {:local/root "../../components/workspace"}
         polylith/ws-explorer              {:local/root "../../components/ws-explorer"}
         polylith/ws-file-reader           {:local/root "../../components/ws-file-reader"}
+        polylith/ws-updater               {:local/root "../../components/ws-updater"}
         polylith/nav-generator            {:local/root "../../bases/nav-generator"}
         polylith/poly-cli                 {:local/root "../../bases/poly-cli"}
 

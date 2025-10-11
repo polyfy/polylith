@@ -98,13 +98,16 @@
                 r!
                 replace
                 resources!
+                set
                 since
                 skip
                 swap-axes!
                 tap!
                 top-ns
                 transparent!
+                type
                 update!
+                value
                 verbose!
                 via
                 with
@@ -148,7 +151,7 @@
                                                   (= "true" all-bricks!))
                       :is-run-project-tests (or (= "true" all!)
                                                 (= "true" project!))
-                      :is-search-for-ws-dir (contains? (set arguments) "::")
+                      :is-search-for-ws-dir (contains? (clojure.core/set arguments) "::")
                       :is-show-brick (= "true" brick!)
                       :is-show-dialect (= "true" dialect!)
                       :is-show-loc (= "true" loc!)
@@ -167,9 +170,12 @@
                       :selected-bricks (as-vector brick)
                       :selected-profiles (selected-profiles unnamed-args)
                       :selected-projects (selected-projects project)
+                      :set (as-vector set)
                       :since since
                       :skip (as-vector skip)
                       :top-ns top-ns
+                      :type type
+                      :value value
                       :via via
                       :with (as-vector with)
                       :ws (as-value ws)

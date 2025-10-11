@@ -10,9 +10,9 @@
 (defn reset-outdated-libraries []
   (reset! outdated-libs nil))
 
-(defn set-used-libs [workspace]
+(defn set-used-libs [{:keys [libraries]}]
   (reset! outdated-libs
-          (lib/used-libraries workspace)))
+          (sort (set (map :name libraries)))))
 
 (defn set-outdated-libs [{:keys [configs]}]
   (let [library->latest-version (antq/library->latest-version configs true)

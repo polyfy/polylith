@@ -9,6 +9,8 @@
                 :release "^v[0-9].*"}
  :template-data {:clojure-ver "1.12.2"
                  :shadow-cljs-ver "^3.2.0"}
+ :validations {:inconsistent-lib-versions {:type :warning
+                                           :exclude []}}
  :projects {"poly" {:alias "poly"
                     :necessary ["api" "clojure-test-test-runner"]
                     :test {:setup-fn project.poly.hto/activate!}}

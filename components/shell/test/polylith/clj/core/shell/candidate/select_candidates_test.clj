@@ -6,7 +6,7 @@
             [polylith.clj.core.shell.candidate.engine :as engine])
   (:refer-clojure :exclude [test]))
 
-(use-fixtures :each setup/reset-ws)
+(use-fixtures :each setup/reset-ws-and-call-fn)
 
 (def candidates setup/candidates)
 

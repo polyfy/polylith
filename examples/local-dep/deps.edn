@@ -9,13 +9,18 @@
                                 "components/test-helper-db/src"
                                 "components/util/src"
                                 "bases/invoicer-cli/src"]
-                  :extra-deps {org.clojure/clojure {:mvn/version "1.12.0"}
-                               org.clojure/tools.deps {:mvn/version "0.18.1398"}
+                  :extra-deps {org.clojure/clojure {:mvn/version "1.12.3"}
+                               org.clojure/tools.deps {:mvn/version "0.26.1553"}
                                clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git"
                                                   :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}
-                               uncomplicate/neanderthal {:mvn/version "0.46.0"
+                               uncomplicate/neanderthal {:mvn/version "0.58.0"
                                                          :exclusions [org.jcuda/jcuda-natives
-                                                                      org.jcuda/jcublas-natives]}}}
+                                                                      org.jcuda/jcublas-natives
+                                                                      org.bytedeco/cuda-platform
+                                                                      org.bytedeco/javacpp
+                                                                      org.bytedeco/openblas
+                                                                      org.uncomplicate/accelerate
+                                                                      org.uncomplicate/neanderthal-accelerate]}}}
 
             :test {:extra-paths ["components/database/test"
                                  "components/invoicer/test"

@@ -238,6 +238,81 @@ The output will vary because git shas are unique, but on Joakim's system once:
 "*e*d*b*cee*fb*e*ff*fafcf"
 ----
 
+[[set]]
+=== `set`
+
+The poly tool reads starts by reading the workspace into a representation in memory.
+Before it continues with the next step, to provide that data structure to a command, we get the chance to set a value.
+
+If we want to change the behaviour of the `libs` command, we can update configuration read from _workspace.edn_:
+
+[source,clojure]
+----
+ ...
+ :validations {:inconsistent-lib-versions {:type :warning
+                                           :exclude []}}
+----
+
+Like this:
+
+[source,shell]
+----
+// Set :type to :error
+poly libs set:configs:workspace:validations:inconsistent-lib-versions:type value:error type:keyword
+
+// Set :exclude to ["clj-time/clj-time"]
+poly libs set:configs:workspace:validations:inconsistent-lib-versions:exclude value:clj-time/clj-time type:strings
+----
+
+If a value already exists in the workspace structure, it will be converted to the type of that value.
+If it's a non-existing value, the type will be a `string` if not explicitly set.
+Use `type` to explicitly give a type.
+
+[cols="4,5,8"]
+|===
+| type | string value | converted to
+
+| `boolean`
+| `true`
+| the boolean value `true`
+
+| `long`
+| `123`
+| the long value `123`
+
+| `keyword`
+| `warning`
+| the keyword `:warning`
+
+| symbol
+| `hi`
+| the symbol `hi`
+
+| `booleans`
+| `true:false`
+| A vector `[true false]`
+
+| `longs`
+| `123`
+| A vector `[123]`
+
+| `strings`
+| `hi:again`
+| A vector `["hi" "again"]`
+
+| `keywords`
+| `hi:again`
+| A vector `[:hi :again]`
+
+| `symbols`
+| `hi:again`
+| A vector `[hi again]`
+
+|===
+
+
+
+
 == Documentation
 
 We strive to write great documentation for our Polylith users.
@@ -480,16 +555,22 @@ Make a `0.2.20-SNAPSHOT 34` release:
    - `:snapshot-version:` is set to `0.2.20`.
    - `:stable-version:` is set to `0.2.19`.
 3. When adding a new doc page, update the _Doc updates_ section in `next-release.md`.
-4. Whenever the workspace structure changes, remember to update the xref:versions.adoc[Versions] table, and also update the code that migrates exported files in the https://github.com/polyfy/polylith/blob/f5da3d2e206182c7231cabf4207a7001f82508b4/components/ws-file-reader/src/polylith/clj/core/ws_file_reader/from_disk.clj#L11[ws-file-reader] component.
-5. Check that `:template-data` in `workspace.edn` uses the latest version for `:clojure-ver` and `:shadow-cljs-ver`.
-6. Run `bb check` to check for reflection warnings and such.
+4. Whenever the workspace structure changes:
+   - update the xref:versions.adoc[Versions] table
+   - update the code that migrates exported files in the https://github.com/polyfy/polylith/blob/f5da3d2e206182c7231cabf4207a7001f82508b4/components/ws-file-reader/src/polylith/clj/core/ws_file_reader/from_disk.clj#L11[ws-file-reader] component.
+   - update next-release.md
+5. If a new attribute is added to _workspace.edn_
+   - update all workspace.edn template files under scripts/sections
+   - update the content of workspace.edn after "The workspace.edn file looks like:" in workspace.adoc.
+6. Check that `:template-data` in `workspace.edn` uses the latest version for `:clojure-ver` and `:shadow-cljs-ver`.
+7. Run `bb check` to check for reflection warnings and such.
    - If new bricks, add the source directory to the `:check` alias in `./deps.edn`.
-7. Verify that we have included everything in https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md].
-8. Commit and push your changes.
-9. Go to the https://github.com/polyfy/polylith[polylith repo] and prepare to merge the `snapshot-022034` branch into `master`, by clicking the "Compare & pull requests" button at the top.
+8. Verify that we have included everything in https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md].
+9. Commit and push your changes.
+10. Go to the https://github.com/polyfy/polylith[polylith repo] and prepare to merge the `snapshot-022034` branch into `master`, by clicking the "Compare & pull requests" button at the top.
 If the https://app.circleci.com/pipelines/github/polyfy[circlci pipeline] is green, merge it into the `master` branch.
-10. Execute `git switch master` followed by `git pull` to get the latest from `master`.
-11. If the next release is a snapshot release, execute `git switch -c snapshot-022035`.
+11. Execute `git switch master` followed by `git pull` to get the latest from `master`.
+12. If the next release is a snapshot release, execute `git switch -c snapshot-022035`.
 
 [#create-a-stable-release]
 == Create a stable release

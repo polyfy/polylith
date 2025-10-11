@@ -1,9 +1,14 @@
 {:top-namespace "se.example"
  :interface-ns "interface"
  :default-profile-name "default"
+ :dialects ["clj"]
  :compact-views #{}
  :vcs {:name "git"
        :auto-add true}
- :tag-patterns {:stable "stable-*"
-                :release "v[0-9]*"}
+ :tag-patterns {:stable "^stable-.*"
+                :release "^v[0-9].*"}
+ :template-data {:clojure-ver "1.12.3"
+                 :shadow-cljs-ver "^3.2.1"}
+ :validations {:inconsistent-lib-versions {:type :warning
+                                           :exclude []}}
  :projects {"development" {:alias "dev"}}}

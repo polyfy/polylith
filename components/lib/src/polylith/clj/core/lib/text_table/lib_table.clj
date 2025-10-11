@@ -14,29 +14,44 @@
                      (concat (:src lib-deps)
                              (:test lib-deps))))])
 
-(defn lib-cell [column row library]
-  (text-table/cell column row library :none :left :horizontal))
+(defn lib-cell [column row name]
+  (text-table/cell column row name :none :left :horizontal))
+
+(def lib-type->color {:warning :yellow
+                      :error :red})
+
+(defn lib-cell-colored [column row name {:keys [inconsistent-lib-version]} warning-or-error]
+  (let [color (if inconsistent-lib-version
+                (lib-type->color warning-or-error :none)
+                :none)]
+    (text-table/cell column row name color :left :horizontal)))
 
 (defn lib-column [libraries]
   (concat [(text-table/cell 1 1 "library" :none :left :horizontal)]
-          (map-indexed #(lib-cell 1 (+ 3 %1) %2)
-                       (map :name libraries))))
+          (map-indexed #(lib-cell 1 (+ 3 %1) (:name %2))
+                       libraries)))
 
-(defn version-column [libraries]
+(defn version-column [libraries warning-or-error]
   (concat [(text-table/cell 3 1 "version" :none :left :horizontal)]
-          (map-indexed #(lib-cell 3 (+ 3 %1) %2)
-                       (map :version libraries))))
+          (map-indexed #(lib-cell-colored 3 (+ 3 %1) (:version %2) %2 warning-or-error)
+                       libraries)))
+
+(defn latest-lib-name [{:keys [name version]} lib->latest-version]
+  (let [latest-version (lib->latest-version name)]
+    (if (not= version latest-version)
+      latest-version
+      "")))
 
 (defn latest-column [libraries lib->latest-version]
   (concat [(text-table/cell 5 1 "latest" :none :left :horizontal)]
           (map-indexed #(lib-cell 5 (+ 3 %1) %2)
-                       (map #(lib->latest-version (:name %) "")
+                       (map #(latest-lib-name % lib->latest-version)
                             libraries))))
 
 (defn type-column [libraries]
   (concat [(text-table/cell 7 1 "type" :none :left :horizontal)]
-          (map-indexed #(lib-cell 7 (+ 3 %1) %2)
-                       (map :type libraries))))
+          (map-indexed #(lib-cell 7 (+ 3 %1) (:type %2))
+                       libraries)))
 
 (defn size-kb [{:keys [size]} thousand-separator hide-lib-size?]
   (if (or (nil? size)
@@ -53,9 +68,10 @@
           (map-indexed #(kb-cell (+ 3 %1) %2 thousand-separator hide-lib-size?)
                        libraries)))
 
-(defn flag-cell [column row lib-dep src-deps test-deps]
-  (let [src (if (contains? src-deps lib-dep) 1 0)
-        test (if (contains? test-deps lib-dep) 2 0)
+(defn flag-cell [column row library src-deps test-deps]
+  (let [library (select-keys library [:name :version :size :type]) ;; Remove :inconsistent-lib-version
+        src (if (contains? src-deps library) 1 0)
+        test (if (contains? test-deps library) 2 0)
         flag (get ["-" "x" "t" "x"] (+ src test))]
     (text-table/cell column row flag :purple :center :horizontal)))
 
@@ -71,8 +87,9 @@
   (apply concat (map-indexed #(project-column (+ 11 (* 2 %1)) %2 libraries)
                              projects)))
 
-(defn profile-flag-cell [column row lib-dep lib-deps]
-  (let [flag (if (contains? lib-deps lib-dep) "x" "-")]
+(defn profile-flag-cell [column row library lib-deps]
+  (let [library (select-keys library [:name :version :size :type])
+        flag (if (contains? lib-deps library) "x" "-")]
     (text-table/cell column row flag :purple :center :horizontal)))
 
 (defn profile-column [column libraries {:keys [name lib-deps]}]
@@ -93,7 +110,8 @@
   (if (contains? src-libs library) "x" "t"))
 
 (defn brick-cell [column row library src-libs brick-libs empty-character]
-  (let [flag (if (contains-lib? library brick-libs)
+  (let [library (select-keys library [:name :version :size :type]) ;; Remove :inconsistent-lib-version
+        flag (if (contains-lib? library brick-libs)
                (brick-cell-sign library src-libs)
                empty-character)]
     (text-table/cell column row flag :none :left :vertical)))
@@ -130,6 +148,7 @@
 (defn table [{:keys [configs settings user-input profiles components bases projects] :as workspace}]
   (let [{:keys [empty-character thousand-separator color-mode]} settings
         {:keys [is-outdated is-hide-lib-size] filtered-libs :libraries} user-input
+        warning-or-error (-> configs :workspace :validations :inconsistent-lib-versions :type)
         calculate-latest-version? (common/calculate-latest-version? user-input)
         lib->latest-version (antq/library->latest-version configs calculate-latest-version?)
         {:keys [libraries src-libs]} (libs workspace is-outdated filtered-libs)
@@ -137,7 +156,7 @@
         brick->libs (into {} (map brick-libs all-bricks))
         bricks (filter #(-> % :name brick->libs empty? not) all-bricks)
         lib-col (lib-column libraries)
-        version-col (version-column libraries)
+        version-col (version-column libraries warning-or-error)
         latest-col (when is-outdated (latest-column libraries lib->latest-version))
         type-col (type-column libraries)
         size-col (size-column libraries thousand-separator is-hide-lib-size)
@@ -171,10 +190,11 @@
                               #(table %)))
 
 (comment
-  (require '[dev.jocke :as dev])
-  (print-table dev/workspace)
-  (print-table (assoc-in dev/workspace [:user-input :is-all] true))
-  (print-table (assoc-in dev/workspace [:user-input :libraries] ["c"]))
-  (print-table (assoc-in dev/workspace [:user-input :is-hide-lib-size] true))
-  (print-table (assoc-in dev/workspace [:user-input :is-outdated] true))
+  (def workspace ".")
+  (def workspace "examples/local-dep")
+  (print-table (ws/workspace (dev.dev-common/dir workspace)))
+  (print-table (ws/workspace (dev.dev-common/dir workspace ":all")))
+  (print-table (ws/workspace (dev.dev-common/dir workspace "libraries:c")))
+  (print-table (ws/workspace (dev.dev-common/dir workspace ":hide-lib-size")))
+  (print-table (ws/workspace (dev.dev-common/dir workspace ":outdated")))
   #__)

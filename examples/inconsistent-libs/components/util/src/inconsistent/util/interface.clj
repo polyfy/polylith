@@ -1,0 +1,1 @@
+(ns inconsistent.util.interface)

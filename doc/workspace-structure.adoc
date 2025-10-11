@@ -21,6 +21,7 @@ poly ws get:keys
  :components
  :configs
  :interfaces
+ :libraries
  :messages
  :name
  :paths
@@ -402,6 +403,58 @@ Specifies the function/macro arguments:
 In this case the bricks `user` and `user-remote` share the same `user` interface and live in the `se.example.user.interface` namespace.
 
 * `:type` Set to "interface".
+
+[#libraries]
+== libraries
+
+[source,shell]
+----
+poly ws get:libraries
+----
+
+[source,clojure]
+----
+[{:name "babashka/fs", :size 23001, :type "maven", :version "0.5.27"}
+ {:name "borkdude/edamame", :size 26378, :type "maven", :version "1.4.32"}
+ {:name "borkdude/rewrite-edn", :size 11583, :type "maven", :version "0.4.9"}
+ {:name "cheshire/cheshire", :size 25846, :type "maven", :version "6.1.0"}
+ {:name "clj-commons/fs", :size 12822, :type "maven", :version "1.6.312"}
+ {:name "clj-http/clj-http", :size 60533, :type "maven", :version "3.13.1"}
+ {:name "clojure2d/clojure2d", :size 2269179, :type "maven", :version "1.4.5"}
+ {:name "com.github.liquidz/antq",
+  :size 56082,
+  :type "maven",
+  :version "2.11.1276"}
+ {:name "djblue/portal", :size 1972307, :type "maven", :version "0.61.0"}
+ {:name "lread/status-line", :size 65730, :type "git", :version "cf44c15"}
+ {:name "metosin/malli", :size 96018, :type "maven", :version "0.19.2"}
+ {:name "mvxcvi/puget", :size 16030, :type "maven", :version "1.3.4"}
+ {:name "org.apache.maven/maven-artifact",
+  :size 62714,
+  :type "maven",
+  :version "4.0.0-rc-4"}
+ {:name "org.babashka/http-client",
+  :size 16217,
+  :type "maven",
+  :version "0.4.23"}
+ {:name "org.clojure/clojure", :size 4230055, :type "maven", :version "1.12.3"}
+ {:name "org.clojure/tools.deps",
+  :size 59726,
+  :type "maven",
+  :version "0.26.1553"}
+ {:name "org.jline/jline", :size 1505052, :type "maven", :version "3.30.6"}
+ {:name "org.slf4j/slf4j-nop", :size 4982, :type "maven", :version "2.0.17"}
+ {:name "pjstadig/humane-test-output",
+  :size 7948,
+  :type "maven",
+  :version "0.11.0"}
+ {:name "rewrite-clj/rewrite-clj",
+  :size 80496,
+  :type "maven",
+  :version "1.2.50"}
+ {:name "selmer/selmer", :size 65359, :type "maven", :version "1.12.62"}
+ {:name "version-clj/version-clj", :size 10680, :type "maven", :version "2.0.3"}]
+----
 
 [#messages]
 == messages

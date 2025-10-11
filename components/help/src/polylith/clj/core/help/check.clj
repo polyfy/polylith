@@ -94,7 +94,13 @@
        "    its bricks. Development is only checked if " (s/key ":dev" cm) " is passed in and is only performed\n"
        "    by the check command (not test and info). To ignore this warning, put the component\n"
        "    name in the " (s/key ":necessary" cm) " vector for a project in " (s/key ":projects" cm) " in ./workspace.edn.\n"
-       "    See an example here: https://github.com/polyfy/polylith/blob/master/workspace.edn"))
+       "    See an example here: https://github.com/polyfy/polylith/blob/master/workspace.edn\n"
+       "\n"
+       "  " (color/warning cm "Message 301") " - Inconsistent versions detected for library.\n"
+       "    Triggered when a library exists in more than one version within the workspace.\n"
+       "    Set " (s/key ":type" cm) " to " (s/key ":error" cm) " in key " (s/key ":validations > :inconsistent-lib-versions" cm) "\n"
+       "    in workspace.edn to turn this warning into an error, or " (s/key ":none" cm) " to disable it.\n"
+       "    Add libraries to " (s/key ":exclude" cm) ", to prevent them from being validated."))
 
 (defn print-help [cm]
   (-> cm help-text println))

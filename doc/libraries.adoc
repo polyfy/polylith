@@ -67,7 +67,7 @@ If the list of libraries is long, there is the option to filter out a specific l
 poly libs libraries:slugger/slugger
 ----
 
-image::images/libraries/output/libs-libraries-slugger.png[]
+image::images/libraries/output/libs-libraries-slugger.png[width=600]
 
 You can filter by more than one library, as well as libraries whose names start with, for example, "ring" or "s":
 
@@ -78,7 +78,76 @@ poly libs libraries:ring:s
 
 image::images/libraries/output/libs-libraries-ring-s.png[]
 
-== Updating
+== Validate
+[[validate]]
+
+Often you want each library to use the same version.
+You can configure the tool to warn if any library is inconsistent, in _workspace.edn_.
+
+[source,clojure]
+----
+{...
+ :validations {:inconsistent-lib-versions {:type :warning
+                                           :exclude []}}}
+----
+
+Here, we use the https://github.com/polyfy/polylith/tree/snapshot-030102/examples/inconsistent-libs[inconsistent-libs] workspace as an example:
+
+[source,shell]
+----
+poly libs
+----
+
+image::images/libraries/output/inconsistent-libs.png[width=500]
+
+The `clj-time/clj-time` library appears in both versions `0.15.1` and `0.15.2`, and is highlighted in yellow because the `:type` is set to `:warning`.
+
+If we execute:
+
+[source,shell]
+----
+poly check
+----
+
+We get this warning:
+
+image::images/libraries/inconsistent-libs-warning-message.png[width=800]
+
+If we set type to `:error`:
+
+[source,clojure]
+----
+{...
+ :validations {:inconsistent-lib-versions {:type :error
+                                           :exclude []}}}
+----
+
+The libraries are instead highlighted in red, and the `check` reports an error:
+
+image::images/libraries/output/inconsistent-libs-error.png[width=500]
+
+image::images/libraries/inconsistent-libs-error-message.png[width=800]
+
+
+It’s possible to exclude selected libraries from validation, or to disable validation of inconsistent libraries altogether:
+
+[source,clojure]
+----
+{...
+ :validations {:inconsistent-lib-versions {:type :error
+                                           :exclude [clj-time/clj-time]}}}
+----
+
+[source,clojure]
+----
+{...
+ :validations {:inconsistent-lib-versions {:type :none
+                                           :exclude []}}}
+----
+
+image::images/libraries/output/inconsistent-libs-exclude.png[width=500]
+
+== Outdated
 
 You can list outdated libraries:
 

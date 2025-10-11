@@ -89,3 +89,9 @@
     by the check command (not test and info). To ignore this warning, put the component
     name in the :necessary vector for a project in :projects in ./workspace.edn.
     See an example here: https://github.com/polyfy/polylith/blob/master/workspace.edn
+
+  Message 301 - Inconsistent versions detected for library.
+    Triggered when a library exists in more than one version within the workspace.
+    Set :type to :error in key :validations > :inconsistent-lib-versions
+    in workspace.edn to turn this warning into an error, or :none to disable it.
+    Add libraries to :exclude, to prevent them from being validated.

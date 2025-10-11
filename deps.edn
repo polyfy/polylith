@@ -38,6 +38,7 @@
                                poly/workspace                {:local/root "components/workspace"}
                                poly/ws-explorer              {:local/root "components/ws-explorer"}
                                poly/ws-file-reader           {:local/root "components/ws-file-reader"}
+                               poly/ws-updater               {:local/root "components/ws-updater"}
                                poly/nav-generator            {:local/root "bases/nav-generator"}
                                poly/poly-cli                 {:local/root "bases/poly-cli"}
 
@@ -81,6 +82,7 @@
                                  "components/validator/test"
                                  "components/workspace/test"
                                  "components/ws-explorer/test"
+                                 "components/ws-updater/test"
                                  "bases/poly-cli/test"
                                  "projects/poly/test"]}
 ;                   :extra-deps {io.github.cognitect-labs/test-runner {:git/tag "v0.5.1" :git/sha "dfb30dd"}}

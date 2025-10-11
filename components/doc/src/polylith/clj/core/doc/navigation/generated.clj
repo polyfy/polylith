@@ -80,6 +80,7 @@
    "components" []
    "configs" []
    "interfaces" []
+   "libraries" []
    "messages" []
    "name" []
    "old" []
