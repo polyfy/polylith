@@ -20,5 +20,6 @@ Libraries that use different versions are highlighted in yellow (warnings) or re
 ### Issues and PRs:
 - Filter on libraries in the libs command, issue [558](https://github.com/polyfy/polylith/issues/558)
 - Report libraries using different versions in the workspace, issue [562](https://github.com/polyfy/polylith/issues/562)
+- Use configuration passed in by -Sdeps, issue [574](https://github.com/polyfy/polylith/issues/574)
 
 ### Doc updates
