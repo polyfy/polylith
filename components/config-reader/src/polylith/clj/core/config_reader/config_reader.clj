@@ -1,14 +1,26 @@
 (ns ^:no-doc polylith.clj.core.config-reader.config-reader
-  (:require [polylith.clj.core.file.interface :as file]
+  (:require [clojure.tools.deps :as tools-deps]
+            [clojure.edn :as edn]
+            [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.config-reader.deps-reader :as deps-reader]
             [polylith.clj.core.config-reader.json-reader :as json-reader]
             [polylith.clj.core.validator.interface :as validator]))
+
+(defn get-current-basis-config []
+  (when-let [basis-path (System/getProperty "clojure.basis")]
+    (when (file/exists basis-path)
+      (let [basis (edn/read-string (slurp basis-path))
+            ;; Only extract the -Sdeps configuration, not the resolved dependencies
+            extra-config (get-in basis [:basis-config :extra])]
+        extra-config))))
 
 (defn read-deps-edn-config-file [ws-type entity-dir entity-path validator]
   (let [config-path (str entity-path "/deps.edn")
         short-config-path (str entity-dir "/deps.edn")]
     (when (file/exists config-path)
-      (let [{:keys [config error]} (deps-reader/read-deps-file config-path short-config-path)
+      (let [{:keys [error] deps-config :config} (deps-reader/read-deps-file config-path short-config-path)
+            current-basis (get-current-basis-config)
+            config (tools-deps/merge-edns [deps-config current-basis])
             message (validator ws-type config short-config-path)
             error (or error message)]
         (cond-> {}
