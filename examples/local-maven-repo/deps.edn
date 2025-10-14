@@ -1,9 +1,9 @@
-{:mvn/local-repo "/Users/joakimtengstrand/maven-repo"
- :deps {org.clojure/clojure {:mvn/version "1.10.0"}}
+{:mvn/local-repo "./maven-repo"
+ :deps {org.clojure/clojure {:mvn/version "1.12.3"}}
  :aliases  {:dev {:extra-paths ["development/src"]
 
                   :extra-deps {poly/stuff {:local/root "components/stuff"}
-                               org.clojure/clojure {:mvn/version "1.10.0"}}}
+                               org.clojure/clojure {:mvn/version "1.12.3"}}}
 
             :test {:extra-paths ["components/stuff/test"]
                    :extra-deps {io.github.cognitect-labs/test-runner

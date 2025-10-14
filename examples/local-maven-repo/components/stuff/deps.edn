@@ -1,4 +1,4 @@
 {:paths ["src"]
- :deps {}
+ :deps {nano-id/nano-id {:mvn/version "1.1.0"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}
