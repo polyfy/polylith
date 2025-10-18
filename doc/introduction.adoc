@@ -21,4 +21,6 @@ We will show how profiles will help us work from a single development environmen
 
 We will explain the value of components and how they bring context to our development experience, which will help us build decoupled and scalable systems from day one.
 
+/Joakim Tengstrand
+
 Let's begin!

@@ -1,5 +1,5 @@
 = Workspace
-:poly-version: 0.3.0
+:poly-version: 0.3.30
 
 The workspace directory is where all your code and most of your xref:configuration.adoc[configuration] lives.
 

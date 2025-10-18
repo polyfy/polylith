@@ -1,6 +1,6 @@
 = Shell
 :toc:
-:poly-version: 0.3.0
+:poly-version: 0.3.30
 
 Not only does the `shell` make you more productive, but it's also fun to use!
 It takes full advantage of https://github.com/jline/jline3[jline3] under the hood, which supports macOS, Linux, FreeBSD, Solaris, and Windows.
