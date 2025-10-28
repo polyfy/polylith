@@ -157,6 +157,7 @@
           "  org.apache.maven/maven-artifact  4.0.0-rc-4  maven     61    x      x      x      -        -       .  .  .  .  .  x  .  .  .  .  ."
           "  org.babashka/http-client         0.4.23      maven     15    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
           "  org.clojure/clojure              1.12.3      maven  4,130    x      x      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
+          "  org.clojure/core.rrb-vector      0.2.0       maven     82    x      x      x      -        -       .  .  .  .  .  .  .  .  .  .  x"
           "  org.clojure/tools.deps           0.26.1553   maven     58    x      x      x      -        -       .  .  x  x  .  .  .  .  .  x  ."
           "  org.jline/jline                  3.30.6      maven  1,469    x      x      x      -        -       .  .  .  .  .  .  x  .  .  .  ."
           "  org.slf4j/slf4j-nop              2.0.17      maven      4    x      x      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
