@@ -1,5 +1,6 @@
 (ns ^:no-doc polylith.clj.core.util.interface
-  (:require [polylith.clj.core.util.core :as core]))
+  (:require [polylith.clj.core.util.core :as core]
+            [polylith.clj.core.util.edn-sanitizer :as edn-sanitizer]))
 
 (defn find-first [predicate sequence]
   (core/find-first predicate sequence))
@@ -20,6 +21,9 @@
   (if (empty? vals)
     []
     [(first vals)]))
+
+(defn sanitize-keywords [edn]
+  (edn-sanitizer/sanitize-keywords edn))
 
 (defmacro def-keys
   "Defines all selected keys in a map, e.g.:

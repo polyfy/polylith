@@ -241,7 +241,7 @@ The output will vary because git shas are unique, but on Joakim's system once:
 [[set]]
 === `set`
 
-The poly tool reads starts by reading the workspace into a representation in memory.
+The poly tool starts by reading the workspace into a representation in memory.
 Before it continues with the next step, to provide that data structure to a command, we get the chance to set a value.
 
 If we want to change the behaviour of the `libs` command, we can update configuration read from _workspace.edn_:
