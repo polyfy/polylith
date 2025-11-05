@@ -1,10 +1,12 @@
 (ns ^:no-doc polylith.clj.core.ws-explorer.core
-  (:require [clojure.pprint :as pp]
+  (:require [clojure.java.io :as io]
+            [clojure.pprint :as pp]
             [clojure.string :as str]
-            [puget.printer :as puget]
             [clojure.walk :as walk]
-            [polylith.clj.core.util.interface.str :as str-util]
-            [polylith.clj.core.util.interface.color :as color]))
+            [puget.printer :as puget]
+            [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.util.interface.str :as str-util]))
 
 (def color-schema
   {:color-scheme {:nil       [:magenta]
@@ -114,9 +116,12 @@
       values)))
 
 (defn ws [workspace get out color-mode]
-  (let [values (adjust-keys get)]
+  (let [values (adjust-keys get)
+        extracted (extract workspace values)
+        ;; Normalize for file output to ensure EDN can be read back
+        normalized (if out (util/sanitize-keywords extracted) extracted)]
     (if (nil? out)
       (if (= color/none color-mode)
-        (pp/pprint (extract workspace values))
-        (puget/cprint (extract workspace values) color-schema))
-      (pp/pprint (extract workspace values) (clojure.java.io/writer out)))))
+        (pp/pprint extracted)
+        (puget/cprint extracted color-schema))
+      (pp/pprint normalized (io/writer out)))))

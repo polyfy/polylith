@@ -5,6 +5,7 @@
             [clojure.tools.reader :refer [resolve-symbol]]
             [edamame.core :as edamame]
             [me.raynes.fs :as fs]
+            [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.str :as str-util])
   (:import (clojure.lang ExceptionInfo)
            [java.io File FileNotFoundException]
@@ -242,8 +243,9 @@
   (io/make-parents filename))
 
 (defn pretty-spit [filename collection]
-  (spit (io/file filename)
-        (with-out-str (pp/write collection :dispatch pp/code-dispatch))))
+  (let [normalized-collection (util/sanitize-keywords collection)]
+    (spit (io/file filename)
+          (with-out-str (pp/write normalized-collection :dispatch pp/code-dispatch)))))
 
 (defn directory-size [^File path]
   (cond
