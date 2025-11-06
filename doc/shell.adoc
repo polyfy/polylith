@@ -297,7 +297,7 @@ example$ switch-ws dir:
 ../             bases/          components/     deps.edn        development/
 projects/       workspace.edn   ~/
 ----
-* Browse outdated libraries via the xref:commands.adoc#libs[libs] command:
+* Filter specific libraries via the xref:commands.adoc#libs[libs] command:
 +
 [source,text]
 ----
