@@ -238,6 +238,11 @@ understanding-polylith-through-the-lens-of-hexagonal-architecture
 | Blog post | What | Published
 
 [[leveraging-polylith]]
+| https://www.youtube.com/watch?v=k49496sH9aw[the-gentle-monorepo]
+| https://github.com/gerbendekkervolue[Gerben Dekker] explains how you can ship faster and collaborate better, using Polylith and other tools (in Python).
+  He starts talking about Polylith at 9:20.
+| 2025
+
 | https://medium.com/qantas-engineering-blog/leveraging-polylith-to-improve-consistency-reduce-complexity-and-increase-changeability-2031dd3d5f3d[leveraging-polylith-to-improve-consistency-reduce-complexity-and-increase-changeability]
 | https://github.com/xlfe[Felix Barbalet] explains how Poilylith helps reduce complexity in an existing production system.
 | 2024
