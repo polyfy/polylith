@@ -40,6 +40,7 @@
                           :integrant-system {:url "https://github.com/polyfy/polylith/tree/master/examples/integrant-system"}
                           :polylith {:url "https://github.com/polyfy/polylith"}
                           :realworld {:url "https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend"}
+                          :the-gentle-monorepo {:url "https://www.youtube.com/watch?v=k49496sH9aw"}
                           :usermanager {:url "https://github.com/seancorfield/usermanager-example/tree/polylith"}}
              :videos {:url "https://polylith.gitbook.io/polylith/conclusion/videos"
                       :polylith-in-a-nutshell {:url "https://youtu.be/Xz8slbpGvnk"}
