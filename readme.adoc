@@ -1,14 +1,14 @@
 image::doc/images/logo.png[width=400]
-:snapshot-number: 3
+:snapshot-number: 4
 :snapshot-version: 0.3.31
 :stable-version: 0.3.30
 :cljdoc-doc-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc
 
-https://cljdoc.org/d/polylith/clj-poly/{stable-version}/doc/readme[image:https://badgen.net/badge/doc/{stable-version}/blue[]]
+https://cljdoc.org/d/polylith/clj-poly/{stable-version}/doc/readme[image:https://img.shields.io/badge/doc-{stable-version}-0380c1[]]
 ifeval::[{snapshot-number} > 0 && env-cljdoc]
-https://cljdoc.org/d/polylith/clj-poly/{snapshot-version}-SNAPSHOT[image:https://badgen.net/badge/doc/{snapshot-version}-SNAPSHOT%20%23{snapshot-number}/cyan[]]
+https://cljdoc.org/d/polylith/clj-poly/{snapshot-version}-SNAPSHOT[image:https://img.shields.io/badge/doc-{snapshot-version}--SNAPSHOT%20%23{snapshot-number}-02acbb[]]
 endif::[]
-https://clojurians.slack.com/messages/C013B7MQHJQ[image:https://badgen.net/badge/slack/join chat/green[]]
+https://clojurians.slack.com/messages/C013B7MQHJQ[image:https://img.shields.io/badge/slack-join%20chat-01bd00[]]
 
 == Welcome to the wonderful world of Polylith for Clojure and ClojureScript!
 
