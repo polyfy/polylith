@@ -1,4 +1,4 @@
-(ns polylith.clj.core.util.edn-sanitizer
+(ns ^:no-doc polylith.clj.core.util.edn-sanitizer
   (:require [clojure.string :as str]
             [clojure.walk :as walk]))
 
