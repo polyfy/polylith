@@ -619,6 +619,7 @@ Make a `0.2.20` release:
 16. Update the version component:
     - Update version to 0.2.21 SNAPSHOT #0 (revision to SNAPSHOT, patch to 21, snapshot to 0)
 17. Update readme.adoc:
+    - set `:is-snapshot` to `true`
     - leave `:snapshot-number:` as 0
     - set `:snapshot-version:` to 0.2.21
 18. Update https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md]:
