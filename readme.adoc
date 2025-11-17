@@ -5,7 +5,7 @@ image::doc/images/logo.png[width=400]
 :cljdoc-doc-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc
 
 https://cljdoc.org/d/polylith/clj-poly/{stable-version}/doc/readme[image:https://img.shields.io/badge/doc-{stable-version}-0380c1[]]
-ifeval::[{snapshot-version} != {stable-version}]
+ifeval::["{snapshot-version}" != "{stable-version}"]
 https://cljdoc.org/d/polylith/clj-poly/{snapshot-version}-SNAPSHOT[image:https://img.shields.io/badge/doc-{snapshot-version}--SNAPSHOT%20%23{snapshot-number}-02acbb[]]
 endif::[]
 https://clojurians.slack.com/messages/C013B7MQHJQ[image:https://img.shields.io/badge/slack-join%20chat-01bd00[]]
