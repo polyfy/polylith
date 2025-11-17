@@ -527,50 +527,37 @@ Users can https://clojure.org/reference/deps_and_cli#_classpath_caching[-Sforce]
 [#create-a-snapshot-release]
 == Create a SNAPSHOT release
 
-Run all the tests:
-
-[source,shell]
-----
-poly test :all
-----
-
-If you have made a lot of changes, run the `gen-all` script (this will take a few minutes):
-
-[source,shell]
-----
-bb gen-all
-----
-
-Compare the output with what's in git, and commit the changes if everything looks good.
-
 Make a `0.2.20-SNAPSHOT 34` release:
 
-1. Update the `version` component and ensure that:
+1. Run all tests: `poly test :all`
+2. Update the `version` component and ensure that:
    - https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/components/version/src/polylith/clj/core/version/interface.clj#L24-L26[version] is set to `0.2.20`.
    - https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/components/version/src/polylith/clj/core/version/interface.clj#L27[revision] is set to `SNAPSHOT`.
    - https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/components/version/src/polylith/clj/core/version/interface.clj#L28[snapshot] is set to `34`.
    - https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/components/version/src/polylith/clj/core/version/interface.clj#L40[date] is set to today's date (yyyy-mm-dd).
-2. Ensure the versions are correctly specified in `readme.adoc`:
+3. Ensure the versions are correctly specified in `readme.adoc`:
    - `:snapshot-number:` is set to `34`.
    - `:snapshot-version:` is set to `0.2.20`.
    - `:stable-version:` is set to `0.2.19`.
-3. When adding a new doc page, update the _Doc updates_ section in `next-release.md`.
-4. Whenever the workspace structure changes:
+4. When adding a new doc page, update the _Doc updates_ section in `next-release.md`.
+5. Whenever the workspace structure changes:
    - update the xref:versions.adoc[Versions] table
    - update the code that migrates exported files in the https://github.com/polyfy/polylith/blob/f5da3d2e206182c7231cabf4207a7001f82508b4/components/ws-file-reader/src/polylith/clj/core/ws_file_reader/from_disk.clj#L11[ws-file-reader] component.
    - update next-release.md
-5. If a new attribute is added to _workspace.edn_
+6. If a new attribute is added to _workspace.edn_
    - update all workspace.edn template files under scripts/sections
    - update the content of workspace.edn after "The workspace.edn file looks like:" in workspace.adoc.
-6. Check that `:template-data` in `workspace.edn` uses the latest version for `:clojure-ver` and `:shadow-cljs-ver`.
-7. Run `bb check` to check for reflection warnings and such.
+7. Check that `:template-data` in `workspace.edn` uses the latest version for `:clojure-ver` and `:shadow-cljs-ver`.
+8. Run `bb check` to check for reflection warnings and such.
    - If new bricks, add the source directory to the `:check` alias in `./deps.edn`.
-8. Verify that we have included everything in https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md].
-9. Commit and push your changes.
-10. Go to the https://github.com/polyfy/polylith[polylith repo] and prepare to merge the `snapshot-022034` branch into `master`, by clicking the "Compare & pull requests" button at the top.
+9. Execute `bb gen-all`
+   - Compare the output with what's in git, and commit the changes if everything looks good.
+10. Verify that we have included everything in https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md].
+11. Commit and push your changes.
+12. Go to the https://github.com/polyfy/polylith[polylith repo] and prepare to merge the `snapshot-022034` branch into `master`, by clicking the "Compare & pull requests" button at the top.
 If the https://app.circleci.com/pipelines/github/polyfy[circlci pipeline] is green, merge it into the `master` branch.
-11. Execute `git switch master` followed by `git pull` to get the latest from `master`.
-12. If the next release is a snapshot release, execute `git switch -c snapshot-022035`.
+13. Execute `git switch master` followed by `git pull` to get the latest from `master`.
+14. If the next release is a snapshot release, execute `git switch -c snapshot-022035`, otherwise follow the instructions for creating a stable release.
 
 [#create-a-stable-release]
 == Create a stable release
@@ -583,8 +570,6 @@ Run all the tests:
 ----
 poly test :all
 ----
-
-Create a `0.2.20-SNAPSHOT 34` release.
 
 Announce in good time in the https://clojurians.slack.com/archives/C013B7MQHJQ[polylith channel] in Slack, that people should start testing current SNAPSHOT version.
 Also mention that there will only be minor changes until release, such as updating the documentation. Wait a few days before you make the new release.
