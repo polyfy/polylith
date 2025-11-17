@@ -609,6 +609,7 @@ Make a `0.2.20` release:
 . Go to the https://github.com/polyfy/polylith[polylith repo] and prepare to merge the `release-0220` branch into `master`, by clicking the "Compare & pull requests" button at the top.
   - Add a comment indicating that this is release 0.2.20.
   - If the https://app.circleci.com/pipelines/github/polyfy[circlci pipeline] is green, merge it into the `master` branch.
+    - List all issues and PRs with hashes in the commit to ensure they are properly linked.
   - Ensure that the https://cljdoc.org/d/polylith/clj-poly/0.2.20/doc/readme[poly-clj] documentation has been built.
 . Update the https://github.com/polyfy/polylith/releases/tag/v0.2.20[release notes] for the 0.2.20 release:
   - Summarize the release in the introduction.
@@ -625,7 +626,8 @@ Make a `0.2.20` release:
 . Update https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md]:
   - Change the heading to "Included since 0.2.20"
   - Clean everything (remove everything under each header)
-. Create a `0.2.21-SNAPSHOT #0` release, see xref:#create-a-snapshot-release[make a snapshot release for instructions].
+. Create a `0.2.21-SNAPSHOT 0` release, see xref:#create-a-snapshot-release[make a snapshot release for instructions].
+  - Add comment "0.2.21-SNAPSHOT 0 (same as 0.2.20)."
 . Delete old `0.2.20-SNAPSHOT` releases.
 . Announce in https://clojurians.slack.com/archives/C015AL9QYH1[#releases] if a minor release, or in https://clojurians.slack.com/archives/C06MAR553[#announcements] if a big release (in clojurians in Slack) by summarizing the most important changes + the included issues and PRs + add a link to the #polylith channel.
 . Announce on social media
