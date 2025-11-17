@@ -592,6 +592,7 @@ Make a `0.2.20` release:
   - https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/components/version/src/polylith/clj/core/version/interface.clj#L40[date] is set to today's date (yyyy-mm-dd).
 . Ensure the versions are correctly specified in `readme.adoc`:
   - `:snapshot-number:` is set to `0`.
+  - `:snapshot-version:` is set to `0.2.20`.
   - `:stable-version:` is set to `0.2.20`.
 . Whenever the workspace structure changes, remember to update the xref:versions.adoc[Versions] table, and also update the code that migrates exported files in the https://github.com/polyfy/polylith/blob/f5da3d2e206182c7231cabf4207a7001f82508b4/components/ws-file-reader/src/polylith/clj/core/ws_file_reader/from_disk.clj#L11[ws-file-reader] component.
 . Ensure that `readme.adoc` lists the correct sponsors by cross-checking it against the https://github.com/sponsors/polyfy/dashboard/your_sponsors[actual] sponsors.
@@ -619,6 +620,7 @@ Make a `0.2.20` release:
   - Update version to 0.2.21 SNAPSHOT #0 (revision to SNAPSHOT, patch to 21, snapshot to 0)
 . Update readme.adoc:
   - leave `:snapshot-number:` as 0
+  - leave `:stable-version:` as 0.2.20
   - set `:snapshot-version:` to 0.2.21
 . Update https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md]:
   - Change the heading to "Included since 0.2.20"
