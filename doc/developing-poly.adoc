@@ -600,7 +600,7 @@ Make a `0.2.20` release:
 9. Commit.
 10. Execute `bb gen-all`
     - Compare the output with what's in git
-    - Commit and push the changes if everything looks correct (this will trigger a release).
+    - Commit and push the changes if everything looks correct.
 11. Go to the https://github.com/polyfy/polylith[polylith repo] and prepare to merge the `release-0220` branch into `master`, by clicking the "Compare & pull requests" button at the top.
     - Add a comment indicating that this is release 0.2.20.
     - If the https://app.circleci.com/pipelines/github/polyfy[circlci pipeline] is green, merge it into the `master` branch.
