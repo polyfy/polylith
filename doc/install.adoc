@@ -1,6 +1,6 @@
 = Install
 :toc:
-:poly-version: 0.3.30
+:poly-version: 0.3.31
 :cljdoc-api-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/api
 
 There are two ways to install the `poly` tool:
