@@ -40,7 +40,6 @@
                           :integrant-system {:url "https://github.com/polyfy/polylith/tree/master/examples/integrant-system"}
                           :polylith {:url "https://github.com/polyfy/polylith"}
                           :realworld {:url "https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/cljs-frontend"}
-                          :the-gentle-monorepo {:url "https://www.youtube.com/watch?v=k49496sH9aw"}
                           :usermanager {:url "https://github.com/seancorfield/usermanager-example/tree/polylith"}}
              :videos {:url "https://polylith.gitbook.io/polylith/conclusion/videos"
                       :polylith-in-a-nutshell {:url "https://youtu.be/Xz8slbpGvnk"}
@@ -49,7 +48,8 @@
                       :the-last-architecture-you-will-ever-need {:url "https://youtu.be/pebwHmibla4"}
                       :a-fresh-take-on-monorepos-in-python {:url "https://www.youtube.com/watch?v=HU61vjZPPfQ"}
                       :polylith–a-software-architecture-based-on-lego-like-blocks {:url "https://www.youtube.com/watch?v=wy4LZykQBkY"}
-                      :how-the-polylith-repo-has-evolved-over-time {:url "https://youtu.be/cfVzy9iPpLg"}}
+                      :how-the-polylith-repo-has-evolved-over-time {:url "https://youtu.be/cfVzy9iPpLg"}
+                      :the-gentle-monorepo {:url "https://www.youtube.com/watch?v=k49496sH9aw"}}
              :podcasts {:url "https://polylith.gitbook.io/polylith/#listen-to-a-podcast"
                         :polylith-with-joakim-james-and-furkan {:url clojurescript-podcast-part1
                                                                 :part {:url clojurescript-podcast-part1
