@@ -554,10 +554,14 @@ Make a `0.2.20-SNAPSHOT 34` release:
    - Compare the output with what's in git, and commit the changes if everything looks good.
 10. Verify that we have included everything in https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md].
 11. Commit and push your changes.
-12. Go to the https://github.com/polyfy/polylith[polylith repo] and prepare to merge the `snapshot-022034` branch into `master`, by clicking the "Compare & pull requests" button at the top.
+12. If the next release is a stable release, build a xref:#local-cljdoc[local version] of Cljdoc:
+    - Check that new content looks correct.
+    - Verify that we have included everything in https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md].
+    - Check that the badges at the top and the API at the bottom left are displayed correctly (most namespaces should begin with a `^:no-doc` tag, to exclude them from the API doc).
+13. Go to the https://github.com/polyfy/polylith[polylith repo] and prepare to merge the `snapshot-022034` branch into `master`, by clicking the "Compare & pull requests" button at the top.
 If the https://app.circleci.com/pipelines/github/polyfy[circlci pipeline] is green, merge it into the `master` branch.
-13. Execute `git switch master` followed by `git pull` to get the latest from `master`.
-14. If the next release is a snapshot release, execute `git switch -c snapshot-022035`, otherwise follow the instructions for creating a stable release.
+14. Execute `git switch master` followed by `git pull` to get the latest from `master`.
+15. If the next release is a snapshot release, execute `git switch -c snapshot-022035`, otherwise follow the instructions for creating a stable release.
 
 [#create-a-stable-release]
 == Create a stable release
@@ -594,31 +598,28 @@ Make a `0.2.20` release:
    - If any doc content has been added, make sure to update corresponding examples in the doc, e.g. what xref:more[more] outputs.
 8. Search for occurrences of `:poly-version:` constants, and set the version to `0.2.20` wherever it appears (at the top of .adoc files).
 9. Commit.
-10. Execute `bb gen-all`. Compare the output with what's in git, and commit push the changes if everything looks correct.
-11. Push your changes.
-12. Build a xref:#local-cljdoc[local version] of Cljdoc:
-- Check that new content looks correct.
-- Verify that we have included everything in https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md].
-- Check that the badges at the top and the API at the bottom left are displayed correctly (most namespaces should begin with a `^:no-doc` tag, to exclude them from the API doc).
-13. Go to the https://github.com/polyfy/polylith[polylith repo] and prepare to merge the `release-0220` branch into `master`, by clicking the "Compare & pull requests" button at the top.
+10. Execute `bb gen-all`
+    - Compare the output with what's in git
+    - Commit and push the changes if everything looks correct (this will trigger a release).
+11. Go to the https://github.com/polyfy/polylith[polylith repo] and prepare to merge the `release-0220` branch into `master`, by clicking the "Compare & pull requests" button at the top.
     - Add a comment indicating that this is release 0.2.20.
     - If the https://app.circleci.com/pipelines/github/polyfy[circlci pipeline] is green, merge it into the `master` branch.
     - Ensure that the https://cljdoc.org/d/polylith/clj-poly/0.2.20/doc/readme[poly-clj] documentation has been built, and verify that the badges at the top and the API at the bottom left are displayed correctly.
-14. Update the https://github.com/polyfy/polylith/releases/tag/v0.2.20[release notes] for the 0.2.20 release:
+12. Update the https://github.com/polyfy/polylith/releases/tag/v0.2.20[release notes] for the 0.2.20 release:
     - Summarize the release in the introduction.
     - Copy the content from https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md] into the release notes.
-15. Update the https://github.com/polyfy/homebrew-polylith[Polylith Homebrew Tap].
-16. Execute `git switch master` followed by `git pull` to get the latest from master.
-17. Execute `git switch -c snapshot-022100` to create a first snapshot branch for the next release (here we imagine that the next release is 0.2.21).
-18. Update the version component:
+13. Update the https://github.com/polyfy/homebrew-polylith[Polylith Homebrew Tap].
+14. Execute `git switch master` followed by `git pull` to get the latest from master.
+15. Execute `git switch -c snapshot-022100` to create a first snapshot branch for the next release (here we imagine that the next release is 0.2.21).
+16. Update the version component:
     - Update version to 0.2.21 SNAPSHOT #0 (revision to SNAPSHOT, patch to 21, snapshot to 0)
-19. Update readme.adoc:
+17. Update readme.adoc:
     - set `:snapshot-number:` to 0
     - set `:snapshot-version:` to 0.2.21
-20. Update https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md]:
+18. Update https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md]:
     - Change the heading to "Included since 0.2.20"
     - Clean everything (remove everything under each header)
-21. Create a `0.2.21-SNAPSHOT #0` release, see xref:#create-a-snapshot-release[make a snapshot release for instructions].
-22. Delete old `0.2.20-SNAPSHOT` releases.
-23. Announce in https://clojurians.slack.com/archives/C015AL9QYH1[#releases] if a minor release, or in https://clojurians.slack.com/archives/C06MAR553[#announcements] if a big release (in clojurians in Slack) by summarizing the most important changes + the included issues and PRs + add a link to the #polylith channel.
-24. Announce on social media
+19. Create a `0.2.21-SNAPSHOT #0` release, see xref:#create-a-snapshot-release[make a snapshot release for instructions].
+20. Delete old `0.2.20-SNAPSHOT` releases.
+21. Announce in https://clojurians.slack.com/archives/C015AL9QYH1[#releases] if a minor release, or in https://clojurians.slack.com/archives/C06MAR553[#announcements] if a big release (in clojurians in Slack) by summarizing the most important changes + the included issues and PRs + add a link to the #polylith channel.
+22. Announce on social media
