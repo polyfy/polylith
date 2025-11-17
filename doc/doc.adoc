@@ -238,11 +238,6 @@ understanding-polylith-through-the-lens-of-hexagonal-architecture
 | Blog post | What | Published
 
 [[leveraging-polylith]]
-| https://www.youtube.com/watch?v=k49496sH9aw[the-gentle-monorepo]
-| https://github.com/gerbendekkervolue[Gerben Dekker] explains how you can ship faster and collaborate better, using Polylith and other tools (in Python).
-  He starts talking about Polylith at 9:20.
-| 2025
-
 | https://medium.com/qantas-engineering-blog/leveraging-polylith-to-improve-consistency-reduce-complexity-and-increase-changeability-2031dd3d5f3d[leveraging-polylith-to-improve-consistency-reduce-complexity-and-increase-changeability]
 | https://github.com/xlfe[Felix Barbalet] explains how Poilylith helps reduce complexity in an existing production system.
 | 2024
@@ -377,12 +372,18 @@ developer-tooling-for-speed-and-productivity-in-2024
 how-the-polylith-repo-has-evolved-over-time
 polylith-in-a-nutshell
 polylith–a-software-architecture-based-on-lego-like-blocks
+the-gentle-monorepo
 the-last-architecture-you-will-ever-need
 ----
 
 [%autowidth]
 |===
 | Video | What | Published
+
+| https://www.youtube.com/watch?v=k49496sH9aw[the-gentle-monorepo]
+| https://github.com/gerbendekkervolue[Gerben Dekker] explains how you can ship faster and collaborate better, using Polylith and other tools (in Python).
+He starts talking about Polylith at 9:20.
+| 2025
 
 | https://youtu.be/pVvuyaRDA58?si=rBFMEyGtspdmGV29&t=1333[developer-tooling-for-speed-and-productivity-in-2024]
 | A talk by https://github.com/vedang[Vedang Manerikar] from the https://inclojure.org[IN/Clojure] 2024 conference, where he talks about the advantages of Polylith.
