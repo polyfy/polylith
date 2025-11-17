@@ -536,7 +536,6 @@ Make a `0.2.20-SNAPSHOT 34` release:
   - https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/components/version/src/polylith/clj/core/version/interface.clj#L28[snapshot] is set to `34`.
   - https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/components/version/src/polylith/clj/core/version/interface.clj#L40[date] is set to today's date (yyyy-mm-dd).
 . Ensure the versions are correctly specified in `readme.adoc`:
-  - `:is-snapshot` is set to `true`
   - `:snapshot-number:` is set to `34`.
   - `:snapshot-version:` is set to `0.2.20`.
   - `:stable-version:` is set to `0.2.19`.
@@ -592,8 +591,8 @@ Make a `0.2.20` release:
   - https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/components/version/src/polylith/clj/core/version/interface.clj#L28[snapshot] is set to `0`.
   - https://github.com/polyfy/polylith/blob/87aeb2ce093f31449827fb19d189e4ad0f80859d/components/version/src/polylith/clj/core/version/interface.clj#L40[date] is set to today's date (yyyy-mm-dd).
 . Ensure the versions are correctly specified in `readme.adoc`:
-  - `:is-snapshot` is set to `false`
   - `:snapshot-number:` is set to `0`.
+  - `:snapshot-version:` is set to `0.2.20`.
   - `:stable-version:` is set to `0.2.20`.
 . Whenever the workspace structure changes, remember to update the xref:versions.adoc[Versions] table, and also update the code that migrates exported files in the https://github.com/polyfy/polylith/blob/f5da3d2e206182c7231cabf4207a7001f82508b4/components/ws-file-reader/src/polylith/clj/core/ws_file_reader/from_disk.clj#L11[ws-file-reader] component.
 . Ensure that `readme.adoc` lists the correct sponsors by cross-checking it against the https://github.com/sponsors/polyfy/dashboard/your_sponsors[actual] sponsors.
@@ -620,14 +619,15 @@ Make a `0.2.20` release:
 . Update the version component:
   - Update version to 0.2.21 SNAPSHOT #0 (revision to SNAPSHOT, patch to 21, snapshot to 0)
 . Update readme.adoc:
-  - set `:is-snapshot` to `true`
   - leave `:snapshot-number:` as 0
+  - leave `:stable-version:` as 0.2.20
   - set `:snapshot-version:` to 0.2.21
 . Update https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md]:
   - Change the heading to "Included since 0.2.20"
   - Clean everything (remove everything under each header)
 . Create a `0.2.21-SNAPSHOT 0` release, see xref:#create-a-snapshot-release[make a snapshot release for instructions].
-  - Add comment "0.2.21-SNAPSHOT 0 (same as 0.2.20)."
+  - Add comment: 0.2.21-SNAPSHOT 0 (same as 0.2.20).
+  - Check what is included under the tab "File Changed"
 . Delete old `0.2.20-SNAPSHOT` releases.
 . Announce in https://clojurians.slack.com/archives/C015AL9QYH1[#releases] if a minor release, or in https://clojurians.slack.com/archives/C06MAR553[#announcements] if a big release (in clojurians in Slack) by summarizing the most important changes + the included issues and PRs + add a link to the #polylith channel.
 . Announce on social media
