@@ -560,8 +560,11 @@ Make a `0.2.20-SNAPSHOT 34` release:
     - Check that the badges at the top and the API at the bottom left are displayed correctly (most namespaces should begin with a `^:no-doc` tag, to exclude them from the API doc).
 13. Go to the https://github.com/polyfy/polylith[polylith repo] and prepare to merge the `snapshot-022034` branch into `master`, by clicking the "Compare & pull requests" button at the top.
 If the https://app.circleci.com/pipelines/github/polyfy[circlci pipeline] is green, merge it into the `master` branch.
-14. Execute `git switch master` followed by `git pull` to get the latest from `master`.
-15. If the next release is a snapshot release, execute `git switch -c snapshot-022035`, otherwise follow the instructions for creating a stable release.
+14. When built, find newly built release under https://github.com/polyfy/polylith/releases[releases]
+    - Edit and update it with "0.2.20-SNAPSHOT 34"
+    - List included issues and other changes.
+15. Execute `git switch master` followed by `git pull` to get the latest from `master`.
+16. If the next release is a snapshot release, execute `git switch -c snapshot-022035`, otherwise follow the instructions for creating a stable release.
 
 [#create-a-stable-release]
 == Create a stable release
@@ -604,7 +607,7 @@ Make a `0.2.20` release:
 11. Go to the https://github.com/polyfy/polylith[polylith repo] and prepare to merge the `release-0220` branch into `master`, by clicking the "Compare & pull requests" button at the top.
     - Add a comment indicating that this is release 0.2.20.
     - If the https://app.circleci.com/pipelines/github/polyfy[circlci pipeline] is green, merge it into the `master` branch.
-    - Ensure that the https://cljdoc.org/d/polylith/clj-poly/0.2.20/doc/readme[poly-clj] documentation has been built, and verify that the badges at the top and the API at the bottom left are displayed correctly.
+    - Ensure that the https://cljdoc.org/d/polylith/clj-poly/0.2.20/doc/readme[poly-clj] documentation has been built.
 12. Update the https://github.com/polyfy/polylith/releases/tag/v0.2.20[release notes] for the 0.2.20 release:
     - Summarize the release in the introduction.
     - Copy the content from https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md] into the release notes.
