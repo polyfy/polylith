@@ -609,16 +609,16 @@ Make a `0.2.20` release:
     - Copy the content from https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md] into the release notes.
 15. Update the https://github.com/polyfy/homebrew-polylith[Polylith Homebrew Tap].
 16. Execute `git switch master` followed by `git pull` to get the latest from master.
-17. Execute `git switch -c snapshot-022101` to create a first snapshot branch for the next release (here we imagine that the next release is 0.2.21).
+17. Execute `git switch -c snapshot-022100` to create a first snapshot branch for the next release (here we imagine that the next release is 0.2.21).
 18. Update the version component:
-    - Update version to 0.2.21 SNAPSHOT #1 (revision to SNAPSHOT, patch to 21, snapshot to 1)
+    - Update version to 0.2.21 SNAPSHOT #0 (revision to SNAPSHOT, patch to 21, snapshot to 0)
 19. Update readme.adoc:
-    - set `:snapshot-number:` to 1
+    - set `:snapshot-number:` to 0
     - set `:snapshot-version:` to 0.2.21
 20. Update https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md]:
     - Change the heading to "Included since 0.2.20"
     - Clean everything (remove everything under each header)
-21. Create a `0.2.21-SNAPSHOT #1` release, see xref:#create-a-snapshot-release[make a snapshot release for instructions].
+21. Create a `0.2.21-SNAPSHOT #0` release, see xref:#create-a-snapshot-release[make a snapshot release for instructions].
 22. Delete old `0.2.20-SNAPSHOT` releases.
 23. Announce in https://clojurians.slack.com/archives/C015AL9QYH1[#releases] if a minor release, or in https://clojurians.slack.com/archives/C06MAR553[#announcements] if a big release (in clojurians in Slack) by summarizing the most important changes + the included issues and PRs + add a link to the #polylith channel.
 24. Announce on social media
