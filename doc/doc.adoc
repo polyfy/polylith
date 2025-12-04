@@ -381,7 +381,7 @@ the-last-architecture-you-will-ever-need
 | Video | What | Published
 
 | https://www.youtube.com/watch?v=k49496sH9aw[the-gentle-monorepo]
-| https://github.com/gerbendekkervolue[Gerben Dekker] explains how you can ship faster and collaborate better, using Polylith and other tools (in Python).
+| https://www.linkedin.com/in/gerbendekker/[Gerben Dekker] explains how you can ship faster and collaborate better, using Polylith and other tools (in Python).
 He starts talking about Polylith at 9:20.
 | 2025
 

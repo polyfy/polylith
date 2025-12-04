@@ -1,4 +1,4 @@
 {:paths ["src" "resources"]
- :deps {selmer/selmer {:mvn/version "1.12.62"}}
+ :deps {selmer/selmer {:mvn/version "1.12.69"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}

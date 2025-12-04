@@ -1,4 +1,4 @@
 {:paths ["src"]
- :deps {org.apache.maven/maven-artifact {:mvn/version "4.0.0-rc-4"}}
+ :deps {org.apache.maven/maven-artifact {:mvn/version "4.0.0-rc-5"}}
  :aliases {:test {:extra-paths []
                   :extra-deps {}}}}

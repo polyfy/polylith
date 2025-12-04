@@ -45,6 +45,7 @@
   (-main "ws" "get:components:api:namespaces:src:core:file-path" "ws-dir:../../Downloads/polylith-0.1.0-alpha9/" ":no-exit")
   (-main "check" ":no-exit")
   (-main "libs" ":update" "libraries:zprint/zprint" ":no-exit")
+  (-main "libs" ":no-exit")
   (-main "libs" ":outdated" ":no-exit")
   (-main "doc" "page:polylith-ci-setup" ":no-exit")
   (-main "ws-dir:examples/doc-example" ":no-exit")
