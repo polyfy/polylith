@@ -1,5 +1,6 @@
 (ns ^:no-doc polylith.clj.core.file.core
-  (:require [clojure.java.io :as io]
+  (:require [clojure.instant :as i]
+            [clojure.java.io :as io]
             [clojure.pprint :as pp]
             [clojure.string :as str]
             [clojure.tools.reader :refer [resolve-symbol]]
@@ -130,7 +131,7 @@
 (defn source-reader [tag]
   (cond
     (= tag 'uuid) #(java.util.UUID/fromString %)
-    (= tag 'inst) #(clojure.instant/read-instant-date %)
+    (= tag 'inst) i/read-instant-date
     :else (fn [data]
             {:unknown-tag tag
              :value data})))
@@ -150,23 +151,23 @@
   (let [splicing? (-> parsed-statement meta :edamame/read-cond-splicing)
         matched-statements (match-statements parsed-statement splicing? features)]
     (vary-meta matched-statements
-               #(assoc % :edamame.impl.parser/cond-splice true))))
+               #(assoc % :edamame/read-cond-splicing true))))
 
 (defn- parse-code-str* [code-str features read-cond]
-  (try (edamame/parse-string-all code-str
-                                 {:fn true
-                                  :var true
-                                  :quote true
-                                  :regex true
-                                  :deref true
-                                  :symbol true
-                                  :read-eval true
-                                  :features features
-                                  :readers source-reader
-                                  :read-cond read-cond
-                                  :auto-resolve name
-                                  :auto-resolve-ns true
-                                  :syntax-quote {:resolve-symbol resolve-symbol}})))
+  (edamame/parse-string-all code-str
+                            {:fn true
+                             :var true
+                             :quote true
+                             :regex true
+                             :deref true
+                             :symbol true
+                             :read-eval true
+                             :features features
+                             :readers source-reader
+                             :read-cond read-cond
+                             :auto-resolve name
+                             :auto-resolve-ns true
+                             :syntax-quote {:resolve-symbol resolve-symbol}}))
 
 (defn ns-with-name? [content]
   (and (sequential? content)
