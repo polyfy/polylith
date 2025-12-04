@@ -144,7 +144,7 @@
           "  library                          version     type      KB   poly  polyx   dev  default  extended   q  r  s  e  x  n  l  p  r  e  r"
           "  ---------------------------------------------------------   -----------   ----------------------   -------------------------------"
           "  babashka/fs                      0.5.30      maven     25    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
-          "  borkdude/edamame                 1.4.32      maven     25    x      x      x      -        -       .  .  .  x  .  .  .  .  .  .  ."
+          "  borkdude/edamame                 1.5.34      maven     26    x      x      x      -        -       .  .  .  x  .  .  .  .  .  .  ."
           "  borkdude/rewrite-edn             0.4.9       maven     11    -      -      x      -        -       .  .  .  .  .  .  .  .  .  .  ."
           "  cheshire/cheshire                6.1.0       maven     25    x      x      x      -        -       x  .  .  .  .  .  .  .  .  .  ."
           "  clj-commons/fs                   1.6.312     maven     12    x      x      x      -        -       .  .  .  x  .  .  .  .  .  .  ."
