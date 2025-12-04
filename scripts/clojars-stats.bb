@@ -35,27 +35,21 @@
                      (recur start (cons part acc)))))]
     (str/join "," parts)))
 
-(println "Fetching download statistics...")
-(def data
-  (for [v versions]
-    (let [downloads (get-downloads v)]
-      (Thread/sleep 200)  ;; Be nice to the server
-      {:version v
-       :downloads (if (and downloads (not= downloads "") (not= downloads "-"))
-                    (parse-long downloads)
-                    0)})))
-
 (def version-width (max (count "Version")
-                        (apply max (map #(count (:version %)) data))))
-(def downloads-width (max (count "Downloads")
-                          (apply max (map #(count (format-number (:downloads %))) data))))
+                        (apply max (map count versions))))
+(def downloads-width 9)
 
-(println)
 (println (str (format (str "%-" version-width "s") "Version")
               " | "
               (format (str "%" downloads-width "s") "Downloads")))
 (println (str (str/join (repeat (+ version-width 3 downloads-width) "-"))))
-(doseq [{:keys [version downloads]} data]
-  (println (str (format (str "%-" version-width "s") version)
-                " | "
-                (format (str "%" downloads-width "s") (format-number downloads)))))
+
+(doseq [v versions]
+  (let [downloads-str (get-downloads v)
+        downloads (if (and downloads-str (not= downloads-str "") (not= downloads-str "-"))
+                    (parse-long downloads-str)
+                    0)]
+    (println (str (format (str "%-" version-width "s") v)
+                  " | "
+                  (format (str "%" downloads-width "s") (format-number downloads))))
+    (Thread/sleep 200)))  ;; Be nice to the server
