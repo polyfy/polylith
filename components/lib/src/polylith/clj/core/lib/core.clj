@@ -24,12 +24,12 @@
         (latest-tools-deps-with-sizes-vec ws-dir entity-root-path libraries user-home)))
 
 
-(defn lib-deps [ws-dir ws-type deps package-deps top-namespace ns-to-lib lib->deps namespaces entity-root-path user-home]
+(defn lib-deps [ws-dir ws-type deps package-deps package-name top-namespace ns-to-lib lib->deps namespaces entity-root-path user-home]
   (if (= :toolsdeps1 ws-type)
     (ns-to-lib/lib-deps ws-dir top-namespace ns-to-lib lib->deps namespaces user-home)
     (util/stringify-and-sort-map
       (into {} (concat (latest-tools-deps-with-sizes-vec ws-dir entity-root-path deps user-home)
-                       (size-npm/with-sizes-vec ws-dir package-deps))))))
+                       (size-npm/with-sizes-vec ws-dir package-name package-deps))))))
 
 (defn lib->deps [ws-dir ws-type]
   (let [{:keys [deps]} (config-reader/read-development-config-files ws-dir ws-type)]
@@ -40,10 +40,11 @@
   (let [lib->deps (lib->deps ws-dir ws-type)
         src-deps (:deps deps-config)
         test-deps (get-in deps-config [:aliases :test :extra-deps])
+        package-name (:name package-config)
         package-src-deps (:dependencies package-config)
         package-test-deps (:devDependencies package-config)
-        src (lib-deps ws-dir ws-type src-deps package-src-deps top-namespace ns-to-lib lib->deps (:src namespaces) entity-root-path user-home)
-        test (lib-deps ws-dir ws-type test-deps package-test-deps top-namespace ns-to-lib lib->deps (:test namespaces) entity-root-path user-home)]
+        src (lib-deps ws-dir ws-type src-deps package-src-deps package-name top-namespace ns-to-lib lib->deps (:src namespaces) entity-root-path user-home)
+        test (lib-deps ws-dir ws-type test-deps package-test-deps package-name top-namespace ns-to-lib lib->deps (:test namespaces) entity-root-path user-home)]
     (cond-> {}
             (seq src) (assoc :src src)
             (seq test) (assoc :test test))))

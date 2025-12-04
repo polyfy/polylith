@@ -2,13 +2,21 @@
   (:require [clj-http.client :as http]
             [cheshire.core :as json]))
 
+(defn keyword->full-name
+  "Convert a keyword to its full string name, preserving namespace for scoped npm packages.
+   For :@mantine/core, returns '@mantine/core' instead of just 'core'."
+  [kw]
+  (if-let [ns (namespace kw)]
+    (str ns "/" (name kw))
+    (name kw)))
+
 (defn npm-registry-url [package-name]
   (str "https://registry.npmjs.org/" package-name))
 
 (defn get-latest-version [package-name]
   "Get the latest version of an npm package from the npm registry"
   (try
-    (let [pkg-name (if (keyword? package-name) (clojure.core/name package-name) (str package-name))
+    (let [pkg-name (if (keyword? package-name) (keyword->full-name package-name) (str package-name))
           response (http/get (npm-registry-url pkg-name) {:accept :json})
           body (json/parse-string (:body response) true)
           latest-version (get-in body [:dist-tags :latest])]
@@ -23,7 +31,7 @@
   "Convert npm dependencies to latest version information"
   (into {} (map (fn [[name]]
                   (let [pkg-name (cond
-                                   (keyword? name) (clojure.core/name name)
+                                   (keyword? name) (keyword->full-name name)
                                    (string? name) name
                                    :else (str name))]
                     (when-let [latest-version (get-latest-version name)]
@@ -33,10 +41,13 @@
 (defn outdated-npm-dependencies [npm-deps]
   "Find npm dependencies that are outdated (current version != latest version)"
   (let [latest-versions (npm-dependencies->latest-versions npm-deps)]
-    (into {} (filter (fn [[name latest-version]]
-                       (and latest-version
-                            (not= latest-version (npm-deps (keyword name)))))
-                     latest-versions))))
+    (into {} (keep (fn [[pkg-key current-version]]
+                     (let [pkg-name (keyword->full-name pkg-key)
+                           latest-version (get latest-versions pkg-name)]
+                       (when (and latest-version
+                                  (not= latest-version current-version))
+                         [pkg-name latest-version])))
+                   (filter npm-dep? npm-deps)))))
 
 (defn read-package-json [file-path]
   "Read and parse package.json file"
