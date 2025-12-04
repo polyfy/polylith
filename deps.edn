@@ -43,7 +43,7 @@
                                poly/poly-cli                 {:local/root "bases/poly-cli"}
 
                                ;; babashka
-                               babashka/fs                   {:mvn/version "0.5.27"}
+                               babashka/fs                   {:mvn/version "0.5.30"}
                                borkdude/rewrite-edn          {:mvn/version "0.4.9"}
                                org.babashka/http-client      {:mvn/version "0.4.23"}
                                version-clj/version-clj       {:mvn/version "2.0.3"}
@@ -176,10 +176,10 @@
             :gen-nav {:main-opts ["-m" "polylith.clj.core.nav-generator.main"]
                       :extra-deps {polylith/clj-poly {:local/root "projects/poly"}}}
 
-            :build {:deps {org.clojure/tools.deps {:mvn/version "0.18.1354"}
-                           io.github.clojure/tools.build {:mvn/version "0.10.5"}
+            :build {:deps {org.clojure/tools.deps {:mvn/version "0.26.1553"}
+                           io.github.clojure/tools.build {:mvn/version "0.10.11"}
                            org.babashka/http-client {:mvn/version "0.4.23"}
-                           slipset/deps-deploy {:mvn/version "0.2.1"}
+                           slipset/deps-deploy {:mvn/version "0.2.2"}
                            polylith/clj-poly {:local/root "projects/poly"}}
                     :paths ["build/resources"]
                     :ns-default build}}}
