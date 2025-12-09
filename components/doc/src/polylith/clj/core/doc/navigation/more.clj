@@ -27,13 +27,13 @@
              :python-tool {:url "https://davidvujic.github.io/python-polylith-docs"}
              :in-japanese {:url "https://zenn.dev/shinseitaro/books/clojure-polylith"}
              :blog-posts {:url "https://polylith.gitbook.io/polylith/#read-a-blog-post"
-                          :understanding-polylith-through-the-lens-of-hexagonal-architecture {:url "https://medium.com/@joakimtengstrand/understanding-polylith-through-the-lens-of-hexagonal-architecture-8e7c8757dab1"}
+                          :understanding-polylith-through-the-lens-of-hexagonal-architecture {:url "https://tengstrand.github.io/blog/2023-11-01-understanding-polylith-through-the-lens-of-hexagonal-architecture.html"}
                           :leveraging-polylith-to-improve-consistency-reduce-complexity-and-increase-changeability {:url "https://medium.com/qantas-engineering-blog/leveraging-polylith-to-improve-consistency-reduce-complexity-and-increase-changeability-2031dd3d5f3d"}
                           :a-fresh-take-on-monorepos-in-python {:url "https://davidvujic.blogspot.com/2022/02/a-fresh-take-on-monorepos-in-python.html"}
-                          :how-polylith-came-to-life {:url "https://medium.com/@joakimtengstrand/the-polylith-architecture-1eec55c5ebce"}
+                          :how-polylith-came-to-life {:url "https://tengstrand.github.io/blog/2018-10-02-how-polylith-came-to-life.html"}
                           :the-monorepos-polylith-series {:url "https://corfield.org/blog/2021/04/21/deps-edn-monorepo-2"}
-                          :the-micro-monolith-architecture {:url "https://medium.com/@joakimtengstrand/the-micro-monolith-architecture-d135d9cafbe"}
-                          :the-origin-of-complexity {:url "https://itnext.io/the-origin-of-complexity-8ecb39130fc"}}
+                          :the-micro-monolith-architecture {:url "https://tengstrand.github.io/blog/2016-12-28-the-micro-monolith-architecture.html"}
+                          :the-origin-of-complexity {:url "https://tengstrand.github.io/blog/2019-09-14-the-origin-of-complexity.html"}}
              :workspaces {:url "https://polylith.gitbook.io/polylith#look-at-working-code"
                           :demo-rama-electric {:url "https://github.com/jeans11/demo-rama-electric"}
                           :game-of-life {:url "https://github.com/tengstrand/game-of-life"}
