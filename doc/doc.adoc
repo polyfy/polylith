@@ -227,6 +227,7 @@ example$ doc more:blog-posts:
 a-fresh-take-on-monorepos-in-python
 how-polylith-came-to-life
 leveraging-polylith-to-improve-consistency-reduce-complexity-and-increase-changeability
+tetris-playing-ai-the-polylith-way-1
 the-micro-monolith-architecture
 the-monorepos-polylith-series
 the-origin-of-complexity
@@ -238,6 +239,10 @@ understanding-polylith-through-the-lens-of-hexagonal-architecture
 | Blog post | What | Published
 
 [[leveraging-polylith]]
+| https://tengstrand.github.io/blog/2025-12-28-tetris-playing-ai-the-polylith-way-1.html[Tetris-playing AI using Polylith - Part 1]
+| https://github.com/tengstrand[Joakim Tengstrand] Joakim implements a Tetris playing "AI" in Clojure and Python while reflecting on the differences between the languages. Part 1 of a blog series."
+| 2025
+
 | https://medium.com/qantas-engineering-blog/leveraging-polylith-to-improve-consistency-reduce-complexity-and-increase-changeability-2031dd3d5f3d[leveraging-polylith-to-improve-consistency-reduce-complexity-and-increase-changeability]
 | https://github.com/xlfe[Felix Barbalet] explains how Poilylith helps reduce complexity in an existing production system.
 | 2024

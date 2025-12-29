@@ -22,6 +22,6 @@
   org.clojure/tools.deps.alpha      0.15.1244  maven      -    x    x      x    x  x  .  .  .  .  x  .
   org.jline/jline                   3.21.0     maven      -    -    x      x    .  .  .  x  .  .  .  .
   org.slf4j/slf4j-nop               2.0.3      maven      3    -    x      x    .  .  .  .  .  .  .  .
-  rewrite-clj/rewrite-clj           1.1.45     maven      -    -    -      x    .  .  .  .  .  .  .  .
+  rewrite-clj/rewrite-clj           1.1.45     maven     71    -    -      x    .  .  .  .  .  .  .  .
   slipset/deps-deploy               0.2.0      maven      7    -    -      x    .  .  .  .  .  .  .  .
   zprint/zprint                     1.2.4      maven      -    -    x      x    .  .  x  .  .  .  .  .
