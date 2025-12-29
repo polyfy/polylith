@@ -733,13 +733,13 @@
  :profiles [],
  :version
  {:release
-  {:name "0.3.31",
+  {:name "0.3.32",
    :tool "poly",
    :major 0,
    :minor 3,
-   :patch 31,
+   :patch 32,
    :revision "",
-   :date "2025-11-17"},
+   :date "2025-12-29"},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
   :ws {:breaking 5, :non-breaking 0},
@@ -913,6 +913,7 @@
      {:dir "examples/poly-rcf"}
      {:dir "examples/profiles"}
      {:dir "examples/test-runners"}
+     {:dir "../tetrisanalyzer/langs/clojure/tetris-polylith"}
      {:dir "../clojure-polylith-realworld-example-app",
       :name "realworld"}]}},
   :workspace
