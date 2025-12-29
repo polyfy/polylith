@@ -239,7 +239,7 @@ understanding-polylith-through-the-lens-of-hexagonal-architecture
 | Blog post | What | Published
 
 [[leveraging-polylith]]
-| https://tengstrand.github.io/blog/2025-12-28-tetris-playing-ai-the-polylith-way-1.html[Tetris playing AI using Polylith - Part 1]
+| https://tengstrand.github.io/blog/2025-12-28-tetris-playing-ai-the-polylith-way-1.html[Tetris-playing AI using Polylith - Part 1]
 | https://github.com/tengstrand[Joakim Tengstrand] Joakim implements a Tetris playing "AI" in Clojure and Python while reflecting on the differences between the languages. Part 1 of a blog series."
 | 2025
 
