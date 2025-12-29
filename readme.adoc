@@ -1,7 +1,7 @@
 image::doc/images/logo.png[width=400]
-:snapshot-number: 5
+:snapshot-number: 0
 :snapshot-version: 0.3.32
-:stable-version: 0.3.31
+:stable-version: 0.3.32
 :cljdoc-doc-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc
 
 https://cljdoc.org/d/polylith/clj-poly/{stable-version}/doc/readme[image:https://img.shields.io/badge/doc-{stable-version}-0380c1[]]

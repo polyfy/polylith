@@ -1,6 +1,6 @@
 = Workspace Structure
 :toc:
-:poly-version: 0.3.31
+:poly-version: 0.3.32
 :cljdoc-api-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/api
 
 The `poly` tool gives us access to the data structure that represents the workspace, which is the same structure that all the `poly` commands operate on internally.
