@@ -33,7 +33,8 @@
                           :how-polylith-came-to-life {:url "https://tengstrand.github.io/blog/2018-10-02-how-polylith-came-to-life.html"}
                           :the-monorepos-polylith-series {:url "https://corfield.org/blog/2021/04/21/deps-edn-monorepo-2"}
                           :the-micro-monolith-architecture {:url "https://tengstrand.github.io/blog/2016-12-28-the-micro-monolith-architecture.html"}
-                          :the-origin-of-complexity {:url "https://tengstrand.github.io/blog/2019-09-14-the-origin-of-complexity.html"}}
+                          :the-origin-of-complexity {:url "https://tengstrand.github.io/blog/2019-09-14-the-origin-of-complexity.html"}
+                          :tetris-playing-ai-the-polylith-way-1 {:url "https://tengstrand.github.io/blog/2025-12-28-tetris-playing-ai-the-polylith-way-1.html"}}
              :workspaces {:url "https://polylith.gitbook.io/polylith#look-at-working-code"
                           :demo-rama-electric {:url "https://github.com/jeans11/demo-rama-electric"}
                           :game-of-life {:url "https://github.com/tengstrand/game-of-life"}
