@@ -226,6 +226,9 @@ jobs:
           name: Add global git user name
           command: git config --global user.name "CircleCI"
       - run:
+          name: Fetch git tags
+          command: git fetch --tags
+      - run:
           name: Deploy changed projects to clojars and request a cljdoc build if snapshot
           command: |
             VERSION=`cat version.txt`
@@ -259,6 +262,9 @@ jobs:
       - run:
           name: Add global git user name
           command: git config --global user.name "CircleCI"
+      - run:
+          name: Fetch git tags
+          command: git fetch --tags
       - run:
           name: Create artifacts
           command: clojure -T:build create-artifacts
