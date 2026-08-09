@@ -42,6 +42,31 @@ If your workspace doesn't have any active warnings or errors, you will see an em
 []
 ----
 
+[#warning205]
+== Suppress warning 205
+
+While migrating a codebase to a Polylith workspace, you may want to temporarily ignore warning 205, which indicates that a non-top namespace has been found in the workspace.
+
+If you want to turn off validation for all components, update `workspace.edn` as follows:
+
+[source,clojure]
+----
+{...
+ :validations {:disable [{:warning 205}]}
+...}
+----
+
+The most common is probably that you want to suppress the warning for a limited number of bricks:
+
+[source,clojure]
+----
+{...
+ :validations {:disable [{:warning 205, :bricks ["database" "invoice" ]}]}
+...}
+----
+
+Only warning 205 can be turned off via the `:validations` key, for now.
+
 [#warning207]
 == Marking a Brick as Necessary to Suppress Warning 207
 

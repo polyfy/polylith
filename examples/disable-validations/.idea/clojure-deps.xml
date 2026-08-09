@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DepsProjectSettings">
+    <option name="enabledAliases">
+      <set>
+        <option value="dev" />
+        <option value="test" />
+      </set>
+    </option>
+  </component>
+  <component name="DepsProjectsManager">
+    <option name="projectFiles">
+      <set>
+        <option value="file://$PROJECT_DIR$/deps.edn" />
+      </set>
+    </option>
+  </component>
+</project>

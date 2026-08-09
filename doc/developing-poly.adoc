@@ -529,31 +529,32 @@ bb scripts/clojars-stats.bb
 ----
 Version       | Downloads
 -------------------------
-0.3.31        |       220
-0.3.30        |     1,165
-0.3.0         |       618
-0.2.22        |     4,655
-0.2.21        |    14,786
-0.2.20        |     3,633
-0.2.19        |    14,532
-0.2.18        |    24,758
-0.2.17-alpha  |   111,424
-0.2.16-alpha  |        62
-0.2.15-alpha  |       679
-0.2.14-alpha  |     2,166
-0.2.13-alpha  |     2,070
-0.2.12-alpha  |       426
-0.2.0-alpha11 |       100
-0.2.0-alpha10 |        82
-0.1.0-alpha9  |       112
-0.1.0-alpha8  |        75
-0.1.0-alpha7  |        81
-0.1.0-alpha6  |        76
-0.1.0-alpha5  |        77
-0.1.0-alpha4  |        77
-0.1.0-alpha3  |        78
-0.1.0-alpha2  |        82
-0.1.0-alpha1  |        76
+0.3.32        |    10,243
+0.3.31        |    18,236
+0.3.30        |     2,902
+0.3.0         |       665
+0.2.22        |     4,899
+0.2.21        |    18,890
+0.2.20        |     4,428
+0.2.19        |    17,509
+0.2.18        |    25,032
+0.2.17-alpha  |   111,701
+0.2.16-alpha  |        72
+0.2.15-alpha  |       715
+0.2.14-alpha  |     2,180
+0.2.13-alpha  |     2,084
+0.2.12-alpha  |       440
+0.2.0-alpha11 |       113
+0.2.0-alpha10 |        96
+0.1.0-alpha9  |       127
+0.1.0-alpha8  |        89
+0.1.0-alpha7  |        90
+0.1.0-alpha6  |        89
+0.1.0-alpha5  |        87
+0.1.0-alpha4  |        90
+0.1.0-alpha3  |        93
+0.1.0-alpha2  |        94
+0.1.0-alpha1  |        88
 ----
 
 == SNAPSHOT Releases & Caching
@@ -580,6 +581,7 @@ Make a `0.2.20-SNAPSHOT 34` release:
   - `:snapshot-number:` is set to `34`.
   - `:snapshot-version:` is set to `0.2.20`.
   - `:stable-version:` is set to `0.2.19`.
+. Run the script `scripts/clojars-stats.bb`, and update the section on this page.
 . When adding a new doc page, update the _Doc updates_ section in `next-release.md`.
 . Whenever the workspace structure changes:
   - update the xref:versions.adoc[Versions] table
@@ -588,7 +590,9 @@ Make a `0.2.20-SNAPSHOT 34` release:
 . If a new attribute is added to _workspace.edn_
   - update all workspace.edn template files under scripts/sections
   - update the content of workspace.edn after "The workspace.edn file looks like:" in workspace.adoc.
-. Check that `:template-data` in `workspace.edn` uses the latest version for `:clojure-ver` and `:shadow-cljs-ver`.
+. Check that `:template-data` in `workspace.edn` uses the latest version for `:clojure-ver` and `:shadow-cljs-ver`, by executing:
+  - `clojure -X:deps find-versions :lib org.clojure/clojure | grep -Eo '"[0-9]+\.[0-9]+\.[0-9]+"' | tail -1`
+  - `npm view shadow-cljs version`
 . Run `bb check` to check for reflection warnings and such.
   - If new bricks, add the source directory to the `:check` alias in `./deps.edn`.
 . Execute `bb gen-all`
@@ -635,6 +639,7 @@ Make a `0.2.20` release:
   - `:snapshot-number:` is set to `0`.
   - `:snapshot-version:` is set to `0.2.20`.
   - `:stable-version:` is set to `0.2.20`.
+. Run the script `scripts/clojars-stats.bb`, and update the section on this page.
 . Whenever the workspace structure changes, remember to update the xref:versions.adoc[Versions] table, and also update the code that migrates exported files in the https://github.com/polyfy/polylith/blob/f5da3d2e206182c7231cabf4207a7001f82508b4/components/ws-file-reader/src/polylith/clj/core/ws_file_reader/from_disk.clj#L11[ws-file-reader] component.
 . Ensure that `readme.adoc` lists the correct sponsors by cross-checking it against the https://github.com/sponsors/polyfy/dashboard/your_sponsors[actual] sponsors.
 . Update the doc and its navigation:

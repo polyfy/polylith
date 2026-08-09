@@ -10,7 +10,10 @@
             [polylith.clj.core.workspace.fromdisk.namespaces-from-disk :as ns-from-disk]
             [polylith.clj.core.workspace.fromdisk.interface-defs-from-disk :as defs-from-disk]))
 
-(defn read-component [ws-dir ws-type ws-dialects user-home top-namespace ns-to-lib top-src-dir interface-ns brick->settings config]
+;(-> workspace :configs :workspace :validations :disable)
+
+
+(defn read-component [ws-dir ws-type ws-dialects user-home top-namespace ns-to-lib top-src-dir interface-ns disable brick->settings config]
   (let [deps-config (:deps config)
         package-config (:package config)
         component-name (:name config)
@@ -27,7 +30,7 @@
         lib-deps (lib/brick-lib-deps ws-dir ws-type deps-config package-config top-namespace ns-to-lib namespaces entity-root-path user-home)
         paths (brick-paths/source-paths component-dir deps-config)
         source-paths (config/source-paths deps-config)
-        non-top-namespaces (non-top-ns/non-top-namespaces "component" component-name component-dir top-src-dir source-paths)]
+        non-top-namespaces (non-top-ns/non-top-namespaces "component" component-name component-dir top-src-dir source-paths disable)]
     (util/ordered-map :name component-name
                       :type "component"
                       :maven-repos (:mvn/repos deps-config)
@@ -43,6 +46,6 @@
                       :interface (util/ordered-map :name interface-name
                                                    :definitions definitions))))
 
-(defn read-components [ws-dir ws-type ws-dialects user-home top-namespace ns-to-lib top-src-dir interface-ns component-dep-configs brick->settings]
-  (vec (sort-by :name (map #(read-component ws-dir ws-type ws-dialects user-home top-namespace ns-to-lib top-src-dir interface-ns brick->settings %)
+(defn read-components [ws-dir ws-type ws-dialects user-home top-namespace ns-to-lib top-src-dir interface-ns component-dep-configs disable brick->settings]
+  (vec (sort-by :name (map #(read-component ws-dir ws-type ws-dialects user-home top-namespace ns-to-lib top-src-dir interface-ns disable brick->settings %)
                            component-dep-configs))))
