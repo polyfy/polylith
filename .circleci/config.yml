@@ -263,9 +263,6 @@ jobs:
           name: Add global git user name
           command: git config --global user.name "CircleCI"
       - run:
-          name: Fetch git tags
-          command: git fetch --tags
-      - run:
           name: Create artifacts
           command: clojure -T:build create-artifacts
       - store_artifacts:
