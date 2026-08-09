@@ -7,7 +7,7 @@
  :projects
  [{:lines-of-code {:src 0, :test 13, :total {:src 42, :test 26}},
    :deps-filename
-   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2025-12-29-142244/ws/example/projects/command-line/deps.edn",
+   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2026-08-09-195112/ws/example/projects/command-line/deps.edn",
    :namespaces
    {:test
     [{:name "project.command-line.test-setup",
@@ -52,7 +52,7 @@
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "cl",
    :project-dir
-   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2025-12-29-142244/ws/example/projects/command-line",
+   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2026-08-09-195112/ws/example/projects/command-line",
    :lib-deps
    {:src
     {"org.clojure/clojure"
@@ -80,7 +80,7 @@
     "user-remote" {:src {}, :test {}}}}
   {:lines-of-code {:src 0, :test 0, :total {:src 44, :test 28}},
    :deps-filename
-   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2025-12-29-142244/ws/example/projects/user-service/deps.edn",
+   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2026-08-09-195112/ws/example/projects/user-service/deps.edn",
    :namespaces {},
    :base-names {:src ["user-api"], :test ["user-api"]},
    :lib-imports {:src ["slacker.server"], :test ["clojure.test"]},
@@ -111,7 +111,7 @@
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "user-s",
    :project-dir
-   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2025-12-29-142244/ws/example/projects/user-service",
+   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2026-08-09-195112/ws/example/projects/user-service",
    :lib-deps
    {:src
     {"org.clojure/clojure"
@@ -133,7 +133,7 @@
     "user" {:src {}, :test {}}}}
   {:lines-of-code {:src 4, :test 0, :total {:src 58, :test 42}},
    :deps-filename
-   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2025-12-29-142244/ws/example/deps.edn",
+   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2026-08-09-195112/ws/example/deps.edn",
    :namespaces
    {:src
     [{:name "dev.lisa",
@@ -176,7 +176,7 @@
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "dev",
    :project-dir
-   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2025-12-29-142244/ws/example/development",
+   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2026-08-09-195112/ws/example/development",
    :unmerged
    {:paths
     {:src
@@ -246,7 +246,7 @@
    :size 28408,
    :type "maven"}],
  :ws-dir
- "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2025-12-29-142244/ws/example",
+ "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2026-08-09-195112/ws/example",
  :name "example",
  :user-input
  {:args ["ws" "out:ws.edn"],
@@ -297,11 +297,11 @@
    :is-git-repo true,
    :branch "master",
    :git-root
-   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2025-12-29-142244/ws/example",
+   "/private/var/folders/mf/q49xxkyd6017dvkkw7r2jlxr0000gn/T/polylith-example-2026-08-09-195112/ws/example",
    :auto-add true,
    :stable-since
    {:tag "stable-lisa",
-    :sha "61cb60146bc2c79324a664eee821d7b8f722dacd"},
+    :sha "1df590ec6411ae14aa99cbe537cf6378ab8366b8"},
    :polylith
    {:repo "https://github.com/polyfy/polylith.git", :branch "master"}},
   :tag-patterns {:stable "^stable-.*", :release "^v[0-9].*"},
@@ -420,7 +420,7 @@
  {:since "stable",
   :changed-projects ["command-line" "user-service"],
   :changed-bases ["user-api"],
-  :since-sha "61cb60146bc2c79324a664eee821d7b8f722dacd",
+  :since-sha "1df590ec6411ae14aa99cbe537cf6378ab8366b8",
   :changed-files
   ["bases/user-api/deps.edn"
    "bases/user-api/resources/user-api/.keep"
@@ -435,7 +435,7 @@
    "projects/user-service/deps.edn"
    "workspace.edn"],
   :git-diff-command
-  "git diff 61cb60146bc2c79324a664eee821d7b8f722dacd --name-only",
+  "git diff 1df590ec6411ae14aa99cbe537cf6378ab8366b8 --name-only",
   :changed-components ["user-remote"],
   :since-tag "stable-lisa",
   :changed-or-affected-projects
@@ -469,13 +469,14 @@
    :project-names []}],
  :version
  {:release
-  {:name "0.3.32",
+  {:name "0.3.33-SNAPSHOT",
    :tool "poly",
    :major 0,
    :minor 3,
-   :patch 32,
-   :revision "",
-   :date "2025-12-29"},
+   :patch 33,
+   :revision "SNAPSHOT",
+   :date "2026-08-09",
+   :snapshot 0},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
   :ws {:breaking 5, :non-breaking 0}},
@@ -630,6 +631,7 @@
    {:root-dir "/Users/tengstrand/source/polylith",
     :paths
     [{:dir "examples/doc-example"}
+     {:dir "examples/disable-validations"}
      {:dir "examples/for-test"}
      {:dir "examples/illegal-brick-deps"}
      {:dir "examples/illegal-configs"}
