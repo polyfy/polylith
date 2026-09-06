@@ -214,6 +214,9 @@ poly help
   If errors or warnings were found, show messages and return the error code,
   or 0 if only warnings. If internal errors, 1 is returned.
 
+  Most warnings and errors can be suppressed via the :validations > :disable
+  key in ./workspace.edn. For more information, execute: 'poly doc page:validations'.
+
   Error 101 - Illegal dependency on namespace.
     Triggered if a :require statement refers to a component namespace
     other than interface. Examples of valid namespaces:
@@ -290,15 +293,15 @@ poly help
     Triggered if a namespace in a brick doesn't start with the top namespaces
     defined in :top-namespace in ./workspace.edn.
     Files that are put in 'resources' or 'test-resources' are not checked.
-    This warning can be suppressed. For more information, execute:
-    'poly doc page:validations'.
+    This warning is commonly suppressed while migrating a workspace to Polylith.
 
   Warning 207 - Unnecessary components were found in project.
     Triggered if components were defined in a project that are not used by any of
     its bricks. Development is only checked if :dev is passed in and is only performed
-    by the check command (not test and info). To ignore this warning, put the component
-    name in the :necessary vector for a project in :projects in ./workspace.edn.
-    See an example here: https://github.com/polyfy/polylith/blob/master/workspace.edn
+    by the check command (not test and info). To ignore this warning for individual
+    components, put their names in the :necessary vector for a project in :projects
+    in ./workspace.edn. See an example here:
+    https://github.com/polyfy/polylith/blob/master/workspace.edn
 
   Message 301 - Inconsistent versions detected for library.
     Triggered when a library exists in more than one version within the workspace.
