@@ -49,3 +49,4 @@ image:https://avatars.githubusercontent.com/u/47784846?v=4[link=https://github.c
 === Polylith Friends
 
 image:https://avatars.githubusercontent.com/u/43875[link=https://github.com/seancorfield,alt="Sean Corfield",width=32,role="left"]
+image:https://avatars.githubusercontent.com/u/12722744[link=https://github.com/bpringe,alt="Brandon Ringe",width=32,role="left"]
