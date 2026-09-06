@@ -164,6 +164,7 @@ poly help
     poly libs libraries:org.clojure/clojure
     poly libs :compact
     poly libs :outdated
+    poly libs :transitive
     poly libs :update
     poly libs :update libraries:metosin/malli:zprint/zprint
     poly libs out:libs.txt
