@@ -1,8 +1,7 @@
 (ns ^:no-doc polylith.clj.core.validator.m104-circular-deps
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.util.interface.color :as color]
-            [polylith.clj.core.validator.suppress :as suppress]))
+            [polylith.clj.core.util.interface.color :as color]))
 
 (defn dep [[_ {:keys [src test]}] project-name]
   (let [circular (or (:circular src)
@@ -27,7 +26,6 @@
                          :circular-deps circular-deps
                          :project project-name)])))
 
-(defn errors [projects disable color-mode]
+(defn errors [projects color-mode]
   (util/first-as-vector (mapcat #(projects-circular-deps % color-mode)
-                                (filter identity (map circular-dep
-                                                      (suppress/suppress disable 104 projects))))))
+                                (filter identity (map circular-dep projects)))))

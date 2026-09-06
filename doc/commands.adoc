@@ -214,8 +214,8 @@ poly help
   If errors or warnings were found, show messages and return the error code,
   or 0 if only warnings. If internal errors, 1 is returned.
 
-  Most warnings and errors can be suppressed via the :validations > :disable
-  key in ./workspace.edn. For more information, execute: 'poly doc page:validations'.
+  Warnings can be suppressed via the :validations > :disable key in
+  ./workspace.edn. For more information, execute: 'poly doc page:validations'.
 
   Error 101 - Illegal dependency on namespace.
     Triggered if a :require statement refers to a component namespace

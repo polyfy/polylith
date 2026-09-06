@@ -1,8 +1,7 @@
 (ns ^:no-doc polylith.clj.core.validator.m106-multiple-interface-occurrences
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.util.interface.color :as color]
-            [polylith.clj.core.validator.suppress :as suppress]))
+            [polylith.clj.core.util.interface.color :as color]))
 
 (defn project-error [[interface interface-components] project-name test? color-mode]
   (when (and (not test?)
@@ -27,8 +26,6 @@
               (group-by first (map (juxt #(-> % :interface :name) :name)
                                    project-components))))))
 
-(defn errors [components projects disable color-mode]
-  (mapcat #(project-errors %
-                           (suppress/suppress disable 106 components)
-                           color-mode)
+(defn errors [components projects color-mode]
+  (mapcat #(project-errors % components color-mode)
           projects))

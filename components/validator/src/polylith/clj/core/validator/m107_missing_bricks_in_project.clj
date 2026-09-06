@@ -3,8 +3,7 @@
             [clojure.string :as str]
             [polylith.clj.core.validator.shared :as shared]
             [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.util.interface.color :as color]
-            [polylith.clj.core.validator.suppress :as suppress])
+            [polylith.clj.core.util.interface.color :as color])
   (:refer-clojure :exclude [bases]))
 
 (defn colored-entities [entity-names type color-mode]
@@ -47,8 +46,8 @@
       (seq missing) (missing-bricks-error name missing base-names false color-mode)
       (seq missing-test) (missing-bricks-error name missing-test base-names true color-mode))))
 
-(defn errors [cmd {:keys [active-profiles]} profiles bases projects disable color-mode]
+(defn errors [cmd {:keys [active-profiles]} profiles bases projects color-mode]
   (when (shared/show-error? cmd profiles active-profiles)
     (let [base-names (set (map :name bases))]
       (mapcat #(project-error % base-names color-mode)
-              (suppress/suppress disable 107 projects)))))
+              projects))))

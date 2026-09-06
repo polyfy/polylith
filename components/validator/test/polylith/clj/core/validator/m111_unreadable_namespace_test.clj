@@ -32,4 +32,4 @@
            :colorized-message "Unreadable namespace in poly-cli: bases/poly-cli/test/polylith/clj/core/poly_cli/api_argument_mapping_test.clj. To solve this problem, execute 'poly help check' and follow the instructions for error 111."
            :message           "Unreadable namespace in poly-cli: bases/poly-cli/test/polylith/clj/core/poly_cli/api_argument_mapping_test.clj. To solve this problem, execute 'poly help check' and follow the instructions for error 111."
            :type              "error"}]
-         (m111/errors nil bases nil [] "none"))))
+         (m111/errors nil bases nil "none"))))
