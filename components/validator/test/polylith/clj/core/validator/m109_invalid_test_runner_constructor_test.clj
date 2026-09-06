@@ -4,7 +4,7 @@
             [polylith.clj.core.validator.m109-invalid-test-runner-constructor :as sut]))
 
 (deftest no-projects-no-errors
-  (is (empty? (sut/errors {} color/none))))
+  (is (empty? (sut/errors {} [] color/none))))
 
 (defn ws [projects] {:projects projects})
 
@@ -20,7 +20,7 @@
        "bar" {:test {:create-test-runner [`good-variable-arity-ctor-1 `good-variable-arity-ctor-2]}}
        "baz" {:test {:create-test-runner [`good-multiple-arity-ctor]}}}
       (ws)
-      (sut/errors color/none)
+      (sut/errors [] color/none)
       (empty?)
       (is)))
 
@@ -46,7 +46,7 @@
          (-> {"baz" {:test {:create-test-runner ['non-existing.namespace/baz]}}
               "qux" {:test {:create-test-runner ['clojure.core/non-existing-var]}}}
              (ws)
-             (sut/errors color/none)))))
+             (sut/errors [] color/none)))))
 
 (defn no-suitable-arity-ctor
   ([]) ([_ _]) ([_ _ & _]))
@@ -58,7 +58,7 @@
                       :projects ["foo"]})]
          (-> {"foo" {:test {:create-test-runner [`no-suitable-arity-ctor]}}}
              (ws)
-             (sut/errors color/none)))))
+             (sut/errors [] color/none)))))
 
 (deftest project-names-grouped-and-colored
   (is (= [(error-109 {:prefix "Unable to load test runner constructor non-existing.namespace/baz"
@@ -77,7 +77,7 @@
               "baz" {:test {:create-test-runner ['non-existing.namespace/baz]}}
               "qux" {:test {:create-test-runner ['non-existing.namespace/baz]}}}
              (ws)
-             (sut/errors "light")))))
+             (sut/errors [] "light")))))
 
 (deftest multiple-test-runners
   (is (= [(error-109 {:prefix "Unable to load test runner constructor non-existing.namespace/baz"
@@ -93,4 +93,4 @@
               "bar" {:test {:create-test-runner ['non-existing.namespace/baz `no-suitable-arity-ctor]}}
               "baz" {:test {:create-test-runner [`no-suitable-arity-ctor]}}}
              (ws)
-             (sut/errors color/none)))))
+             (sut/errors [] color/none)))))

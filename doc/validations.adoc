@@ -42,12 +42,21 @@ If your workspace doesn't have any active warnings or errors, you will see an em
 []
 ----
 
-[#warning205]
-== Suppress warning 205
+[#suppress]
+== Suppress warnings and errors
+
+If you know what you're doing, you can suppress warnings and errors.
+
+[source,clojure]
+----
+{...
+ :validations {:disable [{:warning 205, :bricks ["database" "invoice"]}]}
+...}
+----
 
 While migrating a codebase to a Polylith workspace, you may want to temporarily ignore warning 205, which indicates that a non-top namespace has been found in the workspace.
 
-If you want to turn off validation for all components, update `workspace.edn` as follows:
+If you want to turn off validation for all bricks, update `workspace.edn` as follows:
 
 [source,clojure]
 ----
@@ -61,16 +70,34 @@ The most common is probably that you want to suppress the warning for a limited 
 [source,clojure]
 ----
 {...
- :validations {:disable [{:warning 205, :bricks ["database" "invoice" ]}]}
+ :validations {:disable [{:warning 205, :bricks ["database" "invoice"]}]}
 ...}
 ----
 
-Only warning 205 can be turned off via the `:validations` key, for now.
+A validation for a specific project can be suppressed:
+
+[source,clojure]
+----
+{...
+ :validations {:disable [{:warning 202, :projects ["myproject"]}]}
+...}
+----
+
+More than one validation can be suppressed:
+
+[source,clojure]
+----
+{...
+ :validations {:disable [{:warning 202, :projects ["myproject"]}]}
+...}
+----
 
 [#warning207]
 == Marking a Brick as Necessary to Suppress Warning 207
 
 The xref:commands.adoc#check[check] command generates a `Warning 207 - Unnecessary components were found in project` when it finds components unused by any bricks in a project.
+
+Another way to suppress warning 207 is to add the key `:neccessary` to the project configuration.
 
 Suppose you get warning 207 for a project but know the component is needed (e.g., it is used dynamically but not explicitly called).
 In that case, you can suppress the warning by specifying that it is `:necessary` to the project in your `workspace.edn`:

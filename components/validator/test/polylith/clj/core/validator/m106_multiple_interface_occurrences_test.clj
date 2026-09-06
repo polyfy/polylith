@@ -37,4 +37,4 @@
            :interface "shell"
            :components ["shell" "shell2"]
            :project "core"}]
-         (m106/errors components projects color/none))))
+         (m106/errors components projects [] color/none))))

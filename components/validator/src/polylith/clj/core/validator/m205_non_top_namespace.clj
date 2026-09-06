@@ -1,5 +1,6 @@
 (ns ^:no-doc polylith.clj.core.validator.m205-non-top-namespace
   (:require [clojure.string :as str]
+            [polylith.clj.core.validator.suppress :as suppress]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]))
 
@@ -15,7 +16,8 @@
   (mapv #(assoc (select-keys % [:non-top-ns :file]) :name name :type type)
         non-top-namespaces))
 
-(defn warnings [components bases color-mode]
+(defn warnings [components bases disable color-mode]
   (map #(warning % color-mode)
        (group-by (juxt :name :type :non-top-ns) (mapcat non-top-nss
-                                                        (concat components bases)))))
+                                                        (suppress/suppress disable 205
+                                                                           (concat components bases))))))

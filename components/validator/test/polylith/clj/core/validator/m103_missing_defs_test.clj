@@ -77,4 +77,4 @@
            :colorized-message "Missing definitions in user2's interface: data1, func1[], subns.func4[]",
            :message "Missing definitions in user2's interface: data1, func1[], subns.func4[]",
            :components ["user2"]}]
-         (m103/errors interfaces components color/none))))
+         (m103/errors interfaces components [] color/none))))

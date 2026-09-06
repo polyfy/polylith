@@ -88,4 +88,4 @@
            :message "Function or macro is defined twice in payment: pay[a], pay[b]",
            :colorized-message "Function or macro is defined twice in payment: pay[a], pay[b]",
            :components ["payment"]}]
-         (m102/errors components color/none))))
+         (m102/errors components [] color/none))))

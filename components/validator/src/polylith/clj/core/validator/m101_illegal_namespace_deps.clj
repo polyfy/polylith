@@ -1,5 +1,6 @@
 (ns ^:no-doc polylith.clj.core.validator.m101-illegal-namespace-deps
   (:require [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.validator.suppress :as suppress]
             [polylith.clj.core.util.interface.color :as color]))
 
 (defn brick-error [name type interface-ns {:keys [to-brick-id to-type to-namespace from-ns]} color-mode]
@@ -21,6 +22,7 @@
   (mapv #(brick-error name type interface-ns % color-mode)
         illegal-deps))
 
-(defn errors [components bases interface-ns color-mode]
+(defn errors [components bases disable interface-ns color-mode]
   (vec (mapcat #(brick-errors % interface-ns color-mode)
-               (concat components bases))))
+               (suppress/suppress disable 101
+                                  (concat components bases)))))

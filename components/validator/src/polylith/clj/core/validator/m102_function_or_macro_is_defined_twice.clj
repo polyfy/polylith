@@ -2,7 +2,8 @@
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]
-            [polylith.clj.core.validator.shared :as shared]))
+            [polylith.clj.core.validator.shared :as shared]
+            [polylith.clj.core.validator.suppress :as suppress]))
 
 (defn duplicated-arglist-error [component-name component-duplication color-mode]
   (let [message (str "Function or macro is defined twice in " (color/component component-name color-mode) ": "
@@ -19,5 +20,6 @@
         multi-id-functions (mapv second (filter #(> (-> % second count) 1) component-id->function))]
     (mapv #(duplicated-arglist-error component-name % color-mode) multi-id-functions)))
 
-(defn errors [components color-mode]
-  (vec (mapcat #(component-errors % color-mode) components)))
+(defn errors [components disable color-mode]
+  (vec (mapcat #(component-errors % color-mode)
+               (suppress/suppress disable 102 components))))

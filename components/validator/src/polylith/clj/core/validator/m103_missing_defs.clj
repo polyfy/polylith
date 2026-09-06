@@ -3,7 +3,8 @@
             [clojure.set :as set]
             [polylith.clj.core.validator.shared :as shared]
             [polylith.clj.core.util.interface.color :as color]
-            [polylith.clj.core.util.interface :as util]))
+            [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.validator.suppress :as suppress]))
 
 (defn ->data-ifc [{:keys [definitions]}]
   (set (filter #(= "data" (:type %)) definitions)))
@@ -49,7 +50,8 @@
     (mapcat #(component-error interface % interface-functions color-mode)
             ifc-components)))
 
-(defn errors [interfaces components color-mode]
-  (let [name->component (into {} (map (juxt :name identity) components))]
+(defn errors [interfaces components disable color-mode]
+  (let [name->component (into {} (map (juxt :name identity)
+                                      (suppress/suppress disable 103 components)))]
     (vec (mapcat #(interface-errors % name->component color-mode)
                  interfaces))))

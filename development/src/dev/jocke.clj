@@ -56,10 +56,8 @@
                    ;(dev-common/dir "../clojure-polylith-realworld-example-app")
                    workspace/workspace))
 
-
 (:messages workspace)
 (:user-input workspace)
-
 
 (-> workspace :workspaces)
 
@@ -68,18 +66,10 @@
 
 (:profiles workspace)
 
-;;(map :name (:projects workspace))
-
-
-;projects:development:lib-dep
-
 (mapv :alias (-> workspace :workspaces))
 (keys workspace)
 
-
-
 (-> workspace :settings :test)
-
 (-> workspace :configs :workspace :test)
 (-> workspace :settings :test)
 

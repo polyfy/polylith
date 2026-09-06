@@ -27,7 +27,7 @@
 
 (deftest errors--when-no-active-profiles--ignore-error
   (is (= nil
-         (m107/errors "info" settings profiles bases projects color/none))))
+         (m107/errors "info" settings profiles bases projects [] color/none))))
 
 (deftest errors--when-projects-with-missing-components--return-error
   (is (= [{:bases             []
@@ -39,7 +39,7 @@
            :project           "poly-migrator"
            :type              "error"}]
 
-         (m107/errors "info" (assoc settings :active-profiles #{"default"}) profiles bases projects color/none))))
+         (m107/errors "info" (assoc settings :active-profiles #{"default"}) profiles bases projects [] color/none))))
 
 (def projects2 [{:name "service",
                  :alias "service"
@@ -55,4 +55,4 @@
            :message           "Missing components in the service project, for the test context, for these interfaces: test-helper"
            :project           "service"
            :type              "error"}]
-         (m107/errors "check" settings profiles bases projects2 color/none))))
+         (m107/errors "check" settings profiles bases projects2 [] color/none))))

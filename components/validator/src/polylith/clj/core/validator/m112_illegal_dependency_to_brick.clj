@@ -2,7 +2,8 @@
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]
-            [polylith.clj.core.util.interface.str :as str-util]))
+            [polylith.clj.core.util.interface.str :as str-util]
+            [polylith.clj.core.validator.suppress :as suppress]))
 
 (defn brick-path? [path]
   (and path
@@ -33,7 +34,7 @@
                           :colorized-message message
                           :brick name)))))
 
-(defn errors [{:keys [bases components]} color-mode]
+(defn errors [{:keys [bases components]} disable color-mode]
   (filterv identity
            (map #(brick-errors % color-mode)
-                (concat bases components))))
+                (suppress/suppress disable 112 (concat bases components)))))

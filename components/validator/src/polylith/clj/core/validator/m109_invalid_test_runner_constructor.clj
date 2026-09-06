@@ -1,10 +1,11 @@
 (ns ^:no-doc polylith.clj.core.validator.m109-invalid-test-runner-constructor
   (:require
-   [clojure.string :as str]
-   [polylith.clj.core.test-runner-contract.interface.initializers :as test-runner-initializers]
-   [polylith.clj.core.test-runner-contract.interface.verifiers :as test-runner-verifiers]
-   [polylith.clj.core.util.interface :as util]
-   [polylith.clj.core.util.interface.color :as color]))
+    [clojure.string :as str]
+    [polylith.clj.core.test-runner-contract.interface.initializers :as test-runner-initializers]
+    [polylith.clj.core.test-runner-contract.interface.verifiers :as test-runner-verifiers]
+    [polylith.clj.core.util.interface :as util]
+    [polylith.clj.core.util.interface.color :as color]
+    [polylith.clj.core.validator.suppress :as suppress]))
 
 (defn constructor-var-or-error [candidate ->error-message]
   (try {:constructor-var (test-runner-initializers/->constructor-var candidate)}
@@ -47,8 +48,9 @@
 (defn ->ctor+project-names [[ctor project-name+ctor-vec]]
   [ctor (sort (mapv first project-name+ctor-vec))])
 
-(defn errors [{:keys [projects]} color-mode]
-  (->> (for [[project-name {{ctors :create-test-runner} :test}] projects
+(defn errors [{:keys [projects]} disable color-mode]
+  (->> (for [[project-name {{ctors :create-test-runner} :test}]
+             (suppress/suppress disable 109 projects)
              ctor ctors]
          [project-name ctor])
        (group-by second)

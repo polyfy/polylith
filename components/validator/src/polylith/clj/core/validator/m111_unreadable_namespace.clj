@@ -1,6 +1,7 @@
 (ns ^:no-doc polylith.clj.core.validator.m111-unreadable-namespace
   (:require [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.util.interface.color :as color]))
+            [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.validator.suppress :as suppress]))
 
 (defn unreadable-ns [{:keys [file-path is-invalid empty-file error-message]} type name color-mode]
   (when is-invalid
@@ -24,6 +25,6 @@
     (mapcat #(unreadable-ns % type name color-mode) (:src namespaces))
     (mapcat #(unreadable-ns % type name color-mode) (:test namespaces))))
 
-(defn errors [components bases projects color-mode]
+(defn errors [components bases projects disable color-mode]
   (mapcat #(unreadable-nss % color-mode)
-          (concat components bases projects)))
+          (suppress/suppress disable 111 (concat components bases projects))))

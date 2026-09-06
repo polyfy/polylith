@@ -2,7 +2,8 @@
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.util.interface.color :as color]))
+            [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.validator.suppress :as suppress]))
 
 (defn quoted [string]
   (str "\"" string "\""))
@@ -24,7 +25,7 @@
   [name (set/intersection (set (concat (:src paths) (:test paths)))
                           (set missing-paths))])
 
-(defn warnings [projects {:keys [missing]} color-mode]
+(defn warnings [projects {:keys [missing]} disable color-mode]
   (mapcat #(project-warnings % color-mode)
           (map #(missing-project-paths % missing)
-               projects)))
+               (suppress/suppress disable 202 projects))))
