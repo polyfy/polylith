@@ -213,14 +213,6 @@ A library that a project only gets transitively is marked with a `+` (instead of
 are declared directly somewhere in the workspace are added, to keep the focus on
 libraries where a declared and a resolved version can drift apart.
 
-The resolved set is also stored in the xref:workspace-structure.adoc[workspace
-structure] under `:indirect-lib-deps` for each project, so it can be queried:
-
-[source,shell]
-----
-poly ws :transitive get:projects:myproject:indirect-lib-deps
-----
-
 NOTE: `:transitive` needs Maven metadata (network access, or a fully primed
 `~/.m2`) and resolves every project, so it is slower than the default view.
 
