@@ -61,6 +61,7 @@
   ;;   bb create-example read-old-ws
   ;;   bb create-example realworld
   ;;   bb create-example test-runners
+  ;;   bb create-example transitive-lib-deps
   ;;   bb create-example usermanager
   create-example {:doc "Creates and exercises examples workspaces (also generates some doc images and doc code blocks)"
                   :depends [poly-uberjar polyx-uberjar]
