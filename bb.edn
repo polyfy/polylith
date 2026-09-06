@@ -67,6 +67,9 @@
                   :requires [create-example]
                   :task create-example/-main}
 
-  ;; Make sure you have 'bb' and 'tree' installed, and that you use the latest version of clojure (e.g. "brew upgrade clojure").
+  check-env {:doc "Verify required tools and that the Clojure CLI is the latest release"
+             :requires [create-example]
+             :task (create-example/check-env)}
+
   gen-all {:doc "Run update-commands-docs then create-example"
-           :depends [update-commands-doc create-example]}}}
+           :depends [check-env update-commands-doc create-example]}}}

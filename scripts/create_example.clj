@@ -46,7 +46,28 @@
         expected-version (latest-available-clojure-version)]
     (if (= actual-version expected-version)
       (println (format "Found %s version %s, it is latest available version" clojure-exe actual-version))
-      (status/die 1 "Found %s version %s,\nPlease upgrade to version %s" clojure-exe actual-version expected-version))))
+      (status/die 1
+                  (str "The installed Clojure CLI is not the latest release.\n"
+                       "    %s\n"
+                       "      installed: %s\n"
+                       "      latest:    %s\n"
+                       "\n"
+                       "  The example workspaces and doc snippets must be generated with the latest\n"
+                       "  Clojure CLI, otherwise the generated output can differ from what CI expects.\n"
+                       "\n"
+                       "  Upgrade the Clojure CLI, then run this task again:\n"
+                       "    brew upgrade clojure                          (macOS / Homebrew)\n"
+                       "    https://clojure.org/guides/install_clojure    (other platforms)")
+                  clojure-exe actual-version expected-version))))
+
+(defn check-env
+  "Verify the environment (required tools and the latest Clojure CLI) up front,
+   so slow tasks like 'gen-all' fail fast instead of after building doc output.
+   Exposed as the 'check-env' bb task."
+  []
+  (assert-tools-installed)
+  (assert-min-tree-version)
+  (assert-clojure-is-latest))
 
 (defn download-deps []
   (status/line :head "Downloading deps")
@@ -499,9 +520,7 @@
                       :examples-dir (fs/file root-dir "examples")
                       :images-dir (fs/file root-dir "doc/images")}]
     (status/line :detail "Work dir: %s" work-dir)
-    (assert-tools-installed)
-    (assert-min-tree-version)
-    (assert-clojure-is-latest)
+    (check-env)
 
     (let [ws-parent-dir (fs/file work-dir "ws")
           opts (merge default-opts

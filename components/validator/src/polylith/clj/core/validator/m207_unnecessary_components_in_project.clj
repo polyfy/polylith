@@ -2,7 +2,8 @@
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.util.interface.color :as color]))
+            [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.validator.suppress :as suppress]))
 
 (defn component-deps [[ _ {:keys [src test]}]]
   (concat (:direct src)
@@ -35,6 +36,7 @@
                            :message (color/clean-colors message)
                            :colorized-message message)]))))
 
-(defn warnings [cmd projects dev? color-mode]
+(defn warnings [cmd projects disable dev? color-mode]
   (let [check-dev (and dev? (= "check" cmd))]
-    (mapcat #(warning % check-dev color-mode) projects)))
+    (mapcat #(warning % check-dev color-mode)
+            (suppress/suppress disable 207 projects))))
