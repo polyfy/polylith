@@ -99,7 +99,7 @@
                               aliases
                               user-input
                               color-mode]
-  (let [{:keys [vcs top-namespace interface-ns default-profile-name dialects tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views validations test bricks]
+  (let [{:keys [vcs top-namespace interface-ns default-profile-name dialects tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views test bricks]
          :or   {vcs {:name "git", :auto-add false}
                 compact-views {}
                 default-profile-name "default"
@@ -115,10 +115,9 @@
         project->settings (:projects ws-config)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
         [component-configs component-errors] (config-reader/read-brick-config-files ws-dir ws-type "component")
-        disable (:disable validations)
-        components (components-from-disk/read-components ws-dir ws-type ws-dialects user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-configs disable bricks)
+        components (components-from-disk/read-components ws-dir ws-type ws-dialects user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-configs bricks)
         [base-configs base-errors] (config-reader/read-brick-config-files ws-dir ws-type "base")
-        bases (bases-from-disk/read-bases ws-dir ws-type ws-dialects user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-configs disable bricks)
+        bases (bases-from-disk/read-bases ws-dir ws-type ws-dialects user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-configs bricks)
         name->brick (into {} (comp cat (map (juxt :name identity))) [components bases])
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         [project-configs project-errors] (config-reader/read-project-config-files ws-dir ws-type)

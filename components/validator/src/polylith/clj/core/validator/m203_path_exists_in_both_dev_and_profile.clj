@@ -3,7 +3,8 @@
             [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.util.interface.color :as color]))
+            [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.validator.suppress :as suppress]))
 
 (defn profile-warning [{:keys [name paths]} dev-paths color-mode]
   (let [shared-paths (set/intersection dev-paths (set paths))
@@ -15,8 +16,9 @@
                          :code 203
                          :message (color/clean-colors message)
                          :colorized-message message)])))
-(defn warnings [profiles projects color-mode]
-  (let [{:keys [unmerged]} (common/find-project "dev" projects)
+(defn warnings [profiles projects disable color-mode]
+  (let [{:keys [unmerged]} (common/find-project "dev"
+                                                (suppress/suppress disable 203 projects))
         {:keys [paths]} unmerged
         dev-paths (set (concat (:src paths) (:test paths)))]
     (mapcat #(profile-warning % dev-paths color-mode) profiles)))

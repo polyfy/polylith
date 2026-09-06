@@ -11,6 +11,9 @@
        "  If errors or warnings were found, show messages and return the error code,\n"
        "  or 0 if only warnings. If internal errors, 1 is returned.\n"
        "\n"
+       "  Warnings can be suppressed via the " (s/key ":validations" cm) " > " (s/key ":disable" cm) " key in\n"
+       "  ./workspace.edn. For more information, execute: 'poly doc page:validations'.\n"
+       "\n"
        "  " (color/error cm "Error 101") " - Illegal dependency on namespace.\n"
        "    Triggered if a " (s/key ":require" cm) " statement refers to a component namespace\n"
        "    other than " (color/interface "interface" cm) ". Examples of valid namespaces:\n"
@@ -88,23 +91,22 @@
        "    Triggered if a namespace in a brick doesn't start with the top namespaces\n"
        "    defined in " (s/key ":top-namespace" cm) " in ./workspace.edn.\n"
        "    Files that are put in 'resources' or 'test-resources' are not checked.\n"
-       "    This warning can be suppressed. For more information, execute:\n"
-       "    'poly doc page:validations'.\n"
+       "    This warning is commonly suppressed while migrating a workspace to Polylith.\n"
        "\n"
        "  " (color/warning cm "Warning 207") " - Unnecessary components were found in project.\n"
        "    Triggered if components were defined in a project that are not used by any of\n"
        "    its bricks. Development is only checked if " (s/key ":dev" cm) " is passed in and is only performed\n"
-       "    by the check command (not test and info). To ignore this warning, put the component\n"
-       "    name in the " (s/key ":necessary" cm) " vector for a project in " (s/key ":projects" cm) " in ./workspace.edn.\n"
-       "    See an example here: https://github.com/polyfy/polylith/blob/master/workspace.edn\n"
+       "    by the check command (not test and info). To ignore this warning for individual\n"
+       "    components, put their names in the " (s/key ":necessary" cm) " vector for a project in "
+       (s/key ":projects" cm) "\n"
+       "    in ./workspace.edn. See an example here:\n"
+       "    https://github.com/polyfy/polylith/blob/master/workspace.edn\n"
        "\n"
        "  " (color/warning cm "Message 301") " - Inconsistent versions detected for library.\n"
        "    Triggered when a library exists in more than one version within the workspace.\n"
        "    Set " (s/key ":type" cm) " to " (s/key ":error" cm) " in key " (s/key ":validations > :inconsistent-lib-versions" cm) "\n"
        "    in workspace.edn to turn this warning into an error, or " (s/key ":none" cm) " to disable it.\n"
        "    Add libraries to " (s/key ":exclude" cm) ", to prevent them from being validated."))
-
-:validations {:disable [{:warning 205, :bricks ["invoice"]}]}
 
 (defn print-help [cm]
   (-> cm help-text println))

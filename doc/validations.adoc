@@ -42,12 +42,39 @@ If your workspace doesn't have any active warnings or errors, you will see an em
 []
 ----
 
+[#suppress]
+== Suppress warnings
+
+If you know what you're doing, you can suppress warnings via the `:disable` key
+under `:validations` in `workspace.edn`:
+
+[source,clojure]
+----
+{...
+ :validations {:disable [{:warning 205, :bricks ["database" "invoice"]}
+                         {:warning 202, :projects ["myproject"]}]}
+...}
+----
+
+Each entry in the `:disable` vector selects one warning via its `:warning` number
+(the 2xx codes).
+You can optionally limit the suppression to certain bricks via `:bricks` (matching component
+and base names) or to certain projects via `:projects` (matching project names).
+If you leave both `:bricks` and `:projects` out, the warning is suppressed everywhere.
+
+Errors can't be suppressed, and message 301 has its own
+xref:libraries.adoc[configuration] via `:inconsistent-lib-versions` instead.
+
+The `:disable` entries are not validated, so a misspelled key or an unsupported warning
+number is silently ignored (the warning keeps running).
+
 [#warning205]
-== Suppress warning 205
+=== Warning 205
 
-While migrating a codebase to a Polylith workspace, you may want to temporarily ignore warning 205, which indicates that a non-top namespace has been found in the workspace.
+While migrating a codebase to a Polylith workspace, you may want to temporarily ignore
+warning 205, which indicates that a non-top namespace has been found in the workspace.
 
-If you want to turn off validation for all components, update `workspace.edn` as follows:
+If you want to turn off the warning for all bricks, update `workspace.edn` as follows:
 
 [source,clojure]
 ----
@@ -61,16 +88,36 @@ The most common is probably that you want to suppress the warning for a limited 
 [source,clojure]
 ----
 {...
- :validations {:disable [{:warning 205, :bricks ["database" "invoice" ]}]}
+ :validations {:disable [{:warning 205, :bricks ["database" "invoice"]}]}
 ...}
 ----
 
-Only warning 205 can be turned off via the `:validations` key, for now.
+=== Suppress a warning for a single project
+
+[source,clojure]
+----
+{...
+ :validations {:disable [{:warning 202, :projects ["myproject"]}]}
+...}
+----
+
+=== Suppress more than one warning
+
+[source,clojure]
+----
+{...
+ :validations {:disable [{:warning 205, :bricks ["database" "invoice"]}
+                         {:warning 202, :projects ["myproject"]}
+                         {:warning 207, :projects ["myproject"]}]}
+...}
+----
 
 [#warning207]
 == Marking a Brick as Necessary to Suppress Warning 207
 
 The xref:commands.adoc#check[check] command generates a `Warning 207 - Unnecessary components were found in project` when it finds components unused by any bricks in a project.
+
+Besides the general suppress mechanism, warning 207 can also be suppressed by marking individual components as `:necessary` in the project configuration.
 
 Suppose you get warning 207 for a project but know the component is needed (e.g., it is used dynamically but not explicitly called).
 In that case, you can suppress the warning by specifying that it is `:necessary` to the project in your `workspace.edn`:

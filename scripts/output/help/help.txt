@@ -1,4 +1,4 @@
-  poly 0.3.33 (2026-08-09) - https://github.com/polyfy/polylith
+  poly 0.3.33 (2026-09-06) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
