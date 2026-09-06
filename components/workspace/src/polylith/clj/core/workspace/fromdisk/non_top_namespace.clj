@@ -15,8 +15,8 @@
      :file (str brick-type "s/" brick-name "/" source-dir "/" path)}))
 
 (def data-reader-files #{"data_readers.clj"
-                           "data_readers.cljs"
-                           "data_readers.cljc"})
+                         "data_readers.cljs"
+                         "data_readers.cljc"})
 
 (defn non-data-reader-file? [path]
   (let [filename (last (str/split path #"/"))]

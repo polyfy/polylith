@@ -2,7 +2,8 @@
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.validator.shared :as shared]
-            [polylith.clj.core.util.interface.color :as color]))
+            [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.validator.suppress :as suppress]))
 
 (def types->message {#{"function"} "Function"
                      #{"macro"} "Macro"
@@ -39,6 +40,7 @@
         single-id->functions (filter #(= (-> % second count) 1) component-id->function)]
     (mapcat #(function-warnings % interface component-name name->component color-mode) single-id->functions)))
 
-(defn warnings [interfaces components color-mode]
+(defn warnings [interfaces components disable color-mode]
   (let [name->component (into {} (map (juxt :name identity) components))]
-    (set (mapcat #(component-warnings % interfaces name->component color-mode) components))))
+    (set (mapcat #(component-warnings % interfaces name->component color-mode)
+                 (suppress/suppress disable 201 components)))))

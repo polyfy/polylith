@@ -31,7 +31,7 @@
 (defn error-messages [messages]
   (filterv shared/error-message? messages))
 
-(defn validate-ws [settings configs libraries paths interface-names interfaces profiles components bases projects config-errors interface-ns {:keys [cmd is-dev]} color-mode]
+(defn validate-ws [settings configs disable libraries paths interface-names interfaces profiles components bases projects config-errors interface-ns {:keys [cmd is-dev]} color-mode]
   (->> [(m101/errors components bases interface-ns color-mode)
         (m102/errors components color-mode)
         (m103/errors interfaces components color-mode)
@@ -44,11 +44,11 @@
         (m110/errors config-errors)
         (m111/errors components bases projects color-mode)
         (m112/errors configs color-mode)
-        (m201/warnings interfaces components color-mode)
-        (m202/warnings projects paths color-mode)
-        (m203/warnings settings projects color-mode)
-        (m205/warnings components bases color-mode)
-        (m207/warnings cmd projects is-dev color-mode)
+        (m201/warnings interfaces components disable color-mode)
+        (m202/warnings projects paths disable color-mode)
+        (m203/warnings settings projects disable color-mode)
+        (m205/warnings components bases disable color-mode)
+        (m207/warnings cmd projects disable is-dev color-mode)
         (m301/messages configs libraries)]
        (into #{} cat)
        (sort-by (juxt :type :code :message))

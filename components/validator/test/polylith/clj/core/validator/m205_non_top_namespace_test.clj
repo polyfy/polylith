@@ -15,4 +15,4 @@
            :code 205,
            :message "Non top namespace se.wrong was found in address, files: components/address/src/se/wrong/address/interface.clj, components/address/src/se/wrong/address/core.clj",
            :colorized-message "Non top namespace se.wrong was found in address, files: components/address/src/se/wrong/address/interface.clj, components/address/src/se/wrong/address/core.clj"}]
-         (m205/warnings components [] c/none))))
+         (m205/warnings components [] [] c/none))))

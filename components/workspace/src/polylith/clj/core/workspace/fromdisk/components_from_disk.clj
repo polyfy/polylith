@@ -10,6 +10,9 @@
             [polylith.clj.core.workspace.fromdisk.namespaces-from-disk :as ns-from-disk]
             [polylith.clj.core.workspace.fromdisk.interface-defs-from-disk :as defs-from-disk]))
 
+;(-> workspace :configs :workspace :validations :disable)
+
+
 (defn read-component [ws-dir ws-type ws-dialects user-home top-namespace ns-to-lib top-src-dir interface-ns brick->settings config]
   (let [deps-config (:deps config)
         package-config (:package config)
