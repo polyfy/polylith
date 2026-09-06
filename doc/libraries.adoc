@@ -189,6 +189,41 @@ To skip updating specific libraries, specify `:keep-lib-versions` in your xref:w
                                  :keep-lib-versions [clj-jwt/clj-jwt clj-time/clj-time]}}
 ----
 
+[#transitive]
+== Transitive dependencies
+
+By default, `poly libs` only lists the libraries that bricks and projects _declare_
+in their `deps.edn` files. A library that a project only gets _transitively_ (pulled
+in by another library) is not shown for that project.
+
+This can hide version drift: if one project declares `some/lib` directly at version
+`2.0` while another project ends up on version `1.0` of the same library transitively
+(via a third library), nothing in the default output points it out.
+
+Pass `:transitive` to resolve each project's full dependency tree and add a row per
+resolved version:
+
+[source,shell]
+----
+poly libs :transitive
+----
+
+A library that a project only gets transitively is marked with a `+` (instead of `x`
+/ `t` for a directly declared library) in that project's column. Only libraries that
+are declared directly somewhere in the workspace are added, to keep the focus on
+libraries where a declared and a resolved version can drift apart.
+
+The resolved set is also stored in the xref:workspace-structure.adoc[workspace
+structure] under `:indirect-lib-deps` for each project, so it can be queried:
+
+[source,shell]
+----
+poly ws :transitive get:projects:myproject:indirect-lib-deps
+----
+
+NOTE: `:transitive` needs Maven metadata (network access, or a fully primed
+`~/.m2`) and resolves every project, so it is slower than the default view.
+
 [[lib-dep-types]]
 == Library Dependency Types
 You can specify libraries in three ways in xref:tools-deps.adoc[tools.deps] `deps.edn` files:

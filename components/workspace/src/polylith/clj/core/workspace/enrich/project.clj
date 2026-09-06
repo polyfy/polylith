@@ -97,3 +97,23 @@
         (cond-> enriched-maven-repos (assoc :maven-repos enriched-maven-repos)
                 is-dev (assoc :unmerged {:paths paths
                                          :lib-deps lib-deps})))))
+
+(defn with-indirect-lib-deps
+  "Resolves the project's full dependency tree and attaches ':indirect-lib-deps' -
+   the resolved Maven libraries that are on the classpath but not already in the
+   project's declared ':lib-deps'. Same value shape as ':lib-deps' entries.
+   Only used when ':transitive' is passed (e.g. 'poly libs :transitive')."
+  [ws-dir {:keys [lib-deps] :as project} {:keys [user-home] :as settings}]
+  (let [declared (set (concat (keys (:src lib-deps))
+                              (keys (:test lib-deps))))
+        resolved (try
+                   (deps/resolve-deps project settings false)
+                   (catch Exception _ nil))
+        entries (keep (fn [[lib coords]]
+                        (when (and (:mvn/version coords)
+                                   (not (contains? declared (str lib))))
+                          [(str lib) {:mvn/version (:mvn/version coords)}]))
+                      resolved)
+        indirect (into {} (lib/with-sizes-vec ws-dir nil entries user-home))]
+    (cond-> project
+            (seq indirect) (assoc :indirect-lib-deps {:src indirect}))))
