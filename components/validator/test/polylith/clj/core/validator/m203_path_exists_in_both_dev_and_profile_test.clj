@@ -22,4 +22,4 @@
            :type "warning"
            :message "The same path exists in both the development project and the admin profile: components/invoice/src"
            :colorized-message "The same path exists in both the development project and the admin profile: components/invoice/src"}]
-         (m203/warnings profiles projects color/none))))
+         (m203/warnings profiles projects [] color/none))))
