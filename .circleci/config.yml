@@ -1,4 +1,4 @@
-version: 2.0
+version: 2.1
 
 jobs:
   create-version-txt:
@@ -301,7 +301,6 @@ jobs:
             fi
 
 workflows:
-  version: 2
   deploy:
     jobs:
       - check
