@@ -55,9 +55,11 @@
           brick->lib-imports (brick->lib-imports enriched-bricks)
           alias-id (atom 0)
           enriched-settings (test-configs/with-configs settings test configs user-input)
-          enriched-projects (vec (sort-by project-sorter
-                                          (mapv #(project/enrich-project % ws-dir alias-id enriched-components enriched-bases profiles suffixed-top-ns brick->loc brick->lib-imports paths user-input enriched-settings name-type->keep-lib-versions outdated-libs library->latest-version)
-                                                projects)))
+          enriched-projects (cond->> (vec (sort-by project-sorter
+                                                   (mapv #(project/enrich-project % ws-dir alias-id enriched-components enriched-bases profiles suffixed-top-ns brick->loc brick->lib-imports paths user-input enriched-settings name-type->keep-lib-versions outdated-libs library->latest-version)
+                                                         projects)))
+                                     (:is-transitive user-input)
+                                     (mapv #(project/with-indirect-lib-deps ws-dir % settings)))
           libraries (lib/used-libraries workspace)
           disable (-> configs :workspace :validations :disable)
           messages (validator/validate-ws settings configs disable libraries paths interface-names interfaces profiles enriched-components enriched-bases enriched-projects config-errors interface-ns user-input color-mode)]

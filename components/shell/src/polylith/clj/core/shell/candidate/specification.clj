@@ -149,6 +149,7 @@
 ;; libs
 (def libs-outdated (c/flag "outdated" :libs))
 (def libs-update (c/flag "update" :libs))
+(def libs-transitive (c/flag "transitive" :libs))
 (def libs-hide-lib-size (c/flag "hide-lib-size" :libs))
 (def libs-libraries (c/fn-explorer "libraries" :libs #'libraries/select))
 (def libs-out (c/fn-explorer "out" :libs (file-explorer/select-fn)))
@@ -158,7 +159,7 @@
 
 (defn libs [all? extended?]
   (c/single-txt "libs" :libs
-    (concat [libs-outdated libs-update libs-libraries libs-color-mode]
+    (concat [libs-outdated libs-update libs-transitive libs-libraries libs-color-mode]
             (when all? [compact libs-skip libs-hide-lib-size])
             (when extended? [libs-transparent])
             (when (or all? extended?) [libs-out]))))
