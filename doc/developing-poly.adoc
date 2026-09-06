@@ -601,7 +601,6 @@ Make a `0.2.20-SNAPSHOT 34` release:
 . Commit and push your changes.
 . If the next release is a stable release, build a xref:#local-cljdoc[local version] of Cljdoc:
   - Check that new content looks correct.
-  - Verify that we have included everything in https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md].
   - Check that the badges at the top and the API at the bottom left are displayed correctly (most namespaces should begin with a `^:no-doc` tag, to exclude them from the API doc).
 . Go to the https://github.com/polyfy/polylith[polylith repo] and prepare to merge the `snapshot-022034` branch into `master`, by clicking the "Compare & pull requests" button at the top.
 If the https://app.circleci.com/pipelines/github/polyfy[circlci pipeline] is green, merge it into the `master` branch.
