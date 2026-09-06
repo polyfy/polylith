@@ -7,10 +7,12 @@
   (and (or (= number warning)
            (= number error))
        (or (and (contains? #{"component" "base"} type)
-                (or (not bricks)
+                (or (and (not bricks)
+                         (not projects))
                     (contains? (set bricks) name)))
            (and (= type "project")
-                (or (not projects)
+                (or (and (not bricks)
+                         (not projects))
                     (contains? (set projects) name))))))
 
 (defn suppress-any? [disable validation-number entity]

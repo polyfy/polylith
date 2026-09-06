@@ -37,6 +37,16 @@
          (sut/suppress? {:warning 202, :projects ["cli"]}
                         202 {:type "project", :name "aaa"}))))
 
+(deftest bricks-should-not-suppress-all-projects
+  (is (= false
+         (sut/suppress? {:error 111, :bricks ["invoice"]}
+                        111 {:type "project", :name "myproject"}))))
+
+(deftest projects-should-not-suppress-all-bricks
+  (is (= false
+         (sut/suppress? {:error 111, :projects ["myproject"]}
+                        111 {:type "component", :name "invoice"}))))
+
 (def discard [{:warning 202, :projects ["p1"]}
               {:error 104, :projects ["p2"]}
               {:warning 205}])
