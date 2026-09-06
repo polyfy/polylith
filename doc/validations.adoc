@@ -69,7 +69,7 @@ The `:disable` entries are not validated, so a misspelled key or an unsupported 
 number is silently ignored (the warning keeps running).
 
 [#warning205]
-=== Example: warning 205 while migrating
+=== Warning 205
 
 While migrating a codebase to a Polylith workspace, you may want to temporarily ignore
 warning 205, which indicates that a non-top namespace has been found in the workspace.
@@ -92,7 +92,7 @@ The most common is probably that you want to suppress the warning for a limited 
 ...}
 ----
 
-=== Suppress a validation for a single project
+=== Suppress a warning for a single project
 
 [source,clojure]
 ----
