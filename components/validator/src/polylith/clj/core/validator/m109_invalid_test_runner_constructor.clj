@@ -50,7 +50,8 @@
 
 (defn errors [{:keys [projects]} disable color-mode]
   (->> (for [[project-name {{ctors :create-test-runner} :test}]
-             (suppress/suppress disable 109 projects)
+             (remove #(suppress/suppress-any? disable 109 {:type "project" :name (first %)})
+                     projects)
              ctor ctors]
          [project-name ctor])
        (group-by second)

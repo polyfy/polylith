@@ -60,6 +60,12 @@
              (ws)
              (sut/errors [] color/none)))))
 
+(deftest suppressed-error-109
+  (is (empty?
+       (-> {"foo" {:test {:create-test-runner [`no-suitable-arity-ctor]}}}
+           (ws)
+           (sut/errors [{:error 109, :projects ["foo"]}] color/none)))))
+
 (deftest project-names-grouped-and-colored
   (is (= [(error-109 {:prefix "Unable to load test runner constructor non-existing.namespace/baz"
                       :project-text "projects baz, qux"
