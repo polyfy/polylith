@@ -3,7 +3,7 @@
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.m202-missing-paths :as m202]))
 
-(def projects [{:name           "cli",
+(def projects [{:name "cli",
                 :paths {:src ["wrong/path/src"]
                         :test ["illegal/path/test"]}}])
 
@@ -18,4 +18,4 @@
            :message "Missing paths was found in deps.edn for the cli project and will be ignored: \"illegal/path/test\", \"wrong/path/src\""
            :colorized-message "Missing paths was found in deps.edn for the cli project and will be ignored: \"illegal/path/test\", \"wrong/path/src\""
            :project "cli"}]
-         (m202/warnings projects paths color/none))))
+         (m202/warnings projects paths [] color/none))))

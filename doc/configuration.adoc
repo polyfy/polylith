@@ -110,6 +110,9 @@ a| `:top-namespace`
 a| The top namespace used throughout the workspace in components and bases, specified by you when you create your xref:workspace.adoc[workspace]. +
 *Default:* none, must be specified
 
+a| `:validations`
+a| Configures xref:validations.adoc[validations]
+
 a| `:vcs`
 a| A map with two keys describing your https://en.wikipedia.org/wiki/Version_control[version control system]:
 
