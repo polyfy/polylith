@@ -42,6 +42,7 @@
                    ;(dev-common/dir "examples/for-test")
                    ;(dev-common/dir "examples/profiles" "+")
                    ;(dev-common/dir "examples/illegal-brick-deps")
+                   (dev-common/dir "examples/disable-validations")
                    ;(dev-common/dir "examples/test-runners" "with:default-test-runner")
                    ;(dev-common/dir "examples/local-dep" "changed-files:components/util/")
                    ;(dev-common/dir "examples/test-runners" "skip:external-inherit-from-global:multiple-test-runners:development")
@@ -52,13 +53,11 @@
                    ;(dev-common/dir "../clojure-polylith-realworld-example-app")
                    ;(dev-common/dir "../sandbox/polylith218")
                    ;(dev-common/dir "../usermanager-example")
-                   (dev-common/dir "../clojure-polylith-realworld-example-app")
+                   ;(dev-common/dir "../clojure-polylith-realworld-example-app")
                    workspace/workspace))
-
 
 (:messages workspace)
 (:user-input workspace)
-
 
 (-> workspace :workspaces)
 
@@ -67,18 +66,10 @@
 
 (:profiles workspace)
 
-;;(map :name (:projects workspace))
-
-
-;projects:development:lib-dep
-
 (mapv :alias (-> workspace :workspaces))
 (keys workspace)
 
-
-
 (-> workspace :settings :test)
-
 (-> workspace :configs :workspace :test)
 (-> workspace :settings :test)
 
