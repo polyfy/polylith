@@ -193,25 +193,50 @@ To skip updating specific libraries, specify `:keep-lib-versions` in your xref:w
 == Transitive dependencies
 
 By default, `poly libs` only lists the libraries that bricks and projects _declare_
-in their `deps.edn` files. A library that a project only gets _transitively_ (pulled
-in by another library) is not shown for that project.
+in their `deps.edn` files.
+A library that a project only gets _transitively_ (pulled in by another library) is
+not shown for that project, which can hide version drift between projects.
 
-This can hide version drift: if one project declares `some/lib` directly at version
-`2.0` while another project ends up on version `1.0` of the same library transitively
-(via a third library), nothing in the default output points it out.
+We use the https://github.com/polyfy/polylith/tree/master/examples/transitive-lib-deps[transitive-lib-deps]
+workspace as an example.
+It has two components, `brick1` and `brick2`, and (besides `development`) two projects,
+`project-a` (alias `a`) and `project-b` (alias `b`):
 
-Pass `:transitive` to resolve each project's full dependency tree and add a row per
-resolved version:
+* `brick1` declares `com.stuartsierra/component` version `0.2.3`, which pulls in
+`com.stuartsierra/dependency` version `0.1.1` transitively.
+* `brick2` declares `com.stuartsierra/dependency` directly, at the newer version `1.0.0`.
+* `project-a` contains both bricks, `project-b` contains only `brick1`.
+
+[source,shell]
+----
+poly libs
+----
+
+image::images/libraries/output/transitive-lib-deps.png[]
+
+`com.stuartsierra/dependency` shows up for `a` and `dev` (which include `brick2`), but
+not for `b`,  even though `project-b` _does_ have the library on its classpath,
+at version `0.1.1`, pulled in by `brick1` via `com.stuartsierra/component`.
+
+Pass `:transitive` to resolve each project's full dependency tree:
 
 [source,shell]
 ----
 poly libs :transitive
 ----
 
-A library that a project only gets transitively is marked with a `+` (instead of `x`
-/ `t` for a directly declared library) in that project's column. Only libraries that
-are declared directly somewhere in the workspace are added, to keep the focus on
-libraries where a declared and a resolved version can drift apart.
+image::images/libraries/output/transitive-lib-deps-transitive.png[]
+
+The `com.stuartsierra/dependency 0.1.1` row is now visible, marked with a `+` in the
+`b` column.
+The `+` means the project only gets that library+version transitively (`x` / `t` are
+still used for a directly declared library, `-` for "not on the classpath").
+`project-b` runs `0.1.1` while `project-a` and `dev` run `1.0.0`, and both rows are
+highlighted because <<validate,inconsistent library versions>> are configured as a
+warning in this workspace.
+
+Only libraries that are declared directly somewhere in the workspace are added, to
+keep the focus on libraries where a declared and a resolved version can drift apart.
 
 NOTE: `:transitive` needs Maven metadata (network access, or a fully primed
 `~/.m2`) and resolves every project, so it is slower than the default view.
