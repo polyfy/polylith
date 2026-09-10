@@ -212,7 +212,7 @@ It has two components, `brick1` and `brick2`, and (besides `development`) two pr
 poly libs
 ----
 
-image::images/libraries/output/transitive-lib-deps.png[]
+image::images/libraries/output/transitive-lib-deps.png[width=600]
 
 `com.stuartsierra/dependency` shows up for `a` and `dev` (which include `brick2`), but
 not for `b`,  even though `project-b` _does_ have the library on its classpath,
@@ -225,7 +225,7 @@ Pass `:transitive` to resolve each project's full dependency tree:
 poly libs :transitive
 ----
 
-image::images/libraries/output/transitive-lib-deps-transitive.png[]
+image::images/libraries/output/transitive-lib-deps-transitive.png[width=600]
 
 The `com.stuartsierra/dependency 0.1.1` row is now visible, marked with a `+` in the
 `b` column.
