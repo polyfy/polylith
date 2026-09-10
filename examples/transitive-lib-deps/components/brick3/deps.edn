@@ -1,8 +1,4 @@
 {:paths ["src"]
- ;; 'brick3' declares 'com.stuartsierra/component' implicityly via local-libs/lib-a, at an older version
- ;; (0.2.0) than the one brick4 pulls in (1.0.0).
- ;; In a project that has both bricks the direct 1.0.0 wins; a project with only
- ;; brick3 ends up on the transitive 0.2.0.
  :deps {local/lib-a {:local/root "../../local-libs/lib-a"}}
  :aliases {:test {:extra-paths []
                   :extra-deps {}}}}
