@@ -34,6 +34,21 @@
                     #(set (map str (:keep-lib-versions %))))
               (concat bases components projects))))
 
+(defn ->declared-libs
+  "'{[lib-name version] size-or-nil}' for every library that a brick or project
+   already declares. It lets the indirect ':transitive' libraries be sized the
+   exact same way, so a library that is both declared somewhere and pulled in
+   transitively elsewhere ends up with an identical representation - and thus a
+   single row - regardless of whether its jar happened to be downloaded yet when
+   the declared side was measured."
+  [entities]
+  (into {}
+        (for [entity entities
+              context [:src :test]
+              [lib-name {:keys [version size]}] (-> entity :lib-deps context)
+              :when version]
+          [[lib-name version] size])))
+
 (defn enrich-workspace [{:keys [ws-dir user-input settings configs components bases profiles config-errors projects paths] :as workspace}]
   (if (common/invalid-workspace? workspace)
     workspace
@@ -55,11 +70,13 @@
           brick->lib-imports (brick->lib-imports enriched-bricks)
           alias-id (atom 0)
           enriched-settings (test-configs/with-configs settings test configs user-input)
-          enriched-projects (cond->> (vec (sort-by project-sorter
-                                                   (mapv #(project/enrich-project % ws-dir alias-id enriched-components enriched-bases profiles suffixed-top-ns brick->loc brick->lib-imports paths user-input enriched-settings name-type->keep-lib-versions outdated-libs library->latest-version)
-                                                         projects)))
+          enriched-projects (vec (sort-by project-sorter
+                                          (mapv #(project/enrich-project % ws-dir alias-id enriched-components enriched-bases profiles suffixed-top-ns brick->loc brick->lib-imports paths user-input enriched-settings name-type->keep-lib-versions outdated-libs library->latest-version)
+                                                projects)))
+          enriched-projects (cond->> enriched-projects
                                      (:is-transitive user-input)
-                                     (mapv #(project/with-indirect-lib-deps ws-dir % settings)))
+                                     (mapv #(project/with-indirect-lib-deps ws-dir % settings
+                                                                            (->declared-libs (concat enriched-bricks enriched-projects)))))
           libraries (lib/used-libraries workspace)
           disable (-> configs :workspace :validations :disable)
           messages (validator/validate-ws settings configs disable libraries paths interface-names interfaces profiles enriched-components enriched-bases enriched-projects config-errors interface-ns user-input color-mode)]
