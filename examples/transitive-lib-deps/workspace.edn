@@ -10,4 +10,6 @@
                                            :exclude []}}
  :projects {"development" {:alias "dev"}
             "project-a"   {:alias "a" :necessary ["brick1" "brick2"]}
-            "project-b"   {:alias "b" :necessary ["brick1"]}}}
+            "project-b"   {:alias "b" :necessary ["brick1"]}
+            "project-c"   {:alias "c" :necessary ["brick3" "brick4"]}
+            "project-d"   {:alias "d" :necessary ["brick3"]}}}

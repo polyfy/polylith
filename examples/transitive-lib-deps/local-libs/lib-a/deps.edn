@@ -1,0 +1,4 @@
+{:paths ["src"]
+ :deps {com.stuartsierra/component {:mvn/version "0.1.0"}}
+ :aliases {:test {:extra-paths []
+                  :extra-deps {}}}}
