@@ -25,7 +25,7 @@
 (def minor 3)
 (def patch 33)
 (def revision SNAPSHOT) ;; Set to SNAPSHOT or RELEASE.
-(def snapshot 4) ;; Increase by one for every snapshot release, or set to 0 if a release.
+(def snapshot 5) ;; Increase by one for every snapshot release, or set to 0 if a release.
                   ;; Also update :snapshot-version: at the top of readme.adoc.
 (def snapshot? (= SNAPSHOT revision))
 
