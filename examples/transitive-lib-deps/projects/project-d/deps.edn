@@ -1,0 +1,6 @@
+{:deps {poly/brick3 {:local/root "../../components/brick4"}
+        
+        org.clojure/clojure {:mvn/version "1.12.0"}}
+
+ :aliases {:test {:extra-paths []
+                  :extra-deps  {}}}}
