@@ -1,0 +1,6 @@
+{:paths ["src"]
+ ;; 'brick1' only declares 'component'. It does NOT declare 'com.stuartsierra/dependency',
+ ;; but pulls it in transitively (com.stuartsierra/component 0.2.3 -> com.stuartsierra/dependency 0.1.1).
+ :deps {com.stuartsierra/component {:mvn/version "0.2.3"}}
+ :aliases {:test {:extra-paths []
+                  :extra-deps {}}}}

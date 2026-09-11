@@ -1,0 +1,4 @@
+{:paths ["src"]
+ :deps {local/lib-a {:local/root "../../local-libs/lib-a"}}
+ :aliases {:test {:extra-paths []
+                  :extra-deps {}}}}

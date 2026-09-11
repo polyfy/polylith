@@ -299,11 +299,11 @@
                     "../"))))
 
 (deftest libs
-  (is (= [":outdated" ":update" "color-mode" "libraries"]
+  (is (= [":outdated" ":transitive" ":update" "color-mode" "libraries"]
          (candidates "libs"))))
 
 (deftest libs-
-  (is (= [":outdated" ":update" "color-mode" "libraries"]
+  (is (= [":outdated" ":transitive" ":update" "color-mode" "libraries"]
          (candidates "libs" :next ""))))
 
 (deftest test

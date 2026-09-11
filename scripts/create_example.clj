@@ -484,6 +484,16 @@
     (polys opts "libs set:configs:workspace:validations:inconsistent-lib-versions:type value:error type:keyword" "inconsistent-libs/libs-inconsistent.txt" "libraries/output/inconsistent-libs-error.png")
     (polys opts "libs set:configs:workspace:validations:inconsistent-lib-versions:exclude value:clj-time/clj-time type:strings" "inconsistent-libs/libs-inconsistent.txt" "libraries/output/inconsistent-libs-exclude.png")))
 
+(defn example-transitive-lib-deps [{:keys [examples-dir output-dir] :as opts}]
+  (let [ws-dir (fs/file examples-dir "transitive-lib-deps")
+        opts (assoc opts :ws-dir ws-dir)]
+    (fs/create-dirs (fs/file output-dir "transitive-lib-deps"))
+    ;; ':transitive' resolves the full dependency tree per project, so make sure the
+    ;; example's libraries are downloaded first (keeps the KB column deterministic).
+    (sh/shell {:dir ws-dir} "clojure -P -M:dev:test")
+    (polys opts "libs"             "transitive-lib-deps/libs.txt"            "libraries/output/transitive-lib-deps.png")
+    (polys opts "libs :transitive" "transitive-lib-deps/libs-transitive.txt" "libraries/output/transitive-lib-deps-transitive.png")))
+
 (defn for-test [{:keys [examples-dir output-dir]}]
   (let [ws-dir (fs/file examples-dir "for-test")
         poly (fn-default-opts sh/poly {:dir ws-dir :continue true :alter-out-fn test-result->output})
@@ -554,6 +564,7 @@
                        [:usermanager       [["Usermanager" #(usermanager (merge default-opts {:ws-parent-dir (fs/file work-dir "ws3")}))]]]
                        [:local-dep         [["examples/local-dep" #(example-localdep (merge default-opts {:ws-parent-dir (fs/file work-dir "ws4")}))]]]
                        [:inconsistent-libs [["examples/inconsistent-libs" #(example-inconsistent-libs (merge default-opts {:ws-parent-dir (fs/file work-dir "ws5")}))]]]
+                       [:transitive-lib-deps [["examples/transitive-lib-deps" #(example-transitive-lib-deps default-opts)]]]
                        [:for-test          [["examples/for-test, issue 208 - Mix clj and cljc source directories" #(for-test default-opts)]]]
                        [:test-runners      [["examples/test-runners" #(test-runners default-opts)]]]]
 
