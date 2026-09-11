@@ -61,15 +61,16 @@
   ;;   bb create-example read-old-ws
   ;;   bb create-example realworld
   ;;   bb create-example test-runners
+  ;;   bb create-example transitive-lib-deps
   ;;   bb create-example usermanager
   create-example {:doc "Creates and exercises examples workspaces (also generates some doc images and doc code blocks)"
                   :depends [poly-uberjar polyx-uberjar]
                   :requires [create-example]
                   :task create-example/-main}
 
-  check-env {:doc "Verify required tools and that the Clojure CLI is the latest release"
+  check-env {:doc "Ensure required tools are installed and that the Clojure CLI is the latest release"
              :requires [create-example]
              :task (create-example/check-env)}
 
   gen-all {:doc "Run update-commands-docs then create-example"
-           :depends [check-env update-commands-doc create-example]}}}
+           :depends [update-commands-doc create-example]}}}

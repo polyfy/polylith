@@ -172,6 +172,7 @@
     "    poly libs libraries:org.clojure/clojure\n"
     "    poly libs :compact\n"
     "    poly libs :outdated\n"
+    "    poly libs :transitive\n"
     "    poly libs :update\n"
     "    poly libs :update libraries:metosin/malli:zprint/zprint\n"
     "    poly libs out:libs.txt\n"

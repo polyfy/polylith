@@ -715,6 +715,10 @@ E.g. if components `a` and `b` are included in the project, and `a` has not chan
 **** if type is `git` then the version is set to the first seven characters in the `sha`.
 ** `:test` A map with the libraries that are used in the project for the test context. Follows the same structure as the `:src` context.
 
+* `:indirect-lib-deps` Only present when `:transitive` is passed (e.g. `poly libs :transitive`).
+Holds the Maven libraries that end up on the project's resolved classpath but are _not_ declared by the project or any of its bricks (i.e. pulled in transitively via another library), so that a declared version and a transitively resolved version of the same library can be compared across projects.
+** `:src` A map with the transitively resolved libraries, following the same structure as `:lib-deps` > `:src` (`:type`, `:version`, `:size`).
+
 * `:lib-imports`
 ** `:src` All `:lib-imports` taken from the bricks that are included in this project for the `src` context.
 ** `:test` All `:lib-imports` taken from the bricks that are included in this project for the `test` context.

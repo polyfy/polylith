@@ -595,7 +595,7 @@ Make a `0.2.20-SNAPSHOT 34` release:
   - `npm view shadow-cljs version`
 . Run `bb check` to check for reflection warnings and such.
   - If new bricks, add the source directory to the `:check` alias in `./deps.edn`.
-. Execute `bb gen-all`
+. Execute `bb check-env` followed by bb `gen-all`.
    - Compare the output with what's in git, and commit the changes if everything looks good.
 . Verify that we have included everything in https://github.com/polyfy/polylith/blob/master/next-release.md[next-release.md].
 . Commit and push your changes.
