@@ -206,9 +206,10 @@ It has four components, `brick1` to `brick4`, and (besides `development`) four p
 `com.stuartsierra/dependency` version `0.1.1` transitively.
 * `brick2` declares `com.stuartsierra/dependency` directly, at the newer version `1.0.0`.
 * `brick3` declares a local library, `local/lib-a`, which in turn declares
-`com.stuartsierra/component` version `0.1.0`, pulling in `com.stuartsierra/dependency`
+`com.stuartsierra/component` version `0.1.0` (pulling in `com.stuartsierra/dependency`
 version `0.1.1` transitively - two levels deep, and through a `:local/root` dependency
-rather than a Maven one.
+rather than a Maven one) and `medley/medley` version `1.0.0`, a library that no brick
+or project declares anywhere else in the workspace.
 * `brick4` declares `com.stuartsierra/component` directly, at version `1.0.0`.
 * `project-a` contains `brick1` and `brick2`, `project-b` only `brick1`.
 * `project-c` contains `brick3` and `brick4`, `project-d` only `brick3`.
@@ -225,7 +226,7 @@ It's missing entirely for `b`, `c` and `d`, even though they _do_ have the libra
 their classpath: `project-b` gets version `0.1.1` transitively via `brick1`, and
 `project-c` gets version `1.0.0` transitively via `brick4`. `project-d` is missing both
 `com.stuartsierra/component` and `com.stuartsierra/dependency`, which it only gets
-transitively via brick3's `local/lib-a`.
+transitively via `brick3`'s `local/lib-a`.
 
 Pass `:transitive` to resolve each project's full dependency tree:
 
@@ -236,9 +237,9 @@ poly libs :transitive
 
 image::images/libraries/output/transitive-lib-deps-transitive.png[width=700]
 
-Two new rows appear - `com.stuartsierra/component 0.1.0` and
-`com.stuartsierra/dependency 0.1.1`, neither of which any brick declares directly -
-plus a `x` for `c` on the existing `com.stuartsierra/dependency 1.0.0` row.
+Three new rows appear - `com.stuartsierra/component 0.1.0`, `com.stuartsierra/dependency
+0.1.1` and `medley/medley 1.0.0` - plus a `+` for `c` on the existing
+`com.stuartsierra/dependency 1.0.0` row.
 A `+` means the project only gets that library+version transitively (`x` / `t` are
 still used for a directly declared library, `-` for "not on the classpath"):
 
@@ -246,16 +247,27 @@ still used for a directly declared library, `-` for "not on the classpath"):
 * `project-c` resolves `com.stuartsierra/dependency` to `1.0.0`, transitively via `brick4`
   (the same version `project-a` declares directly, so it merges into that row).
 * `project-d` resolves `com.stuartsierra/component` to `0.1.0` and
-  `com.stuartsierra/dependency` to `0.1.1`, both transitively via brick3's
+  `com.stuartsierra/dependency` to `0.1.1`, both transitively via `brick3`'s
   `local/lib-a` - proving that the dependency tree is followed through local
   libraries too, not just Maven ones.
+* `project-c`, `project-d` and `dev` all resolve `medley/medley` to `1.0.0`, transitively
+  via `brick3`'s `local/lib-a` - even though _nothing_ in the workspace declares
+  `medley/medley` directly. A library that is only ever reached through a
+  `:local/root` dependency, with no directly declared occurrence to compare it
+  against, is still shown: that is exactly the kind of hidden, vendored-in library
+  version that `:transitive` is meant to surface.
 
 `com.stuartsierra/component` and `com.stuartsierra/dependency` are both highlighted
 because <<validate,inconsistent library versions>> are configured as a warning in this
-workspace.
+workspace. `medley/medley` isn't, since it only resolves to a single version here.
 
-Only libraries that are declared directly somewhere in the workspace are added, to
-keep the focus on libraries where a declared and a resolved version can drift apart.
+Libraries are added to the `:transitive` view when either a declared version of them
+exists somewhere in the workspace (so a drift between the declared and the resolved
+version becomes visible, as for `com.stuartsierra/component` and
+`com.stuartsierra/dependency` above), or when they are only reachable through a
+`:local/root` library (as for `medley/medley` above). Everything else - ordinary
+Maven-only transitive plumbing like `org.clojure/spec.alpha`, which every project gets
+via `org.clojure/clojure` - is left out, to keep the view focused.
 
 NOTE: `:transitive` needs Maven metadata (network access, or a fully primed
 `~/.m2`) and resolves every project, so it is slower than the default view.

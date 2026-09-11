@@ -1,4 +1,10 @@
 {:paths ["src"]
- :deps {com.stuartsierra/component {:mvn/version "0.1.0"}}
+ :deps {com.stuartsierra/component {:mvn/version "0.1.0"}
+        ;; 'medley/medley' is not declared by any brick or project in this workspace -
+        ;; it only exists because this vendored local library pulls in an old version
+        ;; of it. Reproduces the bug where a library only reachable via ':local/root'
+        ;; was silently dropped from ':transitive' because it had no other, directly
+        ;; declared occurrence to compare it against.
+        medley/medley {:mvn/version "1.0.0"}}
  :aliases {:test {:extra-paths []
                   :extra-deps {}}}}

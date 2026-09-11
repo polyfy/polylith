@@ -1553,6 +1553,7 @@
           "  com.stuartsierra/dependency  0.1.1    maven   -   -  +  -  +    -    .  .  .  ."
           "  com.stuartsierra/dependency  1.0.0    maven   -   x  -  +  -    x    .  x  .  ."
           "  local/lib-a                  -        local   -   -  -  x  x    x    .  .  x  ."
+          "  medley/medley                1.0.0    maven   -   -  -  +  +    +    .  .  .  ."
           "  org.clojure/clojure          1.12.0   maven   -   x  x  x  x    x    .  .  .  ."]
          (run-cmd "examples/transitive-lib-deps"
                   "libs" ":transitive" ":hide-lib-size"))))

@@ -14,18 +14,29 @@
 (defn profile-lib [{:keys [lib-deps]}]
   (mapcat entity-lib lib-deps))
 
+(defn- worth-showing?
+  "An indirect library is worth its own row when either a declared version of it
+   exists somewhere in the workspace (so a drift between the declared and the
+   resolved version is visible - issue #613), or it was pulled in via a
+   ':local/root' library (':via-local-root' - issue #613 follow-up: a library only
+   reachable through a local/vendored dependency must not be silently dropped,
+   since that is exactly where a hidden, outdated version tends to lurk).
+   Everything else - ordinary Maven-only transitive plumbing like
+   'org.clojure/spec.alpha' that no brick declares - is filtered out to keep the
+   view focused."
+  [declared-names [name {:keys [via-local-root]}]]
+  (or (contains? declared-names name)
+      via-local-root))
+
 (defn indirect-libs
   "Transitive-only library rows collected from projects' ':indirect-lib-deps'
-   (populated when ':transitive' is passed), restricted to libraries that are
-   also declared directly somewhere in the workspace (`declared-names`). This
-   keeps the focus on libraries where a declared version and a transitively
-   resolved version can drift apart (issue #613), and filters out pure plumbing
-   like 'org.clojure/spec.alpha' that no brick declares."
+   (populated when ':transitive' is passed). See 'worth-showing?' for which ones
+   are kept."
   [projects declared-names]
-  (set (filter #(contains? declared-names (:name %))
+  (set (mapcat (fn [entry] (if (worth-showing? declared-names entry) (lib entry) []))
                (mapcat (fn [{:keys [indirect-lib-deps]}]
-                         (mapcat lib (concat (:src indirect-lib-deps)
-                                             (:test indirect-lib-deps))))
+                         (concat (:src indirect-lib-deps)
+                                 (:test indirect-lib-deps)))
                        projects))))
 
 (defn with-inconsistent-lib-version [{:keys [name] :as library}
