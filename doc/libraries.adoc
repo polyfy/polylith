@@ -225,7 +225,7 @@ It's missing entirely for `b`, `c` and `d`, even though they _do_ have the libra
 their classpath: `project-b` gets version `0.1.1` transitively via `brick1`, and
 `project-c` gets version `1.0.0` transitively via `brick4`. `project-d` is missing both
 `com.stuartsierra/component` and `com.stuartsierra/dependency`, which it only gets
-transitively via `brick3`'s `local/lib-a`.
+transitively via brick3's `local/lib-a`.
 
 Pass `:transitive` to resolve each project's full dependency tree:
 
