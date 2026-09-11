@@ -1,4 +1,4 @@
-  poly 0.3.33 (2026-09-06) - https://github.com/polyfy/polylith
+  poly 0.3.33 (2026-09-10) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -148,6 +148,7 @@
     poly libs libraries:org.clojure/clojure
     poly libs :compact
     poly libs :outdated
+    poly libs :transitive
     poly libs :update
     poly libs :update libraries:metosin/malli:zprint/zprint
     poly libs out:libs.txt

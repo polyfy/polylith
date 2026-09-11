@@ -14,7 +14,7 @@ poly help
 
 [source,text]
 ----
-  poly 0.3.33 (2026-09-06) - https://github.com/polyfy/polylith
+  poly 0.3.33 (2026-09-10) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -164,6 +164,7 @@ poly help
     poly libs libraries:org.clojure/clojure
     poly libs :compact
     poly libs :outdated
+    poly libs :transitive
     poly libs :update
     poly libs :update libraries:metosin/malli:zprint/zprint
     poly libs out:libs.txt
@@ -925,11 +926,20 @@ poly help
 ----
   Shows all libraries that are used in the workspace.
 
-  poly libs [:compact] [:outdated] [:update] [libraries:LIBS] [out:FILENAME]
+  poly libs [:compact] [:outdated] [:transitive] [:update] [libraries:LIBS] [out:FILENAME]
 
     :compact  = Shows the table in a more compact way.
 
     :outdated = Shows the latest version of each library, or blank if up to date.
+
+    :transitive = Also resolves each project's full dependency tree and adds a
+                  row per resolved version. A library that a project only gets
+                  transitively (via another library) is marked with a '+' in that
+                  project's column, which makes it visible when two projects end up
+                  on different versions of the same library. Only libraries that are
+                  declared directly somewhere in the workspace are added. Needs Maven
+                  metadata (network or a primed ~/.m2), so it is slower than the
+                  default view.
 
     :update   = Updates all libraries to the latest version (in 'deps.edn'
                 and 'package.json' files). If LIBS is provided, then only update selected
@@ -991,6 +1001,7 @@ poly help
     poly libs libraries:org.clojure/clojure
     poly libs :compact
     poly libs :outdated
+    poly libs :transitive
     poly libs :update
     poly libs :update libraries:metosin/malli:zprint/zprint
     poly libs out:libs.txt

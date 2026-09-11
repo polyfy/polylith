@@ -1,6 +1,8 @@
 (ns ^:no-doc polylith.clj.core.workspace.enrich.project
-  (:require [polylith.clj.core.common.interface :as common]
+  (:require [clojure.string :as str]
+            [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.deps.interface :as deps]
+            [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.path-finder.interface.select :as select]
             [polylith.clj.core.path-finder.interface.extract :as extract]
@@ -97,3 +99,58 @@
         (cond-> enriched-maven-repos (assoc :maven-repos enriched-maven-repos)
                 is-dev (assoc :unmerged {:paths paths
                                          :lib-deps lib-deps})))))
+
+(defn- with-absolute-local-roots
+  "'tools.deps' resolves ':local/root' relative to the current directory, but poly
+   stores local-library paths relative to the workspace root. Rewrite them to
+   absolute paths so the dependency tree resolves regardless of where 'poly' was
+   invoked from (e.g. 'poly libs :transitive ws-dir:some/other/ws')."
+  [ws-dir lib-deps]
+  (let [abs-dir (str/replace (file/absolute-path ws-dir) #"/$" "")
+        fix (fn [entries]
+              (into {} (map (fn [[name {:keys [type path] :as coords}]]
+                              [name (if (and (= "local" type)
+                                             path
+                                             (not (str/starts-with? path "/")))
+                                      (assoc coords :path (str abs-dir "/" path))
+                                      coords)])
+                            entries)))]
+    (cond-> lib-deps
+            (:src lib-deps) (update :src fix)
+            (:test lib-deps) (update :test fix))))
+
+(defn with-indirect-lib-deps
+  "Resolves the project's full dependency tree and attaches ':indirect-lib-deps' -
+   the resolved Maven libraries that are on the classpath but not already in the
+   project's declared ':lib-deps' (i.e. pulled in transitively, possibly via a
+   ':local/root' library). Same value shape as ':lib-deps' entries.
+   Only used when ':transitive' is passed (e.g. 'poly libs :transitive').
+
+   'declared-libs' is a '{[lib-name version] size-or-nil}' map built from the
+   libraries that bricks/projects already declare. A resolved library that also
+   appears there is given the declared side's size, so both representations are
+   identical - and thus a single row. Resolving downloads jars as a side effect,
+   so measuring the size here directly would give a jar that the declared side
+   (measured earlier) may not yet have had. Purely-transitive libraries keep the
+   freshly measured size."
+  [ws-dir {:keys [lib-deps] :as project} {:keys [user-home] :as settings} declared-libs]
+  (let [declared (set (concat (keys (:src lib-deps))
+                              (keys (:test lib-deps))))
+        project (update project :lib-deps #(with-absolute-local-roots ws-dir %))
+        resolved (try
+                   (deps/resolve-deps project settings false)
+                   (catch Exception _ nil))
+        entries (keep (fn [[lib {:keys [mvn/version]}]]
+                        (when (and version (not (contains? declared (str lib))))
+                          [(str lib) {:mvn/version version}]))
+                      resolved)
+        indirect (into {}
+                       (map (fn [[name coords]]
+                              (let [k [name (:version coords)]]
+                                [name (if (contains? declared-libs k)
+                                        (cond-> (dissoc coords :size)
+                                                (declared-libs k) (assoc :size (declared-libs k)))
+                                        coords)])))
+                       (lib/with-sizes-vec ws-dir nil entries user-home))]
+    (cond-> project
+            (seq indirect) (assoc :indirect-lib-deps {:src indirect}))))

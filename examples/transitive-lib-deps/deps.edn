@@ -1,0 +1,13 @@
+{:aliases {:dev {:extra-paths ["development/src"]
+
+                 :extra-deps {poly/brick1 {:local/root "components/brick1"}
+                              poly/brick2 {:local/root "components/brick2"}
+                              poly/brick3 {:local/root "components/brick3"}
+                              poly/brick4 {:local/root "components/brick4"}
+
+                              org.clojure/clojure {:mvn/version "1.12.0"}}}
+
+           :test {:extra-paths []}
+
+           :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                  :extra-deps {polylith/clj-poly {:local/root "../../projects/poly"}}}}}
