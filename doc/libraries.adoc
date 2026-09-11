@@ -189,6 +189,77 @@ To skip updating specific libraries, specify `:keep-lib-versions` in your xref:w
                                  :keep-lib-versions [clj-jwt/clj-jwt clj-time/clj-time]}}
 ----
 
+[#transitive]
+== Transitive dependencies
+
+By default, `poly libs` only lists the libraries that bricks and projects _declare_
+in their `deps.edn` files.
+A library that a project only gets _transitively_ (pulled in by another library) is
+not shown for that project, which can hide version drift between projects.
+
+We use the https://github.com/polyfy/polylith/tree/master/examples/transitive-lib-deps[transitive-lib-deps]
+workspace as an example.
+It has four components, `brick1` to `brick4`, and (besides `development`) four projects,
+`project-a`, `project-b`, `project-c` and `project-d` (aliases `a`, `b`, `c` and `d`):
+
+* `brick1` declares `com.stuartsierra/component` version `0.2.3`, which pulls in
+`com.stuartsierra/dependency` version `0.1.1` transitively.
+* `brick2` declares `com.stuartsierra/dependency` directly, at the newer version `1.0.0`.
+* `brick3` declares a local library, `local/lib-a`, which in turn declares
+`com.stuartsierra/component` version `0.1.0`, pulling in `com.stuartsierra/dependency`
+version `0.1.1` transitively - two levels deep, and through a `:local/root` dependency
+rather than a Maven one.
+* `brick4` declares `com.stuartsierra/component` directly, at version `1.0.0`.
+* `project-a` contains `brick1` and `brick2`, `project-b` only `brick1`.
+* `project-c` contains `brick3` and `brick4`, `project-d` only `brick3`.
+
+[source,shell]
+----
+poly libs
+----
+
+image::images/libraries/output/transitive-lib-deps.png[width=700]
+
+`com.stuartsierra/dependency` only shows up for `a` and `dev` (both include `brick2`).
+It's missing entirely for `b`, `c` and `d`, even though they _do_ have the library on
+their classpath: `project-b` gets version `0.1.1` transitively via `brick1`, and
+`project-c` gets version `1.0.0` transitively via `brick4`. `project-d` is missing both
+`com.stuartsierra/component` and `com.stuartsierra/dependency`, which it only gets
+transitively via brick3's `local/lib-a`.
+
+Pass `:transitive` to resolve each project's full dependency tree:
+
+[source,shell]
+----
+poly libs :transitive
+----
+
+image::images/libraries/output/transitive-lib-deps-transitive.png[width=700]
+
+Two new rows appear - `com.stuartsierra/component 0.1.0` and
+`com.stuartsierra/dependency 0.1.1`, neither of which any brick declares directly -
+plus a `x` for `c` on the existing `com.stuartsierra/dependency 1.0.0` row.
+A `+` means the project only gets that library+version transitively (`x` / `t` are
+still used for a directly declared library, `-` for "not on the classpath"):
+
+* `project-b` resolves `com.stuartsierra/dependency` to `0.1.1`, transitively via `brick1`.
+* `project-c` resolves `com.stuartsierra/dependency` to `1.0.0`, transitively via `brick4`
+  (the same version `project-a` declares directly, so it merges into that row).
+* `project-d` resolves `com.stuartsierra/component` to `0.1.0` and
+  `com.stuartsierra/dependency` to `0.1.1`, both transitively via brick3's
+  `local/lib-a` - proving that the dependency tree is followed through local
+  libraries too, not just Maven ones.
+
+`com.stuartsierra/component` and `com.stuartsierra/dependency` are both highlighted
+because <<validate,inconsistent library versions>> are configured as a warning in this
+workspace.
+
+Only libraries that are declared directly somewhere in the workspace are added, to
+keep the focus on libraries where a declared and a resolved version can drift apart.
+
+NOTE: `:transitive` needs Maven metadata (network access, or a fully primed
+`~/.m2`) and resolves every project, so it is slower than the default view.
+
 [[lib-dep-types]]
 == Library Dependency Types
 You can specify libraries in three ways in xref:tools-deps.adoc[tools.deps] `deps.edn` files:

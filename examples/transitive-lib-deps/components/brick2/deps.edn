@@ -1,0 +1,8 @@
+{:paths ["src"]
+ ;; 'brick2' declares 'com.stuartsierra/dependency' explicitly, at a newer version
+ ;; (1.0.0) than the one brick1 pulls in transitively via 'component' (0.1.1).
+ ;; In a project that has both bricks the direct 1.0.0 wins; a project with only
+ ;; brick1 ends up on the transitive 0.1.1.
+ :deps {com.stuartsierra/dependency {:mvn/version "1.0.0"}}
+ :aliases {:test {:extra-paths []
+                  :extra-deps {}}}}

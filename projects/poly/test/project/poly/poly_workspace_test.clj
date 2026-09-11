@@ -1523,6 +1523,40 @@
          (run-cmd "examples/mix-example"
                   "deps"))))
 
+(deftest issue-613-indirect-lib-deps-missing-from-project
+  (is (= ["                                                                       b  b  b  b"
+          "                                                                       r  r  r  r"
+          "                                                                       i  i  i  i"
+          "                                                                       c  c  c  c"
+          "                                                                       k  k  k  k"
+          "  library                      version  type   KB   a  b  c  d   dev   1  2  3  4"
+          "  -----------------------------------------------   ----------   ---   ----------"
+          "  com.stuartsierra/component   0.2.3    maven   -   x  x  -  -    -    x  .  .  ."
+          "  com.stuartsierra/component   1.0.0    maven   -   -  -  x  -    x    .  .  .  x"
+          "  com.stuartsierra/dependency  1.0.0    maven   -   x  -  -  -    x    .  x  .  ."
+          "  local/lib-a                  -        local   -   -  -  x  x    x    .  .  x  ."
+          "  org.clojure/clojure          1.12.0   maven   -   x  x  x  x    x    .  .  .  ."]
+         (run-cmd "examples/transitive-lib-deps"
+                  "libs" ":hide-lib-size"))))
+
+(deftest issue-613-transitive-shows-indirect-lib-deps
+  (is (= ["                                                                       b  b  b  b"
+          "                                                                       r  r  r  r"
+          "                                                                       i  i  i  i"
+          "                                                                       c  c  c  c"
+          "                                                                       k  k  k  k"
+          "  library                      version  type   KB   a  b  c  d   dev   1  2  3  4"
+          "  -----------------------------------------------   ----------   ---   ----------"
+          "  com.stuartsierra/component   0.1.0    maven   -   -  -  -  +    -    .  .  .  ."
+          "  com.stuartsierra/component   0.2.3    maven   -   x  x  -  -    -    x  .  .  ."
+          "  com.stuartsierra/component   1.0.0    maven   -   -  -  x  -    x    .  .  .  x"
+          "  com.stuartsierra/dependency  0.1.1    maven   -   -  +  -  +    -    .  .  .  ."
+          "  com.stuartsierra/dependency  1.0.0    maven   -   x  -  +  -    x    .  x  .  ."
+          "  local/lib-a                  -        local   -   -  -  x  x    x    .  .  x  ."
+          "  org.clojure/clojure          1.12.0   maven   -   x  x  x  x    x    .  .  .  ."]
+         (run-cmd "examples/transitive-lib-deps"
+                  "libs" ":transitive" ":hide-lib-size"))))
+
 
 (deftest test-runner-inherit-test-runner-from-global
   (is (= ["{:create-test-runner"

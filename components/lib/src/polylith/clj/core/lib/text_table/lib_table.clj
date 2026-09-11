@@ -68,19 +68,24 @@
           (map-indexed #(kb-cell (+ 3 %1) %2 thousand-separator hide-lib-size?)
                        libraries)))
 
-(defn flag-cell [column row library src-deps test-deps]
+(defn flag-cell [column row library src-deps test-deps indirect-deps]
   (let [library (select-keys library [:name :version :size :type]) ;; Remove :inconsistent-lib-version
         src (if (contains? src-deps library) 1 0)
         test (if (contains? test-deps library) 2 0)
-        flag (get ["-" "x" "t" "x"] (+ src test))]
+        flag (cond
+               (pos? (+ src test)) (get ["-" "x" "t" "x"] (+ src test))
+               (contains? indirect-deps library) "+"
+               :else "-")]
     (text-table/cell column row flag :purple :center :horizontal)))
 
-(defn project-column [column {:keys [alias lib-deps unmerged]} libraries]
+(defn project-column [column {:keys [alias lib-deps indirect-lib-deps unmerged]} libraries]
   (let [deps (:lib-deps unmerged lib-deps)
         src-deps (set (mapcat libraries/lib (:src deps)))
-        test-deps (set (mapcat libraries/lib (:test deps)))]
+        test-deps (set (mapcat libraries/lib (:test deps)))
+        indirect-deps (set (mapcat libraries/lib (concat (:src indirect-lib-deps)
+                                                         (:test indirect-lib-deps))))]
     (concat [(text-table/cell column 1 alias :purple :center :horizontal)]
-            (map-indexed #(flag-cell column (+ 3 %1) %2 src-deps test-deps)
+            (map-indexed #(flag-cell column (+ 3 %1) %2 src-deps test-deps indirect-deps)
                          libraries))))
 
 (defn project-columns [libraries projects]
@@ -136,8 +141,8 @@
      libs :update                   - only update, don't show table of libraries
      libs libraries:lib1            - filter out 'lib1' and only show that
      libs libraries:lib1:lib2       - only show these two libraries"
-  [workspace is-outdated filtered-libs]
-  (let [{:keys [libraries src-libs]} (libraries/libs workspace)
+  [workspace is-outdated is-transitive filtered-libs]
+  (let [{:keys [libraries src-libs]} (libraries/libs workspace (boolean is-transitive))
         libraries (if (and filtered-libs (not is-outdated))
                     (filterv #(matches? filtered-libs %)
                              libraries)
@@ -147,11 +152,11 @@
 
 (defn table [{:keys [configs settings user-input profiles components bases projects] :as workspace}]
   (let [{:keys [empty-character thousand-separator color-mode]} settings
-        {:keys [is-outdated is-hide-lib-size] filtered-libs :libraries} user-input
+        {:keys [is-outdated is-hide-lib-size is-transitive] filtered-libs :libraries} user-input
         warning-or-error (-> configs :workspace :validations :inconsistent-lib-versions :type)
         calculate-latest-version? (common/calculate-latest-version? user-input)
         lib->latest-version (antq/library->latest-version configs calculate-latest-version?)
-        {:keys [libraries src-libs]} (libs workspace is-outdated filtered-libs)
+        {:keys [libraries src-libs]} (libs workspace is-outdated is-transitive filtered-libs)
         all-bricks (concat components bases)
         brick->libs (into {} (map brick-libs all-bricks))
         bricks (filter #(-> % :name brick->libs empty? not) all-bricks)
