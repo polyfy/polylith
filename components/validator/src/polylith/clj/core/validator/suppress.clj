@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.suppress)
+(ns ^:no-doc polylith.clj.core.validator.suppress)
 
 (defn suppress?
   "Only warnings can be suppressed. When neither :bricks nor :projects is given, the
