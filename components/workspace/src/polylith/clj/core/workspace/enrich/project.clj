@@ -119,6 +119,17 @@
             (:src lib-deps) (update :src fix)
             (:test lib-deps) (update :test fix))))
 
+(defn- local-root-coord? [resolved lib-sym]
+  (contains? (resolved lib-sym) :local/root))
+
+(defn- via-local-root?
+  "True if some ancestor in any of 'lib-sym's dependency chains (per 'resolve-deps'
+   ':parents') is itself a ':local/root' library - i.e. this library is only on the
+   classpath because a local library pulled it in."
+  [resolved lib-sym]
+  (boolean (some (fn [chain] (some #(local-root-coord? resolved %) chain))
+                 (:parents (resolved lib-sym)))))
+
 (defn with-indirect-lib-deps
   "Resolves the project's full dependency tree and attaches ':indirect-lib-deps' -
    the resolved Maven libraries that are on the classpath but not already in the
@@ -142,7 +153,9 @@
                    (catch Exception _ nil))
         entries (keep (fn [[lib {:keys [mvn/version]}]]
                         (when (and version (not (contains? declared (str lib))))
-                          [(str lib) {:mvn/version version}]))
+                          [(str lib) (cond-> {:mvn/version version}
+                                             (via-local-root? resolved lib)
+                                             (assoc :via-local-root true))]))
                       resolved)
         indirect (into {}
                        (map (fn [[name coords]]

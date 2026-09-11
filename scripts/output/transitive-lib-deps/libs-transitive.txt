@@ -11,4 +11,5 @@
   com.stuartsierra/dependency  0.1.1    maven      4   -  +  -  +    -    .  .  .  .
   com.stuartsierra/dependency  1.0.0    maven      6   x  -  +  -    x    .  x  .  .
   local/lib-a                  -        local      0   -  -  x  x    x    .  .  x  .
+  medley/medley                1.0.0    maven      7   -  -  +  +    +    .  .  .  .
   org.clojure/clojure          1.12.0   maven  4,127   x  x  x  x    x    .  .  .  .
