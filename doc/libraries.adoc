@@ -238,16 +238,16 @@ poly libs :transitive
 image::images/libraries/output/transitive-lib-deps-transitive.png[width=700]
 
 Three new rows appear - `com.stuartsierra/component 0.1.0`, `com.stuartsierra/dependency
-0.1.1` and `medley/medley 1.0.0` - plus a `+` for `c` on the existing
+0.1.1` and `medley/medley 1.0.0` - plus a `{plus}` for `c` on the existing
 `com.stuartsierra/dependency 1.0.0` row.
-A `+` means the project only gets that library+version transitively (`x` / `t` are
+A `{plus}` means the project only gets that library+version transitively (`x` / `t` are
 still used for a directly declared library, `-` for "not on the classpath"):
 
 * `project-b` resolves `com.stuartsierra/dependency` to `0.1.1`, transitively via `brick1`.
 * `project-c` resolves `com.stuartsierra/dependency` to `1.0.0`, transitively via `brick4`
   (the same version `project-a` declares directly, so it merges into that row).
 * `project-d` resolves `com.stuartsierra/component` to `0.1.0` and
-  `com.stuartsierra/dependency` to `0.1.1`, both transitively via `brick3`'s
+  `com.stuartsierra/dependency` to `0.1.1`, both transitively via ``brick3``'s
   `local/lib-a` - proving that the dependency tree is followed through local
   libraries too, not just Maven ones.
 * `project-c`, `project-d` and `dev` all resolve `medley/medley` to `1.0.0`, transitively
