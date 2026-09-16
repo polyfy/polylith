@@ -251,7 +251,7 @@ still used for a directly declared library, `-` for "not on the classpath"):
   `local/lib-a` - proving that the dependency tree is followed through local
   libraries too, not just Maven ones.
 * `project-c`, `project-d` and `dev` all resolve `medley/medley` to `1.0.0`, transitively
-  via `brick3`'s `local/lib-a` - even though _nothing_ in the workspace declares
+  via ``brick3``'s `local/lib-a` - even though _nothing_ in the workspace declares
   `medley/medley` directly. A library that is only ever reached through a
   `:local/root` dependency, with no directly declared occurrence to compare it
   against, is still shown: that is exactly the kind of hidden, vendored-in library
