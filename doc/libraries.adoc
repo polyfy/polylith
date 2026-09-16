@@ -226,7 +226,7 @@ It's missing entirely for `b`, `c` and `d`, even though they _do_ have the libra
 their classpath: `project-b` gets version `0.1.1` transitively via `brick1`, and
 `project-c` gets version `1.0.0` transitively via `brick4`. `project-d` is missing both
 `com.stuartsierra/component` and `com.stuartsierra/dependency`, which it only gets
-transitively via `brick3`'s `local/lib-a`.
+transitively via ``brick3``'s `local/lib-a`.
 
 Pass `:transitive` to resolve each project's full dependency tree:
 
@@ -238,20 +238,20 @@ poly libs :transitive
 image::images/libraries/output/transitive-lib-deps-transitive.png[width=700]
 
 Three new rows appear - `com.stuartsierra/component 0.1.0`, `com.stuartsierra/dependency
-0.1.1` and `medley/medley 1.0.0` - plus a `+` for `c` on the existing
+0.1.1` and `medley/medley 1.0.0` - plus a `{plus}` for `c` on the existing
 `com.stuartsierra/dependency 1.0.0` row.
-A `+` means the project only gets that library+version transitively (`x` / `t` are
+A `{plus}` means the project only gets that library+version transitively (`x` / `t` are
 still used for a directly declared library, `-` for "not on the classpath"):
 
 * `project-b` resolves `com.stuartsierra/dependency` to `0.1.1`, transitively via `brick1`.
 * `project-c` resolves `com.stuartsierra/dependency` to `1.0.0`, transitively via `brick4`
   (the same version `project-a` declares directly, so it merges into that row).
 * `project-d` resolves `com.stuartsierra/component` to `0.1.0` and
-  `com.stuartsierra/dependency` to `0.1.1`, both transitively via `brick3`'s
+  `com.stuartsierra/dependency` to `0.1.1`, both transitively via ``brick3``'s
   `local/lib-a` - proving that the dependency tree is followed through local
   libraries too, not just Maven ones.
 * `project-c`, `project-d` and `dev` all resolve `medley/medley` to `1.0.0`, transitively
-  via `brick3`'s `local/lib-a` - even though _nothing_ in the workspace declares
+  via ``brick3``'s `local/lib-a` - even though _nothing_ in the workspace declares
   `medley/medley` directly. A library that is only ever reached through a
   `:local/root` dependency, with no directly declared occurrence to compare it
   against, is still shown: that is exactly the kind of hidden, vendored-in library

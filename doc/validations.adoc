@@ -92,7 +92,7 @@ The most common is probably that you want to suppress the warning for a limited 
 ...}
 ----
 
-=== Suppress a warning for a single project
+Suppress a warning for a single project:
 
 [source,clojure]
 ----
@@ -101,7 +101,7 @@ The most common is probably that you want to suppress the warning for a limited 
 ...}
 ----
 
-=== Suppress more than one warning
+Suppress more than one warning:
 
 [source,clojure]
 ----
